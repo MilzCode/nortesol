@@ -2,3 +2,13 @@
 @import "./variables.scss";
 @import "./layout/Header.scss";
 @import "./layout/Layout.scss";
+@import "./index/Destacados.scss";
+.rectangle {
+  background-color: bisque;
+  height: 500px;
+}
+.box {
+  width: 500px;
+  height: 500px;
+  background-color: red;
+}

@@ -28,7 +28,7 @@ const Header = () => {
   // }, []);
   return (
     <>
-      <div className="header">
+      <header className="header">
         <img
           className="header__logo"
           src="/static/img/logoNortesol.png"
@@ -87,9 +87,9 @@ const Header = () => {
             <i className="fas fa-bars" />
           )}
         </div>
-      </div>
+      </header>
 
-      <div className={`subHeader ${!subHeader && "subHeader--desaparecer"}`}>
+      <nav className={`subHeader ${!subHeader && "subHeader--desaparecer"}`}>
         <div className="subHeader__menu">
           <a href="#">Inicio</a>
           <a href="#">Productos</a>
@@ -97,7 +97,7 @@ const Header = () => {
           <a href="#">Contacto</a>
           <a href="#">Contacto</a>
         </div>
-      </div>
+      </nav>
     </>
   );
 };
