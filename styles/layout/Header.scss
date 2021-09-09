@@ -87,7 +87,7 @@
       color: $pantone2202C;
       outline: none;
       padding-left: 1.5rem;
-      padding-right: 2.6rem;
+      padding-right: 6rem;
       &::placeholder {
         color: $pantone2202C;
       }
@@ -100,7 +100,7 @@
       border: none;
       outline: none;
       cursor: pointer;
-      background-color: $white;
+      background-color: white;
       & > i {
         font-size: 4rem;
         color: $pantone2202C;
@@ -142,6 +142,9 @@
     &__buscador {
       width: 30rem;
       height: 4.5rem;
+      & > input {
+        padding-right: 4.7rem;
+      }
       & > button {
         top: 0.55rem;
         right: 0.5rem;
@@ -196,6 +199,7 @@
       height: 3rem;
       & > input {
         font-size: 1.5rem;
+        padding-right: 3.65rem;
       }
       & > button {
         top: 0.5rem;
@@ -279,7 +283,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 100%;
+      width: auto;
       height: 100%;
       color: $white;
       font-weight: bold;
@@ -308,9 +312,10 @@
     top: $height-header1;
     &__menu {
       & > a {
-        &:last-child {
-          display: none;
-        }
+        font-size: 1.4rem;
+        // &:last-child {
+        //   display: none;
+        // }
       }
     }
   }

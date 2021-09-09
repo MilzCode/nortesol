@@ -91,7 +91,9 @@ const Header = () => {
 
       <nav className={`subHeader ${!subHeader && "subHeader--desaparecer"}`}>
         <div className="subHeader__menu">
-          <a href="#">Inicio</a>
+          <a href="#">
+            <i className="fas fa-home"></i>
+          </a>
           <a href="#">Productos</a>
           <a href="#">Servicios</a>
           <a href="#">Contacto</a>
