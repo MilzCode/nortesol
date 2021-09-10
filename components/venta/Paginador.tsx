@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const Paginador = () => {
   //maxPagina son las paginas disponibles
-  const maxPagina = 5;
+  const maxPagina = 100;
   //sino hay paginas que no se despliegue el componente
   if (maxPagina < 1) return null;
   //con pagina mostrar Dato indicamos cuantas paginas se mostraran en el paginador sin contar ni la primera ni la ultima
@@ -52,11 +52,20 @@ const Paginador = () => {
   const loadPrevPages = (nuevaPagina: number) => {
     if (nuevaPagina === 1) return;
     if (nuevaPagina === maxPagina) {
-      setPaginas(
-        [...Array(paginasMostrar)].map(
-          (e, i) => i + nuevaPagina - cargarCadaNpaginas - 1
-        )
-      );
+      if (maxPagina < paginasMostrar + 2) {
+        setPaginas(
+          [...Array(paginasMostrar)].map(
+            (e, i) => i + nuevaPagina - cargarCadaNpaginas
+          )
+        );
+      } else {
+        setPaginas(
+          [...Array(paginasMostrar)].map(
+            (e, i) => i + nuevaPagina - cargarCadaNpaginas - 1
+          )
+        );
+      }
+
       setLastPrevPagina(nuevaPagina - cargarCadaNpaginas);
       setLastNextPagina(nuevaPagina + 1);
       return;
