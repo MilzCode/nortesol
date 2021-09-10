@@ -2,13 +2,17 @@ import React, { useState } from "react";
 
 const Paginador = () => {
   //maxPagina son las paginas disponibles
-  const maxPagina = 100;
+  const maxPagina = 10;
   //sino hay paginas que no se despliegue el componente
   if (maxPagina < 1) return null;
   //con pagina mostrar Dato indicamos cuantas paginas se mostraran en el paginador sin contar ni la primera ni la ultima
-  const paginasMostrarDato = 4;
+  const paginasMostrarDato = 5;
   const paginasMostrar =
-    paginasMostrarDato > maxPagina ? maxPagina - 1 : paginasMostrarDato;
+    paginasMostrarDato > maxPagina
+      ? maxPagina - 1
+      : maxPagina === paginasMostrarDato
+      ? paginasMostrarDato - 1
+      : paginasMostrarDato;
   const cargarCadaNpaginas = paginasMostrar - 1;
   const [pagina, setPagina] = useState(1);
   const [paginador, setPaginador] = useState(false);
@@ -24,9 +28,21 @@ const Paginador = () => {
   };
   const handdlePagina = (e: any) => {
     const paginaSelect = parseInt(e.target.innerHTML);
-    paginaSelect === 1
-      ? loadNextPages(paginaSelect)
-      : loadPrevPages(paginaSelect);
+    if (paginaSelect === pagina) return;
+    if (maxPagina <= paginasMostrarDato) {
+      setPagina(paginaSelect);
+      return;
+    }
+    if (paginaSelect === 1 || paginaSelect === maxPagina) {
+      paginaSelect === 1
+        ? loadNextPages(paginaSelect)
+        : loadPrevPages(paginaSelect);
+    } else {
+      paginaSelect > pagina
+        ? loadNextPages(paginaSelect)
+        : loadPrevPages(paginaSelect);
+    }
+
     setPagina(paginaSelect);
   };
   const loadNextPages = (nuevaPagina: number) => {
@@ -87,12 +103,14 @@ const Paginador = () => {
   const handdleNext = () => {
     //en este caso ademas de comprobar la siguiente pagina si no hay mas paginas no es necesario buscar mas paginas para
     //el paginador
+    if (pagina === maxPagina) return;
     pagina + 1 === lastNextPagina &&
       maxPagina > paginasMostrar + 1 &&
       loadNextPages(pagina + 1);
     maxPagina !== pagina && setPagina(pagina + 1);
   };
   const handdlePrev = () => {
+    if (pagina === 1) return;
     pagina - 1 === lastPrevPagina && loadPrevPages(pagina - 1);
     pagina !== 1 && setPagina(pagina - 1);
   };
