@@ -1,7 +1,12 @@
-//tamaños
+//Archivo de variables globales
+//Tamaños
 $height-header1: 7rem;
 $height-header2: $height-header1 * 0.6;
-//colores
+$height-header1-850px: $height-header1 * 0.75;
+$height-header1-700px: $height-header1 * 0.6;
+$width-logo: 15rem;
+$width-logo-700px: $width-logo * 0.6;
+//Colores
 $pantone106C: #f9e547;
 $white: #ffffff;
 $pantone2412C: #48d597;
@@ -14,7 +19,42 @@ $pantone1645C: #ff6a39;
 $pantone7404C: #f4da40;
 $pantone292C: #69b3e7;
 $shadow1: rgba(0, 0, 0, 0.2);
+$facebookColor: #4267b2;
 
 //Fuentes
 $SegoeUi: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
   "Droid Sans", "Helvetica Neue", sans-serif;
+
+//Textos Pseudoelementos
+$ProductoVistaMiniatura__Mostrar__texto: "Ver";
+
+//Mixins
+
+//Extends
+
+//dado que el header tiene un tamaño variable este Extends se encarga de dar un margin segun el tamaño.
+%marginHeader {
+  margin-top: $height-header1 + $height-header2;
+  @media screen and (max-width: 850px) {
+    margin-top: $height-header1-850px;
+  }
+  @media screen and (max-width: 700px) {
+    margin-top: $height-header1-700px;
+  }
+  @media screen and (max-width: 450px) {
+    margin-top: $height-header1;
+  }
+}
+// //dado que el header tiene un tamaño variable este Extends se encarga de dar un top segun el tamaño.
+// %topHeader {
+//   top: $height-header1 + $height-header2;
+//   @media screen and (max-width: 850px) {
+//     top: $height-header1-850px;
+//   }
+//   @media screen and (max-width: 700px) {
+//     top: $height-header1-700px;
+//   }
+//   @media screen and (max-width: 450px) {
+//     top: $height-header1;
+//   }
+// }

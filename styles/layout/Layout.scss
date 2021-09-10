@@ -1,24 +1,7 @@
 .layout {
   &__content {
-    margin-top: $height-header1 + $height-header2;
+    @extend %marginHeader;
     margin-left: 6vw;
     margin-right: 6vw;
-  }
-  @media screen and (max-width: 850px) {
-    &__content {
-      margin-top: $height-header1 * 0.75;
-    }
-  }
-  @media screen and (max-width: 700px) {
-    &__content {
-      margin-top: $height-header1 * 0.6;
-      margin-left: 1.5vw;
-      margin-right: 1.5vw;
-    }
-  }
-  @media screen and (max-width: 450px) {
-    &__content {
-      margin-top: $height-header1;
-    }
   }
 }

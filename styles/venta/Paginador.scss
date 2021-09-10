@@ -1,0 +1,98 @@
+.paginador {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+  $font-size: 2.5rem;
+  &__anterior {
+    transform: rotate(90deg);
+  }
+  &__siguiente {
+    transform: rotate(-90deg);
+  }
+
+  &__anterior,
+  &__siguiente {
+    font-size: $font-size * 2;
+    z-index: 1;
+    & > i {
+      cursor: pointer;
+      &:hover {
+        color: $pantone1645C;
+      }
+    }
+  }
+
+  &__disabled {
+    color: $shadow1 !important;
+    cursor: default !important;
+    &:hover {
+      color: $shadow1 !important;
+    }
+  }
+
+  &__pagina {
+    position: relative;
+    width: $font-size * 1.5;
+    height: $font-size * 1.5;
+    font-size: $font-size;
+    margin: $font-size * 0.4;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: 0 0.2rem 0.4rem 0 $shadow1;
+    cursor: pointer;
+    z-index: 10;
+    &:hover {
+      background: $shadow1;
+    }
+    &--activo {
+      background-color: $pantone2039U;
+      &:hover {
+        background: $pantone2039U;
+      }
+    }
+  }
+
+  &__desplegable {
+    width: $font-size * 13;
+    bottom: $font-size * 0.5;
+    right: $font-size * 0.5;
+    border-radius: $font-size * 0.4;
+    height: auto;
+    max-height: 75vh;
+    background-color: white;
+    border: 0.1rem solid $shadow1;
+    z-index: 10100;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+  }
+
+  @media screen and (max-width: 700px) {
+    $factorSize: 0.6;
+    $font-size: $font-size * $factorSize;
+    &__anterior,
+    &__siguiente {
+      font-size: $font-size * 2;
+    }
+    &__pagina {
+      width: $font-size * 1.5;
+      height: $font-size * 1.5;
+      font-size: $font-size;
+      margin: $font-size * 0.4;
+    }
+    &__desplegable {
+      width: $font-size * 13;
+      bottom: $font-size * 0.5;
+      right: $font-size * 0.5;
+      border-radius: $font-size * 0.4;
+    }
+  }
+}

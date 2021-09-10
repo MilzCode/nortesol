@@ -2,6 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Destacados from "../components/index/Destacados";
 import Secciones from "../components/index/Secciones";
+import Siguenos from "../components/index/Siguenos";
+import Paginador from "../components/venta/Paginador";
 import ProductoVistaMiniatura from "../components/venta/ProductoVistaMiniatura";
 
 const Home: NextPage = () => {
@@ -13,10 +15,19 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Destacados />
-      <Secciones />
-      <div className="d-flex justify-content-center align-items-center">
+      <Siguenos />
+      <div className="d-flex flex-wrap justify-content-center align-items-center ml-5 mr-5">
+        <Secciones />
+        <ProductoVistaMiniatura />
+        <ProductoVistaMiniatura />
+        <ProductoVistaMiniatura />
+        <ProductoVistaMiniatura />
+        <ProductoVistaMiniatura />
+        <ProductoVistaMiniatura />
+        <ProductoVistaMiniatura />
         <ProductoVistaMiniatura />
       </div>
+      <Paginador />
     </>
   );
 };

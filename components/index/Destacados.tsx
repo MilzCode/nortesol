@@ -52,7 +52,7 @@ const Destacados = () => {
             objectFit="contain"
           />
           <Image
-            src={`/static/img/lapices.jpg`}
+            src="/static/img/lapices.jpg"
             alt="..."
             height="720"
             width="1280"

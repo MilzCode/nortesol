@@ -1,5 +1,4 @@
 .header {
-  $width-logo: 15rem;
   background-color: $pantone2202C;
   width: 100%;
   height: $height-header1;
@@ -131,9 +130,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-28%, -85%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 1.4rem;
     color: $white;
   }
@@ -163,7 +159,7 @@
     }
   }
   @media screen and (max-width: 850px) {
-    height: $height-header1 * 0.75;
+    height: $height-header1-850px;
     &__miCuentaDesplegable {
       top: $height-header1 * 0.5;
       & > a {
@@ -190,7 +186,7 @@
     }
   }
   @media screen and (max-width: 700px) {
-    height: $height-header1 * 0.6;
+    height: $height-header1-700px;
     &__miCuentaDesplegable {
       top: $height-header1 * 0.3;
     }
@@ -228,16 +224,16 @@
     }
 
     &__carrito-contador {
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 1.65rem;
+      height: 1.65rem;
       border-radius: 50%;
       top: 50%;
       left: 50%;
-      transform: translate(-28%, -85%);
+      transform: translate(-37%, -96%);
       font-size: 1rem;
     }
     &__logo {
-      width: $width-logo * 0.6;
+      width: $width-logo-700px;
     }
   }
   @media screen and (max-width: 450px) {
@@ -295,13 +291,13 @@
   }
 
   @media screen and (max-width: 850px) {
-    top: $height-header1 * 0.75;
+    top: $height-header1-850px;
     &--desaparecer {
       transform: translateY(-$height-header2);
     }
   }
   @media screen and (max-width: 700px) {
-    top: $height-header1 * 0.6;
+    top: $height-header1-700px;
     &__menu {
       & > a {
         font-size: 1.5rem;

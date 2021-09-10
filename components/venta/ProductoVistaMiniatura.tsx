@@ -19,6 +19,8 @@ const ProductoVistaMiniatura = () => {
       <div className="productoVistaMiniatura__precio">$999.999</div>
       <div className="productoVistaMiniatura__mostrar">
         <i className="fas fa-eye" />
+        {/* Este texto no se muestra solo es para SEO, el texto real se encuentra en variables.scss en seccion //Textos Pseudoelementos
+         */}
         <span>Ver</span>
       </div>
     </div>
