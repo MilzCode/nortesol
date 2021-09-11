@@ -69,3 +69,7 @@ $SegoeUi: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+//TEXTINVISIBLE sirve para que un texto no aparezca en pantalla (esto puede servir por temas de SEO)
+.TEXTINVISIBLE {
+  text-indent: -9999px;
+}

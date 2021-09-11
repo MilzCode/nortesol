@@ -14,6 +14,7 @@ const Home: NextPage = () => {
         <meta name="Descripcion" content="Libreria nortesol" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <h1 className="TEXTINVISIBLE">Libreria Nortesol Pagina principal</h1>
       <Destacados />
       <Siguenos />
       <div className="d-flex flex-wrap justify-content-center align-items-center ml-5 mr-5">
