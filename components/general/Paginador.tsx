@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useEffect, useState } from "react";
 
-const Paginador = () => {
+interface propsPaginador {
+  maxPagina: number;
+  pagina: number;
+  setPagina: (pagina: number) => void;
+}
+
+const Paginador = ({ maxPagina, pagina, setPagina }: propsPaginador) => {
   //maxPagina son las paginas disponibles
-  const maxPagina = 100;
+  // const maxPagina = 100;
   //sino hay paginas que no se despliegue el componente
   if (maxPagina < 1) return null;
+  //si la pagina inicial es disinta a 1 se deja en 1
+  useEffect(() => {
+    pagina !== 1 && setPagina(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   //con pagina mostrar Dato indicamos cuantas paginas se mostraran en el paginador sin contar ni la primera ni la ultima
   const paginasMostrarDato = 5;
   const paginasMostrar =
@@ -17,7 +29,6 @@ const Paginador = () => {
   const maxPaginasDesplegable = 50;
   const paginasMostrarPorLado = Math.floor(paginasMostrar / 2);
   const paginasDespliguePorLado = Math.floor(maxPaginasDesplegable / 2);
-  const [pagina, setPagina] = useState(1);
   const [paginador, setPaginador] = useState(false);
   const [lastNextPagina, setLastNextPagina] = useState(cargarCadaNpaginas);
   const [lastPrevPagina, setLastPrevPagina] = useState(cargarCadaNpaginas);
@@ -28,28 +39,7 @@ const Paginador = () => {
   const handdlePaginador = () => {
     setPaginador(!paginador);
   };
-  //handdle pagina modo 1
-  // const handdlePagina = (e: any) => {
-  //   const paginaSelect = parseInt(e.target.innerHTML);
-  //   if (paginaSelect === pagina) return;
-  //   if (maxPagina <= paginasMostrarDato) {
-  //     setPagina(paginaSelect);
-  //     return;
-  //   }
-  //   if (paginaSelect === 1 || paginaSelect === maxPagina) {
-  //     paginaSelect === 1
-  //       ? loadNextPages(paginaSelect)
-  //       : loadPrevPages(paginaSelect);
-  //   } else {
-  //     paginaSelect > pagina
-  //       ? loadNextPages(paginaSelect)
-  //       : loadPrevPages(paginaSelect);
-  //   }
 
-  //   setPagina(paginaSelect);
-  // };
-
-  //handdle pagina modo 2
   const handdlePagina = (e: any) => {
     const paginaSelect = parseInt(e.target.innerHTML);
     if (paginaSelect === pagina) return;

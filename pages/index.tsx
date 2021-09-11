@@ -5,8 +5,10 @@ import Secciones from "../components/index/Secciones";
 import Siguenos from "../components/index/Siguenos";
 import Paginador from "../components/general/Paginador";
 import ProductoVistaMiniatura from "../components/venta/ProductoVistaMiniatura";
+import { useEffect, useState } from "react";
 
 const Home: NextPage = () => {
+  const [pagina, setPagina] = useState(1);
   return (
     <>
       <Head>
@@ -28,7 +30,7 @@ const Home: NextPage = () => {
         <ProductoVistaMiniatura />
         <ProductoVistaMiniatura />
       </div>
-      <Paginador />
+      <Paginador maxPagina={50} setPagina={setPagina} pagina={pagina} />
     </>
   );
 };
