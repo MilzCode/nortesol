@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const Paginador = () => {
   //maxPagina son las paginas disponibles
-  const maxPagina = 100;
+  const maxPagina = 8;
   //sino hay paginas que no se despliegue el componente
   if (maxPagina < 1) return null;
   //con pagina mostrar Dato indicamos cuantas paginas se mostraran en el paginador sin contar ni la primera ni la ultima
@@ -14,11 +14,13 @@ const Paginador = () => {
       ? paginasMostrarDato - 1
       : paginasMostrarDato;
   const cargarCadaNpaginas = paginasMostrar - 1;
+  const maxPaginasDesplegable = 50;
+  const paginasMostrarPorLado = Math.floor(paginasMostrar / 2);
+  const paginasDespliguePorLado = Math.floor(maxPaginasDesplegable / 2);
   const [pagina, setPagina] = useState(1);
   const [paginador, setPaginador] = useState(false);
   const [lastNextPagina, setLastNextPagina] = useState(cargarCadaNpaginas);
   const [lastPrevPagina, setLastPrevPagina] = useState(cargarCadaNpaginas);
-  const maxPaginasDesplegable = 50;
   //parte desde el 2 por eso i+2 ej: si paginas para mostrar = 4 entonces 2,3,4,5 (sin contar la primera ni ultima)
   const [paginas, setPaginas] = useState(
     [...Array(paginasMostrar)].map((e, i) => i + 2)
@@ -26,6 +28,28 @@ const Paginador = () => {
   const handdlePaginador = () => {
     setPaginador(!paginador);
   };
+  //handdle pagina modo 1
+  // const handdlePagina = (e: any) => {
+  //   const paginaSelect = parseInt(e.target.innerHTML);
+  //   if (paginaSelect === pagina) return;
+  //   if (maxPagina <= paginasMostrarDato) {
+  //     setPagina(paginaSelect);
+  //     return;
+  //   }
+  //   if (paginaSelect === 1 || paginaSelect === maxPagina) {
+  //     paginaSelect === 1
+  //       ? loadNextPages(paginaSelect)
+  //       : loadPrevPages(paginaSelect);
+  //   } else {
+  //     paginaSelect > pagina
+  //       ? loadNextPages(paginaSelect)
+  //       : loadPrevPages(paginaSelect);
+  //   }
+
+  //   setPagina(paginaSelect);
+  // };
+
+  //handdle pagina modo 2
   const handdlePagina = (e: any) => {
     const paginaSelect = parseInt(e.target.innerHTML);
     if (paginaSelect === pagina) return;
@@ -37,12 +61,27 @@ const Paginador = () => {
       paginaSelect === 1
         ? loadNextPages(paginaSelect)
         : loadPrevPages(paginaSelect);
-    } else {
+      setPagina(paginaSelect);
+      return;
+    }
+    if (
+      paginaSelect <= 1 + paginasMostrarPorLado ||
+      paginaSelect >= maxPagina - paginasMostrarPorLado
+    ) {
       paginaSelect > pagina
         ? loadNextPages(paginaSelect)
         : loadPrevPages(paginaSelect);
+      setPagina(paginaSelect);
+      return;
     }
 
+    setPaginas(
+      [...Array(paginasMostrar)].map(
+        (e, i) => i + paginaSelect - paginasMostrarPorLado
+      )
+    );
+    setLastNextPagina(paginaSelect + paginasMostrarPorLado);
+    setLastPrevPagina(paginaSelect - paginasMostrarPorLado);
     setPagina(paginaSelect);
   };
   const loadNextPages = (nuevaPagina: number) => {
@@ -116,7 +155,6 @@ const Paginador = () => {
   };
 
   const handdleDesplegarPaginador = () => {
-    const paginasDespliguePorLado = Math.floor(maxPaginasDesplegable / 2);
     if (maxPagina <= maxPaginasDesplegable) {
       return (
         <>
@@ -223,18 +261,21 @@ const Paginador = () => {
           {pag}
         </div>
       ))}
+
+      {maxPagina > paginasMostrar + 1 && (
+        <div
+          className={`paginador__pagina ${
+            pagina === maxPagina && "paginador__pagina--activo"
+          }`}
+          onClick={handdlePagina}
+          //+1 porque incluye la pagina final
+        >
+          {maxPagina}
+        </div>
+      )}
+
       <div
-        className={`paginador__pagina ${
-          pagina === maxPagina && "paginador__pagina--activo"
-        }`}
-        onClick={handdlePagina}
-        //+1 porque incluye la pagina final
-        style={{ display: maxPagina > paginasMostrar + 1 ? "inherit" : "none" }}
-      >
-        {maxPagina}
-      </div>
-      <div
-        className={"paginador__pagina"}
+        className={"paginador__pagina paginador__paginaDesplegar"}
         onClick={handdlePaginador}
         onMouseLeave={() => {
           paginador && handdlePaginador();
