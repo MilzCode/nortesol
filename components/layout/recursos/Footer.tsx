@@ -1,12 +1,11 @@
 import React from "react";
-import Image from "next/image";
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer__contenido">
         <img
-          className="footer__logo"
+          className="footer__logo NOSELECT"
           src="/static/img/logoNortesol.png"
           alt="logo"
         />

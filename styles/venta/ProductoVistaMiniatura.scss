@@ -46,16 +46,8 @@
     color: $white;
     font-weight: bold;
     cursor: pointer;
-    & > span {
-      text-indent: -9999px;
-    }
     &:hover {
       text-decoration: underline;
-    }
-    &::after {
-      content: $ProductoVistaMiniatura__Mostrar__texto;
-      font-weight: bold;
-      font-family: $SegoeUi;
     }
   }
 

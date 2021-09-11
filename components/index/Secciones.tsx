@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const Secciones = () => {
   const [seleccion, setSeleccion] = useState(0);
   return (
-    <section className="secciones">
+    <section className="secciones NOSELECT">
       <nav className="secciones__opciones">
         <a
           onClick={() => setSeleccion(0)}

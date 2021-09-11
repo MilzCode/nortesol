@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const Header = () => {
-  const ingresado = false;
+  const ingresado = true;
   const carritoObjetos = true;
   const [miCuenta, setMiCuenta] = useState(false);
   const [subHeader, setSubHeader] = useState(false);
@@ -28,7 +28,7 @@ const Header = () => {
   // }, []);
   return (
     <>
-      <header className="header">
+      <header className="header NOSELECT">
         <img
           className="header__logo"
           src="/static/img/logoNortesol.png"
@@ -89,7 +89,7 @@ const Header = () => {
         </div>
       </header>
 
-      <nav className={`subHeader ${!subHeader && "subHeader--desaparecer"}`}>
+      <nav className={`subHeader ${!subHeader && "subHeader--desaparecer"} NOSELECT`}>
         <div className="subHeader__menu">
           <a href="#">
             <i className="fas fa-home"></i>
