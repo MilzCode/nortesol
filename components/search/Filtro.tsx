@@ -11,6 +11,7 @@ const Filtro = () => {
   return (
     <div className="filtro">
       <div className="filtro__marca">
+        <span>Marca:</span>
         <Select
           inputId="filtro-marca"
           isMulti
