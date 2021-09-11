@@ -250,6 +250,7 @@ const Paginador = () => {
       >
         {1}
       </div>
+      {paginas[0] > 2 && <i>...</i>}
       {paginas.map((pag) => (
         <div
           key={pag}
@@ -261,7 +262,7 @@ const Paginador = () => {
           {pag}
         </div>
       ))}
-
+      {paginas[paginasMostrar - 1] < maxPagina - 1 && <i>...</i>}
       {maxPagina > paginasMostrar + 1 && (
         <div
           className={`paginador__pagina ${
