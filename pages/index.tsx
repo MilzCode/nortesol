@@ -3,7 +3,7 @@ import Head from "next/head";
 import Destacados from "../components/index/Destacados";
 import Secciones from "../components/index/Secciones";
 import Siguenos from "../components/index/Siguenos";
-import Paginador from "../components/venta/Paginador";
+import Paginador from "../components/general/Paginador";
 import ProductoVistaMiniatura from "../components/venta/ProductoVistaMiniatura";
 
 const Home: NextPage = () => {

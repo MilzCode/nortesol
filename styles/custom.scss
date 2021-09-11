@@ -1,10 +1,17 @@
 //hojas de estilo personalizadas
 @import "./variables.scss";
+//layout
 @import "./layout/Header.scss";
 @import "./layout/Layout.scss";
 @import "./layout/Footer.scss";
+//index
 @import "./index/Destacados.scss";
 @import "./index/Secciones.scss";
 @import "./index/Siguenos.scss";
+//venta
 @import "./venta/ProductoVistaMiniatura.scss";
-@import "./venta/Paginador.scss";
+//search
+@import "./search/search.scss";
+//general
+@import "./general/Paginador.scss";
+@import "./general/Volver.scss";
