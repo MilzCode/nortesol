@@ -15,3 +15,5 @@ yarn add react-slick
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
         />
 */
+
+yarn add react-select
