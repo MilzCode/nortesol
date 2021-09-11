@@ -58,3 +58,15 @@ $ProductoVistaMiniatura__Mostrar__texto: "Ver";
 //     top: $height-header1;
 //   }
 // }
+
+//clases
+//NOSELECT sirve para que un elemento no se pueda seleccionar (como si fuese un pseudo elemento)
+.NOSELECT {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}

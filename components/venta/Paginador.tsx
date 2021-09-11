@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const Paginador = () => {
   //maxPagina son las paginas disponibles
-  const maxPagina = 8;
+  const maxPagina = 100;
   //sino hay paginas que no se despliegue el componente
   if (maxPagina < 1) return null;
   //con pagina mostrar Dato indicamos cuantas paginas se mostraran en el paginador sin contar ni la primera ni la ultima
@@ -64,17 +64,20 @@ const Paginador = () => {
       setPagina(paginaSelect);
       return;
     }
-    if (
-      paginaSelect <= 1 + paginasMostrarPorLado ||
-      paginaSelect >= maxPagina - paginasMostrarPorLado
-    ) {
-      paginaSelect > pagina
-        ? loadNextPages(paginaSelect)
-        : loadPrevPages(paginaSelect);
+    if (paginaSelect <= 1 + paginasMostrarPorLado) {
+      setPaginas([...Array(paginasMostrar)].map((e, i) => i + 2));
+      setLastNextPagina(cargarCadaNpaginas);
+      setLastPrevPagina(cargarCadaNpaginas);
+      setPagina(paginaSelect);
+      return;
+    } else if (paginaSelect >= maxPagina - paginasMostrarPorLado) {
+      setPaginas(
+        [...Array(paginasMostrar)].map((e, i) => i + maxPagina - paginasMostrar)
+      );
+      setLastPrevPagina(maxPagina - cargarCadaNpaginas);
       setPagina(paginaSelect);
       return;
     }
-
     setPaginas(
       [...Array(paginasMostrar)].map(
         (e, i) => i + paginaSelect - paginasMostrarPorLado
@@ -163,7 +166,7 @@ const Paginador = () => {
               key={i + 1}
               className={`paginador__pagina ${
                 pagina === i + 1 && "paginador__pagina--activo"
-              }`}
+              } NOSELECT`}
               onClick={handdlePagina}
             >
               {i + 1}
@@ -185,7 +188,7 @@ const Paginador = () => {
               className={`paginador__pagina ${
                 pagina === i + pagina - paginasDespliguePorLado + 1 &&
                 "paginador__pagina--activo"
-              }`}
+              } NOSELECT`}
               onClick={handdlePagina}
             >
               {i + pagina - paginasDespliguePorLado + 1}
@@ -203,7 +206,7 @@ const Paginador = () => {
               key={i + 1}
               className={`paginador__pagina ${
                 pagina === i + 1 && "paginador__pagina--activo"
-              }`}
+              } NOSELECT`}
               onClick={handdlePagina}
             >
               {i + 1}
@@ -222,7 +225,7 @@ const Paginador = () => {
               className={`paginador__pagina ${
                 pagina === i + maxPagina - maxPaginasDesplegable + 1 &&
                 "paginador__pagina--activo"
-              }`}
+              } NOSELECT`}
               onClick={handdlePagina}
             >
               {i + maxPagina - maxPaginasDesplegable + 1}
@@ -245,29 +248,31 @@ const Paginador = () => {
       <div
         className={`paginador__pagina ${
           pagina === 1 && "paginador__pagina--activo"
-        }`}
+        } NOSELECT`}
         onClick={handdlePagina}
       >
         {1}
       </div>
-      {paginas[0] > 2 && <i>...</i>}
+      {paginas[0] > 2 && <i className="NOSELECT">...</i>}
       {paginas.map((pag) => (
         <div
           key={pag}
           className={`paginador__pagina ${
             pagina === pag && "paginador__pagina--activo"
-          }`}
+          } NOSELECT`}
           onClick={handdlePagina}
         >
           {pag}
         </div>
       ))}
-      {paginas[paginasMostrar - 1] < maxPagina - 1 && <i>...</i>}
+      {paginas[paginasMostrar - 1] < maxPagina - 1 && (
+        <i className="NOSELECT">...</i>
+      )}
       {maxPagina > paginasMostrar + 1 && (
         <div
           className={`paginador__pagina ${
             pagina === maxPagina && "paginador__pagina--activo"
-          }`}
+          } NOSELECT`}
           onClick={handdlePagina}
           //+1 porque incluye la pagina final
         >
@@ -276,7 +281,7 @@ const Paginador = () => {
       )}
 
       <div
-        className={"paginador__pagina paginador__paginaDesplegar"}
+        className={"paginador__pagina paginador__paginaDesplegar NOSELECT"}
         onClick={handdlePaginador}
         onMouseLeave={() => {
           paginador && handdlePaginador();
