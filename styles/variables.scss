@@ -1,11 +1,13 @@
 //Archivo de variables globales
 //Tamaños
 $height-header1: 7rem;
-$height-header2: $height-header1 * 0.6;
+$height-header2: $height-header1 * 0.6; //4.2rem si header1 es 7rem
 $height-header1-850px: $height-header1 * 0.75;
 $height-header1-700px: $height-header1 * 0.6;
 $width-logo: 15rem;
 $width-logo-700px: $width-logo * 0.6;
+$height-footer: 9.4rem;
+$height-footer-700px: 7rem;
 //Colores
 $pantone106C: #f9e547;
 $white: #ffffff;
@@ -72,4 +74,5 @@ $SegoeUi: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
 //TEXTINVISIBLE sirve para que un texto no aparezca en pantalla (esto puede servir por temas de SEO)
 .TEXTINVISIBLE {
   text-indent: -9999px;
+  font-size: 1px;
 }

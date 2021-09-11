@@ -1,12 +1,11 @@
 .footer {
   width: 100%;
-  height: auto;
+  height: $height-footer;
   background-color: $pantone2202C;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 2rem;
   $font-size: 2rem;
 
   &__contenido {
@@ -33,6 +32,7 @@
   }
 
   @media screen and (max-width: 700px) {
+    height: $height-footer-700px;
     &__contenido {
       margin: 0.2rem;
       & > img {
