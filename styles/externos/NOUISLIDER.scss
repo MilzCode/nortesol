@@ -1,3 +1,16 @@
+$heightSlider: 10px;
+$widthDragItem: 15px;
+$heightDragItem: $widthDragItem;
+$colorSlider: $pantone292C;
+
+$colorBackgroundDragItem1Active: #ddd;
+$colorBackgroundDragItem: #fff;
+$colorBorderDragItem: #d9d9d9;
+$colorShadow1DragItem: #ebebeb;
+$colorBackgroundSlider: #fafafa;
+$colorBorderBackgroundSlider: #d3d3d3;
+$colorShadow1BackgroundSlider: #f0f0f0;
+$colorShadow2BackgroundSlider: #bbb;
 .noUi-target,
 .noUi-target * {
   -webkit-touch-callout: none;
@@ -74,38 +87,43 @@
   cursor: inherit !important;
 }
 .noUi-horizontal {
-  height: 18px;
+  height: $heightSlider;
 }
+//drag item
 .noUi-horizontal .noUi-handle {
-  width: 34px;
-  height: 28px;
-  right: -17px;
-  top: -6px;
+  width: $widthDragItem;
+  height: $heightDragItem;
+  right: -$widthDragItem * 0.5;
+  top: -$heightDragItem*0.2222;
 }
 .noUi-vertical {
   width: 18px;
 }
-.noUi-vertical .noUi-handle {
-  width: 28px;
-  height: 34px;
-  right: -6px;
-  top: -17px;
-}
+
+//no se que es esto
+// .noUi-vertical .noUi-handle {
+//   width: 28px;
+//   height: $heightSlider*1.8888;
+//   right: -6px;
+//   top: -$heightSlider*0.9444;
+// }
 .noUi-txt-dir-rtl.noUi-horizontal .noUi-handle {
   left: -17px;
   right: auto;
 }
+//slider (carril)
 .noUi-target {
-  background: #fafafa;
+  background: $colorBackgroundSlider;
   border-radius: 4px;
-  border: 1px solid #d3d3d3;
-  box-shadow: inset 0 1px 1px #f0f0f0, 0 3px 6px -5px #bbb;
+  border: 1px solid $colorBorderBackgroundSlider;
+  box-shadow: inset 0 1px 1px $colorShadow1BackgroundSlider,
+    0 3px 6px -5px $colorShadow2BackgroundSlider;
 }
 .noUi-connects {
   border-radius: 3px;
 }
 .noUi-connect {
-  background: #3fb8af;
+  background: $colorSlider;
 }
 .noUi-draggable {
   cursor: ew-resize;
@@ -113,40 +131,47 @@
 .noUi-vertical .noUi-draggable {
   cursor: ns-resize;
 }
+//drag item style
 .noUi-handle {
-  border: 1px solid #d9d9d9;
-  border-radius: 3px;
-  background: #fff;
+  border: 1px solid $colorBorderDragItem;
+  border-radius: 50%;
+  background: $colorBackgroundDragItem;
   cursor: default;
-  box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ebebeb, 0 3px 6px -3px #bbb;
+  box-shadow: inset 0 0 1px $colorBackgroundDragItem,
+    inset 0 1px 7px $colorShadow1DragItem,
+    0 3px 6px -3px $colorShadow2BackgroundSlider;
 }
 .noUi-active {
-  box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ddd, 0 3px 6px -3px #bbb;
+  box-shadow: inset 0 0 1px $colorBackgroundDragItem,
+    inset 0 1px 7px $colorBackgroundDragItem1Active,
+    0 3px 6px -3px $colorShadow2BackgroundSlider;
 }
-.noUi-handle:after,
-.noUi-handle:before {
-  content: "";
-  display: block;
-  position: absolute;
-  height: 14px;
-  width: 1px;
-  background: #e8e7e6;
-  left: 14px;
-  top: 6px;
-}
-.noUi-handle:after {
-  left: 17px;
-}
-.noUi-vertical .noUi-handle:after,
-.noUi-vertical .noUi-handle:before {
-  width: 14px;
-  height: 1px;
-  left: 6px;
-  top: 14px;
-}
-.noUi-vertical .noUi-handle:after {
-  top: 17px;
-}
+
+// //contenido dentro del slider
+// .noUi-handle:after,
+// .noUi-handle:before {
+//   // content: "";
+//   // display: block;
+//   // position: absolute;
+//   // height: $heightSlider*0.7777;
+//   // width: 1px;
+//   // background: #e8e7e6;
+//   // left: 14px;
+//   // top: 6px;
+// }
+// .noUi-handle:after {
+//   left: 17px;
+// }
+// .noUi-vertical .noUi-handle:after,
+// .noUi-vertical .noUi-handle:before {
+//   width: 14px;
+//   height: 1px;
+//   left: 6px;
+//   top: 14px;
+// }
+// .noUi-vertical .noUi-handle:after {
+//   top: 17px;
+// }
 [disabled] .noUi-connect {
   background: #b8b8b8;
 }
@@ -185,7 +210,7 @@
 }
 .noUi-pips-horizontal {
   padding: 10px 0;
-  height: 80px;
+  height: $heightSlider * 4.4444;
   top: 100%;
   left: 0;
   width: 100%;
@@ -201,13 +226,13 @@
 .noUi-marker-horizontal.noUi-marker {
   margin-left: -1px;
   width: 2px;
-  height: 5px;
+  height: $heightSlider * 0.2777;
 }
 .noUi-marker-horizontal.noUi-marker-sub {
-  height: 10px;
+  height: $heightSlider * 0.5555;
 }
 .noUi-marker-horizontal.noUi-marker-large {
-  height: 15px;
+  height: $heightSlider * 0.8333;
 }
 .noUi-pips-vertical {
   padding: 0 10px;
@@ -238,9 +263,9 @@
 .noUi-tooltip {
   display: block;
   position: absolute;
-  border: 1px solid #d9d9d9;
+  border: 1px solid $colorBorderDragItem;
   border-radius: 3px;
-  background: #fff;
+  background: $colorBackgroundDragItem;
   color: #000;
   padding: 5px;
   text-align: center;
