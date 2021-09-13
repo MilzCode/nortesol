@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
 const Header = () => {
   const ingresado = true;
@@ -29,11 +30,13 @@ const Header = () => {
   return (
     <>
       <header className="header NOSELECT">
-        <img
-          className="header__logo"
-          src="/static/img/logoNortesol.png"
-          alt="logo"
-        />
+        <Link passHref href="/">
+          <img
+            className="header__logo"
+            src="/static/img/logoNortesol.png"
+            alt="logo"
+          />
+        </Link>
         <div className="header__contacto">
           <i className="fas fa-phone-square" />
           <span>Contacto</span>
@@ -89,7 +92,11 @@ const Header = () => {
         </div>
       </header>
 
-      <nav className={`subHeader ${!subHeader && "subHeader--desaparecer"} NOSELECT`}>
+      <nav
+        className={`subHeader ${
+          !subHeader && "subHeader--desaparecer"
+        } NOSELECT`}
+      >
         <div className="subHeader__menu">
           <a href="#">
             <i className="fas fa-home"></i>
