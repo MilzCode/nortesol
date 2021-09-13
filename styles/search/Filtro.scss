@@ -67,6 +67,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 2 !important;
     & > span {
       font-size: inherit;
       margin-right: $font-size;
@@ -75,6 +76,7 @@
     }
   }
   &__precio {
+    z-index: 1 !important;
     grid-area: precio;
     display: flex;
     justify-content: space-between;
