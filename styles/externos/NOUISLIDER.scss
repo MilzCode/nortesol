@@ -1,4 +1,4 @@
-$heightSlider: 7px;
+$heightSlider: 10px;
 $widthDragItem: $heightSlider * 1.5;
 $heightDragItem: $widthDragItem;
 $colorSlider: $pantone292C;
@@ -26,6 +26,7 @@ $colorShadow2BackgroundSlider: #bbb;
 }
 .noUi-target {
   position: relative;
+  width: 100%;
 }
 .noUi-base,
 .noUi-connects {

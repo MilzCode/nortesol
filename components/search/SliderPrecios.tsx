@@ -19,15 +19,19 @@ import Nouislider from "nouislider-react";
 
 const SliderPrecios = (props: any) => {
   //datos principales
-  //BASE es el factor comportamiento exponencial del slider
-  const BASE = 15;
-
   const { maxValue } = props;
+  //BASE es el factor comportamiento exponencial del slider
+  //Cuando maxValue = 1 millon (1000000) BASE = 50
+  const BASE = 50 * (maxValue / 1000000);
 
   //format 55555 to $55,555
-  const formatNumberToprice = (value: number) => {
-    return value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+  const formatNumberToprice = (price: number) => {
+    if (price >= maxValue) {
+      return `$${price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}+`;
+    }
+    return `$${price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;
   };
+
   //Los precios nosotros los vemos de forma exponencial y no de forma lineal
   //esta funcion adapta el filtro de una forma mas natural a como entendemos los precios
   //hay que enteder que esta funcion recibe un valor entre 0 y 100 y devuelve un valor entre 0 y maxValue
@@ -69,7 +73,7 @@ const SliderPrecios = (props: any) => {
       tooltips={[true, true]}
       format={{
         to: (value: number) => {
-          return `$${formatNumberToprice(filtroPrecios(value))}`;
+          return `${formatNumberToprice(filtroPrecios(value))}`;
         },
         from: (value: string) => {
           return parseInt(value);
