@@ -9,6 +9,7 @@ const Filtro = () => {
     { value: "murano", label: "Murano" },
     { value: "colon", label: "Colon" },
   ];
+  //precio es una variable que maneja string, aunque se inicializa como int para establecer el rango de precios
   const [precio, setPrecio] = useState([0, 1000000]);
   const categorias = [
     { value: "categoria1", label: "Categoria 1" },
@@ -50,7 +51,7 @@ const Filtro = () => {
         <SliderPrecios
           minValue={precio[0]}
           maxValue={precio[1]}
-          onChange={(e: number[]) => setPrecio(e)}
+          onChange={(e: any[]) => setPrecio(e)}
           className="filtro__slider"
         />
       </div>
