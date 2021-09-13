@@ -52,6 +52,7 @@
     }
     &--activo {
       background-color: $pantone2039U;
+      cursor: default;
       &:hover {
         background: $pantone2039U;
       }
@@ -77,6 +78,7 @@
     align-items: center;
     flex-wrap: wrap;
     overflow: auto;
+    cursor: default;
   }
 
   @media screen and (max-width: 700px) {
