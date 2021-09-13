@@ -1,13 +1,16 @@
 .filtro {
   $font-size: 2rem;
 
-  padding: $font-size * 1.8 $font-size * 1.2 $font-size * 0.8 $font-size * 1.2;
+  padding: $font-size * 1.8 $font-size * 1.2 $font-size * 0.6 $font-size * 1.2;
   border-radius: $font-size * 0.2;
   //shadow
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
   display: grid;
-  grid-template-areas: "marca precio" "categoria producto";
+  grid-template-areas: "marca precio" "categoria producto" "filtrarBTN filtrarBTN";
   position: relative;
+
+  //autp row
+
   &--noFilter {
     padding: 1rem;
     padding-top: 1.7rem;
@@ -17,7 +20,8 @@
     .filtro__marca,
     .filtro__precio,
     .filtro__categoria,
-    .filtro__producto {
+    .filtro__producto,
+    .filtro__filtrarBTN {
       display: none !important;
     }
     .filtro__togle {
@@ -118,9 +122,30 @@
       padding-bottom: $font-size * 0.4;
     }
   }
+  &__filtrarBTN {
+    grid-area: filtrarBTN;
+    width: 30vw;
+    max-width: 300px;
+    margin: auto;
+    font-size: min(#{$font-size}, 3.5vw);
+    font-weight: bold;
+    padding: $font-size * 0.3;
+    border-radius: $font-size;
+    background-color: $pantone2039U;
+    color: $white;
+    border: none;
+    outline: none !important;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+    &:hover {
+      opacity: 0.95;
+    }
+    &:active {
+      transform: scale(0.99);
+    }
+  }
 
   @media screen and (max-width: 850px) {
-    grid-template-areas: "marca" "precio" "categoria" "producto";
+    grid-template-areas: "marca" "precio" "categoria" "producto" "filtrarBTN";
     $font-size: 1.5rem;
     font-size: min(#{$font-size}, 3.5vw);
     padding: 1rem;

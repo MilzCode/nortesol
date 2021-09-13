@@ -83,6 +83,7 @@ const Filtro = () => {
           placeholder="Filtrar producto"
         />
       </div>
+      <button className="filtro__filtrarBTN">Filtrar</button>
     </div>
   );
 };
