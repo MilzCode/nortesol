@@ -1,13 +1,15 @@
 .layout {
   &__content {
     @extend %marginHeader;
-    margin-left: 6vw;
-    margin-right: 6vw;
+    margin-left: 10vw;
+    margin-right: 10vw;
     min-height: calc(
       100vh - #{$height-header1 + $height-header2 + $height-footer}
     );
 
     @media screen and (max-width: 850px) {
+      margin-left: 6vw;
+      margin-right: 6vw;
       min-height: calc(100vh - #{$height-header1-850px + $height-footer});
     }
     @media screen and (max-width: 700px) {

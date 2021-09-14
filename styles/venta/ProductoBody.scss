@@ -1,3 +1,13 @@
-.productoBody{
-    
+.productoBody {
+  margin: auto 8vw;
+  padding-top: 1rem;
+  & > h2 {
+    font-size: sizeBasedOnTitle(0.9);
+    color: $pantone2202C;
+  }
+  & > p,
+  span,
+  a {
+    font-size: sizeBasedOnTitle(0.6);
+  }
 }
