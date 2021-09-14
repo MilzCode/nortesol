@@ -8,6 +8,16 @@ $width-logo: 15rem;
 $width-logo-700px: $width-logo * 0.6;
 $height-footer: 9.4rem;
 $height-footer-700px: 7rem;
+$font-sizeTitles: 3.5rem;
+$font-sizeTitlesResponsive: min(#{$font-sizeTitles}, 6.5vw);
+
+//funciones
+//esta funcion devulve un valor basado en el tamño del titulo y recibe un factor de escala, por defecto es 1 (1:1)
+@function sizeBasedOnTitle($factor: 1) {
+  $newSize: calc(#{$font-sizeTitlesResponsive}* #{$factor});
+  @return $newSize;
+}
+
 //Colores
 $pantone106C: #f9e547;
 $white: #ffffff;
@@ -46,6 +56,7 @@ $SegoeUi: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     margin-top: $height-header1;
   }
 }
+
 // //dado que el header tiene un tamaño variable este Extends se encarga de dar un top segun el tamaño.
 // %topHeader {
 //   top: $height-header1 + $height-header2;

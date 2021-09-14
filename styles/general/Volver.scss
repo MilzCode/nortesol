@@ -1,14 +1,12 @@
 .volverBoton {
-  $font-size: 1.5em;
-  margin-top: $font-size * 1.4;
   cursor: pointer;
   & > i {
-    font-size: min(7vw, #{$font-size});
+    font-size: sizeBasedOnTitle(0.85);
     transform: rotate(-90deg);
     color: $pantone2412C;
   }
   & > span {
-    font-size: min(7vw, #{$font-size});
+    font-size: sizeBasedOnTitle(0.85);
     padding-left: 0.5rem;
     font-weight: 600;
     color: $pantone2039U;

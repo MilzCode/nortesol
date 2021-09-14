@@ -11,10 +11,40 @@ const ProductoHeadImagenes = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
+    arrows: false,
   };
   return (
-    <div className="productoHead__img">
-      <img src="/static/img/lapices.jpg" alt="producto1" />
+    <div className="productoHeadImagen">
+      <Slider {...settings}>
+        <Image
+          src={`/static/img/libreta.jpg`}
+          alt="..."
+          height="720"
+          width="1280"
+          objectFit="contain"
+        />
+        <Image
+          src={`/static/img/lapiz.jpg`}
+          alt="..."
+          height="720"
+          width="1280"
+          objectFit="contain"
+        />
+        <Image
+          src={`/static/img/tempera.jpg`}
+          alt="..."
+          height="720"
+          width="1280"
+          objectFit="contain"
+        />
+        <Image
+          src="/static/img/lapices.jpg"
+          alt="..."
+          height="720"
+          width="1280"
+          objectFit="contain"
+        />
+      </Slider>
     </div>
   );
 };

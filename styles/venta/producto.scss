@@ -1,9 +1,8 @@
 .producto {
-  $font-size: 3.5rem;
   &__titulo {
     text-align: center;
     color: $pantone2202C;
-    font-size: min(#{$font-size}, 6.5vw);
+    font-size: $font-sizeTitlesResponsive;
     font-weight: bold;
   }
 }

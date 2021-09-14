@@ -1,6 +1,7 @@
 import React from "react";
 /*
 Este componente es un boton que puede recibir un icono de fontawesome como children
+tiene las misma propidedaes que un boton normal.
   Recibe:
   -children = icono de fontawesome (opcional) + texto
   -backgroundColor = color de fondo del boton (por defecto: #ea5c90)

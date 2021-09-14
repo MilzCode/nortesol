@@ -1,8 +1,10 @@
 .productoHead {
-  &__comprar {
-    $widthComprar: 812px;
-    background: rgba($pantoneBlackC, 0.1);
-    width: $widthComprar;
-    height: $widthComprar * 0.645;
+  margin-top: sizeBasedOnTitle();
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  & > * {
+    margin: 0 4vw;
   }
 }
