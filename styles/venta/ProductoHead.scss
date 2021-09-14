@@ -1,2 +1,8 @@
 .productoHead {
+  &__comprar {
+    $widthComprar: 812px;
+    background: rgba($pantoneBlackC, 0.1);
+    width: $widthComprar;
+    height: $widthComprar * 0.645;
+  }
 }

@@ -1,0 +1,19 @@
+.botonColores1 {
+  $fontSize: 2rem;
+  background-color: $pantone2039U;
+  outline: none;
+  border: none;
+  padding: $fontSize * 0.4 $fontSize;
+  color: $white;
+  font-weight: bold;
+  border-radius: $fontSize * 0.6;
+  max-width: 100%;
+  font-size: min(#{$fontSize}, 4vw);
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+  &:hover {
+    opacity: 0.96;
+  }
+  &:active {
+    transform: scale(0.99);
+  }
+}
