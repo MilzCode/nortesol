@@ -1,6 +1,6 @@
 .productoHeadComprar {
   $widthComprar: sizeBasedOnTitle(10);
-  background: rgba($pantoneBlackC, 0.1);
+  background: $pantoneBlackC01;
   width: $widthComprar;
   display: flex;
   justify-content: center;
@@ -55,7 +55,7 @@
       font-size: sizeBasedOnTitle(0.95);
       color: $pantone2412C;
       &:last-child {
-        color: $pantoneWarmRedC;
+        color: $pantone292C;
       }
       &:active {
         transform: scale(0.98);

@@ -11,6 +11,7 @@ const Producto = () => {
       <h1 className="producto__titulo">The standard Lorem Ipsum passage</h1>
       <ProductoHead />
       <ProductoBody />
+      <hr />
       <ProductoRelacionados />
     </>
   );

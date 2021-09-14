@@ -1,6 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from "react";
 
+/*
+Este componente es un paginador.
+utiliza el hook state para manejar el estado de la paginación.
+Recibe:
+    -maxPaginas: el numero maximo de paginas que se mostraran.
+    -pagina: el numero de pagina actual que debe iniciar con 1 debe ser parte de un state.
+    -setPagina: el setter de pagina, debe controlar el parametro pagina.
+*/
+
 interface propsPaginador {
   maxPagina: number;
   pagina: number;
