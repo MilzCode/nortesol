@@ -10,6 +10,10 @@
 @import "./index/Siguenos.scss";
 //venta
 @import "./venta/ProductoVistaMiniatura.scss";
+@import "./venta/producto.scss";
+@import "./venta/ProductoHead.scss";
+@import "./venta/ProductoBody.scss";
+@import "./venta/ProductoRelacionados.scss";
 //search
 @import "./search/search.scss";
 @import "./search/Filtro.scss";
@@ -20,4 +24,3 @@
 @import "./externos/NOUISLIDER.scss";
 @import "./externos/TEST.scss";
 @import "./externos/REACTSELECT.scss";
-
