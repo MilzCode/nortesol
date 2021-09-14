@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
 
-const ProductoVistaMiniatura = () => {
+const ProductoVistaMiniatura = ({className} : any) => {
   return (
-    <div className="productoVistaMiniatura">
+    <div className={`productoVistaMiniatura ${className}`}>
       <div className="productoVistaMiniatura__imagen NOSELECT">
         <Image
           src={`/static/img/libreta.jpg`}

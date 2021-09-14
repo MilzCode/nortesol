@@ -45,6 +45,7 @@ const Header = () => {
           <input type="text" placeholder="Buscar" />
           <button type="submit">
             <i className="fas fa-search" />
+            <span className="TEXTINVISIBLE">buscar</span>
           </button>
         </form>
         {ingresado ? (

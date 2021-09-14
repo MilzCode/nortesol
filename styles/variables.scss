@@ -85,5 +85,5 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
 //TEXTINVISIBLE sirve para que un texto no aparezca en pantalla (esto puede servir por temas de SEO)
 .TEXTINVISIBLE {
   text-indent: -9999px;
-  font-size: 1px;
+  position: absolute;
 }

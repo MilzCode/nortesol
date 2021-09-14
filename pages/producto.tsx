@@ -13,6 +13,7 @@ const Producto = () => {
       <ProductoBody />
       <hr />
       <ProductoRelacionados />
+      <br />
     </>
   );
 };
