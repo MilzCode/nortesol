@@ -1,0 +1,14 @@
+.carrito {
+  & > h1 {
+    text-align: center;
+    font-size: $font-sizeTitlesResponsive;
+    color: $pantoneWarmRedC;
+    font-weight: bold;
+  }
+
+  & > h3 {
+    color: $pantone1645C;
+    font-size: sizeBasedOnTitle(0.8);
+    font-weight: 600;
+  }
+}
