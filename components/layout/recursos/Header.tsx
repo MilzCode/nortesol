@@ -101,6 +101,7 @@ const Header = () => {
         <div className="subHeader__menu">
           <a href="#">
             <i className="fas fa-home"></i>
+            <span className="TEXTINVISIBLE">Inicio</span>
           </a>
           <a href="#">Productos</a>
           <a href="#">Servicios</a>
