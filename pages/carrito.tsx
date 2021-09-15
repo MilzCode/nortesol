@@ -43,10 +43,10 @@ const Carrito = () => {
           <ProductoEnCarrito />
           <ProductoEnCarrito />
         </div>
-        <div className="carrito__totalContainer">
+        <div className="carrito__totalContainer NOSELECT">
           <p className="carrito__totalEspacioPago">Espacio de pago</p>
 
-          <form className="carrito__total NOSELECT" onSubmit={handdleSubmit}>
+          <form className="carrito__total" onSubmit={handdleSubmit}>
             <h3 className="carrito__totalTitulo">Total de Productos</h3>
             <p className="carrito__totalPrecio">$9.999.999</p>
             <div>
