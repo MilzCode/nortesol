@@ -17,6 +17,7 @@ const Carrito = () => {
     const ciudad = e.currentTarget.value;
     if (ciudad === "arica") {
       setdomicilioNoDisponible(true);
+      setCiudad("");
       setRegion("");
       return;
     }
@@ -96,7 +97,7 @@ const Carrito = () => {
                       <option value="metropolitana">Metropolitana</option>
                     </select>
                     {region !== "" && (
-                      <select onChange={handdleCiudad}>
+                      <select onChange={handdleCiudad} value={ciudad}>
                         <option value="">Ciudad</option>
                         <option value="arica">Arica</option>
                         <option value="tarapaca">Tarapaca</option>
