@@ -1,6 +1,6 @@
 .layout {
   &__content {
-    @extend %marginHeader;
+    @include headerSizeTop();
     margin-left: 10vw;
     margin-right: 10vw;
     min-height: calc(

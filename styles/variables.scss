@@ -40,22 +40,22 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
 //Textos Pseudoelementos
 
 //Mixins
+//dado que el header tiene un tamaño variable este mixin se encarga de dar un margin segun el tamaño.
 
-//Extends
-
-//dado que el header tiene un tamaño variable este Extends se encarga de dar un margin segun el tamaño.
-%marginHeader {
-  margin-top: $height-header1 + $height-header2;
+@mixin headerSizeTop($property: margin-top, $moreTop: 0) {
+  #{$property}: $height-header1 + $height-header2 + $moreTop;
   @media screen and (max-width: 850px) {
-    margin-top: $height-header1-850px;
+    #{$property}: $height-header1-850px + $moreTop;
   }
   @media screen and (max-width: 700px) {
-    margin-top: $height-header1-700px;
+    #{$property}: $height-header1-700px + $moreTop;
   }
   @media screen and (max-width: 450px) {
-    margin-top: $height-header1;
+    #{$property}: $height-header1 + $moreTop;
   }
 }
+
+//Extends
 
 // //dado que el header tiene un tamaño variable este Extends se encarga de dar un top segun el tamaño.
 // %topHeader {
