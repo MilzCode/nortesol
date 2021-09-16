@@ -9,9 +9,9 @@
   &__imagen {
     width: $widthMiniatura;
     max-height: $widthMiniatura * 0.5625;
-    border-left: 0.1rem solid $shadow1;
-    border-right: 0.1rem solid $shadow1;
-    border-top: 0.1rem solid $shadow1;
+    border-left: 0.1rem solid $shadow02;
+    border-right: 0.1rem solid $shadow02;
+    border-top: 0.1rem solid $shadow02;
     border-top-left-radius: $widthMiniatura * 0.1;
     border-top-right-radius: $widthMiniatura * 0.1;
     overflow: hidden;

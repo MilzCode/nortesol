@@ -26,10 +26,10 @@
   }
 
   &__disabled {
-    color: $shadow1 !important;
+    color: $shadow02 !important;
     cursor: default !important;
     &:hover {
-      color: $shadow1 !important;
+      color: $shadow02 !important;
     }
   }
 
@@ -44,11 +44,11 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    box-shadow: 0 0.2rem 0.4rem 0 $shadow1;
+    box-shadow: 0 0.2rem 0.4rem 0 $shadow02;
     cursor: pointer;
     z-index: 10;
     &:hover {
-      background: $shadow1;
+      background: $shadow02;
     }
     &--activo {
       background-color: $pantone2039U;
@@ -70,7 +70,7 @@
     height: auto;
     max-height: 75vh;
     background-color: white;
-    border: 0.1rem solid $shadow1;
+    border: 0.1rem solid $shadow02;
     z-index: 10100;
     position: absolute;
     display: flex;
