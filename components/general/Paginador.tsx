@@ -43,7 +43,7 @@ const Paginador = ({ maxPagina, pagina, setPagina }: propsPaginador) => {
   const [lastPrevPagina, setLastPrevPagina] = useState(cargarCadaNpaginas);
   //parte desde el 2 por eso i+2 ej: si paginas para mostrar = 4 entonces 2,3,4,5 (sin contar la primera ni ultima)
   const [paginas, setPaginas] = useState(
-    [...Array(paginasMostrar)].map((e, i) => i + 2)
+    [...Array(paginasMostrar)].map((_, i) => i + 2)
   );
   const handdlePaginador = () => {
     setPaginador(!paginador);
@@ -64,14 +64,14 @@ const Paginador = ({ maxPagina, pagina, setPagina }: propsPaginador) => {
       return;
     }
     if (paginaSelect <= 1 + paginasMostrarPorLado) {
-      setPaginas([...Array(paginasMostrar)].map((e, i) => i + 2));
+      setPaginas([...Array(paginasMostrar)].map((_, i) => i + 2));
       setLastNextPagina(cargarCadaNpaginas);
       setLastPrevPagina(cargarCadaNpaginas);
       setPagina(paginaSelect);
       return;
     } else if (paginaSelect >= maxPagina - paginasMostrarPorLado) {
       setPaginas(
-        [...Array(paginasMostrar)].map((e, i) => i + maxPagina - paginasMostrar)
+        [...Array(paginasMostrar)].map((_, i) => i + maxPagina - paginasMostrar)
       );
       setLastPrevPagina(maxPagina - cargarCadaNpaginas);
       setPagina(paginaSelect);
@@ -79,7 +79,7 @@ const Paginador = ({ maxPagina, pagina, setPagina }: propsPaginador) => {
     }
     setPaginas(
       [...Array(paginasMostrar)].map(
-        (e, i) => i + paginaSelect - paginasMostrarPorLado
+        (_, i) => i + paginaSelect - paginasMostrarPorLado
       )
     );
     setLastNextPagina(paginaSelect + paginasMostrarPorLado);
@@ -89,19 +89,19 @@ const Paginador = ({ maxPagina, pagina, setPagina }: propsPaginador) => {
   const loadNextPages = (nuevaPagina: number) => {
     if (nuevaPagina === maxPagina) return;
     if (nuevaPagina === 1) {
-      setPaginas([...Array(paginasMostrar)].map((e, i) => i + nuevaPagina + 1));
+      setPaginas([...Array(paginasMostrar)].map((_, i) => i + nuevaPagina + 1));
       setLastNextPagina(nuevaPagina + cargarCadaNpaginas);
       setLastPrevPagina(nuevaPagina - 1);
       return;
     }
     if (nuevaPagina + cargarCadaNpaginas < maxPagina) {
-      setPaginas([...Array(paginasMostrar)].map((e, i) => i + nuevaPagina));
+      setPaginas([...Array(paginasMostrar)].map((_, i) => i + nuevaPagina));
       setLastNextPagina(nuevaPagina + cargarCadaNpaginas);
       setLastPrevPagina(nuevaPagina - 1);
       return;
     }
     setPaginas(
-      [...Array(paginasMostrar)].map((e, i) => maxPagina - paginasMostrar + i)
+      [...Array(paginasMostrar)].map((_, i) => maxPagina - paginasMostrar + i)
     );
     setLastNextPagina(nuevaPagina + cargarCadaNpaginas);
     setLastPrevPagina(nuevaPagina - 1);
@@ -112,13 +112,13 @@ const Paginador = ({ maxPagina, pagina, setPagina }: propsPaginador) => {
       if (maxPagina < paginasMostrar + 2) {
         setPaginas(
           [...Array(paginasMostrar)].map(
-            (e, i) => i + nuevaPagina - cargarCadaNpaginas
+            (_, i) => i + nuevaPagina - cargarCadaNpaginas
           )
         );
       } else {
         setPaginas(
           [...Array(paginasMostrar)].map(
-            (e, i) => i + nuevaPagina - cargarCadaNpaginas - 1
+            (_, i) => i + nuevaPagina - cargarCadaNpaginas - 1
           )
         );
       }
@@ -130,14 +130,14 @@ const Paginador = ({ maxPagina, pagina, setPagina }: propsPaginador) => {
     if (nuevaPagina - cargarCadaNpaginas > 1) {
       setPaginas(
         [...Array(paginasMostrar)].map(
-          (e, i) => i + nuevaPagina - cargarCadaNpaginas
+          (_, i) => i + nuevaPagina - cargarCadaNpaginas
         )
       );
       setLastPrevPagina(nuevaPagina - cargarCadaNpaginas);
       setLastNextPagina(nuevaPagina + 1);
       return;
     }
-    setPaginas([...Array(paginasMostrar)].map((e, i) => i + 2));
+    setPaginas([...Array(paginasMostrar)].map((_, i) => i + 2));
     setLastPrevPagina(nuevaPagina - cargarCadaNpaginas);
     setLastNextPagina(nuevaPagina + 1);
   };
@@ -160,7 +160,7 @@ const Paginador = ({ maxPagina, pagina, setPagina }: propsPaginador) => {
     if (maxPagina <= maxPaginasDesplegable) {
       return (
         <>
-          {[...Array(maxPagina)].map((e, i) => (
+          {[...Array(maxPagina)].map((_, i) => (
             <div
               key={i + 1}
               className={`paginador__pagina ${
@@ -181,7 +181,7 @@ const Paginador = ({ maxPagina, pagina, setPagina }: propsPaginador) => {
     ) {
       return (
         <>
-          {[...Array(maxPaginasDesplegable)].map((e, i) => (
+          {[...Array(maxPaginasDesplegable)].map((_, i) => (
             <div
               key={i + pagina - paginasDespliguePorLado + 1}
               className={`paginador__pagina ${
@@ -200,7 +200,7 @@ const Paginador = ({ maxPagina, pagina, setPagina }: propsPaginador) => {
     if (pagina - paginasDespliguePorLado < 2) {
       return (
         <>
-          {[...Array(maxPaginasDesplegable)].map((e, i) => (
+          {[...Array(maxPaginasDesplegable)].map((_, i) => (
             <div
               key={i + 1}
               className={`paginador__pagina ${
@@ -218,7 +218,7 @@ const Paginador = ({ maxPagina, pagina, setPagina }: propsPaginador) => {
     if (pagina + paginasDespliguePorLado > maxPagina - 1) {
       return (
         <>
-          {[...Array(maxPaginasDesplegable)].map((e, i) => (
+          {[...Array(maxPaginasDesplegable)].map((_, i) => (
             <div
               key={i + maxPagina - maxPaginasDesplegable + 1}
               className={`paginador__pagina ${
