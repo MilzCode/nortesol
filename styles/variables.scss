@@ -71,7 +71,7 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
 //   }
 // }
 
-//clases
+//clases globales, son clases que se usan en mas de un sitio.
 //NOSELECT sirve para que un elemento no se pueda seleccionar (como si fuese un pseudo elemento)
 .NOSELECT {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -86,4 +86,36 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
 .TEXTINVISIBLE {
   text-indent: -9999px;
   position: absolute;
+}
+//"componentes"
+.DIVWITHINPUTANDLABEL {
+  margin: 0.3rem;
+  position: relative;
+  & > input {
+    width: sizeBasedOnTitle(10);
+    max-width: 100%;
+    outline: none !important;
+    border: 2px solid rgba($pantoneBlackC, 0.3);
+    border-radius: sizeBasedOnTitle(0.3);
+    font-size: sizeBasedOnTitle(0.5);
+    padding-left: sizeBasedOnTitle(0.63);
+  }
+  & > label {
+    font-size: sizeBasedOnTitle(0.5);
+    width: sizeBasedOnTitle(0.5);
+    height: sizeBasedOnTitle(0.5);
+    position: absolute;
+    top: max(26.5%, 0.8rem);
+    left: 0.4rem;
+    z-index: 2;
+    color: rgba($pantoneBlackC, 0.3);
+    pointer-events: none;
+  }
+}
+.TITULOSFORM {
+  font-size: sizeBasedOnTitle(0.9);
+  font-weight: 700;
+  color: $pantone2202C;
+  margin: 0;
+  padding-bottom: 0.5rem;
 }
