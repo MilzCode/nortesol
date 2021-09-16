@@ -92,22 +92,24 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
 .DIVWITHINPUTANDLABEL {
   margin: 0.3rem;
   position: relative;
-  & > input {
+  height: sizeBasedOnTitle(0.9);
+  & > input,
+  select {
     width: sizeBasedOnTitle(10);
     max-width: 100%;
     outline: none !important;
     border: 0.2rem solid $pantoneBlackC03;
     border-radius: sizeBasedOnTitle(0.3);
     font-size: sizeBasedOnTitle(0.5);
-    padding-left: sizeBasedOnTitle(0.63);
+    padding-left: 8%;
+    height: 100% !important;
   }
   & > label {
     font-size: sizeBasedOnTitle(0.5);
     width: sizeBasedOnTitle(0.5);
-
     position: absolute;
-    top: 0.8rem;
-    left: 0.4rem;
+    top: max(25%,0.7rem);
+    left: 2%;
     z-index: 2;
     color: rgba($pantoneBlackC, 0.3);
     pointer-events: none;
@@ -119,4 +121,38 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
   color: $pantone2202C;
   margin: 0;
   padding-bottom: 0.5rem;
+}
+
+.NOVALIDO {
+  color: red;
+  margin-top: 0.5rem;
+  font-size: sizeBasedOnTitle(0.5);
+  font-style: italic;
+  text-align: center;
+}
+.FORMULARIO1 {
+  @extend .NOSELECT;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: sizeBasedOnTitle(13);
+  background: $pantoneBlackC01;
+  border-radius: sizeBasedOnTitle(0.2);
+  margin: 0.5rem;
+  padding: 0.8em;
+}
+
+.LINKFORM {
+  color: $pantone2039U;
+  font-size: sizeBasedOnTitle(0.5);
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    color: rgba($pantone2039U, 0.7);
+  }
+  &:active {
+    transform: scale(0.95);
+  }
 }

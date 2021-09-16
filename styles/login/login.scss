@@ -4,19 +4,10 @@
   align-items: center;
   justify-content: center;
   min-height: 50vh;
-  @extend .NOSELECT;
 
   &__form,
   &__irRegistro {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: sizeBasedOnTitle(13);
-    background: $pantoneBlackC01;
-    border-radius: sizeBasedOnTitle(0.2);
-    margin: 0.5rem;
-    padding: 1rem;
+    @extend .FORMULARIO1;
   }
 
   &__titulo {
@@ -29,26 +20,12 @@
   }
 
   &__noValido {
-    color: red;
-    margin-top: 0.5rem;
-    font-size: sizeBasedOnTitle(0.5);
-    font-style: italic;
-    text-align: center;
+    @extend .NOVALIDO;
   }
   button {
     margin: 0.2rem;
   }
   &__mensajeOlvido {
-    color: $pantone2039U;
-    font-size: sizeBasedOnTitle(0.5);
-    text-align: center;
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-      color: rgba($pantone2039U, 0.7);
-    }
-    &:active {
-      transform: scale(0.95);
-    }
+    @extend .LINKFORM;
   }
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import BotonFAColores1 from "../components/general/BotonFAColores1";
+import Link from "next/link";
 
 const Ingresar = () => {
   const ingresoValido = true;
@@ -28,7 +29,9 @@ const Ingresar = () => {
       </form>
       <div className="login__irRegistro">
         <h3 className="login__titulo">Registrarse</h3>
-        <BotonFAColores1>Crear Cuenta</BotonFAColores1>
+        <Link passHref href="/register">
+          <BotonFAColores1>Crear Cuenta</BotonFAColores1>
+        </Link>
       </div>
     </div>
   );
