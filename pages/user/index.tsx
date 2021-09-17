@@ -21,9 +21,13 @@ const User = () => {
             <p>Telefono: +56912345678</p>
             <p>Contraseña: ********************</p>
           </div>
-          <BotonFAColores1 backgroundColor="#48d597">
-            Modificar mis datos
-          </BotonFAColores1>
+          <Link href="/user/edit" passHref>
+            <div>
+              <BotonFAColores1 backgroundColor="#48d597">
+                Modificar mis datos
+              </BotonFAColores1>
+            </div>
+          </Link>
         </div>
         <div className="user__misDirecciones">
           <h3 className="user__misDireccionesTitulo">Mis Direcciones</h3>

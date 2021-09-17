@@ -89,32 +89,49 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
   position: absolute;
 }
 //"componentes"
+
 .DIVWITHINPUTANDLABEL {
-  margin: 0.3rem;
+  $checkBox: 0.45rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: sizeBasedOnTitle(0.5);
+  margin: 0 0 0.45rem 0;
   position: relative;
-  height: sizeBasedOnTitle(0.9);
-  & > input,
+  height: sizeBasedOnTitle();
+  max-width: 100%;
+  width: sizeBasedOnTitle(10);
+
+  & > input:not([type="checkbox"]),
   select {
-    width: sizeBasedOnTitle(10);
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    border-radius: sizeBasedOnTitle(0.3);
     outline: none !important;
     border: 0.2rem solid $pantoneBlackC03;
-    border-radius: sizeBasedOnTitle(0.3);
-    font-size: sizeBasedOnTitle(0.5);
-    padding-left: 8%;
-    height: 100% !important;
+    padding-left: 1.7em;
+    &:focus {
+      border: 0.2rem solid $pantone292C;
+    }
   }
+
   & > label {
-    font-size: sizeBasedOnTitle(0.5);
-    width: sizeBasedOnTitle(0.5);
+    height: 100%;
     position: absolute;
-    top: max(25%, 0.7rem);
-    left: 2%;
-    z-index: 2;
-    color: rgba($pantoneBlackC, 0.3);
-    pointer-events: none;
+    left: 0.4em;
+    top: 23%;
+    color: $pantoneBlackC03;
+  }
+  //en caso de que haya checkbox y quieras alinear en aquellos sin checkbox pon un div vacio en vez de checkbox
+  & > input[type="checkbox"],
+  div {
+    padding: 0 !important;
+    margin: 0 0 0 $checkBox !important;
+    width: 3 * $checkBox !important;
+    height: 3 * $checkBox !important;
   }
 }
+
 .TITULOSFORM {
   font-size: sizeBasedOnTitle(0.9);
   font-weight: 700;

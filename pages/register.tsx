@@ -32,7 +32,7 @@ const Register = () => {
           <div className="register__input">
             <label htmlFor="telefono" className="fas fa-phone" />
             <input
-              type="text"
+              type="tel"
               name="telefono"
               id="telefono"
               placeholder="Celular ej: 9 4444 4444"
