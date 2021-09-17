@@ -8,7 +8,7 @@ const AddAddress = () => {
       <Volver />
       <div className="editAddress">
         <form action="" className="editAddress__form">
-          <h3 className="editAddress__titulo">Editar: Direccion 1</h3>
+          <h3 className="editAddress__titulo">Añadir dirección</h3>
           <p className="TEXT1">Ingrese nueva dirección</p>
           <div className="userEdit__input">
             <label htmlFor="nombre" className="fas fa-user" />

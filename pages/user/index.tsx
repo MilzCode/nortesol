@@ -29,6 +29,7 @@ const User = () => {
             </div>
           </Link>
         </div>
+        <hr />
         <div className="user__misDirecciones">
           <h3 className="user__misDireccionesTitulo">Mis Direcciones</h3>
           <div className="user__misDireccionesContenido">
@@ -58,7 +59,7 @@ const User = () => {
               <h4>Direccion 1</h4>
               <p>Region: Metropolitana</p>
               <p>Comuna: Las Condes</p>
-              <p>Direccion: Avenida Siempreviva 123</p>
+              <p>Direccion: Avenida Siempreviva Siempreviva 123</p>
               <div className="user__botones">
                 <Link href="/user/edit-address" passHref>
                   <div>

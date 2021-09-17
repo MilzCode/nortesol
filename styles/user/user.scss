@@ -14,8 +14,10 @@
   &__misDirecciones,
   &__misPedidos {
     @extend .FORMULARIO1;
-    width: sizeBasedOnTitle(14);
+    width: auto;
     max-width: 100%;
+    margin: auto;
+    padding: 2em;
 
     &Titulo {
       @extend .TITULOSFORM;
@@ -38,7 +40,8 @@
       color: $pantone292C;
     }
   }
-  &__direccion {
+  &__direccion,
+  &__misDatosContenido {
     @extend .WHITEBACKGROUND;
   }
   &__botones {
@@ -57,15 +60,8 @@
     text-align: center;
   }
   &__misPedidos {
-    width: sizeBasedOnTitle(40);
-    max-width: 100% !important;
-    margin: auto;
     & > table {
       border: none !important;
     }
-  }
-
-  &__misPedidosDescripcion {
-    width: 100% !important;
   }
 }
