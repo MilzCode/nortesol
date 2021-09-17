@@ -79,40 +79,42 @@ const User = () => {
           {pedidos && (
             <>
               <table className="table table-bordered">
-                <ContenidoTablaPedidos
-                  id="555"
-                  fecha="05/12/1998"
-                  estado="En transito"
-                  valor={100000}
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Repellat mollitia, magni odio iure ex impedit inventore saepe,
-                  non nihil minima soluta molestias officiis dignissimos ea sed
-                  ipsam et quia quis.
-                </ContenidoTablaPedidos>
-                <ContenidoTablaPedidos
-                  id="555"
-                  fecha="05/12/1998"
-                  estado="En transito"
-                  valor={100000}
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Repellat mollitia, magni odio iure ex impedit inventore saepe,
-                  non nihil minima soluta molestias officiis dignissimos ea sed
-                  ipsam et quia quis.
-                </ContenidoTablaPedidos>
+                <tbody>
+                  <ContenidoTablaPedidos
+                    id="555"
+                    fecha="05/12/1998"
+                    estado="En transito"
+                    valor={100000}
+                  >
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Repellat mollitia, magni odio iure ex impedit inventore
+                    saepe, non nihil minima soluta molestias officiis
+                    dignissimos ea sed ipsam et quia quis.
+                  </ContenidoTablaPedidos>
+                  <ContenidoTablaPedidos
+                    id="555"
+                    fecha="05/12/1998"
+                    estado="En transito"
+                    valor={100000}
+                  >
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Repellat mollitia, magni odio iure ex impedit inventore
+                    saepe, non nihil minima soluta molestias officiis
+                    dignissimos ea sed ipsam et quia quis.
+                  </ContenidoTablaPedidos>
 
-                <ContenidoTablaPedidos
-                  id="555"
-                  fecha="05/12/1998"
-                  estado="En transito"
-                  valor={100000}
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Repellat mollitia, magni odio iure ex impedit inventore saepe,
-                  non nihil minima soluta molestias officiis dignissimos ea sed
-                  ipsam et quia quis.
-                </ContenidoTablaPedidos>
+                  <ContenidoTablaPedidos
+                    id="555"
+                    fecha="05/12/1998"
+                    estado="En transito"
+                    valor={100000}
+                  >
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Repellat mollitia, magni odio iure ex impedit inventore
+                    saepe, non nihil minima soluta molestias officiis
+                    dignissimos ea sed ipsam et quia quis.
+                  </ContenidoTablaPedidos>
+                </tbody>
               </table>
               <Link href="/user/orders" passHref>
                 <div>

@@ -10,11 +10,27 @@ interface Props {
 }
 
 /*
-Para evitar que en el componente "user" se metiera demasiado codigo al hacer la table se dividio en este comnponente
-que es el contenido de la tabla de pedidos.
-Este componente debe ir dentro de una etiqueta table con la clase "table table-bordered" de bootstrap.
+Este comnponente es el contenido de la tabla de pedidos.
+Este componente debe ir dentro de una etiqueta tbody que este dentro de una etiqueta
+table con la clase "table table-bordered" de bootstrap.
+  ej:
+  <table className="table table-bordered">
+    <tbody>
+      <ContenidoTablaPedidos ...propiedades... />
+        descripcion
+      </ContenidoTablaPedidos>
 
-recibe:
+      <ContenidoTablaPedidos ...propiedades... />
+        descripcion
+      </ContenidoTablaPedidos>
+
+      <ContenidoTablaPedidos ...propiedades... />
+        descripcion
+      </ContenidoTablaPedidos>
+    </tbody>
+  </table>
+
+  recibe:
     id: que es el id del pedido
     fecha: que es la fecha del pedido
     estado: que es el estado del pedido
@@ -37,13 +53,12 @@ const ContenidoTablaPedidos = ({
 
   return (
     <>
-      <thead className="contenidoTablaPedidos__thead">
-        <tr>
-          <td colSpan={4} className="contenidoTablaPedidos__titulo1">
-            Pedido N°: {id ? id : "N/A"}
-          </td>
-        </tr>
-      </thead>
+      <tr className="contenidoTablaPedidos__salto" />
+      <tr className="contenidoTablaPedidos__thead">
+        <td colSpan={4} className="contenidoTablaPedidos__titulo1">
+          Pedido N°: {id ? id : "N/A"}
+        </td>
+      </tr>
       <tr className="contenidoTablaPedidos__head">
         <td>Fecha</td>
         <td>Estado</td>
@@ -64,7 +79,6 @@ const ContenidoTablaPedidos = ({
           {children ? children : "N/A"}
         </td>
       </tr>
-      <span className="contenidoTablaPedidos__salto"></span>
     </>
   );
 };
