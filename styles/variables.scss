@@ -15,8 +15,7 @@ $font-sizeTitlesResponsive: min(#{$font-sizeTitles}, 6.5vw);
 //funciones
 //esta funcion devulve un valor basado en el tamño del titulo y recibe un factor de escala, por defecto es 1 (1:1)
 @function sizeBasedOnTitle($factor: 1) {
-  $newSize: calc(#{$font-sizeTitlesResponsive}* #{$factor});
-  @return $newSize;
+  @return calc(#{$font-sizeTitlesResponsive}* #{$factor});
 }
 
 //Colores
