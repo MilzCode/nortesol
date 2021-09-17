@@ -7,7 +7,6 @@ $height-header1-700px: $height-header1 * 0.6;
 $width-logo: 15rem;
 $width-logo-700px: $width-logo * 0.6;
 $height-footer: 9.4rem;
-$height-footer-700px: 7rem;
 $font-sizeTitles: 3.5rem;
 //Esta variable es importante ya que se usa como medida de tamaño de componentes junto con la funcion sizeBasedOnTitle()
 $font-sizeTitlesResponsive: min(#{$font-sizeTitles}, 6.5vw);

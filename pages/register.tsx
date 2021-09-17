@@ -48,7 +48,7 @@ const Register = () => {
             </select>
           </div>
           <div className="register__input">
-            <label htmlFor="ciudad" className="fas fa-map-marker-alt" />
+            <label htmlFor="ciudad" className="fas fa-map-marker" />
             <select name="ciudad" id="ciudad">
               <option value="">Seleccione una ciudad</option>
               <option value="1">Ciudad 1</option>

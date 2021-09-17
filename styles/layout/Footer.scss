@@ -1,12 +1,10 @@
 .footer {
   width: 100%;
-  height: $height-footer;
   background-color: $pantone2202C;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  $font-size: 2rem;
 
   &__contenido {
     width: 100%;
@@ -16,37 +14,19 @@
     flex-wrap: wrap;
     margin: 0.5rem;
     & > img {
-      width: $width-logo;
+      width: sizeBasedOnTitle(4.5);
+      min-width: 9rem;
       padding-right: 1rem;
     }
     & > span {
       color: $white;
-      font-size: $font-size;
+      font-size: sizeBasedOnTitle(0.6);
       font-style: italic;
     }
   }
   &__creditos {
     color: $white;
     font-style: italic;
-    font-size: $font-size * 0.8;
-  }
-
-  @media screen and (max-width: 700px) {
-    height: $height-footer-700px;
-    &__contenido {
-      margin: 0.2rem;
-      & > img {
-        width: $width-logo-700px;
-      }
-      & > span {
-        font-size: $font-size * 0.75;
-      }
-    }
-
-    &__creditos {
-      color: $white;
-      font-style: italic;
-      font-size: $font-size * 0.7;
-    }
+    font-size: sizeBasedOnTitle(0.4);
   }
 }

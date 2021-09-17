@@ -38,10 +38,14 @@ const User = () => {
               <p>Comuna: Las Condes</p>
               <p>Direccion: Avenida Siempreviva 123</p>
               <div className="user__botones">
-                <BotonFAColores1 backgroundColor="#48d597">
-                  <i className="fas fa-pen-square"></i>
-                  Modificar direccion
-                </BotonFAColores1>
+                <Link href="/user/edit-address" passHref>
+                  <div>
+                    <BotonFAColores1 backgroundColor="#48d597">
+                      <i className="fas fa-pen-square"></i>
+                      Modificar direccion
+                    </BotonFAColores1>
+                  </div>
+                </Link>
 
                 <BotonFAColores1 backgroundColor="#f9423a">
                   <i className="fas fa-trash-alt"></i>
@@ -56,11 +60,14 @@ const User = () => {
               <p>Comuna: Las Condes</p>
               <p>Direccion: Avenida Siempreviva 123</p>
               <div className="user__botones">
-                <BotonFAColores1 backgroundColor="#48d597">
-                  <i className="fas fa-pen-square"></i>
-                  Modificar direccion
-                </BotonFAColores1>
-
+                <Link href="/user/edit-address" passHref>
+                  <div>
+                    <BotonFAColores1 backgroundColor="#48d597">
+                      <i className="fas fa-pen-square"></i>
+                      Modificar direccion
+                    </BotonFAColores1>
+                  </div>
+                </Link>
                 <BotonFAColores1 backgroundColor="#f9423a">
                   <i className="fas fa-trash-alt"></i>
                   Eliminar direccion
@@ -69,10 +76,14 @@ const User = () => {
             </div>
             <hr />
             <div className="user__botones">
-              <BotonFAColores1 backgroundColor="#69b3e7">
-                <i className="fas fa-plus"></i>
-                Agregar direccion
-              </BotonFAColores1>
+              <Link href="/user/add-address" passHref>
+                <div>
+                  <BotonFAColores1 backgroundColor="#69b3e7">
+                    <i className="fas fa-plus"></i>
+                    Agregar direccion
+                  </BotonFAColores1>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
