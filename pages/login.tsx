@@ -30,7 +30,9 @@ const Ingresar = () => {
       <div className="login__irRegistro">
         <h3 className="login__titulo">Registrarse</h3>
         <Link passHref href="/register">
-          <BotonFAColores1>Crear Cuenta</BotonFAColores1>
+          <div>
+            <BotonFAColores1>Crear Cuenta</BotonFAColores1>
+          </div>
         </Link>
       </div>
     </div>

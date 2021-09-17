@@ -47,6 +47,7 @@
     box-shadow: 0 0.2rem 0.4rem 0 $shadow02;
     cursor: pointer;
     z-index: 10;
+    background-color: white;
     &:hover {
       background: $shadow02;
     }

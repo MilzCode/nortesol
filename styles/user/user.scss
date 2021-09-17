@@ -1,0 +1,71 @@
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  &__titulo {
+    font-size: $font-sizeTitlesResponsive;
+    color: $pantone2202C;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__misDatos,
+  &__misDirecciones,
+  &__misPedidos {
+    @extend .FORMULARIO1;
+    width: sizeBasedOnTitle(14);
+    max-width: 100%;
+
+    &Titulo {
+      @extend .TITULOSFORM;
+    }
+  }
+  &__misDatosContenido,
+  &__misDireccionesContenido {
+    & p {
+      font-size: sizeBasedOnTitle(0.6);
+      font-style: italic;
+      font-weight: 500;
+      color: $pantoneBlackC;
+    }
+  }
+  &__misDireccionesContenido {
+    & h4 {
+      font-size: sizeBasedOnTitle(0.7);
+      font-style: italic;
+      font-weight: 500;
+      color: $pantone292C;
+    }
+  }
+  &__direccion {
+    @extend .WHITEBACKGROUND;
+  }
+  &__botones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    & > button {
+      margin: 0.3em auto;
+    }
+  }
+  &__titulo2 {
+    font-size: $font-sizeTitlesResponsive;
+    color: $pantone1645C;
+    font-weight: 700;
+    text-align: center;
+  }
+  &__misPedidos {
+    width: sizeBasedOnTitle(40);
+    max-width: 100% !important;
+    margin: auto;
+    & > table {
+      border: none !important;
+    }
+  }
+
+  &__misPedidosDescripcion {
+    width: 100% !important;
+  }
+}

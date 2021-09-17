@@ -1,0 +1,35 @@
+.contenidoTablaPedidos {
+  &__thead {
+    font-size: sizeBasedOnTitle(0.63);
+    font-weight: 700;
+    color: #fff;
+    background-color: #00a8ff;
+    border-bottom: 1px solid #00a8ff;
+  }
+  &__head,
+  &__body,
+  &__descripcion,
+  &__titulo2 {
+    color: $pantoneBlackC;
+    background: white;
+    text-align: center;
+  }
+  &__salto {
+    display: block;
+    height: 0.5rem;
+  }
+  &__head {
+    font-size: sizeBasedOnTitle(0.55);
+    font-weight: 600;
+  }
+  &__body {
+    font-size: sizeBasedOnTitle(0.52);
+  }
+  &__titulo2 {
+    font-size: sizeBasedOnTitle(0.59);
+    font-weight: 600;
+  }
+  &__descripcion {
+    font-size: sizeBasedOnTitle(0.52);
+  }
+}
