@@ -11,7 +11,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="description" content="NorteSol" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="UTF-8" />
-        <link rel="icon" href="/dgeico.ico" />
+        <link rel="icon" href="/nortesol.ico" />
+        
         <link
           rel="stylesheet"
           href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
