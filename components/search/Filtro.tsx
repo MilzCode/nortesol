@@ -26,7 +26,7 @@ const Filtro = () => {
   const [productosSeleccionados, setProductosSeleccionados] = useState([]);
 
   return (
-    <div className={`filtro ${togle && "filtro--noFilter"} NOSELECT`}>
+    <form className={`filtro ${togle && "filtro--noFilter"} NOSELECT`}>
       <div className="filtro__togle" onClick={() => setTogle(!togle)}>
         <span>Filtrar: </span>
         {togle && <i className="far fa-window-maximize"></i>}
@@ -84,7 +84,7 @@ const Filtro = () => {
         />
       </div>
       <button className="filtro__filtrarBTN">Filtrar</button>
-    </div>
+    </form>
   );
 };
 
