@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
 const Header = () => {
-  const ingresado = true;
+  const ingresado = false;
   const carritoObjetos = true;
   const [miCuenta, setMiCuenta] = useState(false);
   const [subHeader, setSubHeader] = useState(false);
@@ -67,10 +67,12 @@ const Header = () => {
             )}
           </div>
         ) : (
-          <div className="header__ingresar">
-            <i className="fas fa-user" />
-            <span>Ingresar</span>
-          </div>
+          <Link passHref href="/register">
+            <div className="header__ingresar">
+              <i className="fas fa-user" />
+              <span>Ingresar</span>
+            </div>
+          </Link>
         )}
 
         <div className="header__carrito">

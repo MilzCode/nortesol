@@ -2,8 +2,10 @@ import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import Layout from "../components/layout/Layout";
+import firebase, { FirebaseContext } from "../firebase";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const hola = "hola";
   return (
     <>
       <Head>
@@ -12,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="UTF-8" />
         <link rel="icon" href="/nortesol.ico" />
-        
+
         <link
           rel="stylesheet"
           href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
@@ -35,7 +37,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <Layout>
-        <Component {...pageProps} />
+        <FirebaseContext.Provider value={{ firebase }}>
+          <Component {...pageProps} />
+        </FirebaseContext.Provider>
       </Layout>
     </>
   );

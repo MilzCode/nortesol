@@ -6,7 +6,6 @@ $height-header1-850px: $height-header1 * 0.75;
 $height-header1-700px: $height-header1 * 0.6;
 $width-logo: 15rem;
 $width-logo-700px: $width-logo * 0.6;
-$height-footer: 9.4rem;
 $font-sizeTitles: 3.5rem;
 //Esta variable es importante ya que se usa como medida de tamaño de componentes junto con la funcion sizeBasedOnTitle()
 $font-sizeTitlesResponsive: min(#{$font-sizeTitles}, 6.5vw);
@@ -16,6 +15,8 @@ $font-sizeTitlesResponsive: min(#{$font-sizeTitles}, 6.5vw);
 @function sizeBasedOnTitle($factor: 1) {
   @return calc(#{$font-sizeTitlesResponsive}* #{$factor});
 }
+//variable que usa funcion
+$height-footer: sizeBasedOnTitle(3.75);
 
 //Colores
 $pantone106C: #f9e547;
@@ -54,22 +55,6 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     #{$property}: $height-header1 + $moreTop;
   }
 }
-
-//Extends
-
-// //dado que el header tiene un tamaño variable este Extends se encarga de dar un top segun el tamaño.
-// %topHeader {
-//   top: $height-header1 + $height-header2;
-//   @media screen and (max-width: 850px) {
-//     top: $height-header1-850px;
-//   }
-//   @media screen and (max-width: 700px) {
-//     top: $height-header1-700px;
-//   }
-//   @media screen and (max-width: 450px) {
-//     top: $height-header1;
-//   }
-// }
 
 //clases globales, son clases que se usan en mas de un sitio.
 //NOSELECT sirve para que un elemento no se pueda seleccionar (como si fuese un pseudo elemento)
@@ -129,6 +114,19 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     width: 3 * $checkBox !important;
     height: 3 * $checkBox !important;
   }
+  //shape triangle red error
+  & > i {
+    position: absolute;
+    z-index: 2;
+    top: 25%;
+    right: -1.3em;
+    width: 0;
+    height: 0;
+    border-top: sizeBasedOnTitle(0.25) solid transparent;
+    border-right: sizeBasedOnTitle(0.7) solid $pantone292C;
+    border-bottom: sizeBasedOnTitle(0.25) solid transparent;
+    border-radius: 0.5em;
+  }
 }
 
 .TITULOSFORM {
@@ -156,6 +154,16 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
   border-radius: sizeBasedOnTitle(0.2);
   margin: 0.5rem;
   padding: 0.8em;
+  max-width: 100%;
+  //si pones un div con un ul dentro este servira para los errores este div debe ir al final de los input
+  div > ul {
+    color: rgba($pantoneWarmRedC, 0.9);
+    font-size: sizeBasedOnTitle(0.5);
+    font-style: italic;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 .LINKFORM {
