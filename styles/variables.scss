@@ -120,8 +120,8 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     position: absolute;
     z-index: 2;
     right: -1em;
-    rotate: -90deg;
     color: $pantone2202C;
+    transform: rotate(-90deg);
   }
 }
 
@@ -179,6 +179,7 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
 
     & > ul {
       list-style: none;
+      padding: 0 0 0 2.2em;
     }
     & i {
       margin-right: 0.2em;
