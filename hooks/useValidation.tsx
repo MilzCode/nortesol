@@ -34,18 +34,14 @@ const useValidacion = (
   //Tanto objetoErrores como objetoDeValores deben ser objetos con sus atributos en formato key:value donde value sea vacio "", null, false, etc
   //De esta forma se entiende que la condicion de No error es que todos los valores esten vacios, es decir, en la forma que se inicializo el objeto.
   // objeto sin errores -> objeto con errores o objeto sin errores.
+  // ej: {nombre: "", apellido: "", email: ""} seria un objeto cuyos valores no tienen errores
+  // ej2: {nombre: "", apellido: "Este atributo es obligatorio", email: "este email no es valido"} es un objeto cuyos valores tienen errores.
+  //Esto es para no manejar objetos sin nada y evitar referencias no existente para el objeto errores.
   objetoErrores = objetoErrores || objetoDeValores;
 
   const [valores, setValores] = useState({ ...objetoDeValores });
   const [errores, setErrores] = useState({ ...objetoErrores });
   const [submitForm, setSubmitForm] = useState(false);
-  /*
-  remplazarObjetoDeErroresConErroresEncontrados:
-  esta funcion  llena el objeto de errores con los errores que se encuentren en la validacion
-  la idea es que el objeto de errores nunca quede vacio, sino solo que se resetee a su estado ideal.
-  ej: {nombre: "", apellido: "", email: ""} seria un objeto cuyos valores no tienen errores
-  ej2: {nombre: "", apellido: "Este atributo es obligatorio", email: "este email no es valido"} es un objeto cuyos valores tienen errores.
-  */
 
   useEffect(() => {
     if (submitForm) {
@@ -64,7 +60,6 @@ const useValidacion = (
   //formatoInput es una funcion que da formato al input, por ejemplo, si queremos que el input quede en mayusculas, podemos añadir una funcion que lo haga.
   //ej: input = "texto" => formatoInput(input) = "Texto" (en este caso la funcion deja la primera letra en mayuscula y las demas en minuscula)
   //y asi se guardara en el objeto de valores.
-  //Esto es para no manejar objetos vacios y evitar referencias no existente para el objeto errores.
   const handleChange = (
     e: any,
     validacionOnChange = false,
