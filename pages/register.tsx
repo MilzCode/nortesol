@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BotonFAColores1 from "../components/general/BotonFAColores1";
 import firebase from "../firebase";
 import validarCrearCuenta from "../validaciones/validarCrearCuenta";
 import RegionesYComunas from "../utils/RegionesYComunas";
 import useValidacion from "../hooks/useValidation";
 
-const errInicial = {
+/*
+Este esperpento de codigo con los errores ya lo se, typescript me estaba dando un drama y fue la forma de solucionarlo xd.
+Si puedes refactorizar esto de forma que no tire problemas, lo puedes hacer.
+
+*/
+const objetoDeErrores = {
   nombre: "",
   rut: "",
   email: "",
@@ -17,11 +22,18 @@ const errInicial = {
   password2: "",
 };
 const Register = () => {
+  const [errInicial, setErrInicial] = React.useState(objetoDeErrores);
   const [emailUsado, setEmailUsado] = React.useState(false);
   const { valores, errores, handleSubmit, handleChange, handleBlur } =
-    useValidacion(errInicial, validarCrearCuenta, crearCuenta);
+    useValidacion(objetoDeErrores, validarCrearCuenta, crearCuenta);
   const [ciudades, setCiudades] = React.useState([]);
-
+  useEffect(() => {
+    const sinError = Object.keys(errores).length == 0;
+    if (!sinError) {
+      const nuevosErrores = { ...objetoDeErrores, ...errores };
+      setErrInicial(nuevosErrores);
+    }
+  }, [errores]);
   async function crearCuenta() {
     console.log("Registrando");
     try {
@@ -55,7 +67,7 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errores.nombre && <i />}
+            {errInicial.nombre && <i />}
           </div>
           <div className="register__input">
             <label htmlFor="rut" className="fas fa-address-card" />
@@ -67,7 +79,7 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errores.rut && <i />}
+            {errInicial.rut && <i />}
           </div>
           <div className="register__input">
             <label htmlFor="email" className="fas fa-envelope" />
@@ -82,7 +94,7 @@ const Register = () => {
               }}
               onBlur={handleBlur}
             />
-            {emailUsado || errores.email && <i />}
+            {emailUsado || (errInicial.email && <i />)}
           </div>
           <div className="register__input">
             <label htmlFor="celular" className="fas fa-phone" />
@@ -95,7 +107,7 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errores.celular && <i />}
+            {errInicial.celular && <i />}
           </div>
           <div className="register__input">
             <label htmlFor="region" className="fas fa-map-marker-alt" />
@@ -118,7 +130,7 @@ const Register = () => {
                 </option>
               ))}
             </select>
-            {errores.region && <i />}
+            {errInicial.region && <i />}
           </div>
           <div className="register__input">
             <label htmlFor="ciudad" className="fas fa-map-marker" />
@@ -136,7 +148,7 @@ const Register = () => {
                 </option>
               ))}
             </select>
-            {errores.ciudad && <i />}
+            {errInicial.ciudad && <i />}
           </div>
           <div className="register__input">
             <label htmlFor="direccion" className="fas fa-home" />
@@ -149,7 +161,7 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errores.direccion && <i />}
+            {errInicial.direccion && <i />}
           </div>
           <div className="register__input">
             <label htmlFor="password" className="fas fa-lock" />
@@ -161,7 +173,7 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errores.password && <i />}
+            {errInicial.password && <i />}
           </div>
           <div className="register__input">
             <label htmlFor="password2" className="fas fa-lock" />
@@ -173,62 +185,62 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errores.password2 && <i />}
+            {errInicial.password2 && <i />}
           </div>
           <div>
-            <ul className="register__errores">
-              {errores.nombre && (
+            <ul className="register__errInicial">
+              {errInicial.nombre && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errores.nombre}
+                  {errInicial.nombre}
                 </li>
               )}
-              {errores.rut && (
+              {errInicial.rut && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errores.rut}
+                  {errInicial.rut}
                 </li>
               )}
-              {errores.email && (
+              {errInicial.email && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errores.email}
+                  {errInicial.email}
                 </li>
               )}
-              {errores.celular && (
+              {errInicial.celular && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errores.celular}
+                  {errInicial.celular}
                 </li>
               )}
-              {errores.region && (
+              {errInicial.region && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errores.region}
+                  {errInicial.region}
                 </li>
               )}
-              {errores.ciudad && (
+              {errInicial.ciudad && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errores.ciudad}
+                  {errInicial.ciudad}
                 </li>
               )}
-              {errores.direccion && (
+              {errInicial.direccion && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errores.direccion}
+                  {errInicial.direccion}
                 </li>
               )}
-              {errores.password && (
+              {errInicial.password && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errores.password}
+                  {errInicial.password}
                 </li>
               )}
-              {errores.password2 && (
+              {errInicial.password2 && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errores.password2}
+                  {errInicial.password2}
                 </li>
               )}
               {emailUsado && (
