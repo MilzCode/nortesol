@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import BotonFAColores1 from "../components/general/BotonFAColores1";
 import firebase from "../firebase";
 import validarCrearCuenta from "../validaciones/validarCrearCuenta";
