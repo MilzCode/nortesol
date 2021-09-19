@@ -7,12 +7,7 @@ import useValidacion from "../hooks/useValidation";
 import Router from "next/router";
 import formatoRut from "../utils/formatoRut";
 
-/*
-Este esperpento de codigo con los errores ya lo se, typescript me estaba dando un drama y fue la forma de solucionarlo xd.
-Si puedes refactorizar esto de forma que no tire problemas, lo puedes hacer.
-
-*/
-const objetoDeErrores = {
+const stateInicial = {
   nombre: "",
   rut: "",
   email: "",
@@ -26,28 +21,16 @@ const objetoDeErrores = {
 const ciudadesInicial: string[] = [];
 const Register = () => {
   const [emailUsado, setEmailUsado] = useState(false);
-  const [comprobarErrores, setComprobarErrores] = useState(objetoDeErrores);
   const {
     valores,
-    errores: erroresRecibidosDeUseValidation,
+    errores,
     handleSubmit,
     handleChange,
     handleBlur,
     sendChange,
-  } = useValidacion(objetoDeErrores, validarCrearCuenta, crearCuenta);
+  } = useValidacion(stateInicial, validarCrearCuenta, crearCuenta);
   const [ciudades, setCiudades] = useState(ciudadesInicial);
-  useEffect(() => {
-    const conErroresDeUseValidacion =
-      Object.keys(erroresRecibidosDeUseValidation).length != 0;
-    if (conErroresDeUseValidacion) {
-      setComprobarErrores({
-        ...objetoDeErrores,
-        ...erroresRecibidosDeUseValidation,
-      });
-    } else {
-      setComprobarErrores(objetoDeErrores);
-    }
-  }, [erroresRecibidosDeUseValidation]);
+
   async function crearCuenta() {
     try {
       await firebase.registrar(
@@ -101,7 +84,7 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {comprobarErrores.nombre && <i className="far fa-hand-pointer" />}
+            {errores.nombre && <i className="far fa-hand-pointer" />}
           </div>
           <div className="register__input">
             <label htmlFor="rut" className="fas fa-address-card" />
@@ -113,7 +96,7 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {comprobarErrores.rut && <i className="far fa-hand-pointer" />}
+            {errores.rut && <i className="far fa-hand-pointer" />}
           </div>
           <div className="register__input">
             <label htmlFor="email" className="fas fa-envelope" />
@@ -129,7 +112,7 @@ const Register = () => {
               onBlur={handleBlur}
             />
             {emailUsado ||
-              (comprobarErrores.email && <i className="far fa-hand-pointer" />)}
+              (errores.email && <i className="far fa-hand-pointer" />)}
           </div>
           <div className="register__input">
             <label htmlFor="celular" className="fas fa-phone" />
@@ -142,7 +125,7 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {comprobarErrores.celular && <i className="far fa-hand-pointer" />}
+            {errores.celular && <i className="far fa-hand-pointer" />}
           </div>
           <div className="register__input">
             <label htmlFor="region" className="fas fa-map-marker-alt" />
@@ -164,7 +147,7 @@ const Register = () => {
                 </option>
               ))}
             </select>
-            {comprobarErrores.region && <i className="far fa-hand-pointer" />}
+            {errores.region && <i className="far fa-hand-pointer" />}
           </div>
           <div className="register__input">
             <label htmlFor="ciudad" className="fas fa-map-marker" />
@@ -184,7 +167,7 @@ const Register = () => {
                 </option>
               ))}
             </select>
-            {comprobarErrores.ciudad && <i className="far fa-hand-pointer" />}
+            {errores.ciudad && <i className="far fa-hand-pointer" />}
           </div>
           <div className="register__input">
             <label htmlFor="direccion" className="fas fa-home" />
@@ -199,9 +182,7 @@ const Register = () => {
               //direccion depende de la ciudad y la region
               value={valores.ciudad && valores.region ? valores.direccion : ""}
             />
-            {comprobarErrores.direccion && (
-              <i className="far fa-hand-pointer" />
-            )}
+            {errores.direccion && <i className="far fa-hand-pointer" />}
           </div>
           <div className="register__input">
             <label htmlFor="password" className="fas fa-lock" />
@@ -213,7 +194,7 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {comprobarErrores.password && <i className="far fa-hand-pointer" />}
+            {errores.password && <i className="far fa-hand-pointer" />}
           </div>
           <div className="register__input">
             <label htmlFor="password2" className="fas fa-lock" />
@@ -225,64 +206,62 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {comprobarErrores.password2 && (
-              <i className="far fa-hand-pointer" />
-            )}
+            {errores.password2 && <i className="far fa-hand-pointer" />}
           </div>
           <div className="ERRFORM">
-            <ul className="register__comprobarErrores">
-              {comprobarErrores.nombre && (
+            <ul className="register__errores">
+              {errores.nombre && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {comprobarErrores.nombre}
+                  {errores.nombre}
                 </li>
               )}
-              {comprobarErrores.rut && (
+              {errores.rut && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {comprobarErrores.rut}
+                  {errores.rut}
                 </li>
               )}
-              {comprobarErrores.email && (
+              {errores.email && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {comprobarErrores.email}
+                  {errores.email}
                 </li>
               )}
-              {comprobarErrores.celular && (
+              {errores.celular && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {comprobarErrores.celular}
+                  {errores.celular}
                 </li>
               )}
-              {comprobarErrores.region && (
+              {errores.region && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {comprobarErrores.region}
+                  {errores.region}
                 </li>
               )}
-              {comprobarErrores.ciudad && (
+              {errores.ciudad && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {comprobarErrores.ciudad}
+                  {errores.ciudad}
                 </li>
               )}
-              {comprobarErrores.direccion && (
+              {errores.direccion && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {comprobarErrores.direccion}
+                  {errores.direccion}
                 </li>
               )}
-              {comprobarErrores.password && (
+              {errores.password && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {comprobarErrores.password}
+                  {errores.password}
                 </li>
               )}
-              {comprobarErrores.password2 && (
+              {errores.password2 && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {comprobarErrores.password2}
+                  {errores.password2}
                 </li>
               )}
               {emailUsado && (
