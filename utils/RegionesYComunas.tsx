@@ -1,4 +1,12 @@
-const RegionesYComunas = [
+interface RegionType {
+  name: string;
+  romanNumber: string;
+  number: string;
+  abbreviation: string;
+  communes: string[];
+}
+
+const RegionesYComunas: RegionType[] = [
   {
     name: "Arica y Parinacota",
     romanNumber: "XV",

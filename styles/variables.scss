@@ -114,18 +114,14 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     width: 3 * $checkBox !important;
     height: 3 * $checkBox !important;
   }
-  //shape triangle red error
-  & > i {
+  //Esta manito es para mostrar los errores y funciona con fa-hand-pointer de fontawesome.
+  & .fa-hand-pointer {
+    font-size: 1.5em;
     position: absolute;
     z-index: 2;
-    top: 25%;
-    right: -1.3em;
-    width: 0;
-    height: 0;
-    border-top: sizeBasedOnTitle(0.25) solid transparent;
-    border-right: sizeBasedOnTitle(0.7) solid $pantone292C;
-    border-bottom: sizeBasedOnTitle(0.25) solid transparent;
-    border-radius: 0.5em;
+    right: -1em;
+    rotate: -90deg;
+    color: $pantone2202C;
   }
 }
 
@@ -155,14 +151,38 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
   margin: 0.5rem;
   padding: 0.8em;
   max-width: 100%;
-  //si pones un div con un ul dentro este servira para los errores este div debe ir al final de los input
-  div > ul {
+  //ERRFORM es una clase que se usa para mostrar los errores en el formulario
+  //se espera que contenga dentro un ul con los errores ej
+  /*
+  <div className="ERRFORM">
+            <ul>
+                <li>
+                  <i className="fas fa-exclamation-circle" />
+                  mensaje de error 1
+                </li>
+                <li>
+
+                  <i className="fas fa-exclamation-circle" />
+                  mensaje de error 2
+                </li>
+            </ul>
+        </div>
+  */
+
+  .ERRFORM {
+    display: block;
     color: rgba($pantoneWarmRedC, 0.9);
     font-size: sizeBasedOnTitle(0.5);
     font-style: italic;
     list-style: none;
-    padding: 0;
-    margin: 0;
+    margin-right: auto;
+
+    & > ul {
+      list-style: none;
+    }
+    & i {
+      margin-right: 0.2em;
+    }
   }
 }
 

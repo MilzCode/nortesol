@@ -1,3 +1,5 @@
+import validarRut from "../utils/validarRut";
+
 export default function validarCrearCuenta(datos) {
   let errors = {};
 
@@ -6,6 +8,8 @@ export default function validarCrearCuenta(datos) {
   }
   if (!datos.rut) {
     errors.rut = "El rut es requerido";
+  } else if (!validarRut(datos.rut)) {
+    errors.rut = "El rut no es valido";
   }
 
   if (!datos.email) {

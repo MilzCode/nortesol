@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BotonFAColores1 from "../components/general/BotonFAColores1";
 import firebase from "../firebase";
 import validarCrearCuenta from "../validaciones/validarCrearCuenta";
 import RegionesYComunas from "../utils/RegionesYComunas";
 import useValidacion from "../hooks/useValidation";
 import Router from "next/router";
+import formatoRut from "../utils/formatoRut";
 
 /*
 Este esperpento de codigo con los errores ya lo se, typescript me estaba dando un drama y fue la forma de solucionarlo xd.
@@ -22,27 +23,37 @@ const objetoDeErrores = {
   password: "",
   password2: "",
 };
+const ciudadesInicial: string[] = [];
 const Register = () => {
-  const [errInicial, setErrInicial] = React.useState(objetoDeErrores);
-  const [emailUsado, setEmailUsado] = React.useState(false);
-  const { valores, errores, handleSubmit, handleChange, handleBlur } =
-    useValidacion(objetoDeErrores, validarCrearCuenta, crearCuenta);
-  const [ciudades, setCiudades] = React.useState([]);
+  const [emailUsado, setEmailUsado] = useState(false);
+  const [comprobarErrores, setComprobarErrores] = useState(objetoDeErrores);
+  const {
+    valores,
+    errores: erroresRecibidosDeUseValidation,
+    handleSubmit,
+    handleChange,
+    handleBlur,
+  } = useValidacion(objetoDeErrores, validarCrearCuenta, crearCuenta);
+  const [ciudades, setCiudades] = useState(ciudadesInicial);
   useEffect(() => {
-    const sinError = Object.keys(errores).length == 0;
-    if (!sinError) {
-      const nuevosErrores = { ...objetoDeErrores, ...errores };
-      setErrInicial(nuevosErrores);
+    const conErroresDeUseValidacion =
+      Object.keys(erroresRecibidosDeUseValidation).length != 0;
+    if (conErroresDeUseValidacion) {
+      setComprobarErrores({
+        ...objetoDeErrores,
+        ...erroresRecibidosDeUseValidation,
+      });
+    } else {
+      setComprobarErrores(objetoDeErrores);
     }
-  }, [errores]);
+  }, [erroresRecibidosDeUseValidation]);
   async function crearCuenta() {
-    console.log("Registrando");
     try {
       await firebase.registrar(
         valores.nombre,
         valores.email,
         valores.password,
-        valores.rut,
+        formatoRut(valores.rut),
         valores.celular,
         valores.region,
         valores.ciudad,
@@ -54,6 +65,15 @@ const Register = () => {
     }
     return;
   }
+  //a veces se bugea el select, por eso lo hago asi xd como plan B.
+  const getCiudades = (region: string) => {
+    const regionEncontrada = RegionesYComunas.find((r) => r.name === region);
+    if (regionEncontrada) {
+      setCiudades(regionEncontrada.communes);
+      return;
+    }
+    setCiudades([]);
+  };
   return (
     <>
       <div className="register">
@@ -69,7 +89,7 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errInicial.nombre && <i />}
+            {comprobarErrores.nombre && <i className="far fa-hand-pointer" />}
           </div>
           <div className="register__input">
             <label htmlFor="rut" className="fas fa-address-card" />
@@ -77,11 +97,11 @@ const Register = () => {
               type="text"
               name="rut"
               id="rut"
-              placeholder="Rut ej: 11222333-k"
+              placeholder="Ingrese Rut"
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errInicial.rut && <i />}
+            {comprobarErrores.rut && <i className="far fa-hand-pointer" />}
           </div>
           <div className="register__input">
             <label htmlFor="email" className="fas fa-envelope" />
@@ -96,7 +116,8 @@ const Register = () => {
               }}
               onBlur={handleBlur}
             />
-            {emailUsado || (errInicial.email && <i />)}
+            {emailUsado ||
+              (comprobarErrores.email && <i className="far fa-hand-pointer" />)}
           </div>
           <div className="register__input">
             <label htmlFor="celular" className="fas fa-phone" />
@@ -109,7 +130,7 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errInicial.celular && <i />}
+            {comprobarErrores.celular && <i className="far fa-hand-pointer" />}
           </div>
           <div className="register__input">
             <label htmlFor="region" className="fas fa-map-marker-alt" />
@@ -132,7 +153,7 @@ const Register = () => {
                 </option>
               ))}
             </select>
-            {errInicial.region && <i />}
+            {comprobarErrores.region && <i className="far fa-hand-pointer" />}
           </div>
           <div className="register__input">
             <label htmlFor="ciudad" className="fas fa-map-marker" />
@@ -142,15 +163,22 @@ const Register = () => {
               disabled={!valores.region}
               onChange={handleChange}
               onBlur={handleBlur}
+              onClick={() =>
+                valores.region &&
+                ciudades.length === 0 &&
+                getCiudades(valores.region)
+              }
+              //ciudad depende de la region
+              value={valores.region ? valores.ciudad : ""}
             >
               <option value="">Seleccione una ciudad</option>
-              {ciudades.map((ciudad: any) => (
+              {ciudades.map((ciudad: string) => (
                 <option key={ciudad} value={ciudad}>
                   {ciudad}
                 </option>
               ))}
             </select>
-            {errInicial.ciudad && <i />}
+            {comprobarErrores.ciudad && <i className="far fa-hand-pointer" />}
           </div>
           <div className="register__input">
             <label htmlFor="direccion" className="fas fa-home" />
@@ -159,11 +187,15 @@ const Register = () => {
               name="direccion"
               id="direccion"
               placeholder="Dirección ej: Mi calle 555"
-              disabled={!valores.ciudad}
+              disabled={!valores.ciudad || !valores.region}
               onChange={handleChange}
               onBlur={handleBlur}
+              //direccion depende de la ciudad y la region
+              value={valores.ciudad && valores.region ? valores.direccion : ""}
             />
-            {errInicial.direccion && <i />}
+            {comprobarErrores.direccion && (
+              <i className="far fa-hand-pointer" />
+            )}
           </div>
           <div className="register__input">
             <label htmlFor="password" className="fas fa-lock" />
@@ -175,7 +207,7 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errInicial.password && <i />}
+            {comprobarErrores.password && <i className="far fa-hand-pointer" />}
           </div>
           <div className="register__input">
             <label htmlFor="password2" className="fas fa-lock" />
@@ -187,62 +219,64 @@ const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errInicial.password2 && <i />}
+            {comprobarErrores.password2 && (
+              <i className="far fa-hand-pointer" />
+            )}
           </div>
-          <div>
-            <ul className="register__errInicial">
-              {errInicial.nombre && (
+          <div className="ERRFORM">
+            <ul className="register__comprobarErrores">
+              {comprobarErrores.nombre && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errInicial.nombre}
+                  {comprobarErrores.nombre}
                 </li>
               )}
-              {errInicial.rut && (
+              {comprobarErrores.rut && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errInicial.rut}
+                  {comprobarErrores.rut}
                 </li>
               )}
-              {errInicial.email && (
+              {comprobarErrores.email && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errInicial.email}
+                  {comprobarErrores.email}
                 </li>
               )}
-              {errInicial.celular && (
+              {comprobarErrores.celular && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errInicial.celular}
+                  {comprobarErrores.celular}
                 </li>
               )}
-              {errInicial.region && (
+              {comprobarErrores.region && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errInicial.region}
+                  {comprobarErrores.region}
                 </li>
               )}
-              {errInicial.ciudad && (
+              {comprobarErrores.ciudad && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errInicial.ciudad}
+                  {comprobarErrores.ciudad}
                 </li>
               )}
-              {errInicial.direccion && (
+              {comprobarErrores.direccion && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errInicial.direccion}
+                  {comprobarErrores.direccion}
                 </li>
               )}
-              {errInicial.password && (
+              {comprobarErrores.password && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errInicial.password}
+                  {comprobarErrores.password}
                 </li>
               )}
-              {errInicial.password2 && (
+              {comprobarErrores.password2 && (
                 <li>
                   <i className="fas fa-exclamation-circle" />
-                  {errInicial.password2}
+                  {comprobarErrores.password2}
                 </li>
               )}
               {emailUsado && (
