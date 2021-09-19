@@ -33,6 +33,7 @@ const Register = () => {
     handleSubmit,
     handleChange,
     handleBlur,
+    sendChange,
   } = useValidacion(objetoDeErrores, validarCrearCuenta, crearCuenta);
   const [ciudades, setCiudades] = useState(ciudadesInicial);
   useEffect(() => {
@@ -67,12 +68,23 @@ const Register = () => {
   }
   //a veces se bugea el select, por eso lo hago asi xd como plan B.
   const getCiudades = (region: string) => {
+    if (region == "") {
+      setCiudades([]);
+      sendChange({ ciudad: "", region: "" });
+      return;
+    }
+    if (region === valores.region) {
+      return;
+    }
     const regionEncontrada = RegionesYComunas.find((r) => r.name === region);
     if (regionEncontrada) {
       setCiudades(regionEncontrada.communes);
       return;
     }
+
     setCiudades([]);
+    sendChange({ ciudad: "", region: "" });
+    return;
   };
   return (
     <>
@@ -137,18 +149,17 @@ const Register = () => {
             <select
               name="region"
               id="region"
-              onChange={handleChange}
+              onChange={(e) => {
+                handleChange(e);
+                getCiudades(e.target.value);
+              }}
               onBlur={handleBlur}
             >
-              <option value="">Seleccione una región</option>
+              <option value="" onClick={() => sendChange({ region: "" })}>
+                Seleccione una región
+              </option>
               {RegionesYComunas.map((region: any) => (
-                <option
-                  key={region.name}
-                  value={region.name}
-                  onClick={() => {
-                    setCiudades(region.communes);
-                  }}
-                >
+                <option key={region.name} value={region.name}>
                   {region.name}
                 </option>
               ))}
@@ -163,11 +174,6 @@ const Register = () => {
               disabled={!valores.region}
               onChange={handleChange}
               onBlur={handleBlur}
-              onClick={() =>
-                valores.region &&
-                ciudades.length === 0 &&
-                getCiudades(valores.region)
-              }
               //ciudad depende de la region
               value={valores.region ? valores.ciudad : ""}
             >

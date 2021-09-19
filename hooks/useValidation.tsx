@@ -66,12 +66,21 @@ const useValidacion = (
     setErrores(validar(valores));
   };
 
+  //funcion para mandar un cambio manualmente
+  const sendChange = (objeto: any) => {
+    setValores({
+      ...valores,
+      ...objeto,
+    });
+  };
+
   return {
     valores,
     errores,
     handleSubmit,
     handleChange,
     handleBlur,
+    sendChange
   };
 };
 
