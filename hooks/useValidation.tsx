@@ -56,26 +56,7 @@ const useValidacion = (
     }
   }, [submitForm]);
 
-  // Función que se ejecuta conforme el usuario escribe algo (si quiero validacion handleChange añado el segundo parámetro como true)
-  //formatoInput es una funcion que da formato al input, por ejemplo, si queremos que el input quede en mayusculas, podemos añadir una funcion que lo haga.
-  //ej: input = "texto" => formatoInput(input) = "Texto" (en este caso la funcion deja la primera letra en mayuscula y las demas en minuscula)
-  //y asi se guardara en el objeto de valores.
-  const handleChange = (
-    e: any,
-    validacionOnChange = false,
-    formatoInput: any = false
-  ) => {
-    if (validacionOnChange) {
-      const erroresValidacion: { [key: string]: any } = validar(valores);
-      setErrores({ ...objetoErrores, ...erroresValidacion });
-    }
-    if (formatoInput) {
-      setValores({
-        ...valores,
-        [e.target.name]: formatoInput(e.target.value),
-      });
-      return;
-    }
+  const handleChange = (e: any) => {
     setValores({
       ...valores,
       [e.target.name]: e.target.value,

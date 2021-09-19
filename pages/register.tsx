@@ -37,6 +37,7 @@ const Register = () => {
         valores.nombre,
         valores.email,
         valores.password,
+        //el valor de rut debe ir formateado correctamente en firebase
         formatoRut(valores.rut),
         valores.celular,
         valores.region,
@@ -94,11 +95,8 @@ const Register = () => {
               id="rut"
               placeholder="Ingrese Rut"
               onChange={handleChange}
-              onBlur={(e) => {
-                handleBlur();
-                !errores.rut && sendChange({ rut: formatoRut(valores.rut) });
-              }}
-              value={valores.rut}
+              onBlur={handleBlur}
+              value={errores.rut ? valores.rut : formatoRut(valores.rut)}
             />
             {errores.rut && <i className="far fa-hand-pointer" />}
           </div>
@@ -161,8 +159,6 @@ const Register = () => {
               disabled={!valores.region}
               onChange={handleChange}
               onBlur={handleBlur}
-              //ciudad depende de la region
-              value={valores.region ? valores.ciudad : ""}
             >
               <option value="">Seleccione una ciudad</option>
               {ciudades.map((ciudad: string) => (

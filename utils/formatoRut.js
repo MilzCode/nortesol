@@ -6,8 +6,10 @@ ej:
 const formatoRut = (rut) => {
   //removemos caracteres raros
   rut = rut.replace(/[^0-9kK]/g, "");
+  rut = rut.toUpperCase();
+  rut = rut.replace(".", "");
 
-  if (rut.indexOf("-") == -1 && rut.length > 6) {
+  if (rut.indexOf("-") == -1 && rut.length > 7) {
     rut = rut.slice(0, -1) + "-" + rut.slice(-1);
   }
   return rut;
