@@ -94,7 +94,11 @@ const Register = () => {
               id="rut"
               placeholder="Ingrese Rut"
               onChange={handleChange}
-              onBlur={handleBlur}
+              onBlur={(e) => {
+                handleBlur();
+                !errores.rut && sendChange({ rut: formatoRut(valores.rut) });
+              }}
+              value={valores.rut}
             />
             {errores.rut && <i className="far fa-hand-pointer" />}
           </div>
