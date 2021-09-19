@@ -122,7 +122,7 @@ const Register = () => {
               type="tel"
               name="celular"
               id="celular"
-              placeholder="Celular ej: 944443333"
+              placeholder="Celular ej: 988448844"
               maxLength={9}
               onChange={handleChange}
               onBlur={handleBlur}
