@@ -97,6 +97,10 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     &:focus {
       border: 0.2rem solid $pantone292C;
     }
+    &:disabled {
+      border: 0.2rem solid $disabledColor;
+      opacity: 0.7;
+    }
   }
 
   & > label {
