@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Router from "next/router";
 
 const Header = () => {
   const ingresado = false;
@@ -14,7 +15,8 @@ const Header = () => {
 
   const handdleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(e.target[0].value);
+    //push search
+    Router.push("/search");
   };
 
   // useEffect(() => {
@@ -67,22 +69,23 @@ const Header = () => {
             )}
           </div>
         ) : (
-          <Link passHref href="/register">
+          <Link passHref href="/login">
             <div className="header__ingresar">
               <i className="fas fa-user" />
               <span>Ingresar</span>
             </div>
           </Link>
         )}
-
-        <div className="header__carrito">
-          <i className="fas fa-shopping-cart" />
-          {carritoObjetos && (
-            <div className="header__carrito-contador">
-              <p>999</p>
-            </div>
-          )}
-        </div>
+        <Link passHref href="/carrito">
+          <div className="header__carrito">
+            <i className="fas fa-shopping-cart" />
+            {carritoObjetos && (
+              <div className="header__carrito-contador">
+                <p>999</p>
+              </div>
+            )}
+          </div>
+        </Link>
         <div
           className="header__subMenuDesplegar"
           onClick={() => setSubHeader(!subHeader)}

@@ -4,6 +4,7 @@ import firebase from "../firebase";
 import validarCrearCuenta from "../validaciones/validarCrearCuenta";
 import RegionesYComunas from "../utils/RegionesYComunas";
 import useValidacion from "../hooks/useValidation";
+import Router from "next/router";
 
 /*
 Este esperpento de codigo con los errores ya lo se, typescript me estaba dando un drama y fue la forma de solucionarlo xd.
@@ -47,6 +48,7 @@ const Register = () => {
         valores.ciudad,
         valores.direccion
       );
+      Router.push("/");
     } catch (error) {
       setEmailUsado(true);
     }
