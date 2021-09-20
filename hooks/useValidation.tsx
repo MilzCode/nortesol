@@ -22,6 +22,8 @@ son los mismos.
 por defecto se asume que es asi, pero si no se cumple esta condicion, se debe pasar un objetoErrores.
 fn: Función que se ejecuta en el componente. por ej: crearCuenta().
 
+si errores = {} entonces no hay errores.
+
 */
 
 const useValidacion = (
@@ -31,12 +33,6 @@ const useValidacion = (
   objetoErrores: { [key: string]: any } | null = null
 ) => {
   //si objetoErrores no existe entonces se asume que los errores tienen el mismo nombre que los valores
-  //Tanto objetoErrores como objetoDeValores deben ser objetos con sus atributos en formato key:value donde value sea vacio "", null, false, etc
-  //De esta forma se entiende que la condicion de No error es que todos los valores esten vacios, es decir, en la forma que se inicializo el objeto.
-  // objeto sin errores -> objeto con errores o objeto sin errores.
-  // ej: {nombre: "", apellido: "", email: ""} seria un objeto cuyos valores no tienen errores
-  // ej2: {nombre: "", apellido: "Este atributo es obligatorio", email: "este email no es valido"} es un objeto cuyos valores tienen errores.
-  //Esto es para no manejar objetos sin nada y evitar referencias no existente para el objeto errores.
   objetoErrores = objetoErrores || objetoDeValores;
 
   const [valores, setValores] = useState({ ...objetoDeValores });
@@ -51,16 +47,31 @@ const useValidacion = (
       if (noErrores === 0) {
         fn(); // Fn = Función que se ejecuta en el componente
       }
-      setErrores({ ...objetoErrores, ...erroresValidacion });
+      setErrores(erroresValidacion);
       setSubmitForm(false);
     }
   }, [submitForm]);
-
-  const handleChange = (e: any) => {
+  /*
+    handleChange: Función que se ejecuta en el componente cuando el usuario interactua con un input.
+    recibe como parametro el evento.
+    ej: <input onChange={(e) => handleChange(e)} />
+    tambien se puede recibir un booleano para indicar si se quiere validar mientras se interactua con el input (true) o no (false), por defecto es false.
+    ej: <input onChange={(e) => handleChange(e, true)} />
+    (pero es mas costoso validar cada vez que se interactua con el input)
+  */
+  const handleChange = (e: any, validacion = false) => {
     setValores({
       ...valores,
       [e.target.name]: e.target.value,
     });
+    if (validacion) {
+      setErrores(
+        validar({
+          ...valores,
+          [e.target.name]: e.target.value,
+        })
+      );
+    }
   };
 
   // Función que se ejecuta cuando el usuario hace submit
@@ -71,8 +82,7 @@ const useValidacion = (
 
   // cuando se realiza el evento de blur
   const handleBlur = () => {
-    const erroresValidacion: { [key: string]: any } = validar(valores);
-    setErrores({ ...objetoErrores, ...erroresValidacion });
+    setErrores(validar(valores));
   };
 
   //funcion para mandar un cambio manualmente

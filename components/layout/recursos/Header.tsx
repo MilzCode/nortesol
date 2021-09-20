@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import Router from "next/router";
+import { FirebaseContext } from "../../../firebase";
 
 const Header = () => {
-  const ingresado = false;
   const carritoObjetos = true;
   const [miCuenta, setMiCuenta] = useState(false);
   const [subHeader, setSubHeader] = useState(false);
-  // const [scrollDown, setScrollDown] = useState(false);
+  const { usuario, firebase } = useContext(FirebaseContext);
 
   const handdleMiCuenta = () => {
     setMiCuenta(!miCuenta);
@@ -15,20 +15,17 @@ const Header = () => {
 
   const handdleSubmit = (e: any) => {
     e.preventDefault();
-    //push search
     Router.push("/search");
   };
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", () => {
-  //     const isTop = window.scrollY < 100;
-  //     if (isTop !== true) {
-  //       setScrollDown(true);
-  //     } else {
-  //       setScrollDown(false);
-  //     }
-  //   });
-  // }, []);
+  async function salir() {
+    try {
+      await firebase.out();
+      Router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <>
       <header className="header NOSELECT">
@@ -50,7 +47,7 @@ const Header = () => {
             <span className="TEXTINVISIBLE">buscar</span>
           </button>
         </form>
-        {ingresado ? (
+        {usuario ? (
           <div
             className="header__miCuenta"
             onClick={handdleMiCuenta}
@@ -63,8 +60,12 @@ const Header = () => {
             <i className="fas fa-sort-down" />
             {miCuenta && (
               <div className="header__miCuentaDesplegable">
-                <a href="https://www.google.com/">Mi cuenta</a>
-                <a href="#">Cerrar Sesión</a>
+                <Link passHref href="/user">
+                  <div className="header__desplegableOpcion">Mi cuenta</div>
+                </Link>
+                <div className="header__desplegableOpcion" onClick={salir}>
+                  Cerrar Sesión
+                </div>
               </div>
             )}
           </div>

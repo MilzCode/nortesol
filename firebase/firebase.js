@@ -3,6 +3,8 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
+  signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
 import firebaseConfig from "./config";
@@ -40,22 +42,22 @@ class Firebase {
     ];
 
     return await updateProfile(nuevoUsuario.user, {
-      nombre,
+      displayName: nombre,
       rut,
       celular,
       direcciones,
     });
   }
 
-  // // Inicia sesión del usuario
-  // async login(email, password) {
-  //   return this.auth.signInWithEmailAndPassword(email, password);
-  // }
+  // Inicia sesión del usuario
+  async login(email, password) {
+    return await signInWithEmailAndPassword(this.auth, email, password);
+  }
 
-  // // Cierra la sesión del usuario
-  // async cerrarSesion() {
-  //   await this.auth.signOut();
-  // }
+  // Cierra la sesión del usuario
+  async out() {
+    return await signOut(this.auth);
+  }
 }
 
 const firebase = new Firebase();

@@ -4,8 +4,8 @@ import firebase from "../firebase";
 import validarCrearCuenta from "../validaciones/validarCrearCuenta";
 import RegionesYComunas from "../utils/RegionesYComunas";
 import useValidacion from "../hooks/useValidation";
-import Router from "next/router";
 import formatoRut from "../utils/formatoRut";
+import VentanaModal from "../components/general/VentanaModal";
 
 const stateInicial = {
   nombre: "",
@@ -21,6 +21,7 @@ const stateInicial = {
 const ciudadesInicial: string[] = [];
 const Register = () => {
   const [emailUsado, setEmailUsado] = useState(false);
+  const [registerOK, setRegisterOK] = useState(false);
   const {
     valores,
     errores,
@@ -44,10 +45,10 @@ const Register = () => {
         valores.ciudad,
         valores.direccion
       );
-      Router.push("/");
     } catch (error) {
       setEmailUsado(true);
     }
+    setRegisterOK(true);
     return;
   }
   //a veces se bugea el select, por eso lo hago asi xd como plan B.
@@ -72,6 +73,12 @@ const Register = () => {
   };
   return (
     <>
+      {registerOK && (
+        <VentanaModal titulo="Cuenta creada con exito" redireccionar="/">
+          Se ha enviado un email a {valores.email} para que pueda activar su
+          cuenta.
+        </VentanaModal>
+      )}
       <div className="register">
         <form className="register__form" noValidate onSubmit={handleSubmit}>
           <h3 className="register__titulo">Registrar</h3>

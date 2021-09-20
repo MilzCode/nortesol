@@ -1,0 +1,48 @@
+.ventanaModal {
+  position: fixed;
+  z-index: 999999;
+  background-color: rgba($pantoneBlackC, 0.5);
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: sizeBasedOnTitle(0.6);
+  text-align: center;
+
+  &__contenido {
+    background-color: $white;
+    max-width: min(95vw, 40em);
+    padding: 1em;
+    border-radius: 1em;
+  }
+
+  &__cerrarIco {
+    font-size: 2em;
+    display: block;
+    float: right;
+    padding-right: 0.5em;
+    padding-top: 0.3em;
+    cursor: pointer;
+    color: $pantoneWarmRedC;
+
+    &:hover {
+      color: $pantone2202C;
+    }
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+  &__titulo {
+    font-size: 2em;
+    padding-left: 0.5em;
+  }
+
+
+  &--salir {
+    @extend .ventanaModal;
+    display: none;
+  }
+}

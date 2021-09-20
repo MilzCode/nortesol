@@ -3,9 +3,11 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import Layout from "../components/layout/Layout";
 import firebase, { FirebaseContext } from "../firebase";
+import useAutenticacion from "../hooks/useAutenticacion";
+import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const hola = "hola";
+  const usuario = useAutenticacion();
   return (
     <>
       <Head>
@@ -36,11 +38,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           crossOrigin="anonymous"
         />
       </Head>
-      <Layout>
-        <FirebaseContext.Provider value={{ firebase }}>
+      <FirebaseContext.Provider value={{ usuario, firebase }}>
+        <Layout>
           <Component {...pageProps} />
-        </FirebaseContext.Provider>
-      </Layout>
+        </Layout>
+      </FirebaseContext.Provider>
     </>
   );
 }
