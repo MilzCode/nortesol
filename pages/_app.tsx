@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (!usuario && !publicPaths.includes(path)) {
       setAuthorized(false);
       router.push({
-        pathname: "/login",
+        pathname: "/",
         query: { returnUrl: router.asPath },
       });
     } else {
