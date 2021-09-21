@@ -15,7 +15,7 @@ const Search = () => {
         <h2>Productos de</h2>
         <p>Ejemplo de categoría o busqueda</p>
       </div>
-      <div className="d-flex flex-wrap justify-content-center align-items-center ml-5 mr-5">
+      <div className="index__productos">
         <ProductoVistaMiniatura />
         <ProductoVistaMiniatura />
         <ProductoVistaMiniatura />
