@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import firebase from "../firebase";
 
-const useAutenticacion = async () => {
-  const userInicial: any = null;
+const useAutenticacion = () => {
+  const userInicial: any = false;
 
   const [usuario, setUsuario] = useState(userInicial);
   useEffect(() => {
     const onsuscribe = firebase.auth.onAuthStateChanged((user) => {
-      setUsuario(user);
+      if (user) {
+        setUsuario(user);
+      } else {
+        setUsuario(user);
+      }
     });
     return () => onsuscribe();
   }, []);

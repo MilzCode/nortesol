@@ -11,14 +11,13 @@ import RutaDefault from "./404";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const usuario = useAutenticacion();
-
   const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
   //invalid corrobora que el usuario no existe para dejar de desplegar cargando...
   const [loaded, setLoaded] = useState(false);
   function authCheck(url: string) {
     // redirect to login page if accessing a private page and not logged in
-    const publicPaths = ["/login", "/", "/register"];
+    const publicPaths = ["/login", "/", "/register", "/search"];
     const path = url.split("?")[0];
     if (!usuario && !publicPaths.includes(path)) {
       setAuthorized(false);
@@ -27,6 +26,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }
   useEffect(() => {
+    setLoaded(usuario === null);
+    console.log(usuario);
     // run auth check on initial load
     authCheck(router.asPath);
 
@@ -38,7 +39,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     router.events.on("routeChangeComplete", authCheck);
 
     // unsubscribe from events in useEffect return function
-    setLoaded(true);
 
     return () => {
       router.events.off("routeChangeStart", hideContent);
