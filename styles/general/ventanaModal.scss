@@ -4,6 +4,7 @@
   background-color: rgba($pantoneBlackC, 0.5);
   width: 100vw;
   height: 100vh;
+  min-height: 100%;
   left: 0;
   top: 0;
   display: flex;
@@ -39,7 +40,6 @@
     font-size: 2em;
     padding-left: 0.5em;
   }
-
 
   &--salir {
     @extend .ventanaModal;
