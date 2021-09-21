@@ -19,7 +19,7 @@ const Home: NextPage = () => {
       <h1 className="TEXTINVISIBLE">Libreria Nortesol Pagina principal</h1>
       <Destacados />
       <Siguenos />
-      <div className="d-flex flex-wrap justify-content-center align-items-center ml-5 mr-5">
+      <div className="index__productos">
         <Secciones />
         <ProductoVistaMiniatura />
         <ProductoVistaMiniatura />

@@ -47,11 +47,11 @@ const ProductoRelacionados = () => {
         Quizá te pueda interesar...
       </h4>
       <Slider {...settings}>
-        <ProductoVistaMiniatura className="m-auto" />
-        <ProductoVistaMiniatura className="m-auto" />
-        <ProductoVistaMiniatura className="m-auto" />
-        <ProductoVistaMiniatura className="m-auto" />
-        <ProductoVistaMiniatura className="m-auto" />
+        <ProductoVistaMiniatura className="MAUTO" />
+        <ProductoVistaMiniatura className="MAUTO" />
+        <ProductoVistaMiniatura className="MAUTO" />
+        <ProductoVistaMiniatura className="MAUTO" />
+        <ProductoVistaMiniatura className="MAUTO" />
       </Slider>
     </div>
   );
