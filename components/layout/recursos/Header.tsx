@@ -23,7 +23,7 @@ const Header = () => {
       await firebase.out();
       Router.push("/");
     } catch (error) {
-      console.log(error);
+      
     }
   }
   return (

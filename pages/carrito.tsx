@@ -26,7 +26,6 @@ const Carrito = () => {
   };
   const handdleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(e);
     alert("Gracias por su compra");
   };
   return (

@@ -6,7 +6,6 @@ import Link from "next/link";
 
 const User = () => {
   const pedidos = true;
-  console.log("hola");
   return (
     <>
       <Volver />
