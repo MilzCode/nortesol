@@ -7,7 +7,7 @@ const Header = () => {
   const carritoObjetos = true;
   const [miCuenta, setMiCuenta] = useState(false);
   const [subHeader, setSubHeader] = useState(false);
-  const { usuario, firebase } = useContext(FirebaseContext);
+  const { usuario, firebase } = useContext(FirebaseContext) || {};
 
   const handdleMiCuenta = () => {
     setMiCuenta(!miCuenta);

@@ -7,6 +7,7 @@ import firebase, { FirebaseContext } from "../firebase";
 import useAutenticacion from "../hooks/useAutenticacion";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import RutaDefault from "./404";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const usuario = useAutenticacion();
@@ -18,9 +19,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     const path = url.split("?")[0];
     if (!usuario && !publicPaths.includes(path)) {
       setAuthorized(false);
-      router.push({
-        pathname: "/",
-      });
     } else {
       setAuthorized(true);
     }
@@ -73,12 +71,16 @@ function MyApp({ Component, pageProps }: AppProps) {
           crossOrigin="anonymous"
         />
       </Head>
-      {authorized && (
+      {authorized ? (
         <FirebaseContext.Provider value={{ usuario, firebase }}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
         </FirebaseContext.Provider>
+      ) : (
+        <Layout>
+          <RutaDefault />
+        </Layout>
       )}
     </>
   );
