@@ -20,7 +20,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       setAuthorized(false);
       router.push({
         pathname: "/",
-        query: { returnUrl: router.asPath },
       });
     } else {
       setAuthorized(true);
