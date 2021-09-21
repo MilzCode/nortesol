@@ -77,10 +77,12 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
           </Layout>
         </FirebaseContext.Provider>
-      ) : (
+      ) : usuario ? (
         <Layout>
           <RutaDefault />
         </Layout>
+      ) : (
+        <p>Cargando...</p>
       )}
     </>
   );
