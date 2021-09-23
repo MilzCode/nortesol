@@ -5,7 +5,7 @@ import Link from "next/link";
 const RutaDefault = () => {
   return (
     <div className="rutaDefault">
-      <p className="rutaDefault__msg">
+      <p className="rutaDefault__msg NOSELECT">
         404 D: ! Esta no es una ruta valida amig@
       </p>
       <Link href="/" passHref>
