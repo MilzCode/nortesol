@@ -4,30 +4,33 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import Layout from "../components/layout/Layout";
 import firebase, { FirebaseContext } from "../firebase";
-import useAutenticacion from "../hooks/useAutenticacion";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import RutaDefault from "./404";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const usuario = useAutenticacion();
+  const [logeadoNorteSol, setLogeadoNorteSol] = useState<any>(false);
+  const [msgRutaNovalida, setMsgRutaNovalida] = useState<boolean>(false);
   const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
   //invalid corrobora que el usuario no existe para dejar de desplegar cargando...
-  const [loaded, setLoaded] = useState(false);
   function authCheck(url: string) {
-    // redirect to login page if accessing a private page and not logged in
-    const publicPaths = ["/login", "/", "/register", "/search"];
+    const rutasPublicas = ["/login", "/", "/register", "/search"];
     const path = url.split("?")[0];
-    if (!usuario && !publicPaths.includes(path)) {
+    if (!logeadoNorteSol && !rutasPublicas.includes(path)) {
       setAuthorized(false);
+      //setMsgRutaNovalida se usa para mostrar un mensaje de error en la ruta si es una ruta que no tiene permiso
+      setMsgRutaNovalida(true);
     } else {
       setAuthorized(true);
+      setMsgRutaNovalida(false);
     }
   }
   useEffect(() => {
-    setLoaded(usuario === null);
-    console.log(usuario);
+    firebase.auth.onAuthStateChanged((user) => {
+      setLogeadoNorteSol(user);
+    });
+    console.log(logeadoNorteSol);
     // run auth check on initial load
     authCheck(router.asPath);
 
@@ -44,7 +47,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       router.events.off("routeChangeStart", hideContent);
       router.events.off("routeChangeComplete", authCheck);
     };
-  }, [usuario]);
+  }, [logeadoNorteSol]);
 
   return (
     <>
@@ -71,13 +74,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       {authorized ? (
-        <FirebaseContext.Provider value={{ usuario, firebase }}>
+        <FirebaseContext.Provider value={{ logeadoNorteSol, firebase }}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
         </FirebaseContext.Provider>
-      ) : !loaded ? (
-        <p>Cargando...</p>
+      ) : !msgRutaNovalida ? (
+        <p>Cargado</p>
       ) : (
         <Layout>
           <RutaDefault />
