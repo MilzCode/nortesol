@@ -79,7 +79,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Layout>
         </FirebaseContext.Provider>
       ) : (
-        <FirebaseContext.Provider value={null}>
+        <FirebaseContext.Provider
+          value={{ logeadoNorteSol: null, firebase: null }}
+        >
           <Layout>
             {!msgRutaNovalida || logeadoNorteSol == false ? (
               <p className="CENTERABSOLUTE TEXT1">Cargando...</p>
