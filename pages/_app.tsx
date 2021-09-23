@@ -81,7 +81,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </FirebaseContext.Provider>
       ) : (
         <Layout>
-          {!msgRutaNovalida ? (
+          {!msgRutaNovalida || logeadoNorteSol == false ? (
             <p className="CENTERABSOLUTE TEXT1">Cargando...</p>
           ) : (
             <RutaDefault />
