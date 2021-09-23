@@ -80,7 +80,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Layout>
         </FirebaseContext.Provider>
       ) : !msgRutaNovalida ? (
-        <p>Cargado</p>
+        <p>Cargado..</p>
       ) : (
         <Layout>
           <RutaDefault />
