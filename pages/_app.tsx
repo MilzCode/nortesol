@@ -30,7 +30,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     firebase.auth.onAuthStateChanged((user) => {
       setLogeadoNorteSol(user);
     });
-    console.log(logeadoNorteSol);
     // run auth check on initial load
     authCheck(router.asPath);
 
@@ -80,13 +79,15 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Layout>
         </FirebaseContext.Provider>
       ) : (
-        <Layout>
-          {!msgRutaNovalida || logeadoNorteSol == false ? (
-            <p className="CENTERABSOLUTE TEXT1">Cargando...</p>
-          ) : (
-            <RutaDefault />
-          )}
-        </Layout>
+        <FirebaseContext.Provider value={{ logeadoNorteSol }}>
+          <Layout>
+            {!msgRutaNovalida || logeadoNorteSol == false ? (
+              <p className="CENTERABSOLUTE TEXT1">Cargando...</p>
+            ) : (
+              <RutaDefault />
+            )}
+          </Layout>
+        </FirebaseContext.Provider>
       )}
     </>
   );

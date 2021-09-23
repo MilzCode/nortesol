@@ -68,12 +68,14 @@ const Header = () => {
             )}
           </div>
         ) : (
-          <Link passHref href="/login">
-            <div className="header__ingresar">
-              <i className="fas fa-user" />
-              <span>Ingresar</span>
-            </div>
-          </Link>
+          logeadoNorteSol === null && (
+            <Link passHref href="/login">
+              <div className="header__ingresar">
+                <i className="fas fa-user" />
+                <span>Ingresar</span>
+              </div>
+            </Link>
+          )
         )}
         <Link passHref href="/carrito">
           <div className="header__carrito">
