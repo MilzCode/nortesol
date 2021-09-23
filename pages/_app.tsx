@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import RutaDefault from "./404";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  //logeado logeadoNorteSol toma 3 valores: el usuario, null o false.
+  //logeadoNorteSol toma 3 valores: el usuario, null o false.
   //el segundo caso significa que no hay usuario logeado.
   //el tercer caso significa que aun no carga la peticion.
   const [logeadoNorteSol, setLogeadoNorteSol] = useState<any>(false);
