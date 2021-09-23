@@ -7,7 +7,7 @@ const Header = () => {
   const carritoObjetos = true;
   const [miCuenta, setMiCuenta] = useState(false);
   const [subHeader, setSubHeader] = useState(false);
-  const { usuario, firebase } = useContext(FirebaseContext) || {};
+  const { logeadoNorteSol, firebase } = useContext(FirebaseContext) || {};
 
   const handdleMiCuenta = () => {
     setMiCuenta(!miCuenta);
@@ -22,9 +22,7 @@ const Header = () => {
     try {
       await firebase.out();
       Router.push("/");
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   }
   return (
     <>
@@ -47,7 +45,7 @@ const Header = () => {
             <span className="TEXTINVISIBLE">buscar</span>
           </button>
         </form>
-        {usuario ? (
+        {logeadoNorteSol ? (
           <div
             className="header__miCuenta"
             onClick={handdleMiCuenta}
