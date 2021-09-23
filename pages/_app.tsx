@@ -79,15 +79,15 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Layout>
         </FirebaseContext.Provider>
       ) : (
-        <Layout>
-          {!msgRutaNovalida || logeadoNorteSol == false ? (
-            <p className="CENTERABSOLUTE TEXT1">Cargando...</p>
-          ) : (
-            <FirebaseContext.Provider value={null}>
+        <FirebaseContext.Provider value={null}>
+          <Layout>
+            {!msgRutaNovalida || logeadoNorteSol == false ? (
+              <p className="CENTERABSOLUTE TEXT1">Cargando...</p>
+            ) : (
               <RutaDefault />
-            </FirebaseContext.Provider>
-          )}
-        </Layout>
+            )}
+          </Layout>
+        </FirebaseContext.Provider>
       )}
     </>
   );
