@@ -1,21 +1,23 @@
 //Archivo de variables globales
+
+//Tamaño Base
+$font-sizeTitles: 3.5rem;
+//Esta variable es importante ya que se usa como medida de tamaño de componentes junto con la funcion sizeBasedOnTitle()
+$font-sizeTitlesResponsive: min(#{$font-sizeTitles}, 6.5vw);
+//esta funcion devulve un valor basado en el tamño del titulo y recibe un factor de escala, por defecto es 1 (1:1)
+@function sizeBasedOnTitle($factor: 1) {
+  @return calc(#{$font-sizeTitlesResponsive}* #{$factor});
+}
+
 //Tamaños
+$heightHeader: sizeBasedOnTitle(1.8);
+$heightHeader450px: sizeBasedOnTitle(2.7);
 $height-header1: 7rem;
 $height-header2: $height-header1 * 0.6; //4.2rem si header1 es 7rem
 $height-header1-850px: $height-header1 * 0.75;
 $height-header1-700px: $height-header1 * 0.6;
 $width-logo: 15rem;
 $width-logo-700px: $width-logo * 0.6;
-$font-sizeTitles: 3.5rem;
-//Esta variable es importante ya que se usa como medida de tamaño de componentes junto con la funcion sizeBasedOnTitle()
-$font-sizeTitlesResponsive: min(#{$font-sizeTitles}, 6.5vw);
-
-//funciones
-//esta funcion devulve un valor basado en el tamño del titulo y recibe un factor de escala, por defecto es 1 (1:1)
-@function sizeBasedOnTitle($factor: 1) {
-  @return calc(#{$font-sizeTitlesResponsive}* #{$factor});
-}
-//variable que usa funcion
 $height-footer: sizeBasedOnTitle(3.75);
 
 //Colores
