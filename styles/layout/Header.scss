@@ -9,6 +9,7 @@
   align-items: center;
   padding: 0 0.5rem;
   z-index: 10000;
+  font-size: sizeBasedOnTitle(1);
   &__logo {
     width: $width-logo;
     padding-top: 0.4rem;
@@ -23,6 +24,7 @@
     color: $white;
     display: flex;
     align-items: center;
+    margin: 0 0.2em;
     & > i {
       font-size: 3.5rem;
     }
@@ -69,42 +71,42 @@
   }
 
   &__buscador {
-    background: $white;
-    width: 50rem;
-    height: 5rem;
-    border-radius: 2rem;
-    margin: 0 0.3rem;
+    display: flex;
     position: relative;
+    width: sizeBasedOnTitle(10);
+    font-size: sizeBasedOnTitle(0.5);
+    height: sizeBasedOnTitle(1.1);
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.2em;
     overflow: hidden;
-    background-color: $white;
+    border-radius: 0.5em;
+    max-width: 50%;
+
     & > input {
       width: 100%;
       height: 100%;
       border: none;
-      background: transparent;
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: $pantone2202C;
       outline: none;
-      padding-left: 1.5rem;
-      padding-right: 6rem;
-      &::placeholder {
-        color: $pantone2202C;
+      padding-right: 2%;
+      padding-left: 0.8em;
+      color: $pantone2202C;
+      font-size: 1em;
+      font-style: italic;
+      &:focus {
+        font-style: normal;
       }
     }
     & > button {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      background: transparent;
+      display: inline;
+      height: 100%;
       border: none;
       outline: none;
-      cursor: pointer;
       background-color: white;
-      & > i {
-        font-size: 4rem;
-        color: $pantone2202C;
-      }
+      color: $pantone2202C;
+      font-size: 1.5em;
+      border-left: 0.01em solid $pantone2202C;
+      cursor: pointer;
     }
   }
 
@@ -142,23 +144,6 @@
     }
   }
 
-  @media screen and (max-width: 1200px) {
-    &__buscador {
-      width: 30rem;
-      height: 4.5rem;
-      & > input {
-        padding-right: 4.7rem;
-      }
-      & > button {
-        top: 0.55rem;
-        right: 0.5rem;
-        & > i {
-          font-size: 3rem;
-          color: $pantone2202C;
-        }
-      }
-    }
-  }
   @media screen and (max-width: 1000px) {
     &__contacto {
       & > span {
@@ -173,9 +158,6 @@
       & > a {
         font-size: 1.7rem;
       }
-    }
-    &__buscador {
-      height: 4rem;
     }
     &__miCuenta,
     &__ingresar {
@@ -198,22 +180,7 @@
     &__miCuentaDesplegable {
       top: $height-header1 * 0.3;
     }
-    &__buscador {
-      width: 20rem;
-      height: 3rem;
-      & > input {
-        font-size: 1.5rem;
-        padding-right: 3.65rem;
-      }
-      & > button {
-        top: 0.5rem;
-        right: 0.5rem;
-        & > i {
-          font-size: 2.1rem;
-          color: $pantone2202C;
-        }
-      }
-    }
+
     &__contacto,
     &__ingresar,
     &__miCuenta,
@@ -249,18 +216,6 @@
     height: $height-header1;
     &__logo {
       margin: 0 100%;
-    }
-    &__buscador {
-      width: 15rem;
-      height: 2.5rem;
-      & > button {
-        top: 0.05rem;
-        right: 0.2rem;
-        & > i {
-          font-size: 1.8rem;
-          color: $pantone2202C;
-        }
-      }
     }
   }
 }
