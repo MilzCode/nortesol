@@ -5,8 +5,7 @@ import Volver from "../../components/general/Volver";
 const EditAddress = () => {
   const [nombre, setNombre] = React.useState(false);
   const [region, setRegion] = React.useState(false);
-  const [ciudad, setCiudad] = React.useState(false);
-  const [direccion, setDireccion] = React.useState(false);
+
   return (
     <>
       <Volver />
@@ -47,18 +46,13 @@ const EditAddress = () => {
           </div>
           <div className="userEdit__input">
             <label htmlFor="ciudad" className="fas fa-map-marker" />
-            <select name="ciudad" id="ciudad" disabled={!ciudad}>
+            <select name="ciudad" id="ciudad" disabled={!region}>
               <option value="">Seleccione una ciudad</option>
               <option value="1">Ciudad 1</option>
               <option value="2">Ciudad 2</option>
               <option value="3">Ciudad 3</option>
             </select>
-            <input
-              type="checkbox"
-              name="ciudacheck"
-              id="ciudacheck"
-              onChange={() => setCiudad(!ciudad)}
-            />
+            <div />
           </div>
           <div className="userEdit__input">
             <label htmlFor="direccion" className="fas fa-home" />
@@ -67,14 +61,9 @@ const EditAddress = () => {
               name="direccion"
               id="direccion"
               placeholder="Direccion"
-              disabled={!direccion}
+              disabled={!region}
             />
-            <input
-              type="checkbox"
-              name="direccioncheck"
-              id="direccioncheck"
-              onChange={() => setDireccion(!direccion)}
-            />
+            <div />
           </div>
           <hr />
           <div>
