@@ -145,7 +145,6 @@ $sizeBase: sizeBasedOnTitle(1);
       padding: 0 0.1em;
     }
   }
-  //50em = sizeBasedOnTitle(50)
   @media screen and (max-width: $breakHeader1) {
     &__subMenuDesplegar {
       display: inline;
@@ -209,7 +208,6 @@ $sizeBase: sizeBasedOnTitle(1);
       text-decoration: underline;
     }
   }
-  //50em = sizeBasedOnTitle(50)
   @media screen and (max-width: $breakHeader1) {
     //para que apartir de este tamaño se oculte el subheader
     &--desaparecer {
