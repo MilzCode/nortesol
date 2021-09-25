@@ -44,13 +44,13 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
 
 //Mixins
 //dado que el header tiene un tamaño variable este mixin se encarga de dar un margin segun el tamaño.
-@mixin headerSizeTop($property: margin-top, $more: 0) {
-  #{$property}: calc(#{$heightHeader} + #{$heightSubHeader});
+@mixin headerSizeTop($property: margin-top, $more: 0px) {
+  #{$property}: calc(#{$heightHeader} + #{$heightSubHeader} + #{$more});
   @media screen and (max-width: $breakHeader1) {
-    #{$property}: calc(#{$heightHeader});
+    #{$property}: calc(#{$heightHeader} + #{$more});
   }
   // @media screen and (max-width: $breakHeader3) {
-  //   #{$property}: calc(#{$heightHeader2});
+  //   #{$property}: calc(#{$heightHeader2} + #{$more});
   // }
 }
 

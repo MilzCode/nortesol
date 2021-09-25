@@ -28,7 +28,7 @@
   }
   &__total {
     position: sticky;
-    @include headerSizeTop(top);
+    @include headerSizeTop(top,1rem);
     margin: 0 0.5rem 2.5rem;
     background: $pantoneBlackC01;
     border-radius: 0.2em;
