@@ -32,7 +32,7 @@ $sizeBase: sizeBasedOnTitle(1);
       font-size: 1em;
       font-family: $fontFamily;
       font-weight: bold;
-      padding-left: 0.5rem;
+      padding-left: 0.3em;
       white-space: nowrap;
     }
   }
@@ -97,6 +97,9 @@ $sizeBase: sizeBasedOnTitle(1);
       &:focus {
         font-style: normal;
       }
+      &::placeholder {
+        color: rgba($pantone2202C, 0.5);
+      }
     }
     & > button {
       display: inline;
@@ -106,8 +109,14 @@ $sizeBase: sizeBasedOnTitle(1);
       background-color: white;
       color: $pantone2202C;
       font-size: 1.5em;
-      border-left: 0.01em solid $pantone2202C;
+      border-left: 1px solid $pantone2202C;
       cursor: pointer;
+      &:hover {
+        transform: scale(1.01);
+      }
+      &:active {
+        transform: scale(0.99);
+      }
     }
   }
 
@@ -127,13 +136,13 @@ $sizeBase: sizeBasedOnTitle(1);
   &__carrito-contador {
     font-size: 0.4em;
     position: absolute;
-    width: auto;
-    height: auto;
+    width: 2em;
+    height: 2em;
     background: $pantoneWarmRedC;
     border-radius: 50%;
     top: 50%;
     left: 50%;
-    transform: translate(-28%, -85%);
+    transform: translate(-33%, -85%);
     color: $white;
     display: flex;
     justify-content: center;
