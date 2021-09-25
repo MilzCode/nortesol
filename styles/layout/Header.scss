@@ -173,9 +173,6 @@ $sizeBase: sizeBasedOnTitle(1);
   }
   @media screen and (max-width: $breakHeader3) {
     height: $heightHeader2;
-    &__logo {
-      margin: 0.2em 100%;
-    }
   }
 }
 
