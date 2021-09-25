@@ -48,9 +48,9 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
   @media screen and (max-width: $breakHeader1) {
     #{$property}: calc(#{$heightHeader});
   }
-  @media screen and (max-width: $breakHeader3) {
-    #{$property}: calc(#{$heightHeader2});
-  }
+  // @media screen and (max-width: $breakHeader3) {
+  //   #{$property}: calc(#{$heightHeader2});
+  // }
 }
 
 //clases globales, son clases que se usan en mas de un sitio.

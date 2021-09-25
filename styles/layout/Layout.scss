@@ -10,8 +10,8 @@
     @media (max-width: #{$breakHeader1}) {
       min-height: calc(100vh - #{$heightHeader} - #{$heightFooter});
     }
-    @media (max-width: #{$breakHeader3}) {
-      min-height: calc(100vh - #{$heightHeader2} - #{$heightFooter});
-    }
+    // @media (max-width: #{$breakHeader3}) {
+    //   min-height: calc(100vh - #{$heightHeader2} - #{$heightFooter});
+    // }
   }
 }

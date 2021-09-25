@@ -170,9 +170,12 @@ $sizeBase: sizeBasedOnTitle(1);
       }
     }
   }
-  @media screen and (max-width: $breakHeader3) {
-    height: $heightHeader2;
-  }
+  // @media screen and (max-width: $breakHeader3) {
+  //   height: $heightHeader2;
+  //   &__logo {
+  //     margin: 0.2em 100%;
+  //   }
+  // }
 }
 
 .subHeader {
@@ -214,7 +217,7 @@ $sizeBase: sizeBasedOnTitle(1);
       transform: translateY(-100%);
     }
   }
-  @media screen and (max-width: $breakHeader3) {
-    top: $heightHeader2;
-  }
+  // @media screen and (max-width: $breakHeader3) {
+  //   top: $heightHeader2;
+  // }
 }
