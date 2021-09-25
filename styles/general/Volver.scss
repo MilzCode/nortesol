@@ -1,5 +1,6 @@
 .volverBoton {
   cursor: pointer;
+  height: auto;
   & > i {
     font-size: sizeBasedOnTitle(0.85);
     transform: rotate(-90deg);

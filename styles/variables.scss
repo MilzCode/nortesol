@@ -11,14 +11,12 @@ $font-sizeTitlesResponsive: min(#{$font-sizeTitles}, 6.5vw);
 
 //Tamaños
 $heightHeader: sizeBasedOnTitle(1.8);
-$heightHeader450px: sizeBasedOnTitle(2.7);
-$height-header1: 7rem;
-$height-header2: $height-header1 * 0.6; //4.2rem si header1 es 7rem
-$height-header1-850px: $height-header1 * 0.75;
-$height-header1-700px: $height-header1 * 0.6;
-$width-logo: 15rem;
-$width-logo-700px: $width-logo * 0.6;
-$height-footer: sizeBasedOnTitle(3.75);
+$heightHeader2: sizeBasedOnTitle(2.7);
+$heightSubHeader: sizeBasedOnTitle(1.2);
+$heightFooter: sizeBasedOnTitle(3.75);
+$breakHeader1: 800px;
+$breakHeader2: 700px;
+$breakHeader3: 450px;
 
 //Colores
 $pantone106C: #f9e547;
@@ -45,17 +43,13 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
 
 //Mixins
 //dado que el header tiene un tamaño variable este mixin se encarga de dar un margin segun el tamaño.
-
-@mixin headerSizeTop($property: margin-top, $moreTop: 0) {
-  #{$property}: $height-header1 + $height-header2 + $moreTop;
-  @media screen and (max-width: 850px) {
-    #{$property}: $height-header1-850px + $moreTop;
+@mixin headerSizeTop($property: margin-top, $more: 0) {
+  #{$property}: calc(#{$heightHeader} + #{$heightSubHeader});
+  @media screen and (max-width: $breakHeader1) {
+    #{$property}: calc(#{$heightHeader});
   }
-  @media screen and (max-width: 700px) {
-    #{$property}: $height-header1-700px + $moreTop;
-  }
-  @media screen and (max-width: 450px) {
-    #{$property}: $height-header1 + $moreTop;
+  @media screen and (max-width: $breakHeader3) {
+    #{$property}: calc(#{$heightHeader2});
   }
 }
 

@@ -1,4 +1,5 @@
 .carrito {
+  font-size: sizeBasedOnTitle(1);
   & > h1 {
     text-align: center;
     font-size: $font-sizeTitlesResponsive;
@@ -8,15 +9,10 @@
 
   &__msgProductos {
     color: $pantone1645C;
-    font-size: sizeBasedOnTitle(0.85);
+    font-size: 0.85em;
     font-weight: 600;
     line-height: 0.75;
-  }
-  //este texto es un espacio vacio, sirve para dar espacio entre el titulo y el contenido, respecto a __msgProductos.
-  &__totalEspacioPago {
-    color: transparent;
-    font-size: sizeBasedOnTitle(0.85);
-    line-height: 0.75;
+    margin: 0;
   }
 
   &__container {
@@ -31,10 +27,10 @@
   }
   &__total {
     position: sticky;
-    @include headerSizeTop(top, 00.5rem);
+    @include headerSizeTop(top);
     margin: 0 0.5rem 2.5rem;
     background: $pantoneBlackC01;
-    border-radius: sizeBasedOnTitle(0.2);
+    border-radius: 0.2em;
     width: auto;
     height: auto;
     display: flex;
@@ -45,17 +41,17 @@
   }
 
   &__totalTitulo {
-    font-size: sizeBasedOnTitle(0.75);
+    font-size: 0.75em;
     font-weight: 600;
     color: $pantone292C;
   }
   &__totalPrecio {
     background-color: white;
     padding: 2px 7px;
-    font-size: sizeBasedOnTitle(0.5);
+    font-size: 0.5em;
     font-weight: 600;
     font-style: italic;
-    border-radius: sizeBasedOnTitle(0.1);
+    border-radius: 0.1em;
     margin: sizeBasedOnTitle(0.1);
   }
   &__retiroTienda,

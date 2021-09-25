@@ -104,14 +104,14 @@ const Header = () => {
         } NOSELECT`}
       >
         <div className="subHeader__menu">
-          <a href="#">
+          <p className="subHeader__menuItem">
             <i className="fas fa-home"></i>
             <span className="TEXTINVISIBLE">Inicio</span>
-          </a>
-          <a href="#">Productos</a>
-          <a href="#">Servicios</a>
-          <a href="#">Contacto</a>
-          <a href="#">Contacto</a>
+          </p>
+          <p className="subHeader__menuItem">Productos</p>
+          <p className="subHeader__menuItem">Servicios</p>
+          <p className="subHeader__menuItem">Contacto</p>
+          <p className="subHeader__menuItem">Contacto</p>
         </div>
       </nav>
     </>
