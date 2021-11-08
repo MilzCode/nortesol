@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BotonFAColores1 from "../components/general/BotonFAColores1";
 import firebase from "../firebase";
-import validarCrearCuenta from "../validaciones/validarCrearCuenta";
+import validarCrearCuenta from "../validations/validarCrearCuenta";
 import RegionesYComunas from "../utils/RegionesYComunas";
 import useValidacion from "../hooks/useValidation";
 import formatoRut from "../utils/formatoRut";
@@ -34,7 +34,7 @@ const Register = () => {
 
   async function crearCuenta() {
     try {
-      await firebase.registrar(
+      const res = await firebase.registrar(
         valores.nombre,
         valores.email,
         valores.password,
@@ -45,8 +45,10 @@ const Register = () => {
         valores.ciudad,
         valores.direccion
       );
+      console.log(res);
     } catch (error) {
       setEmailUsado(true);
+      return;
     }
     setRegisterOK(true);
     return;

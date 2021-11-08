@@ -1,24 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BotonFAColores1 from "../../components/general/BotonFAColores1";
 import Volver from "../../components/general/Volver";
 import ContenidoTablaPedidos from "../../components/user/ContenidoTablaPedidos";
 import Link from "next/link";
 
-const User = () => {
+const User = ({ fb, me }: any) => {
+  //Importante! si no esta logeado retornar null
+  if (!me) return null;
   const pedidos = true;
+
   return (
     <>
       <Volver />
       <div className="user">
-        <h2 className="user__titulo">Hola, Nombre Apellido</h2>
+        <h2 className="user__titulo">Hola, {me.nombre}</h2>
         <hr />
         <div className="user__misDatos">
           <h3 className="user__misDatosTitulo">Mis Datos</h3>
           <div className="user__misDatosContenido">
-            <p>Nombre: Juanito Perez Contreras</p>
-            <p>Rut: 19555000-4</p>
-            <p>Correo: juanitoperez@correo.cl</p>
-            <p>Telefono: +56912345678</p>
+            <p>Nombre: {me.nombre}</p>
+            <p>Rut: {me.rut}</p>
+            <p>Correo: {me.email}</p>
+            <p>Celular: +56 {me.celular}</p>
             <p>Contraseña: ********************</p>
           </div>
           <Link href="/user/edit" passHref>
@@ -30,7 +33,7 @@ const User = () => {
           </Link>
         </div>
         <hr />
-        <div className="user__misDirecciones">
+        {/* <div className="user__misDirecciones">
           <h3 className="user__misDireccionesTitulo">Mis Direcciones</h3>
           <div className="user__misDireccionesContenido">
             <div className="user__direccion">
@@ -86,6 +89,29 @@ const User = () => {
                 </div>
               </Link>
             </div>
+          </div>
+        </div> */}
+        <div className="user__misDirecciones">
+          <h3 className="user__misDireccionesTitulo">Mi Dirección</h3>
+          <div className="user__misDireccionesContenido">
+            <div className="user__direccion">
+              <h4>Dirección de envio</h4>
+              <p>Region: {me.ubicacion.dir1.region}</p>
+              <p>Ciudad: {me.ubicacion.dir1.ciudad}</p>
+              <p>Direccion: {me.ubicacion.dir1.direccion}</p>
+              <div className="user__botones">
+                <Link href="/user/edit-address" passHref>
+                  <div>
+                    <BotonFAColores1 backgroundColor="#48d597">
+                      <i className="fas fa-pen-square"></i>
+                      Modificar direccion
+                    </BotonFAColores1>
+                  </div>
+                </Link>
+              </div>
+            </div>
+
+
           </div>
         </div>
 

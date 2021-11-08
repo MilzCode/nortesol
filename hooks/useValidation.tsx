@@ -29,14 +29,10 @@ si errores = {} entonces no hay errores.
 const useValidacion = (
   objetoDeValores: { [key: string]: any },
   validar: (datosEntrada: { [key: string]: any }) => { [key: string]: any },
-  fn: () => any,
-  objetoErrores: { [key: string]: any } | null = null
+  fn: () => any
 ) => {
-  //si objetoErrores no existe entonces se asume que los errores tienen el mismo nombre que los valores
-  objetoErrores = objetoErrores || objetoDeValores;
-
   const [valores, setValores] = useState({ ...objetoDeValores });
-  const [errores, setErrores] = useState({ ...objetoErrores });
+  const [errores, setErrores] = useState({ ...objetoDeValores });
   const [submitForm, setSubmitForm] = useState(false);
 
   useEffect(() => {

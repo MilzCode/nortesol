@@ -16,10 +16,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [msgRutaNovalida, setMsgRutaNovalida] = useState<boolean>(false);
   const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
+  const [misDatos, setMisDatos] = useState<any>(null);
+
   //invalid corrobora que el usuario no existe para dejar de desplegar cargando...
   function authCheck(url: string) {
     const rutasPublicas = ["/login", "/", "/register", "/search"];
     const path = url.split("?")[0];
+    // console.log(firebase.auth.currentUser);
     if (!logeadoNorteSol && !rutasPublicas.includes(path)) {
       setAuthorized(false);
       //setMsgRutaNovalida se usa para mostrar un mensaje de error en la ruta si es una ruta que no tiene permiso
@@ -29,6 +32,26 @@ function MyApp({ Component, pageProps }: AppProps) {
       setMsgRutaNovalida(false);
     }
   }
+  useEffect(() => {
+    async function getMisDatos() {
+      const dato = firebase.auth.currentUser;
+      const datosContacto = await firebase.getMeData();
+      if (!dato || !datosContacto) return;
+      const misDatos_ = {
+        nombre: dato.displayName,
+        email: dato.email,
+        rut: datosContacto.rut,
+        celular: datosContacto.celular,
+        ubicacion: datosContacto.ubicacion,
+      };
+      setMisDatos(misDatos_);
+    }
+
+    if (firebase.auth.currentUser) {
+      getMisDatos();
+    }
+  }, [firebase.auth.currentUser]);
+
   useEffect(() => {
     firebase.auth.onAuthStateChanged((user) => {
       setLogeadoNorteSol(user);
@@ -78,7 +101,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       {authorized ? (
         <FirebaseContext.Provider value={{ logeadoNorteSol, firebase }}>
           <Layout>
-            <Component {...pageProps} />
+            <Component
+              fb={firebase}
+              me={misDatos}
+              {...pageProps}
+            />
           </Layout>
         </FirebaseContext.Provider>
       ) : (

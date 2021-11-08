@@ -6,6 +6,15 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+//import firestore
+import {
+  collection,
+  doc,
+  setDoc,
+  addDoc,
+  getFirestore,
+  getDoc,
+} from "firebase/firestore";
 
 import firebaseConfig from "./config";
 
@@ -15,12 +24,52 @@ class Firebase {
       this.app = initializeApp(firebaseConfig);
     }
     this.auth = getAuth(this.app);
+    this.db = getFirestore(this.app);
+    this.hola = "holaFirebase";
 
     // this.db = app.firestore();
     // this.storage = app.storage();
   }
 
-  // Registra un usuario
+  // async añadirDato(dato) {
+  //   // const docRef = await addDoc(collection(this.db, "collection"), dato);
+  //   const docRef = await setDoc(doc(this.db, "collection", "5599"), dato);
+  //   // console.log(docRef);
+  // }
+
+  // Registra un datos de contacto y rut de un usuario
+  async registrarDatosUsuario(
+    rut,
+    celular,
+    region,
+    ciudad,
+    direccion,
+    uid,
+    fechaCreacion
+  ) {
+    const ubicacion = {
+      dir1: {
+        nombreDir: "Direccion1" + uid,
+        region,
+        ciudad,
+        direccion,
+      },
+    };
+
+    // const ubicacion = {
+    //   nombreDir: "Direccion" + uid,
+    //   region,
+    //   ciudad,
+    //   direccion,
+    // };
+
+    return await setDoc(doc(this.db, "usuarios", fechaCreacion + uid), {
+      rut,
+      celular,
+      ubicacion,
+      uid,
+    });
+  }
 
   async registrar(
     nombre,
@@ -37,15 +86,23 @@ class Firebase {
       email,
       password
     );
-    const direcciones = [
-      { nombreDir: "Direccion1", region, ciudad, direccion },
-    ];
-
-    return await updateProfile(nuevoUsuario.user, {
-      displayName: nombre,
+    //si no se logra registra con exito salimos del metodo
+    if (!nuevoUsuario.user.uid) return false;
+    // console.log(nuevoUsuario.user.metadata.createdAt);
+    //Registrar datos de contacto y su rut
+    this.registrarDatosUsuario(
       rut,
       celular,
-      direcciones,
+      region,
+      ciudad,
+      direccion,
+      nuevoUsuario.user.uid,
+      nuevoUsuario.user.metadata.createdAt
+    );
+
+    //ingresamos el nombre del usuario
+    return await updateProfile(nuevoUsuario.user, {
+      displayName: nombre,
     });
   }
 
@@ -57,6 +114,22 @@ class Firebase {
   // Cierra la sesión del usuario
   async out() {
     return await signOut(this.auth);
+  }
+
+  // Obtener mis datos de contacto
+  async getMeData() {
+    const docRef = doc(
+      this.db,
+      "usuarios",
+      this.auth.currentUser.metadata.createdAt + this.auth.currentUser.uid
+    );
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      return null;
+    }
   }
 }
 

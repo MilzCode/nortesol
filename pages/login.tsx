@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import BotonFAColores1 from "../components/general/BotonFAColores1";
 import Link from "next/link";
 import useValidacion from "../hooks/useValidation";
-import validarLogin from "../validaciones/validarLogin";
+import validarLogin from "../validations/validarLogin";
 import firebase from "../firebase";
 import Router from "next/router";
 const initialState = {

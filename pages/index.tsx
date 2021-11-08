@@ -7,8 +7,9 @@ import Paginador from "../components/general/Paginador";
 import ProductoVistaMiniatura from "../components/venta/ProductoVistaMiniatura";
 import { useEffect, useState } from "react";
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ fb, me }: any) => {
   const [pagina, setPagina] = useState(1);
+
   return (
     <>
       <Head>

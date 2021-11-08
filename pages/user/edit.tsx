@@ -2,12 +2,14 @@ import React from "react";
 import BotonFAColores1 from "../../components/general/BotonFAColores1";
 import Volver from "../../components/general/Volver";
 
-const Edit = () => {
+const Edit = ({ fb }: any) => {
+  // console.log(fb);
   const [nombre, setNombre] = React.useState(false);
   const [rut, setRut] = React.useState(false);
   const [email, setEmail] = React.useState(false);
   const [telefono, setTelefono] = React.useState(false);
   const [password, setPassword] = React.useState(false);
+
   return (
     <>
       <Volver />

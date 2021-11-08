@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import { FirebaseContext } from "../../../firebase";
 
 const Header = () => {
+  const router = useRouter();
   const carritoObjetos = true;
   const [miCuenta, setMiCuenta] = useState(false);
   const [subHeader, setSubHeader] = useState(false);
@@ -15,13 +16,13 @@ const Header = () => {
 
   const handdleSubmit = (e: any) => {
     e.preventDefault();
-    Router.push("/search");
+    router.push("/search");
   };
 
   async function salir() {
     try {
       await firebase.out();
-      Router.push("/");
+      router.push("/");
     } catch (error) {}
   }
   return (
