@@ -5,9 +5,9 @@ import Header from "./recursos/Header";
 const Layout = (props: any) => {
   return (
     <>
-      <Header />
+      <Header {...props} />
       <main className="layout__content">{props.children}</main>
-      <Footer />
+      <Footer {...props} />
     </>
   );
 };

@@ -1,17 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FirebaseContext } from "../../../firebase";
 
-const Header = ({ me, fb }: any) => {
+const Header = ({ auth, fb }: any) => {
   const router = useRouter();
   const carritoObjetos = true;
   const [miCuenta, setMiCuenta] = useState(false);
   const [subHeader, setSubHeader] = useState(false);
-  const { logeadoNorteSol, firebase } = useContext(FirebaseContext) || {};
-  console.log("holaaa");
-  console.log(me);
-
+  // console.log("header: " + auth);
   const handdleMiCuenta = () => {
     setMiCuenta(!miCuenta);
   };
@@ -23,8 +19,8 @@ const Header = ({ me, fb }: any) => {
 
   async function salir() {
     try {
-      await firebase.out();
-      router.push("/");
+      await fb.out();
+      window.location.replace("/");
     } catch (error) {}
   }
   return (
@@ -47,7 +43,7 @@ const Header = ({ me, fb }: any) => {
             <i className="fas fa-search" />
           </button>
         </form>
-        {logeadoNorteSol ? (
+        {auth ? (
           <div
             className="header__miCuenta"
             onClick={handdleMiCuenta}
@@ -70,7 +66,7 @@ const Header = ({ me, fb }: any) => {
             )}
           </div>
         ) : (
-          logeadoNorteSol === null && (
+          auth === null && (
             <Link passHref href="/login">
               <div className="header__ingresar">
                 <i className="fas fa-user" />
