@@ -6,7 +6,6 @@ import Layout from "../components/layout/Layout";
 import firebase from "../firebase";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import RutaDefault from "./404";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [msgRutaNovalida, setMsgRutaNovalida] = useState<boolean>(false);
@@ -35,7 +34,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   */
   const [resUserFirebase, setResUserFirebase] = useState<any>(false);
 
-
   //Rutas que no requieren control de acceso
   const rutasPublicas = ["/login", "/", "/register", "/search"];
   //ruta actual
@@ -57,6 +55,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   /*
     Este useEffect es para obtener los datos del usuario en firebase, y llenar misDatos.
   */
+
+  const redirectToHome = () => window.location.replace("/");
 
   useEffect(() => {
     console.log("res: " + resUserFirebase);
@@ -183,7 +183,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           {!msgRutaNovalida || misDatos == false ? (
             <p className="CENTERABSOLUTE TEXT1">Cargando...</p>
           ) : (
-            <RutaDefault />
+            redirectToHome()
           )}
         </Layout>
       )}
