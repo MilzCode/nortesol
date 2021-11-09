@@ -67,8 +67,13 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
 }
 //TEXTINVISIBLE sirve para que un texto no aparezca en pantalla (esto puede servir por temas de SEO)
 .TEXTINVISIBLE {
-  text-indent: -9999px;
   position: absolute;
+  color: transparent;
+  text-shadow: 0 0 0 transparent;
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
+  z-index: -9999;
 }
 //"componentes"
 
