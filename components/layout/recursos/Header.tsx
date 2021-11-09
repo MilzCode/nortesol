@@ -3,12 +3,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { FirebaseContext } from "../../../firebase";
 
-const Header = () => {
+const Header = ({ me, fb }: any) => {
   const router = useRouter();
   const carritoObjetos = true;
   const [miCuenta, setMiCuenta] = useState(false);
   const [subHeader, setSubHeader] = useState(false);
   const { logeadoNorteSol, firebase } = useContext(FirebaseContext) || {};
+  console.log("holaaa");
+  console.log(me);
 
   const handdleMiCuenta = () => {
     setMiCuenta(!miCuenta);

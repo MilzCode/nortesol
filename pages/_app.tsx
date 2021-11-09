@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [msgRutaNovalida, setMsgRutaNovalida] = useState<boolean>(false);
   const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
-  const [misDatos, setMisDatos] = useState<any>(null);
+  const [misDatos, setMisDatos] = useState<any>(false);
 
   //invalid corrobora que el usuario no existe para dejar de desplegar cargando...
   function authCheck(url: string) {
@@ -32,9 +32,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       setMsgRutaNovalida(false);
     }
   }
+
   useEffect(() => {
     async function getMisDatos() {
       const dato = firebase.auth.currentUser;
+      if (!dato) {
+        setMisDatos(null);
+        return;
+      }
       const datosContacto = await firebase.getMeData();
       const admin = await firebase.isAdmin();
       if (!dato || !datosContacto) return;
@@ -118,7 +123,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       ) : (
         //en los componentes heredados logeadoNorteSol: null es usuario no logeado.
         <FirebaseContext.Provider
-          value={{ logeadoNorteSol: null, firebase: null }}
+          value={{ logeadoNorteSol: misDatos, firebase: null }}
         >
           <Layout>
             {!msgRutaNovalida || logeadoNorteSol == false ? (
