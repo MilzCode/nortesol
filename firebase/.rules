@@ -1,0 +1,42 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**Funciones**/  
+    function isAdmin() {
+      return exists(/databases/$(database)/documents/nortesol-adm/$(request.auth.uid));
+    }
+
+    // //Funcion que encripta en MD5
+    // function hashMD5(string) {
+    //   return hashing.md5(string).toHexString();
+    // }
+
+
+    /**Reglas**/
+
+    //Permisos para cualquier documento por defecto
+    match /{document=**} {
+      allow read: if false;
+      allow write: if false;
+      allow update: if false;
+      allow delete: if false;
+      allow create: if false;
+      
+    }
+    //Permisos para colección usuarios {u} referencia al documento.
+    match /usuarios/{u} {
+      allow read: if request.auth != null && resource.data.uid == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.uid == request.auth.uid;
+      allow update: if request.auth != null && request.resource.data.uid == request.auth.uid
+        && request.auth.uid == resource.data.uid;
+    }
+
+    match /test/{t}{
+
+      allow read;
+      allow write: if isAdmin();
+    }
+  }
+}

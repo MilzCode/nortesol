@@ -14,6 +14,7 @@ import {
   addDoc,
   getFirestore,
   getDoc,
+  updateDoc,
 } from "firebase/firestore";
 
 import firebaseConfig from "./config";
@@ -130,6 +131,22 @@ class Firebase {
     } else {
       return null;
     }
+  }
+
+  async updateName(name) {
+    return await updateProfile(this.auth.currentUser, {
+      displayName: name,
+    });
+  }
+  //actualiza los datos del usuario recibe un objeto por parametro
+  async updateMeData(data) {
+    data = { ...data, uid: this.auth.currentUser.uid };
+    const docRef = doc(
+      this.db,
+      "usuarios",
+      this.auth.currentUser.metadata.createdAt + this.auth.currentUser.uid
+    );
+    return await updateDoc(docRef, data);
   }
 }
 

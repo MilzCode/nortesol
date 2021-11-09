@@ -20,7 +20,6 @@ const User = ({ fb, me }: any) => {
           <div className="user__misDatosContenido">
             <p>Nombre: {me.nombre}</p>
             <p>Rut: {me.rut}</p>
-            <p>Correo: {me.email}</p>
             <p>Celular: +56 {me.celular}</p>
             <p>Contraseña: ********************</p>
           </div>

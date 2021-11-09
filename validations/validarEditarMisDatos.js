@@ -2,7 +2,6 @@ import validarRut from "../utils/validarRut";
 
 export default function validarCrearCuenta(datos) {
   let errors = {};
-
   if (!datos.nombre) {
     errors.nombre = "El nombre es requerido";
   }
@@ -10,12 +9,6 @@ export default function validarCrearCuenta(datos) {
     errors.rut = "El rut es requerido";
   } else if (!validarRut(datos.rut)) {
     errors.rut = "El rut no es valido";
-  }
-
-  if (!datos.email) {
-    errors.email = "El email es requerido";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(datos.email)) {
-    errors.email = "El email no es válido";
   }
   if (!datos.celular) {
     errors.celular = "El celular es requerido";
@@ -25,16 +18,9 @@ export default function validarCrearCuenta(datos) {
     errors.celular = "El celular no es válido";
   }
 
-  if (!datos.region != "") {
-    errors.region = "La region es requerida";
-  }
-  if (!datos.ciudad != "") {
-    errors.ciudad = "La ciudad es requerida";
-  }
-  if (!datos.direccion) {
-    errors.direccion = "La direccion es requerida";
-  }
-
+  //  hay que tener claro que por defecto la contraseña al update son 10 asteriscos **********
+  // es solo por cuestion de estetica, por lo que si llegan 10 asteriscos se toma como valida
+  // pero en realidad esto signifca que no hara ningun cambio real en la base de datos.
   if (!datos.password) {
     errors.password = "La contraseña es requerida";
   } else if (datos.password.length < 6) {

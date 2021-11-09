@@ -25,21 +25,28 @@ fn: Función que se ejecuta en el componente. por ej: crearCuenta().
 si errores = {} entonces no hay errores.
 
 */
-
+/**
+ * @param STATE_INI: objeto de valores iniciales
+ * @param validar: funcion que valida los valores
+ * @param fn: funcion que se ejecuta en el componente
+ * @param STATE_INIC_ERR: objeto de errores iniciales (en caso de que se requiera)
+ *
+ * **/
 const useValidacion = (
-  objetoDeValores: { [key: string]: any },
+  STATE_INI: { [key: string]: any },
   validar: (datosEntrada: { [key: string]: any }) => { [key: string]: any },
-  fn: () => any
+  fn: () => any,
+  STATE_INI_ERR?: { [key: string]: any }
 ) => {
-  const [valores, setValores] = useState({ ...objetoDeValores });
-  const [errores, setErrores] = useState({ ...objetoDeValores });
+  if (!STATE_INI_ERR) STATE_INI_ERR = STATE_INI;
+  const [valores, setValores] = useState({ ...STATE_INI });
+  const [errores, setErrores] = useState({ ...STATE_INI_ERR });
   const [submitForm, setSubmitForm] = useState(false);
 
   useEffect(() => {
     if (submitForm) {
       const erroresValidacion: { [key: string]: any } = validar(valores);
       const noErrores = Object.keys(erroresValidacion).length;
-
       if (noErrores === 0) {
         fn(); // Fn = Función que se ejecuta en el componente
       }
