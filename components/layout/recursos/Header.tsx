@@ -41,6 +41,7 @@ const Header = ({ auth, fb }: any) => {
           <input type="text" placeholder="Buscar" />
           <button type="submit">
             <i className="fas fa-search" />
+            <span className="TEXTINVISIBLE">buscar articulo</span>
           </button>
         </form>
         {auth ? (
