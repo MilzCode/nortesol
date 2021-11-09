@@ -36,14 +36,25 @@ function MyApp({ Component, pageProps }: AppProps) {
     async function getMisDatos() {
       const dato = firebase.auth.currentUser;
       const datosContacto = await firebase.getMeData();
+      const admin = await firebase.isAdmin();
       if (!dato || !datosContacto) return;
-      const misDatos_ = {
-        nombre: dato.displayName,
-        email: dato.email,
-        rut: datosContacto.rut,
-        celular: datosContacto.celular,
-        ubicacion: datosContacto.ubicacion,
-      };
+      const misDatos_ = admin
+        ? {
+            nombre: dato.displayName,
+            email: dato.email,
+            rut: datosContacto.rut,
+            celular: datosContacto.celular,
+            ubicacion: datosContacto.ubicacion,
+            admin,
+          }
+        : {
+            nombre: dato.displayName,
+            email: dato.email,
+            rut: datosContacto.rut,
+            celular: datosContacto.celular,
+            ubicacion: datosContacto.ubicacion,
+          };
+
       setMisDatos(misDatos_);
     }
 
@@ -101,11 +112,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       {authorized ? (
         <FirebaseContext.Provider value={{ logeadoNorteSol, firebase }}>
           <Layout>
-            <Component
-              fb={firebase}
-              me={misDatos}
-              {...pageProps}
-            />
+            <Component fb={firebase} me={misDatos} {...pageProps} />
           </Layout>
         </FirebaseContext.Provider>
       ) : (

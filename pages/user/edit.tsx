@@ -11,6 +11,7 @@ import validarEditarMisDatos from "../../validations/validarEditarMisDatos";
 const Edit = ({ fb, me }: any) => {
   if (!me) return null;
   // console.log(fb);
+
   const [nombre, setNombre] = React.useState(false);
   const [rut, setRut] = React.useState(false);
   const [celular, setCelular] = React.useState(false);

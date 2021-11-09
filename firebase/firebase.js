@@ -148,6 +148,17 @@ class Firebase {
     );
     return await updateDoc(docRef, data);
   }
+  //este metodo devuelve true cuando se es admin.
+  //tambien esta validado en la base de datos, pero asi agilizas el proceso de controlar el acceso al frontend
+  async isAdmin() {
+    try {
+      const docRef = doc(this.db, "admin-test", "admin-test");
+      const docSnap = await getDoc(docRef);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }
 
 const firebase = new Firebase();
