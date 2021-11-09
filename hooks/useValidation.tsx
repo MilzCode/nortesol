@@ -49,7 +49,6 @@ const useValidacion = (
 
       const noErrores = Object.keys(erroresValidacion).length;
       if (noErrores === 0) {
-        console.log("hola2");
         fn(); // Fn = Función que se ejecuta en el componente
       }
       setErrores(erroresValidacion);

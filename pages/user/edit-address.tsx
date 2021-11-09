@@ -31,6 +31,7 @@ const EditAddress = ({ me, fb }: any) => {
   useEffect(() => {
     getCiudades("");
     getCiudades(valores.region);
+    sendChange(STATE_INIT);
   }, []);
 
   const actualizarDatos = () => {
