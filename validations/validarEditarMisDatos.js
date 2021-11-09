@@ -1,6 +1,6 @@
 import validarRut from "../utils/validarRut";
 
-export default function validarCrearCuenta(datos) {
+export default function validarEditarMisDatos(datos) {
   let errors = {};
   if (!datos.nombre) {
     errors.nombre = "El nombre es requerido";
