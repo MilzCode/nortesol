@@ -12,6 +12,19 @@ const User = ({ me }: any) => {
       <Volver />
       <div className="user">
         <h2 className="user__titulo">Hola, {me.nombre}</h2>
+        {me.admin && (
+          <div className="user__misDatos">
+            <h3 className="user__misDatosTitulo">Administrador</h3>
+
+            <Link href="/nortesoladm" passHref>
+              <div>
+                <BotonFAColores1 backgroundColor="#48d597">
+                  Ir a panel administrador
+                </BotonFAColores1>
+              </div>
+            </Link>
+          </div>
+        )}
         <hr />
         <div className="user__misDatos">
           <h3 className="user__misDatosTitulo">Mis Datos</h3>
