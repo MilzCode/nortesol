@@ -8,9 +8,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [msgRutaNovalida, setMsgRutaNovalida] = useState<boolean>(false);
   const router = useRouter();
-  const [authorized, setAuthorized] = useState(false);
   /* 
   Mis datos almacena los datos del usuario requeridos en la aplicacion
   mis datos toma 3 valores:
@@ -38,28 +36,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   const rutasPublicas = ["/login", "/", "/register", "/search"];
   //ruta actual
   const path = router.asPath.split("?")[0];
-  /*
-    authCheck funciona para comprobar si el usuario esta en una rutera que requiere autenticacion, y controlar acceso.
-    trabaja con algunos useEffect.
-  */
-  function authCheck() {
-    // console.log(firebase.auth.currentUser);
-    if (!resUserFirebase && !rutasPublicas.includes(path)) {
-      setAuthorized(false);
-      //setMsgRutaNovalida se usa para mostrar un mensaje de error en la ruta si es una ruta que no tiene permiso
-    } else {
-      setAuthorized(true);
-      setMsgRutaNovalida(false);
-    }
-  }
-  /*
-    Este useEffect es para obtener los datos del usuario en firebase, y llenar misDatos.
-  */
+  //True si la ruta actual no requiere control de acceso.
+  const isPublicRoute = rutasPublicas.includes(path);
 
   const redirectToHome = () => window.location.replace("/");
 
   useEffect(() => {
-    console.log("res: " + resUserFirebase);
+    // console.log("res: " + resUserFirebase);
 
     async function getMisDatos() {
       firebase.auth.onAuthStateChanged((user) => {
@@ -98,40 +81,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
     getMisDatos();
   }, [resUserFirebase]);
-  /*
-    Este useEffect es una forma de ocultar el contenido de las paginas protegidas hasta que el usuario esta autenticado.
-    trabaja en congunto con la funcion authCheck.
-  */
-  useEffect(() => {
-    // run auth check on initial load
-    authCheck();
-
-    // set authorized to false to hide page content while changing routes
-    const hideContent = () => setAuthorized(false);
-    router.events.on("routeChangeStart", hideContent);
-
-    // run auth check on route change
-    router.events.on("routeChangeComplete", authCheck);
-
-    // unsubscribe from events in useEffect return function
-
-    return () => {
-      router.events.off("routeChangeStart", hideContent);
-      router.events.off("routeChangeComplete", authCheck);
-    };
-  }, [misDatos]);
-  /*
-    Este useEffect es parte de la funcion authCheck, y es para mostrar un mensaje de error en la ruta si es una ruta que no tiene permiso.
-  */
-  useEffect(() => {
-    if (resUserFirebase === null && !rutasPublicas.includes(path)) {
-      setMsgRutaNovalida(true);
-    }
-  }, [resUserFirebase]);
 
   /*Parametros */
   //autenticado contiene si el usuario esta autenticado (auth=true) o no (auth=null) o esta en espera (auth = false)
-  //basado en el state resUserFirebase (más rapido que misDatos) pero no obtiene datos de contacto, rut, rol, etc.
+  //basado en el state resUserFirebase.
   const autenticado = resUserFirebase ? true : resUserFirebase;
   return (
     <>
@@ -165,9 +118,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         - misDatos: contiene los datos del usuario en caso de estar autenticado y su rol.
         - fb: contiene la instancia de firebase con los metodos correspondientes.
         - auth: contiene si el usuario esta autenticado (auth=true) o no (auth=null) o esta en espera (auth = false) 
-          basado en el state resUserFirebase (más rapido que misDatos) pero no obtiene datos de contacto, rut, rol, etc.
+          basado en el state resUserFirebase.
       */}
-      {authorized ? (
+      {(autenticado && misDatos) || isPublicRoute ? (
         <Layout auth={autenticado} fb={firebase}>
           <Component
             fb={firebase}
@@ -178,9 +131,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         </Layout>
       ) : (
         //en los componentes heredados logeadoNorteSol: null es usuario no logeado.
-
         <Layout auth={autenticado} fb={null}>
-          {!msgRutaNovalida || misDatos == false ? (
+          {/* Si no es una ruta que requiera acceso o misDatos aun no recibe respuesta (null u object) retorna cargando... */}
+          {isPublicRoute || autenticado !== null ? (
             <p className="CENTERABSOLUTE TEXT1">Cargando...</p>
           ) : (
             redirectToHome()

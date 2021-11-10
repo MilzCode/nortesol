@@ -9,9 +9,6 @@ import formatoRut from "../../utils/formatoRut";
 import validarEditarMisDatos from "../../validations/validarEditarMisDatos";
 
 const Edit = ({ fb, me }: any) => {
-  if (!me) return null;
-  // console.log(fb);
-
   const [nombre, setNombre] = React.useState(false);
   const [rut, setRut] = React.useState(false);
   const [celular, setCelular] = React.useState(false);
@@ -166,7 +163,11 @@ const Edit = ({ fb, me }: any) => {
               onChange={handleChange}
               onBlur={handleBlur}
               disabled={!password}
-              value={valores.password == valorContraseñaSinCambios ? "" : valores.password}
+              value={
+                valores.password == valorContraseñaSinCambios
+                  ? ""
+                  : valores.password
+              }
             />
 
             <input
@@ -200,7 +201,11 @@ const Edit = ({ fb, me }: any) => {
               disabled={!password}
               onChange={handleChange}
               onBlur={handleBlur}
-              value={valores.password2 == valorContraseñaSinCambios ? "" : valores.password2}
+              value={
+                valores.password2 == valorContraseñaSinCambios
+                  ? ""
+                  : valores.password2
+              }
             />
             <div />
           </div>

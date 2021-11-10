@@ -10,8 +10,6 @@ import VentanaModal from "../../components/general/VentanaModal";
 
 const ciudadesInicial: string[] = [];
 const EditAddress = ({ me, fb }: any) => {
-  if (!me) return null;
-
   const ubicacion = me.ubicacion.dir1;
   const [region, setRegion] = React.useState(false);
   const [envio, setEnvio] = React.useState(false);
@@ -144,9 +142,9 @@ const EditAddress = ({ me, fb }: any) => {
               id="regioncheck"
               onChange={() => {
                 region && sendChange(STATE_INIT);
-                errores.region = ""
-                errores.ciudad = ""
-                errores.direccion = ""
+                errores.region = "";
+                errores.ciudad = "";
+                errores.direccion = "";
                 setRegion(!region);
               }}
             />

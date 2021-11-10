@@ -4,9 +4,7 @@ import Volver from "../../components/general/Volver";
 import ContenidoTablaPedidos from "../../components/user/ContenidoTablaPedidos";
 import Link from "next/link";
 
-const User = ({ fb, me }: any) => {
-  //Importante! si no esta logeado retornar null
-  if (!me) return null;
+const User = ({ me }: any) => {
   const pedidos = true;
 
   return (
@@ -109,8 +107,6 @@ const User = ({ fb, me }: any) => {
                 </Link>
               </div>
             </div>
-
-
           </div>
         </div>
 
