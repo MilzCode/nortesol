@@ -53,9 +53,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       const datosContacto = await firebase.getMeData();
 
-      if (!resUserFirebase || !datosContacto) {
+      if (!datosContacto) {
         setResUserFirebase(null); //En caso de tener problemas con solicitar los datos del usuario, se setea resUserFirebase a null.
-        setMisDatos(null);
+        // setMisDatos(null); // puede que esto no sea necesario, ya que se setea en el if de arriba.
         return;
       }
       /*
