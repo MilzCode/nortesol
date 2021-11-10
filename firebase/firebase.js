@@ -27,8 +27,10 @@ class Firebase {
     this.auth = getAuth(this.app);
     this.db = getFirestore(this.app);
   }
+  /*******METODOS*******/
 
-  // Registra un datos de contacto y rut de un usuario
+  /***************Registrar***************/
+  // Submetodo de "registrar", añade datos de contacto y rut de a usuario registrado
   async registrarDatosUsuario(
     rut,
     celular,
@@ -46,14 +48,6 @@ class Firebase {
         direccion,
       },
     };
-
-    // const ubicacion = {
-    //   nombreDir: "Direccion" + uid,
-    //   region,
-    //   ciudad,
-    //   direccion,
-    // };
-
     return await setDoc(doc(this.db, "usuarios", fechaCreacion + uid), {
       rut,
       celular,
@@ -62,7 +56,7 @@ class Firebase {
       rol: "",
     });
   }
-
+  //Registra un usuario
   async registrar(
     nombre,
     email,
@@ -97,7 +91,7 @@ class Firebase {
       displayName: nombre,
     });
   }
-
+  /***************Acceso***************/
   // Inicia sesión del usuario
   async login(email, password) {
     return await signInWithEmailAndPassword(this.auth, email, password);
@@ -107,6 +101,7 @@ class Firebase {
   async out() {
     return await signOut(this.auth);
   }
+  /***************Autenticado***************/
 
   // Obtener mis datos de contacto
   async getMeData() {
@@ -127,7 +122,6 @@ class Firebase {
       return null;
     }
   }
-
   async updateName(name) {
     return await updateProfile(this.auth.currentUser, {
       displayName: name,
@@ -143,12 +137,14 @@ class Firebase {
     );
     return await updateDoc(docRef, data);
   }
+
+  /***************Admin***************/
   //este metodo devuelve true cuando se es admin.
   //tambien esta validado en la base de datos, pero asi agilizas el proceso de controlar el acceso al frontend
   async isAdmin() {
     try {
       const docRef = doc(this.db, "admin-test", "admin-test");
-      const docSnap = await getDoc(docRef);
+      await getDoc(docRef);
       return true;
     } catch (error) {
       return false;
