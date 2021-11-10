@@ -42,8 +42,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   const redirectToHome = () => window.location.replace("/");
 
   useEffect(() => {
-    console.log("res: " + resUserFirebase);
-
     async function getMisDatos() {
       firebase.auth.onAuthStateChanged((user) => {
         setResUserFirebase(user);
@@ -83,7 +81,6 @@ function MyApp({ Component, pageProps }: AppProps) {
             celular: datosContacto.celular,
             ubicacion: datosContacto.ubicacion,
           };
-      console.log(misDatos_);
 
       setMisDatos(misDatos_);
     }
