@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const redirectToHome = () => window.location.replace("/");
 
   useEffect(() => {
-    // console.log("res: " + resUserFirebase);
+    console.log("res: " + resUserFirebase);
 
     async function getMisDatos() {
       firebase.auth.onAuthStateChanged((user) => {
@@ -54,12 +54,19 @@ function MyApp({ Component, pageProps }: AppProps) {
       }
 
       const datosContacto = await firebase.getMeData();
-      const admin = await firebase.isAdmin();
+
       if (!resUserFirebase || !datosContacto) {
         setResUserFirebase(null); //En caso de tener problemas con solicitar los datos del usuario, se setea resUserFirebase a null.
         setMisDatos(null);
         return;
       }
+      /*
+        Si bien dentro del documento de usuario se indica un rol, por seguridad, se utiliza, el metodo isAdmin(),
+        el cual envia una peticion a la base de datos para validar el rol admin.
+      */
+      const admin =
+        datosContacto.rol === "admin" ? await firebase.isAdmin() : false;
+
       const misDatos_ = admin
         ? {
             nombre: resUserFirebase.displayName,
@@ -76,6 +83,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             celular: datosContacto.celular,
             ubicacion: datosContacto.ubicacion,
           };
+      console.log(misDatos_);
 
       setMisDatos(misDatos_);
     }

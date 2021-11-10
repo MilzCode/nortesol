@@ -26,17 +26,7 @@ class Firebase {
     }
     this.auth = getAuth(this.app);
     this.db = getFirestore(this.app);
-    this.hola = "holaFirebase";
-
-    // this.db = app.firestore();
-    // this.storage = app.storage();
   }
-
-  // async añadirDato(dato) {
-  //   // const docRef = await addDoc(collection(this.db, "collection"), dato);
-  //   const docRef = await setDoc(doc(this.db, "collection", "5599"), dato);
-  //   // console.log(docRef);
-  // }
 
   // Registra un datos de contacto y rut de un usuario
   async registrarDatosUsuario(
@@ -69,6 +59,7 @@ class Firebase {
       celular,
       ubicacion,
       uid,
+      rol: "",
     });
   }
 
@@ -91,7 +82,7 @@ class Firebase {
     if (!nuevoUsuario.user.uid) return false;
     // console.log(nuevoUsuario.user.metadata.createdAt);
     //Registrar datos de contacto y su rut
-    this.registrarDatosUsuario(
+    await this.registrarDatosUsuario(
       rut,
       celular,
       region,
@@ -119,16 +110,20 @@ class Firebase {
 
   // Obtener mis datos de contacto
   async getMeData() {
-    const docRef = doc(
-      this.db,
-      "usuarios",
-      this.auth.currentUser.metadata.createdAt + this.auth.currentUser.uid
-    );
-    const docSnap = await getDoc(docRef);
+    try {
+      const docRef = doc(
+        this.db,
+        "usuarios",
+        this.auth.currentUser.metadata.createdAt + this.auth.currentUser.uid
+      );
+      const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      return docSnap.data();
-    } else {
+      if (docSnap.exists()) {
+        return docSnap.data();
+      } else {
+        return null;
+      }
+    } catch (error) {
       return null;
     }
   }

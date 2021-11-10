@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import BotonFAColores1 from "../components/general/BotonFAColores1";
 import Link from "next/link";
 import useValidacion from "../hooks/useValidation";
 import validarLogin from "../validations/validarLogin";
-import firebase from "../firebase";
 import { useRouter } from "next/router";
 const initialState = {
   email: "",
   password: "",
 };
 
-const Ingresar = () => {
+const Ingresar = ({ auth, fb }: any) => {
   const router = useRouter();
+  if (auth) router.push("/");
   const { valores, errores, handleSubmit, handleChange, handleBlur } =
     useValidacion(initialState, validarLogin, ingresar);
   const [ingresoInvalido, setIngresoInvalido] = useState(false);
   async function ingresar() {
     try {
-      await firebase.login(valores.email, valores.password);
+      await fb.login(valores.email, valores.password);
       router.push("/");
     } catch (error) {
       setIngresoInvalido(true);
