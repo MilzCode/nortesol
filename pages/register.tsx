@@ -5,7 +5,6 @@ import RegionesYComunas from "../utils/RegionesYComunas";
 import useValidacion from "../hooks/useValidation";
 import formatoRut from "../utils/formatoRut";
 import VentanaModal from "../components/general/VentanaModal";
-import { useRouter } from "next/router";
 
 const stateInicial = {
   nombre: "",
@@ -20,7 +19,6 @@ const stateInicial = {
 };
 const ciudadesInicial: string[] = [];
 const Register = ({ auth, fb }: any) => {
-  const router = useRouter();
   const [emailUsado, setEmailUsado] = useState(false);
   const [registerOK, setRegisterOK] = useState(false);
   const {
@@ -34,9 +32,9 @@ const Register = ({ auth, fb }: any) => {
   const [ciudades, setCiudades] = useState(ciudadesInicial);
 
   async function crearCuenta() {
-    if (auth) router.push("/");
+    if (auth) window.location.replace("/");
     try {
-      const res = await fb.registrar(
+      await fb.registrar(
         valores.nombre,
         valores.email,
         valores.password,
