@@ -1,6 +1,6 @@
-import React from "react";
-import BotonFAColores1 from "../components/general/BotonFAColores1";
-import Link from "next/link";
+// import React from "react";
+// import BotonFAColores1 from "../components/general/BotonFAColores1";
+// import Link from "next/link";
 
 // const RutaDefault = () => {
 //   return (
@@ -20,6 +20,9 @@ import Link from "next/link";
 /*
   De esta forma en caso de error mandara al login
 */
-const RutaDefault = () => window.location.replace("/");
+const RutaDefault = () => {
+  window.location.href = "/";
+  return <>404</>;
+};
 
 export default RutaDefault;
