@@ -1,11 +1,15 @@
 import React from "react";
 import BotonFA from "../../general/BotonFAColores1";
+import formatoPrecio from "../../../utils/formatoPrecio";
 
-const ProductoHeadComprar = () => {
+const ProductoHeadComprar = ({ precio, cantidadLlevada }: any) => {
+  cantidadLlevada = cantidadLlevada ? cantidadLlevada : 0;
   return (
     <div className="productoHeadComprar NOSELECT">
       <p className="productoHeadComprar__titulo1">Precio Unitario</p>
-      <p className="productoHeadComprar__precio">$999.999</p>
+      <p className="productoHeadComprar__precio">
+        {formatoPrecio(precio ? precio : 999999)}
+      </p>
       <p className="productoHeadComprar__titulo2">Cantidad</p>
       <div className="productoHeadComprar__cantidad">
         <i className="far fa-minus-square">
@@ -13,10 +17,12 @@ const ProductoHeadComprar = () => {
         </i>
         <input type="tel" max={99} maxLength={2} />
         <i className="fas fa-plus-square">
-          <div/>
+          <div />
         </i>
       </div>
-      <p className="productoHeadComprar__mensajeCantidad">Llevas N articulos</p>
+      <p className="productoHeadComprar__mensajeCantidad">
+        Llevas {cantidadLlevada} de este articulo
+      </p>
       <BotonFA className="productoHeadComprar__boton" backgroundColor="#ff6a39">
         <i className="fas fa-cart-arrow-down"></i>
         Agregar al carrito

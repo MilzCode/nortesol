@@ -1,15 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import "suneditor/dist/css/suneditor.min.css"; // Import Sun Editor's CSS File
+import BotonFAColores1 from "../general/BotonFAColores1";
 // import SunEditorCore from "suneditor/src/lib/core";
 const SunEditor = dynamic(() => import("suneditor-react"), {
   ssr: false,
 });
 const configSunEditor = {
-  height: "500px",
+  height: "50vh",
   resizingBar: false,
   font: ["Roboto", "Arial", "tahoma", "Courier New,Courier"],
-  defaultStyle: "font-family: Roboto; font-size:16px; line-height: 1;",
+  defaultStyle: "font-family: Roboto; font-size:1em; line-height: 1;",
   imageFileInput: false,
   videoFileInput: false,
   buttonList: [
@@ -18,7 +19,6 @@ const configSunEditor = {
     [
       ":p-Opciones de Texto-default.more_paragraph",
       "font",
-      "fontSize",
       "formatBlock",
     ],
     ["bold", "underline", "italic", "strike"],
@@ -52,11 +52,13 @@ const configSunEditor = {
 interface editorTextoProps {
   setStateContenido: any;
   setStateImagesToUpload: any;
+  dataInicial?: any;
 }
 
 const EditorTexto = ({
   setStateContenido,
   setStateImagesToUpload,
+  dataInicial,
 }: editorTextoProps) => {
   // const editor = useRef<SunEditorCore>();
   // const getSunEditorInstance = (sunEditor: SunEditorCore) => {
@@ -65,8 +67,6 @@ const EditorTexto = ({
   const handleContenido = (e: any) => {
     setStateContenido(e);
   };
-
-  useEffect(() => {}, []);
 
   // @ts-ignore
   const handleOnImageUpload = async (
@@ -88,9 +88,10 @@ const EditorTexto = ({
   };
 
   return (
-    <div className="test">
-      <br />
+    <div className="editorTexto">
+      {/* <div className="editorTexto__textArea"> */}
       <SunEditor
+        defaultValue={dataInicial}
         lang="es"
         setOptions={configSunEditor as any}
         onChange={handleContenido}
@@ -102,6 +103,7 @@ const EditorTexto = ({
           return;
         }}
       />
+      {/* </div> */}
       <br />
     </div>
   );

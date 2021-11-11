@@ -5,9 +5,15 @@
     font-size: sizeBasedOnTitle(0.85);
     color: $pantone2202C;
   }
-  & > p,
-  span,
-  a {
-    font-size: sizeBasedOnTitle(0.6);
+
+  &__content {
+    & h2 {
+      font-size: sizeBasedOnTitle(0.85);
+    }
+    & p,
+    span,
+    a {
+      font-size: sizeBasedOnTitle(0.6);
+    }
   }
 }

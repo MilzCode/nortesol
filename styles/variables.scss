@@ -20,6 +20,7 @@ $breakHeader3: 450px;
 
 //Colores
 $pantone106C: #f9e547;
+$pantone300C: #005eb8;
 $white: white;
 $pantone2412C: #48d597;
 $pantone2039U: #ea5c90;
@@ -36,11 +37,17 @@ $pantone292C: #69b3e7;
 $shadow02: rgba(0, 0, 0, 0.2);
 $facebookColor: #4267b2;
 $disabledColor: #bbb;
+$AzulClaroMDB: #bdcfdc;
+$GrisMDB: #e0e0e0;
 //Fuentes
 $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
   "Droid Sans", "Helvetica Neue", sans-serif;
 
+//fontSizes
+$fontSize4: sizeBasedOnTitle(0.7);
+
 //Textos Pseudoelementos
+
 
 //Mixins
 //dado que el header tiene un tamaño variable este mixin se encarga de dar un margin segun el tamaño.
@@ -230,4 +237,59 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.BOTONES {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  & > button {
+    margin: 0.1em;
+  }
+}
+
+.INPUT {
+  border-radius: 0.5rem !important;
+  border: 1px solid $AzulClaroMDB;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  overflow: hidden !important;
+  font-size: 1em;
+  color: $pantone2202C;
+  &:focus {
+    outline: none;
+    border: 1px solid rgba($pantone300C, 0.7);
+  }
+}
+.LABEL {
+  font-size: 1em;
+  display: block;
+  color: $pantone300C;
+}
+
+.LABELINPUT {
+  font-size: $fontSize4;
+  & > label {
+    @extend .LABEL;
+  }
+  & > input {
+    @extend .INPUT;
+    display: block;
+    width: 100%;
+  }
+  & > textarea {
+    @extend .INPUT;
+    display: block;
+    width: 100%;
+    height: 8em;
+    resize: none;
+    overflow-y: scroll !important;
+  }
+  & > select {
+    @extend .INPUT;
+    display: block;
+    width: 100%;
+    background-color: white;
+  }
 }

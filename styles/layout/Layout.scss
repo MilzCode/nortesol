@@ -1,11 +1,13 @@
 .layout {
   &__content {
     @include headerSizeTop();
-    margin-left: 10vw;
-    margin-right: 10vw;
+    margin-left: 7vw;
+    margin-right: 7vw;
+    max-width: 86vw !important;
     min-height: calc(
       100vh - #{$heightHeader} - #{$heightFooter} - #{$heightSubHeader}
     );
+    overflow-y: hidden;
 
     @media (max-width: #{$breakHeader1}) {
       min-height: calc(100vh - #{$heightHeader} - #{$heightFooter});

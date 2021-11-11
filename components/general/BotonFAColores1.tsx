@@ -11,12 +11,15 @@ tiene las misma propidedaes que un boton normal.
 */
 
 const BotonFAColores1 = (
-  { children, backgroundColor, className, onClick }: any,
+  { children, backgroundColor, className, onClick, disabled }: any,
   props: any
 ) => {
+  disabled && (backgroundColor = "#bbb");
+  disabled && (onClick = null);
   return (
     <button
-      className={`botonColores1 ${className}`}
+      disabled={disabled}
+      className={`botonColores1${className ? " " + className : ""}`}
       style={{ backgroundColor }}
       onClick={onClick}
       {...props}

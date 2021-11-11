@@ -2,6 +2,7 @@
   cursor: pointer;
   height: auto;
   & > i {
+    margin-left: sizeBasedOnTitle(0.18);
     font-size: sizeBasedOnTitle(0.85);
     transform: rotate(-90deg);
     color: $pantone2412C;
