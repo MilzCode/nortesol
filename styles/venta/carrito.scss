@@ -57,7 +57,7 @@
   }
   &__retiroTienda,
   &__retiroDomicilio {
-    font-size: sizeBasedOnTitle(0.6);
+    font-size: $fontSize9;
     & > label {
       font-style: italic;
     }
@@ -110,14 +110,14 @@
 
   &__totalDomicilioNoMsg {
     text-align: center;
-    font-size: sizeBasedOnTitle(0.5);
+    font-size: $fontSize12;
     font-weight: bold;
     max-width: sizeBasedOnTitle(10);
   }
 
   &__totalMensajeFinal {
     margin-top: 1rem;
-    font-size: sizeBasedOnTitle(0.5);
+    font-size: $fontSize12;
     font-style: italic;
     text-align: center;
   }

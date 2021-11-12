@@ -26,7 +26,7 @@
   &__misDatosContenido,
   &__misDireccionesContenido {
     & p {
-      font-size: sizeBasedOnTitle(0.6);
+      font-size: $fontSize9;
       font-style: italic;
       font-weight: 500;
       color: $pantoneBlackC;
@@ -34,7 +34,7 @@
   }
   &__misDireccionesContenido {
     & h4 {
-      font-size: sizeBasedOnTitle(0.7);
+      font-size: $fontSize7;
       font-style: italic;
       font-weight: 500;
       color: $pantone292C;

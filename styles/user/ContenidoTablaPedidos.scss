@@ -1,6 +1,6 @@
 .contenidoTablaPedidos {
   &__thead {
-    font-size: sizeBasedOnTitle(0.63);
+    font-size: $fontSize8;
     font-weight: 700;
     color: $white;
     background-color: #00a8ff;
@@ -19,17 +19,17 @@
     height: 0.5rem;
   }
   &__head {
-    font-size: sizeBasedOnTitle(0.55);
+    font-size: $fontSize10;
     font-weight: 600;
   }
   &__body {
-    font-size: sizeBasedOnTitle(0.52);
+    font-size: $fontSize11;
   }
   &__titulo2 {
-    font-size: sizeBasedOnTitle(0.59);
+    font-size: $fontSize9;
     font-weight: 600;
   }
   &__descripcion {
-    font-size: sizeBasedOnTitle(0.52);
+    font-size: $fontSize11;
   }
 }

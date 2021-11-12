@@ -136,6 +136,7 @@ const Edit = ({ fb, me }: any) => {
               type="tel"
               name="celular"
               id="celular"
+              maxLength={9}
               placeholder="Celular"
               disabled={!celular}
               value={valores.celular}

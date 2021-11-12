@@ -16,11 +16,7 @@ const configSunEditor = {
   buttonList: [
     // default
     ["undo", "redo"],
-    [
-      ":p-Opciones de Texto-default.more_paragraph",
-      "font",
-      "formatBlock",
-    ],
+    [":p-Opciones de Texto-default.more_paragraph", "font", "formatBlock"],
     ["bold", "underline", "italic", "strike"],
     ["fontColor", "hiliteColor", "textStyle"],
     ["align"],
@@ -30,6 +26,8 @@ const configSunEditor = {
     ["subscript", "superscript"],
     ["link", "image", "video"],
     ["print"],
+    //code view
+    ["codeView"],
   ],
 };
 
@@ -51,7 +49,7 @@ const configSunEditor = {
 // };
 interface editorTextoProps {
   setStateContenido: any;
-  setStateImagesToUpload: any;
+  setStateImagesToUpload?: any;
   dataInicial?: any;
 }
 
@@ -64,6 +62,7 @@ const EditorTexto = ({
   // const getSunEditorInstance = (sunEditor: SunEditorCore) => {
   //   editor.current = sunEditor;
   // };
+  let imagesUserAddPaste: any = {};
   const handleContenido = (e: any) => {
     setStateContenido(e);
   };
@@ -80,10 +79,20 @@ const EditorTexto = ({
     remainingFilesCount
   ) => {
     if (imageInfo && imageInfo.size > 0) {
-      setStateImagesToUpload[index] = imageInfo;
+      if (setStateImagesToUpload) {
+        imagesUserAddPaste[index] = imageInfo;
+        setStateImagesToUpload(imagesUserAddPaste);
+      } else {
+        targetElement.src = "";
+        targetElement.parentElement.parentElement.remove();
+        alert("No esta permitido pegar imagenes");
+      }
     }
     if (state === "delete") {
-      delete setStateImagesToUpload[index];
+      if (setStateImagesToUpload) {
+        delete imagesUserAddPaste[index];
+        setStateImagesToUpload(imagesUserAddPaste);
+      }
     }
   };
 
@@ -96,12 +105,6 @@ const EditorTexto = ({
         setOptions={configSunEditor as any}
         onChange={handleContenido}
         onImageUpload={handleOnImageUpload}
-        onVideoUpload={(e) => {
-          return;
-        }}
-        onAudioUpload={(e) => {
-          return;
-        }}
       />
       {/* </div> */}
       <br />

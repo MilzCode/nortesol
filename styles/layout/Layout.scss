@@ -1,9 +1,9 @@
 .layout {
   &__content {
     @include headerSizeTop();
-    margin-left: 7vw;
-    margin-right: 7vw;
-    max-width: 86vw !important;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    max-width: 90vw !important;
     min-height: calc(
       100vh - #{$heightHeader} - #{$heightFooter} - #{$heightSubHeader}
     );

@@ -10,7 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: sizeBasedOnTitle(0.6);
+  font-size: $fontSize9;
   text-align: center;
 
   &__contenido {

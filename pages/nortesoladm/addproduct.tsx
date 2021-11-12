@@ -1,24 +1,31 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from "react";
 import BotonFAColores1 from "../../components/general/BotonFAColores1";
+import VentanaModal from "../../components/general/VentanaModal";
 import Volver from "../../components/general/Volver";
 import EditorTexto from "../../components/nortesoladm/EditorTexto";
 import ProductoBody from "../../components/venta/ProductoBody";
 import ProductoHead from "../../components/venta/ProductoHead";
 import ProductoRelacionados from "../../components/venta/ProductoRelacionados";
 
-const Addproduct = ({ auth, me }: any) => {
+const Addproduct = ({ auth, me, fb }: any) => {
   if (!auth || !me.admin) {
     window.location.href = "/";
     return null;
   }
   const [contenidoToUpload, setContenidoToUpload] = useState("");
-  const [imagenesToUpload, setImagenesToUpload] = useState({});
+  // const [imagenesToUpload, setImagenesToUpload] = useState<any>({});
+  const [confirmarBorrar, setConfirmarBorrar] = useState(false);
   const [title, setTitle] = useState("");
   const [precio, setPrecio] = useState(9999999);
+  const [categoria, setCategoria] = useState("");
   const [cantidadDisponible, setCantidadDisponible] = useState(0);
+  const [imagenes, setImagenes] = useState<any>([]);
+  const [imagenesPreview, setImagenesPreview] = useState<any>([]);
   const [siguiente, setSiguiente] = useState(false);
   const [preview, setPreview] = useState(false);
+  //cantidad maxima de imagenes que se pueden subir
+  const maxImg = 2;
   useEffect(() => {
     const contenidoInicial = localStorage.getItem("contenidoNsol982");
     const precioInicial = localStorage.getItem("precioNsol982");
@@ -40,6 +47,7 @@ const Addproduct = ({ auth, me }: any) => {
       "cantidadDisponibleNsol982",
       cantidadDisponible.toString()
     );
+    localStorage.setItem("categoriaNsol982", categoria);
   };
   const handdleBorrarContenido = () => {
     localStorage.removeItem("contenidoNsol982");
@@ -47,6 +55,7 @@ const Addproduct = ({ auth, me }: any) => {
     localStorage.removeItem("titleNsol982");
     localStorage.removeItem("precioNsol982");
     localStorage.removeItem("cantidadDisponibleNsol982");
+    localStorage.removeItem("categoriaNsol982");
     window.location.href = "/nortesoladm/addproduct";
   };
   const handdleSiguiente = () => {
@@ -67,9 +76,27 @@ const Addproduct = ({ auth, me }: any) => {
   const handdlePrecio = (e: any) => {
     setPrecio(e.target.value);
   };
+  const handdleImagenes = (e: any) => {
+    if (e.target.files.length > maxImg) {
+      alert(`Solo se pueden subir ${maxImg} imagenes `);
+      return;
+    }
+    let dataUrls = [];
+    for (let i = 0; i < e.target.files.length; i++) {
+      dataUrls.push(URL.createObjectURL(e.target.files[i] as any));
+    }
+    setImagenes(e.target.files);
+    setImagenesPreview(dataUrls);
+  };
+  const handdleCategoria = (e: any) => {
+    setCategoria(e.target.value);
+  };
   const handdleCantidadDisponible = (e: any) => {
     setCantidadDisponible(e.target.value);
   };
+  //parametro
+  const puedeSubir = title && categoria && cantidadDisponible && precio;
+
   return (
     <>
       <Volver />
@@ -78,11 +105,28 @@ const Addproduct = ({ auth, me }: any) => {
         {!preview && (
           <>
             <BotonFAColores1
-              onClick={handdleBorrarContenido}
+              onClick={() => {
+                setConfirmarBorrar(true);
+              }}
               backgroundColor="#f9423a"
             >
               Borrar
             </BotonFAColores1>
+            {confirmarBorrar && (
+              <VentanaModal
+                titulo="¿Quieres borrar todo?"
+                onClose={() => {
+                  setConfirmarBorrar(false);
+                }}
+              >
+                <BotonFAColores1
+                  backgroundColor="#f9423a"
+                  onClick={handdleBorrarContenido}
+                >
+                  Si
+                </BotonFAColores1>
+              </VentanaModal>
+            )}
             <BotonFAColores1 onClick={handdleGuardarLocalmente}>
               Guardar
             </BotonFAColores1>
@@ -120,7 +164,7 @@ const Addproduct = ({ auth, me }: any) => {
           <hr />
           <EditorTexto
             setStateContenido={setContenidoToUpload}
-            setStateImagesToUpload={setImagenesToUpload}
+            // setStateImagesToUpload={setImagenesToUpload}
             dataInicial={contenidoToUpload}
           />
         </>
@@ -138,6 +182,10 @@ const Addproduct = ({ auth, me }: any) => {
             <input type="number" value={precio} onChange={handdlePrecio} />
           </div>
           <div className="LABELINPUT">
+            <label>Categoria</label>
+            <input type="text" value={categoria} onChange={handdleCategoria} />
+          </div>
+          <div className="LABELINPUT">
             <label>Cantidad disponible</label>
             <input
               type="number"
@@ -145,10 +193,56 @@ const Addproduct = ({ auth, me }: any) => {
               onChange={handdleCantidadDisponible}
             />
           </div>
-          <BotonFAColores1 backgroundColor="#48d597">
-            Subir&nbsp;
-            <i className="fas fa-arrow-up"></i>
+          <hr />
+          {/* imagenes */}
+          <div className="LABELINPUT">
+            <label>
+              Imagenes (maximo {maxImg} imagenes), {imagenes.length} subidas
+            </label>
+            <br />
+            <label htmlFor="imagenes">
+              <div className="UPLOADIMAGELOGO">
+                <i className="far fa-image"></i>
+                <i className="fas fa-upload"></i>
+              </div>
+            </label>
+            <input
+              id="imagenes"
+              type="file"
+              multiple
+              onChange={handdleImagenes}
+              accept="image/png, image/jpeg"
+              style={{ display: "none" }}
+            />
+
+            {imagenesPreview.length > 0 && (
+              <div className="IMAGEPREVIEW">
+                <br />
+                {imagenesPreview.map((img: any, i: number) => {
+                  return <img key={i} src={img} alt="imagen" />;
+                })}
+              </div>
+            )}
+            <br />
+          </div>
+
+          <hr />
+          <br />
+
+          <BotonFAColores1 backgroundColor="#48d597" disabled={!puedeSubir}>
+            {!puedeSubir ? (
+              "Faltan campos por llenar"
+            ) : (
+              <>
+                Subir Producto&nbsp;
+                <i className="fas fa-arrow-up"></i>
+              </>
+            )}
           </BotonFAColores1>
+          <br />
+
+          <br />
+          <br />
         </>
       )}
       {preview && (

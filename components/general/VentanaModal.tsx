@@ -15,19 +15,22 @@ interface ventanaModalProps {
   redireccionar?: string | null;
   children?: React.ReactNode;
   reload?: boolean;
+  onClose?: any;
 }
 
 const VentanaModal = ({
   titulo,
   redireccionar = null,
   children,
-  reload: refrescar
+  reload: refrescar,
+  onClose,
 }: ventanaModalProps) => {
   const [modal, setModal] = useState(true);
   const handleClose = () => {
     setModal(false);
     refrescar && redireccionar && window.location.replace(redireccionar);
     redireccionar && Router.push(redireccionar);
+    onClose && onClose();
   };
   return (
     <div className={`ventanaModal${modal ? "" : "--salir"}`}>

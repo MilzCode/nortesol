@@ -18,7 +18,7 @@
   }
   &__titulo1,
   &__titulo2 {
-    font-size: sizeBasedOnTitle(0.85);
+    font-size: $fontSize4;
     font-weight: 700;
     color: $pantone2202C;
     margin: 0;
@@ -29,7 +29,7 @@
   &__precio {
     background-color: white;
     padding: 4px 14px;
-    font-size: sizeBasedOnTitle(0.7);
+    font-size: $fontSize7;
     font-weight: 600;
     font-style: italic;
     border-radius: sizeBasedOnTitle(0.2);
@@ -44,7 +44,7 @@
       max-width: sizeBasedOnTitle(2);
       text-align: center;
       margin: 0 1rem;
-      font-size: sizeBasedOnTitle(0.53);
+      font-size: $fontSize11;
       border-radius: 0.1rem;
       padding: 0;
       outline: none;
@@ -52,7 +52,7 @@
     & > i {
       z-index: 2;
       position: relative;
-      font-size: sizeBasedOnTitle(0.95);
+      font-size: $fontSize2;
       color: $pantone2412C;
       &:last-child {
         color: $pantone292C;
@@ -72,7 +72,7 @@
     }
   }
   &__mensajeCantidad {
-    font-size: sizeBasedOnTitle(0.7);
+    font-size: $fontSize7;
     font-weight: 600;
     font-style: italic;
   }

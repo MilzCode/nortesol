@@ -44,10 +44,22 @@ $fontFamily: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
   "Droid Sans", "Helvetica Neue", sans-serif;
 
 //fontSizes
-$fontSize4: sizeBasedOnTitle(0.7);
+$fontSize1: sizeBasedOnTitle(1);
+$fontSize2: sizeBasedOnTitle(0.95);
+$fontSize3: sizeBasedOnTitle(0.9);
+$fontSize4: sizeBasedOnTitle(0.85);
+$fontSize5: sizeBasedOnTitle(0.8);
+$fontSize6: sizeBasedOnTitle(0.75);
+$fontSize7: sizeBasedOnTitle(0.7);
+$fontSize8: sizeBasedOnTitle(0.65);
+$fontSize9: sizeBasedOnTitle(0.6);
+$fontSize10: sizeBasedOnTitle(0.55);
+$fontSize11: sizeBasedOnTitle(0.52);
+$fontSize12: sizeBasedOnTitle(0.5);
+$fontSize13: sizeBasedOnTitle(0.45);
+$fontSize14: sizeBasedOnTitle(0.4);
 
 //Textos Pseudoelementos
-
 
 //Mixins
 //dado que el header tiene un tamaño variable este mixin se encarga de dar un margin segun el tamaño.
@@ -89,7 +101,7 @@ $fontSize4: sizeBasedOnTitle(0.7);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: sizeBasedOnTitle(0.5);
+  font-size: $fontSize12;
   margin: 0 0 0.45rem 0;
   position: relative;
   height: sizeBasedOnTitle();
@@ -145,7 +157,7 @@ $fontSize4: sizeBasedOnTitle(0.7);
 }
 
 .TITULOSFORM {
-  font-size: sizeBasedOnTitle(0.9);
+  font-size: $fontSize3;
   font-weight: 700;
   color: $pantone2202C;
   margin: 0;
@@ -155,7 +167,7 @@ $fontSize4: sizeBasedOnTitle(0.7);
 .NOVALIDO {
   color: red;
   margin-top: 0.5rem;
-  font-size: sizeBasedOnTitle(0.5);
+  font-size: $fontSize12;
   font-style: italic;
   text-align: center;
 }
@@ -191,7 +203,7 @@ $fontSize4: sizeBasedOnTitle(0.7);
   .ERRFORM {
     display: block;
     color: rgba($pantoneWarmRedC, 0.9);
-    font-size: sizeBasedOnTitle(0.5);
+    font-size: $fontSize12;
     font-style: italic;
     list-style: none;
     margin-right: auto;
@@ -208,7 +220,7 @@ $fontSize4: sizeBasedOnTitle(0.7);
 
 .LINKFORM {
   color: $pantone2039U;
-  font-size: sizeBasedOnTitle(0.5);
+  font-size: $fontSize12;
   text-align: center;
   cursor: pointer;
   &:hover {
@@ -227,7 +239,7 @@ $fontSize4: sizeBasedOnTitle(0.7);
   border-radius: 0.5em;
 }
 .TEXT1 {
-  font-size: sizeBasedOnTitle(0.5);
+  font-size: $fontSize12;
 }
 .MAUTO {
   margin: auto;
@@ -266,6 +278,7 @@ $fontSize4: sizeBasedOnTitle(0.7);
   font-size: 1em;
   display: block;
   color: $pantone300C;
+  display: inline-block;
 }
 
 .LABELINPUT {
@@ -291,5 +304,42 @@ $fontSize4: sizeBasedOnTitle(0.7);
     display: block;
     width: 100%;
     background-color: white;
+  }
+}
+
+.UPLOADIMAGELOGO {
+  font-size: $fontSize5;
+  display: inline-block;
+  position: relative;
+  &:active {
+    transform: scale(0.99);
+  }
+  & > i {
+    cursor: pointer;
+  }
+  & > i:first-child {
+    color: $pantoneBlackC01;
+    font-size: 5em;
+  }
+  & > i:last-child {
+    color: $pantone292C;
+    font-size: 2em;
+    position: absolute;
+    top: 0.7em;
+    left: 0.78em;
+  }
+}
+
+.IMAGEPREVIEW {
+  font-size: $fontSize5;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  & > img {
+    height: 5em;
+    margin-right: 0.5em;
+    margin-bottom: 0.2em;
+    border-radius: 0.5em;
   }
 }

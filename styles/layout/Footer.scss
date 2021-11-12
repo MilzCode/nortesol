@@ -21,13 +21,13 @@
     }
     & > span {
       color: $white;
-      font-size: sizeBasedOnTitle(0.6);
+      font-size: $fontSize9;
       font-style: italic;
     }
   }
   &__creditos {
     color: $white;
     font-style: italic;
-    font-size: sizeBasedOnTitle(0.4);
+    font-size: $fontSize14;
   }
 }

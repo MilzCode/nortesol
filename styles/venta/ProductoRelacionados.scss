@@ -2,7 +2,7 @@
   margin: auto;
   max-width: 70vw;
   &__titulo {
-    font-size: sizeBasedOnTitle(0.7);
+    font-size: $fontSize7;
     font-weight: 600;
     margin-bottom: 1rem;
     font-style: italic;

@@ -16,9 +16,15 @@ import {
   getDoc,
   updateDoc,
 } from "firebase/firestore";
+//import firebase storage
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 
 import firebaseConfig from "./config";
-
 class Firebase {
   constructor() {
     if (!getApps().length) {
@@ -147,8 +153,32 @@ class Firebase {
       await getDoc(docRef);
       return true;
     } catch (error) {
+      console.log("NANCY");
       return false;
     }
+  }
+  //upload image
+  async uploadImage(file) {
+    //"Ballena Azul".indexOf("Azul") = 8
+    if (!file) return;
+    const storage = getStorage(this.app);
+    const sotrageRef = ref(storage, `files/${file.name}`);
+    const uploadTask = uploadBytesResumable(sotrageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const prog = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        // setProgress(prog);
+      },
+      (error) => console.log(error),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          return downloadURL;
+        });
+      }
+    );
   }
 }
 

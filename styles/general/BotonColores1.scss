@@ -1,5 +1,5 @@
 .botonColores1 {
-  font-size: sizeBasedOnTitle(0.5);
+  font-size: $fontSize12;
   background-color: $pantone2039U;
   outline: none !important;
   border: none;
@@ -23,6 +23,10 @@
   }
   &:active {
     transform: scale(0.99);
+  }
+  //disabled
+  &:disabled{
+    cursor: not-allowed;
   }
 
 }
