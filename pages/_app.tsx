@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [resUserFirebase, setResUserFirebase] = useState<any>(false);
 
   //Rutas que no requieren control de acceso
-  const rutasPublicas = ["/login", "/", "/register", "/search"];
+  const rutasPublicas = ["/login", "/", "/register", "/search","/.well-known/assetlinks.json"];
   //ruta actual
   const path = router.asPath.split("?")[0];
   //True si la ruta actual no requiere control de acceso.
