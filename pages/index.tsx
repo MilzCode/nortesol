@@ -13,7 +13,6 @@ const Home: NextPage = ({ fb, me }: any) => {
   return (
     <>
       <Head>
-        <title>Libreria nortesol</title>
         <meta name="Descripcion" content="Libreria nortesol" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
