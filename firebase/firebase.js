@@ -36,67 +36,7 @@ class Firebase {
   /*******METODOS*******/
 
   /***************Registrar***************/
-  // Submetodo de "registrar", añade datos de contacto y rut de a usuario registrado
-  async registrarDatosUsuario(
-    rut,
-    celular,
-    region,
-    ciudad,
-    direccion,
-    uid,
-    fechaCreacion
-  ) {
-    const ubicacion = {
-      dir1: {
-        nombreDir: "Direccion1" + uid,
-        region,
-        ciudad,
-        direccion,
-      },
-    };
-    return await setDoc(doc(this.db, "usuarios", fechaCreacion + uid), {
-      rut,
-      celular,
-      ubicacion,
-      uid,
-      rol: "",
-    });
-  }
-  //Registra un usuario
-  async registrar(
-    nombre,
-    email,
-    password,
-    rut,
-    celular,
-    region,
-    ciudad,
-    direccion
-  ) {
-    const nuevoUsuario = await createUserWithEmailAndPassword(
-      this.auth,
-      email,
-      password
-    );
-    //si no se logra registra con exito salimos del metodo
-    if (!nuevoUsuario.user.uid) return false;
-    // console.log(nuevoUsuario.user.metadata.createdAt);
-    //Registrar datos de contacto y su rut
-    await this.registrarDatosUsuario(
-      rut,
-      celular,
-      region,
-      ciudad,
-      direccion,
-      nuevoUsuario.user.uid,
-      nuevoUsuario.user.metadata.createdAt
-    );
-
-    //ingresamos el nombre del usuario
-    return await updateProfile(nuevoUsuario.user, {
-      displayName: nombre,
-    });
-  }
+  
   /***************Acceso***************/
   // Inicia sesión del usuario
   async login(email, password) {

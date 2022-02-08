@@ -8,7 +8,7 @@ import ProductoBody from "../../components/venta/ProductoBody";
 import ProductoHead from "../../components/venta/ProductoHead";
 import ProductoRelacionados from "../../components/venta/ProductoRelacionados";
 
-const Addproduct = ({ auth, me, fb }: any) => {
+const Addproduct = ({ auth, me }: any) => {
   if (!auth || !me.admin) {
     window.location.href = "/";
     return null;
