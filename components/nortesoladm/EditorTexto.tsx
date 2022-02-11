@@ -16,7 +16,7 @@ const configSunEditor = {
   buttonList: [
     // default
     ["undo", "redo"],
-    [":p-Opciones de Texto-default.more_paragraph", "font", "formatBlock"],
+    [":p-Opciones de Texto-default.more_paragraph", "font"],
     ["bold", "underline", "italic", "strike"],
     ["fontColor", "hiliteColor", "textStyle"],
     ["align"],

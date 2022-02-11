@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Router from "next/router";
+import React, { useState } from 'react';
+import Router from 'next/router';
 
 /*
     Este componente es una ventana modal con titulo y parrafo.
@@ -11,40 +11,40 @@ import Router from "next/router";
 */
 
 interface ventanaModalProps {
-  titulo: string;
-  redireccionar?: string | null;
-  children?: React.ReactNode;
-  reload?: boolean;
-  onClose?: any;
+	titulo: string;
+	redireccionar?: string | null;
+	children?: React.ReactNode;
+	reload?: boolean;
+	onClose?: any;
 }
 
 const VentanaModal = ({
-  titulo,
-  redireccionar = null,
-  children,
-  reload: refrescar,
-  onClose,
+	titulo,
+	redireccionar = null,
+	children,
+	reload: refrescar,
+	onClose,
 }: ventanaModalProps) => {
-  const [modal, setModal] = useState(true);
-  const handleClose = () => {
-    setModal(false);
-    refrescar && redireccionar && window.location.replace(redireccionar);
-    redireccionar && Router.push(redireccionar);
-    onClose && onClose();
-  };
-  return (
-    <div className={`ventanaModal${modal ? "" : "--salir"}`}>
-      <div className="ventanaModal__contenido">
-        <i
-          className="fas fa-times ventanaModal__cerrarIco"
-          onClick={handleClose}
-        ></i>
-        <p className="ventanaModal__titulo">{titulo}</p>
-        <hr />
-        <p className="ventanaModal__texto">{children}</p>
-      </div>
-    </div>
-  );
+	const [modal, setModal] = useState(true);
+	const handleClose = () => {
+		// setModal(false);
+		refrescar && redireccionar && window.location.replace(redireccionar);
+		redireccionar && Router.push(redireccionar);
+		onClose && onClose();
+	};
+	return (
+		<div className={`ventanaModal${modal ? '' : '--salir'}`}>
+			<div className="ventanaModal__contenido">
+				<i
+					className="fas fa-times ventanaModal__cerrarIco"
+					onClick={handleClose}
+				></i>
+				<p className="ventanaModal__titulo">{titulo}</p>
+				<hr />
+				<p className="ventanaModal__texto">{children}</p>
+			</div>
+		</div>
+	);
 };
 
 export default VentanaModal;

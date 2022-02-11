@@ -16,6 +16,7 @@ const Edit = ({ me }: any) => {
 	const [celular, setCelular] = React.useState(false);
 	const [password, setPassword] = React.useState(false);
 	const [envio, setEnvio] = React.useState(false);
+	const [passwordOriginalState, setPasswordOriginalState] = React.useState('');
 
 	//si la contraseña toma este valor significa que no se haran cambios
 	const valorContraseñaSinCambios = DEFAULTNOPASSWORD;
@@ -38,6 +39,7 @@ const Edit = ({ me }: any) => {
 		if (valores.contraseña === valorContraseñaSinCambios) {
 			//no cambia
 		}
+		console.log(passwordOriginalState);
 		console.log('cambiandoooooo');
 		console.log(valores);
 		// Object.keys(valores).forEach((key) => {
@@ -46,7 +48,18 @@ const Edit = ({ me }: any) => {
 		// 	if (valores[key] ) {
 		// 	}
 		// });
-		useEditMe(valores.nombre, valores.rut, valores.celular);
+		const res = await useEditMe(
+			passwordOriginalState,
+			valores.nombre,
+			valores.rut,
+			valores.celular
+		);
+
+		if (!res.ok) {
+			alert('No se pudo realizar cambios');
+			return;
+		}
+
 		setEnvio(true);
 		return true;
 	};
@@ -208,6 +221,19 @@ const Edit = ({ me }: any) => {
 									? ''
 									: valores.password2
 							}
+						/>
+						<div />
+					</div>
+					<div className="userEdit__input">
+						<label htmlFor="passwordoriginal" className="fas fa-lock" />
+						<input
+							type="password"
+							name="passwordoriginal"
+							id="passwordoriginal"
+							placeholder="Contraseña Actual"
+							onChange={(e: any) => {
+								setPasswordOriginalState(e.target.value);
+							}}
 						/>
 						<div />
 					</div>

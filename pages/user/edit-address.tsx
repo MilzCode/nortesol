@@ -14,6 +14,7 @@ const EditAddress = ({ me }: any) => {
 	const [region, setRegion] = React.useState(false);
 	const [envio, setEnvio] = React.useState(false);
 	const [ciudades, setCiudades] = React.useState(ciudadesInicial);
+	const [passwordOriginalState, setPasswordOriginalState] = React.useState('');
 
 	const STATE_INIT = {
 		region: me.region,
@@ -32,12 +33,13 @@ const EditAddress = ({ me }: any) => {
 		sendChange(STATE_INIT);
 	}, []);
 
-	const actualizarDatos = () => {
+	const actualizarDatos = async () => {
 		if (!region) {
 			setEnvio(true);
 			return;
 		}
-		useEditMe(
+		const res = await useEditMe(
+			passwordOriginalState,
 			undefined,
 			undefined,
 			undefined,
@@ -45,6 +47,10 @@ const EditAddress = ({ me }: any) => {
 			valores.ciudad,
 			valores.direccion
 		);
+		if (!res.ok) {
+			alert('No se pudo realizar cambios');
+			return;
+		}
 
 		setEnvio(true);
 		return true;
@@ -189,6 +195,19 @@ const EditAddress = ({ me }: any) => {
 							value={valores.direccion}
 							onChange={handleChange}
 							onBlur={handleBlur}
+						/>
+						<div />
+					</div>
+					<div className="userEdit__input">
+						<label htmlFor="passwordoriginal" className="fas fa-lock" />
+						<input
+							type="password"
+							name="passwordoriginal"
+							id="passwordoriginal"
+							placeholder="Contraseña Actual"
+							onChange={(e: any) => {
+								setPasswordOriginalState(e.target.value);
+							}}
 						/>
 						<div />
 					</div>

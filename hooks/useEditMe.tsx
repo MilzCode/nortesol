@@ -3,6 +3,7 @@ import { APIURL } from '../utils/constantes';
 
 //TODO: Este componente puede recibir parametros opcionales
 const useEditMe = async (
+	password_original: string,
 	nombre?: string,
 	rut?: string,
 	celular?: number,
@@ -11,6 +12,9 @@ const useEditMe = async (
 	direccion?: string,
 	password?: string
 ) => {
+	if (!password_original) {
+		return { errors: 'No existe password original' };
+	}
 	const data = {
 		nombre,
 		rut,
@@ -19,6 +23,7 @@ const useEditMe = async (
 		ciudad,
 		direccion,
 		password,
+		password_original,
 	};
 	const miId = localStorage.getItem('me');
 	const token = localStorage.getItem('tken');

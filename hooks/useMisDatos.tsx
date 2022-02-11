@@ -15,10 +15,9 @@ const useMisDatos = async () => {
 			'Content-Type': 'application/json',
 		},
 	});
-	const data = await response.json();
+	const { admin, ...data } = await response.json();
 	if (data.ok) {
-		console.log(data);
-		return data.usuario;
+		return { ...data.usuario, admin };
 	}
 	return null;
 };
