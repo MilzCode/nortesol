@@ -28,7 +28,6 @@ const Home: NextPage = () => {
 			useProductos({ page: pagina })
 				.then((res) => {
 					setProductos(res.productos.docs);
-					console.log(res.productos.docs);
 				})
 				.catch(() => {});
 		}

@@ -22,6 +22,7 @@ const Addproduct = ({ auth, me }: any) => {
 	const [precio, setPrecio] = useState(9999999);
 	const [categorias, setCategorias] = useState<any>([]);
 	const [cantidadDisponible, setCantidadDisponible] = useState(0);
+	const [marca, setMarca] = useState('');
 	const [imagenes, setImagenes] = useState<any>([]);
 	const [imagenesPreview, setImagenesPreview] = useState<any>([]);
 	const [siguiente, setSiguiente] = useState(false);
@@ -81,6 +82,9 @@ const Addproduct = ({ auth, me }: any) => {
 	const handdleTitle = (e: any) => {
 		setTitle(e.target.value);
 	};
+	const handdleMarca = (e: any) => {
+		setMarca(e.target.value);
+	};
 	const handdlePrecio = (e: any) => {
 		setPrecio(e.target.value);
 	};
@@ -115,11 +119,12 @@ const Addproduct = ({ auth, me }: any) => {
 		setSubir(true);
 		const data = {
 			descripcion: contenidoToUpload,
-			titulo: title,
+			nombre: title,
 			precio: precio,
-			categoria: categorias,
+			categorias: categorias,
 			cantidad: cantidadDisponible,
 			imagenes,
+			marca,
 		};
 
 		const res = await useCrearProducto(data);
@@ -228,6 +233,10 @@ const Addproduct = ({ auth, me }: any) => {
 							value={categorias}
 							onChange={handdleCategorias}
 						/>
+					</div>
+					<div className="LABELINPUT">
+						<label>Marca</label>
+						<input type="text" value={marca} onChange={handdleMarca} />
 					</div>
 					<div className="LABELINPUT">
 						<label>Cantidad disponible</label>

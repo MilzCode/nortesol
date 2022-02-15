@@ -3,16 +3,25 @@ import useActualizarImagenProducto from './useActualizarImagen';
 
 interface productoProps {
 	descripcion?: string | any;
-	titulo: string;
+	nombre: string;
 	precio: number;
-	categoria: string;
+	categorias: string;
 	cantidad: number;
+	marca?: string;
 	imagenes?: any; //fillist
 }
 
-const useCrearProducto = async (data: productoProps) => {
+const useCrearProducto = async ({
+	nombre,
+	precio,
+	descripcion,
+	categorias,
+	cantidad,
+	marca,
+	imagenes,
+}: productoProps) => {
 	try {
-		if (!data.imagenes || data.imagenes.length === 0) {
+		if (!imagenes || imagenes.length === 0) {
 			console.log('Hace falta una imagen');
 			return {
 				ok: false,
@@ -20,13 +29,13 @@ const useCrearProducto = async (data: productoProps) => {
 				type: 'minimagen',
 			};
 		}
-		console.log(data.descripcion);
 		const dataFetch = {
-			nombre: data.titulo,
-			precio: data.precio,
-			descripcion: data.descripcion,
-			categorias: data.categoria,
-			cantidad: data.cantidad,
+			nombre,
+			precio,
+			descripcion,
+			categorias,
+			cantidad,
+			marca,
 		};
 		const token = localStorage.getItem('tken');
 		if (!token) {
@@ -49,15 +58,14 @@ const useCrearProducto = async (data: productoProps) => {
 
 			return {
 				ok: false,
-				msg: msg ?? 'Error al crear el producto contacta al administrador',
+				msg: msg ?? 'Error al crear el producto contacta al administrador*',
 			};
 		}
 
 		const responseData = await response.json();
 		const idProducto = responseData.producto.id;
-		console.log('se añadio', idProducto);
 		const actualizarImgRes = await useActualizarImagenProducto(
-			data.imagenes,
+			imagenes,
 			idProducto
 		);
 		if (!actualizarImgRes.ok && responseData.ok) {

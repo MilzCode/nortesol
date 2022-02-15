@@ -13,13 +13,13 @@ const ProductoHeadImagenes = ({ imagenes = [] }: any) => {
 		autoplaySpeed: 4000,
 		arrows: false,
 	};
-	console.log(imagenes);
 	return (
 		<div className="productoHeadImagen">
 			<Slider {...settings}>
 				{imagenes.length > 0 ? (
-					imagenes.map((imagen: any, i: any) => {
+					imagenes.map((imagen: any, i: any) => (
 						<div>
+							{console.log('img:', imagen)}
 							<Image
 								src={imagen ?? '/static/img/libreta.jpg'}
 								alt="..."
@@ -27,8 +27,8 @@ const ProductoHeadImagenes = ({ imagenes = [] }: any) => {
 								width="1280"
 								objectFit="contain"
 							/>
-						</div>;
-					})
+						</div>
+					))
 				) : (
 					<div>
 						<Image

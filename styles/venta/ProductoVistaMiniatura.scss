@@ -114,6 +114,33 @@
 			font-size: $widthMiniatura * $factorSize * 0.08;
 		}
 	}
+	@media screen and (max-width: 450px) {
+		$factorSize: 0.5;
+		width: $widthMiniatura * $factorSize;
+		margin: $widthMiniatura * $factorSize * 0.05;
+
+		&__imagen {
+			max-width: 100%;
+			max-height: $widthMiniatura * $factorSize * 0.5625;
+			border-top-left-radius: $widthMiniatura * $factorSize * 0.1;
+			border-top-right-radius: $widthMiniatura * $factorSize * 0.1;
+		}
+		&__nombre {
+			height: $widthMiniatura * $factorSize * 0.24;
+			font-size: $widthMiniatura * $factorSize * 0.08;
+			padding: 0 $widthMiniatura * $factorSize * 0.01;
+		}
+		&__precio {
+			height: $widthMiniatura * $factorSize * 0.12;
+			font-size: $widthMiniatura * $factorSize * 0.08;
+		}
+		&__mostrar {
+			height: $widthMiniatura * $factorSize * 0.12;
+			border-bottom-left-radius: $widthMiniatura * $factorSize * 0.1;
+			border-bottom-right-radius: $widthMiniatura * $factorSize * 0.1;
+			font-size: $widthMiniatura * $factorSize * 0.08;
+		}
+	}
 	@media screen and (max-width: 400px) {
 		$factorSize: 0.45;
 		width: $widthMiniatura * $factorSize;
