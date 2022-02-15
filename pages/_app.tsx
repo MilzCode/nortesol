@@ -19,19 +19,18 @@ function MyApp({ Component, pageProps }: AppProps) {
   */
 	const [misDatos, setMisDatos] = useState<any>(false);
 
-	//Rutas que no requieren control de acceso
-	const rutasPublicas = [
-		'/login',
-		'/',
-		'/register',
-		'/search',
-		'/.well-known/assetlinks.json',
-		'/api/androidapp',
-	];
+	//Rutas que no requieren control de acceso. Se recomienda que las rutas con parametros (*) vayan al final
+	const rutasPublicas = ['/login', '/', '/register', '/search', '/producto/*'];
 	//ruta actual
 	const path = router.asPath.split('?')[0];
 	//True si la ruta actual no requiere control de acceso.
-	const isPublicRoute = rutasPublicas.includes(path);
+	const isPublicRoute = rutasPublicas.some((url) => {
+		if (url.includes('*')) {
+			const urlSplit = url.split('*').filter((p) => p !== '');
+			return urlSplit.every((p) => path.includes(p));
+		}
+		return path === url;
+	});
 
 	const redirectToHome = () => window.location.replace('/');
 

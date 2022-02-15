@@ -6,8 +6,9 @@ import Volver from '../../components/general/Volver';
 import ProductoHead from '../../components/venta/ProductoHead';
 import ProductoBody from '../../components/venta/ProductoBody';
 import ProductoRelacionados from '../../components/venta/ProductoRelacionados';
+import EditarProducto from '../../components/general/EditarProductoBTN';
 
-const ProductoVer = () => {
+const ProductoVer = ({me}: any) => {
 	const router = useRouter();
 	const [producto, setProducto] = useState<any>(false);
 	const [cantidad, setCantidad] = useState(2);
@@ -31,6 +32,7 @@ const ProductoVer = () => {
 			{producto ? (
 				<>
 					<Volver />
+					{me.admin && <EditarProducto />}
 					<h1 className="producto__titulo">{producto.nombre}</h1>
 					<ProductoHead
 						precio={producto.precio}
