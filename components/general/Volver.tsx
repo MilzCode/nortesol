@@ -5,8 +5,8 @@ const Volver = ({ mode1 = false }) => {
 	const router = useRouter();
 	const path = router.asPath.split('?')[0];
 	const handdleVolver = () => {
-		const pathAnterior = path.split('/').slice(0, -1).join('/');
 		if (!mode1) {
+			const pathAnterior = path.split('/').slice(0, -1).join('/');
 			router.push(pathAnterior ? pathAnterior : '/');
 			return;
 		}

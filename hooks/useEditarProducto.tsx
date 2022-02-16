@@ -58,9 +58,10 @@ const useEditarProducto = async ({
 
 		const responseData = await response.json();
 		const idProducto = responseData.producto.id;
+		const newUrl = responseData.producto.nombre_url;
 		//no se requiere actualizar imagen
 		if (!imagenes || imagenes.length === 0) {
-			return { ok: true, msg: 'Actualizado con exito' };
+			return { ok: true, msg: 'Actualizado con exito', newUrl };
 		}
 		const actualizarImgRes = await useActualizarImagenProducto(
 			imagenes,
@@ -71,9 +72,10 @@ const useEditarProducto = async ({
 				ok: true,
 				msg: 'Se actualizo el producto, pero no se pudo subir imagen.',
 				type: 'noimage',
+				newUrl,
 			};
 		} else if (responseData.ok) {
-			return { ok: true, msg: 'Actualizado con exito' };
+			return { ok: true, msg: 'Actualizado con exito*', newUrl };
 		}
 		return { ok: false, msg: responseData.msg };
 	} catch (error) {

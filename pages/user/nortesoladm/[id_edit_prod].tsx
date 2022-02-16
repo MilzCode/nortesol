@@ -44,9 +44,10 @@ const EditarProducto = ({ auth, me }: any) => {
 	//upload
 	const [subido, setSubido] = useState(false);
 	const [subir, setSubir] = useState(false);
-	const [subidoMsg, setSubidoMsg] = useState('Producto subido con exito');
+	const [subidoMsg, setSubidoMsg] = useState('Producto actualizado con exito');
 	const [errSubir, setErrSubir] = useState(false);
 	const [errSubirMSG, setErrSubirMSG] = useState('');
+	const [newUrl, setNewUrl] = useState('/');
 
 	useEffect(() => {
 		id_edit_prod &&
@@ -75,7 +76,6 @@ const EditarProducto = ({ auth, me }: any) => {
 						descripcion,
 						imagenes,
 						cantidad,
-						_id,
 						//@ts-ignore
 					} = res.producto.detalle_producto;
 					setImagenesPreview(imagenes);
@@ -90,6 +90,8 @@ const EditarProducto = ({ auth, me }: any) => {
 						load: true,
 						idProd: id,
 					});
+					//@ts-ignore
+					setNewUrl(res.producto.nombre_url);
 				})
 				.catch(() => {
 					window.location.href = '/';
@@ -101,31 +103,18 @@ const EditarProducto = ({ auth, me }: any) => {
 		useMarcas().then((m) => setMarcaOpt(m));
 	}, []);
 
-	const handdleGuardarLocalmente = () => {};
-	const handdleBorrarContenido = () => {};
+	const handdleBorrarProducto = () => {};
 	const handdleSiguiente = () => {
-		handdleGuardarLocalmente();
 		setSiguiente(true);
 	};
 	const handdleAnterior = () => {
-		handdleGuardarLocalmente();
 		setSiguiente(false);
 	};
 	const handdlePreview = () => {
-		!preview && handdleGuardarLocalmente();
 		setPreview(!preview);
 	};
-	const handdleProducto = (...prop: any) => {
+	const handdleProducto = (prop: any) => {
 		const data = { ...producto, ...prop };
-		setProducto(data);
-	};
-
-	const handdleCategorias = (categorias: any) => {
-		const data = { ...producto, categorias };
-		setProducto(data);
-	};
-	const handdleMarca = (marca: any) => {
-		const data = { ...producto, marca };
 		setProducto(data);
 	};
 
@@ -139,7 +128,6 @@ const EditarProducto = ({ auth, me }: any) => {
 			dataUrls.push(URL.createObjectURL(e.target.files[i] as any));
 		}
 		setImagenes(e.target.files);
-		console.log(dataUrls);
 		setImagenesPreview(dataUrls);
 	};
 
@@ -151,7 +139,8 @@ const EditarProducto = ({ auth, me }: any) => {
 		producto.cantidad &&
 		producto.precio &&
 		//@ts-ignore
-		producto.imagenes.length > 0;
+		producto.imagenes.length > 0 &&
+		!subir;
 
 	const actualizarProducto = async () => {
 		setSubir(true);
@@ -163,10 +152,9 @@ const EditarProducto = ({ auth, me }: any) => {
 			cantidad: producto.cantidad,
 			imagenes,
 			//@ts-ignore
-			marca: marca.value,
+			marca: producto.marca.value,
 			idProd: producto.idProd,
 		};
-
 		const res = await useEditarProducto(data);
 
 		if (!res.ok) {
@@ -178,16 +166,16 @@ const EditarProducto = ({ auth, me }: any) => {
 		if (res.type === 'noimage') {
 			setSubidoMsg('Producto Subido, pero no se pudo subir las imagenes');
 		}
-
 		setSubir(false);
 		setSubido(true);
+		setNewUrl(res.newUrl);
 	};
 
 	return (
 		<>
 			{producto && (
 				<>
-					<Volver />
+					<Volver mode1 />
 					<hr />
 					<div className="BOTONES">
 						{!preview && (
@@ -198,26 +186,33 @@ const EditarProducto = ({ auth, me }: any) => {
 									}}
 									backgroundColor="#f9423a"
 								>
-									Borrar
+									<i className="fas fa-trash"></i>
+									¡BORRAR PRODUCTO!
 								</BotonFAColores1>
 								{confirmarBorrar && (
 									<VentanaModal
-										titulo="¿Quieres borrar todo?"
+										titulo="¿Quieres BORRAR este producto?"
 										onClose={() => {
 											setConfirmarBorrar(false);
 										}}
 									>
 										<BotonFAColores1
 											backgroundColor="#f9423a"
-											onClick={handdleBorrarContenido}
+											onClick={handdleBorrarProducto}
 										>
 											Si
 										</BotonFAColores1>
+										&nbsp;&nbsp;&nbsp;
+										<BotonFAColores1
+											backgroundColor="#69b3e7"
+											onClick={() => {
+												setConfirmarBorrar(false);
+											}}
+										>
+											No
+										</BotonFAColores1>
 									</VentanaModal>
 								)}
-								<BotonFAColores1 onClick={handdleGuardarLocalmente}>
-									Guardar
-								</BotonFAColores1>
 
 								{siguiente && (
 									<BotonFAColores1
@@ -296,7 +291,9 @@ const EditarProducto = ({ auth, me }: any) => {
 									className="basic-multi-select"
 									classNamePrefix="select"
 									value={producto.categorias}
-									onChange={handdleCategorias}
+									onChange={(categorias: any) =>
+										handdleProducto({ categorias })
+									}
 									placeholder="Filtrar categoria"
 								/>
 							</div>
@@ -312,7 +309,7 @@ const EditarProducto = ({ auth, me }: any) => {
 									}))}
 									classNamePrefix="select"
 									value={producto.marca}
-									onChange={handdleMarca}
+									onChange={(marca: any) => handdleProducto({ marca })}
 									placeholder="Filtrar Marca"
 								/>
 							</div>
@@ -380,10 +377,10 @@ const EditarProducto = ({ auth, me }: any) => {
 							)}
 							{subido && (
 								<VentanaModal
-									titulo="Producto subido"
+									titulo="Producto Actualizado"
 									onClose={() => {
-										handdleBorrarContenido();
-										window.location.href = '/nortesoladm';
+										handdleBorrarProducto();
+										window.location.href = '/producto/' + newUrl;
 									}}
 								>
 									{subidoMsg}
@@ -391,7 +388,7 @@ const EditarProducto = ({ auth, me }: any) => {
 							)}
 							<br />
 							<BotonFAColores1
-								backgroundColor="#48d597"
+								backgroundColor="#f4da40"
 								disabled={!puedeSubir}
 								onClick={actualizarProducto}
 							>
@@ -403,7 +400,7 @@ const EditarProducto = ({ auth, me }: any) => {
 									)
 								) : (
 									<>
-										Subir Producto&nbsp;
+										Actualizar Producto&nbsp;
 										<i className="fas fa-arrow-up"></i>
 									</>
 								)}
