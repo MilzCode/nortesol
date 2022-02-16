@@ -21,8 +21,8 @@
   De esta forma en caso de error mandara al login
 */
 const RutaDefault = () => {
-  window.location.href = "/";
-  return <>404</>;
+	window.location.href = '/';
+	return <>404</>;
 };
 
 export default RutaDefault;

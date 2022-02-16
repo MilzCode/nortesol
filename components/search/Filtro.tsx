@@ -1,5 +1,8 @@
+// @ts-nocheck
+// tslint:disable
 import React, { useState } from 'react';
 import Select from 'react-select';
+import { formatPriceToNumber } from '../../utils/formatoPrecio';
 import SliderPrecios from './SliderPrecios';
 
 /**
@@ -14,16 +17,21 @@ interface dataInicial {
 }
 interface filtroProps {
 	mode1?: boolean | undefined;
-	setValues: any;
-	values: any;
-	dataInicial?: dataInicial;
+	data?: dataInicial;
+	onFilter?: (e: FormDataEvent | any) => any;
 }
 const Filtro = ({
 	mode1,
-	setValues,
-	values,
-	dataInicial = {},
+	data: dataInicial = {},
+	onFilter = (...props: any) => {},
 }: filtroProps) => {
+	const [values, setValues] = useState({
+		marcas: [],
+		precios: [],
+		categorias: [],
+		productos: [],
+	});
+
 	dataInicial.marcas = dataInicial.marcas ?? [
 		{ value: 'torre', label: 'Torre' },
 		{ value: 'murano', label: 'Murano' },
@@ -44,12 +52,18 @@ const Filtro = ({
 	const { marcas, categorias, productos } = dataInicial;
 
 	const [togle, setTogle] = useState(true);
+	const [precios, setPrecios] = useState([
+		dataInicial.precio.min,
+		dataInicial.precio.max,
+	]);
 
 	//precio es una variable que maneja string, aunque se inicializa como int para establecer el rango de precios
 	let data = { values };
 	const handdlePrecio = (precios: any) => {
-		data = { ...values, precios };
-		setValues(data);
+		precios = precios.map((p: String) => {
+			return formatPriceToNumber(p);
+		});
+		setPrecios(precios);
 	};
 	const handdleMarcas = (marcas: any) => {
 		data = { ...values, marcas };
@@ -63,10 +77,13 @@ const Filtro = ({
 		data = { ...values, productos };
 		setValues(data);
 	};
-	// const handdleFiltro1 = (filtro1: any[]) => {
-	// 	const data = { ...values, filtro1 };
-	// 	setValues(data);
-	// };
+
+	const handdleFiltrar = (e: FormDataEvent | any) => {
+		e.preventDefault();
+		data = { ...values, precios };
+		setValues(data);
+		onFilter(data);
+	};
 
 	return (
 		<form className={`filtro ${togle && 'filtro--noFilter'} NOSELECT`}>
@@ -142,7 +159,9 @@ const Filtro = ({
 					/>
 				</div>
 			)}
-			<button className="filtro__filtrarBTN">Filtrar</button>
+			<button className="filtro__filtrarBTN" onClick={handdleFiltrar}>
+				Filtrar
+			</button>
 		</form>
 	);
 };

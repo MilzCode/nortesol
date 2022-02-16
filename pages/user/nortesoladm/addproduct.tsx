@@ -1,14 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from 'react';
-import BotonFAColores1 from '../../components/general/BotonFAColores1';
-import VentanaModal from '../../components/general/VentanaModal';
-import Volver from '../../components/general/Volver';
-import EditorTexto from '../../components/nortesoladm/EditorTexto';
-import ProductoBody from '../../components/venta/ProductoBody';
-import ProductoHead from '../../components/venta/ProductoHead';
-import ProductoRelacionados from '../../components/venta/ProductoRelacionados';
-import useActualizarImagenProducto from '../../hooks/useActualizarImagen';
-import useCrearProducto from '../../hooks/useCrearProducto';
+import BotonFAColores1 from '../../../components/general/BotonFAColores1';
+import VentanaModal from '../../../components/general/VentanaModal';
+import Volver from '../../../components/general/Volver';
+import EditorTexto from '../../../components/nortesoladm/EditorTexto';
+import ProductoBody from '../../../components/venta/ProductoBody';
+import ProductoHead from '../../../components/venta/ProductoHead';
+import ProductoRelacionados from '../../../components/venta/ProductoRelacionados';
+import useCrearProducto from '../../../hooks/useCrearProducto';
+import useCategorias from '../../../hooks/useCategorias';
+import useMarcas from '../../../hooks/useMarcas';
+import Select from 'react-select';
+import Capitalize from '../../../utils/capitalize';
 
 const Addproduct = ({ auth, me }: any) => {
 	if (!auth || !me.admin) {
@@ -20,7 +23,10 @@ const Addproduct = ({ auth, me }: any) => {
 	const [confirmarBorrar, setConfirmarBorrar] = useState(false);
 	const [title, setTitle] = useState('');
 	const [precio, setPrecio] = useState(9999999);
+
 	const [categorias, setCategorias] = useState<any>([]);
+	const [categoriasOpt, setCategoriasOpt] = useState<any>([]);
+	const [marcasOpt, setMarcaOpt] = useState([]);
 	const [cantidadDisponible, setCantidadDisponible] = useState(0);
 	const [marca, setMarca] = useState('');
 	const [imagenes, setImagenes] = useState<any>([]);
@@ -44,6 +50,11 @@ const Addproduct = ({ auth, me }: any) => {
 		if (precioInicial) setPrecio(parseInt(precioInicial));
 		if (cantidadInicial) setCantidadDisponible(parseInt(cantidadInicial));
 		if (titleInicial) setTitle(titleInicial);
+	}, []);
+
+	useEffect(() => {
+		useCategorias().then((c) => setCategoriasOpt(c));
+		useMarcas().then((m) => setMarcaOpt(m));
 	}, []);
 
 	const handdleGuardarLocalmente = () => {
@@ -83,7 +94,8 @@ const Addproduct = ({ auth, me }: any) => {
 		setTitle(e.target.value);
 	};
 	const handdleMarca = (e: any) => {
-		setMarca(e.target.value);
+		console.log(e);
+		setMarca(e);
 	};
 	const handdlePrecio = (e: any) => {
 		setPrecio(e.target.value);
@@ -98,10 +110,12 @@ const Addproduct = ({ auth, me }: any) => {
 			dataUrls.push(URL.createObjectURL(e.target.files[i] as any));
 		}
 		setImagenes(e.target.files);
+		console.log(dataUrls);
 		setImagenesPreview(dataUrls);
 	};
 	const handdleCategorias = (e: any) => {
-		setCategorias([e.target.value]);
+		console.log(e);
+		setCategorias(e);
 	};
 	const handdleCantidadDisponible = (e: any) => {
 		setCantidadDisponible(e.target.value);
@@ -109,7 +123,8 @@ const Addproduct = ({ auth, me }: any) => {
 	//parametro
 	const puedeSubir =
 		title &&
-		categorias &&
+		categorias.length > 0 &&
+		marca &&
 		cantidadDisponible &&
 		precio &&
 		imagenes.length > 0 &&
@@ -121,10 +136,11 @@ const Addproduct = ({ auth, me }: any) => {
 			descripcion: contenidoToUpload,
 			nombre: title,
 			precio: precio,
-			categorias: categorias,
+			categorias: categorias.map((c: any) => c.value),
 			cantidad: cantidadDisponible,
 			imagenes,
-			marca,
+			//@ts-ignore
+			marca: marca.value,
 		};
 
 		const res = await useCrearProducto(data);
@@ -219,24 +235,46 @@ const Addproduct = ({ auth, me }: any) => {
 					<h1 className="TITULOSFORM">Datos del producto</h1>
 					<hr />
 					<div className="LABELINPUT">
-						<label>Título</label>
+						<label>Nombre</label>
 						<input type="text" value={title} onChange={handdleTitle} />
 					</div>
 					<div className="LABELINPUT">
 						<label>Precio</label>
 						<input type="number" value={precio} onChange={handdlePrecio} />
 					</div>
+
 					<div className="LABELINPUT">
-						<label>Categoria</label>
-						<input
-							type="text"
+						<label htmlFor="categorias">Categorias</label>
+						<Select
+							inputId="categorias"
+							isMulti
+							name="categorias"
+							options={categoriasOpt.map((c: any) => ({
+								value: c,
+								label: Capitalize(c),
+							}))}
+							className="basic-multi-select"
+							classNamePrefix="select"
 							value={categorias}
 							onChange={handdleCategorias}
+							placeholder="Filtrar categoria"
 						/>
 					</div>
+
 					<div className="LABELINPUT">
-						<label>Marca</label>
-						<input type="text" value={marca} onChange={handdleMarca} />
+						<label htmlFor="marcas">Marca</label>
+						<Select
+							inputId="marcas"
+							name="marcas"
+							options={marcasOpt.map((m: any) => ({
+								value: m,
+								label: Capitalize(m),
+							}))}
+							classNamePrefix="select"
+							value={marca}
+							onChange={handdleMarca}
+							placeholder="Filtrar Marca"
+						/>
 					</div>
 					<div className="LABELINPUT">
 						<label>Cantidad disponible</label>
@@ -337,8 +375,15 @@ const Addproduct = ({ auth, me }: any) => {
 				<>
 					<h1 className="TITULOSFORM">PREVISUALIZACIÓN</h1>
 					<hr />
-					<h1 className="producto__titulo">{title ? title : 'SIN TITULO'}</h1>
-					<ProductoHead precio={precio} />
+					<h1 className="producto__titulo">
+						{title ? Capitalize(title) : 'Sin titulo'}
+					</h1>
+
+					{imagenesPreview.length > 0 ? (
+						<ProductoHead precio={precio} imagenes={imagenesPreview} />
+					) : (
+						<ProductoHead precio={precio} />
+					)}
 					<ProductoBody contenido={contenidoToUpload} />
 					<hr />
 					<ProductoRelacionados />

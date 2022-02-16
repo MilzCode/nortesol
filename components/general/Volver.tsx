@@ -1,11 +1,20 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-const Volver = () => {
+const Volver = ({ mode1 = false }) => {
 	const router = useRouter();
+	const path = router.asPath.split('?')[0];
+	const handdleVolver = () => {
+		const pathAnterior = path.split('/').slice(0, -1).join('/');
+		if (!mode1) {
+			router.push(pathAnterior ? pathAnterior : '/');
+			return;
+		}
+		router.back();
+	};
 	return (
 		<div className="volverBoton NOSELECT">
-			<span onClick={() => router.back()}>
+			<span onClick={handdleVolver}>
 				<i className="fas fa-level-up-alt" />
 				<span>Volver</span>
 			</span>

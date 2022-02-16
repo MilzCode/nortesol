@@ -6,34 +6,37 @@ import Volver from '../../components/general/Volver';
 import ProductoHead from '../../components/venta/ProductoHead';
 import ProductoBody from '../../components/venta/ProductoBody';
 import ProductoRelacionados from '../../components/venta/ProductoRelacionados';
-import EditarProducto from '../../components/general/EditarProductoBTN';
+import EditarProductoBTN from '../../components/general/EditarProductoBTN';
+import Capitalize from '../../utils/capitalize';
 
-const ProductoVer = ({me}: any) => {
+const ProductoVer = ({ me }: any) => {
 	const router = useRouter();
 	const [producto, setProducto] = useState<any>(false);
 	const [cantidad, setCantidad] = useState(2);
 	const { id } = router.query;
 	useEffect(() => {
-		//@ts-ignore
-		useProducto(id)
-			.then((res) => {
-				if (!res.ok) {
+		id &&
+			//@ts-ignore
+			useProducto(id)
+				.then((res) => {
+					if (!res.ok) {
+						router.push('/');
+						return;
+					}
+					setProducto(res.producto);
+				})
+				.catch(() => {
 					window.location.href = '/';
-				}
-				setProducto(res.producto);
-				console.log(res.producto);
-			})
-			.catch(() => {
-				window.location.href = '/';
-			});
-	}, []);
+					return;
+				});
+	}, [id]);
 	return (
 		<>
 			{producto ? (
 				<>
 					<Volver />
-					{me.admin && <EditarProducto />}
-					<h1 className="producto__titulo">{producto.nombre}</h1>
+					{me.admin && <EditarProductoBTN id_edit_prod={producto.nombre_url} />}
+					<h1 className="producto__titulo">{Capitalize(producto.nombre)}</h1>
 					<ProductoHead
 						precio={producto.precio}
 						cantidadLlevada={cantidad}

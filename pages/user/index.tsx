@@ -16,7 +16,7 @@ const User = ({ me }: any) => {
 					<div className="user__misDatos">
 						<h3 className="user__misDatosTitulo">Administrador</h3>
 
-						<Link href="/nortesoladm" passHref>
+						<Link href="/user/nortesoladm" passHref>
 							<div>
 								<BotonFAColores1 backgroundColor="#48d597">
 									Ir a panel administrador

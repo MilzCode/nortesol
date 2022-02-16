@@ -21,7 +21,7 @@ const ProductoHeadImagenes = ({ imagenes = [] }: any) => {
 						<div>
 							{console.log('img:', imagen)}
 							<Image
-								src={imagen ?? '/static/img/libreta.jpg'}
+								src={imagen ?? '/static/img/noimage.jpg'}
 								alt="..."
 								height="720"
 								width="1280"
@@ -32,7 +32,7 @@ const ProductoHeadImagenes = ({ imagenes = [] }: any) => {
 				) : (
 					<div>
 						<Image
-							src={`/static/img/libreta.jpg`}
+							src={`/static/img/noimage.jpg`}
 							alt="..."
 							height="720"
 							width="1280"

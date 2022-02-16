@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Paginador from '../components/general/Paginador';
 import Volver from '../components/general/Volver';
 import Filtro from '../components/search/Filtro';
 import ProductoVistaMiniatura from '../components/venta/ProductoVistaMiniatura';
 const Search = () => {
 	const [pagina, setPagina] = useState(1);
-	const [filtroValues, setFiltroValues] = useState({
-		marcas: [],
-		precios: [],
-		categorias: [],
-		productos: [],
-	});
+	const [filtroCampos, setFiltroCampos] = useState({});
+
+	useEffect(() => {
+		console.log(filtroCampos);
+	}, [filtroCampos]);
+
 	return (
 		<>
 			<Volver />
 			<br />
-			<Filtro values={filtroValues} setValues={setFiltroValues} />
+			<Filtro
+				onFilter={(f) => {
+					setFiltroCampos(f);
+				}}
+				data={{
+					marcas: [{ value: 'torre', label: 'Torre' }],
+				}}
+			/>
 			<br />
 			<div className="search__mensajeEncontrados">
 				<h2>Productos de</h2>

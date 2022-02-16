@@ -20,7 +20,7 @@ const ProductoVistaMiniatura = ({
 		>
 			<div className="productoVistaMiniatura__imagen NOSELECT">
 				<Image
-					src={imagen ?? '/static/img/libreta.jpg'}
+					src={imagen ?? '/static/img/noimage.jpg'}
 					alt="..."
 					height="720"
 					width="1280"

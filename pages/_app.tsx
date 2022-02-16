@@ -26,13 +26,15 @@ function MyApp({ Component, pageProps }: AppProps) {
 	//True si la ruta actual no requiere control de acceso.
 	const isPublicRoute = rutasPublicas.some((url) => {
 		if (url.includes('*')) {
-			const urlSplit = url.split('*').filter((p) => p !== '');
+			const urlSplit = url.split('*').filter((u) => u != '');
 			return urlSplit.every((p) => path.includes(p));
 		}
 		return path === url;
 	});
 
-	const redirectToHome = () => window.location.replace('/');
+	const redirectToHome = () => {
+		window.location.replace('/');
+	};
 
 	const [autenticado, setAutenticado] = useState<any>(false);
 
@@ -44,7 +46,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 						.then((resDatos) => {
 							setMisDatos(resDatos);
 							setAutenticado(true);
-							console.log(resDatos);
 						})
 						.catch(() => {
 							setMisDatos(null);

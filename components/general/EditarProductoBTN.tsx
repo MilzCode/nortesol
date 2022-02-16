@@ -1,10 +1,14 @@
 import { useRouter } from 'next/router';
 
-const EditarProducto = () => {
+const EditarProductoBTN = ({ id_edit_prod = '' }) => {
 	const router = useRouter();
 	return (
 		<div className="editarBTN NOSELECT">
-			<span onClick={() => router.back()}>
+			<span
+				onClick={() => {
+					router.push('/nortesoladm/' + id_edit_prod);
+				}}
+			>
 				<i className="fas fa-pencil" />
 				<span>Editar</span>
 			</span>
@@ -12,4 +16,4 @@ const EditarProducto = () => {
 	);
 };
 
-export default EditarProducto;
+export default EditarProductoBTN;
