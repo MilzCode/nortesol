@@ -6,7 +6,7 @@ const EditarProductoBTN = ({ id_edit_prod = '' }) => {
 		<div className="editarBTN NOSELECT">
 			<span
 				onClick={() => {
-					router.push('/nortesoladm/' + id_edit_prod);
+					router.push('/user/nortesoladm/' + id_edit_prod);
 				}}
 			>
 				<i className="fas fa-pencil" />

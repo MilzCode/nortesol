@@ -28,7 +28,8 @@ const Addproduct = ({ auth, me }: any) => {
 	const [categoriasOpt, setCategoriasOpt] = useState<any>([]);
 	const [marcasOpt, setMarcaOpt] = useState([]);
 	const [cantidadDisponible, setCantidadDisponible] = useState(0);
-	const [marca, setMarca] = useState('');
+	// const [marca, setMarca] = useState({ value: 'Otras', label: 'Otras' });
+	const [marca, setMarca] = useState(undefined);
 	const [imagenes, setImagenes] = useState<any>([]);
 	const [imagenesPreview, setImagenesPreview] = useState<any>([]);
 	const [siguiente, setSiguiente] = useState(false);
