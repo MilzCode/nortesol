@@ -19,7 +19,6 @@ const ProductoHeadImagenes = ({ imagenes = [] }: any) => {
 				{imagenes.length > 0 ? (
 					imagenes.map((imagen: any, i: any) => (
 						<div>
-							{console.log('img:', imagen)}
 							<Image
 								src={imagen ?? '/static/img/noimage.jpg'}
 								alt="..."

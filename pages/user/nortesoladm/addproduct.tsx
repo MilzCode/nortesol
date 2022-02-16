@@ -381,7 +381,11 @@ const Addproduct = ({ auth, me }: any) => {
 					</h1>
 
 					{imagenesPreview.length > 0 ? (
-						<ProductoHead precio={precio} imagenes={imagenesPreview} />
+						<ProductoHead
+							precio={precio}
+							imagenes={imagenesPreview}
+							cantidad_disponible={cantidadDisponible}
+						/>
 					) : (
 						<ProductoHead precio={precio} />
 					)}

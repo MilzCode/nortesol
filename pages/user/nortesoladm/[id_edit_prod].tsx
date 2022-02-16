@@ -424,9 +424,13 @@ const EditarProducto = ({ auth, me }: any) => {
 								<ProductoHead
 									precio={producto.precio}
 									imagenes={imagenesPreview}
+									cantidad_disponible={producto.cantidad}
 								/>
 							) : (
-								<ProductoHead precio={producto.precio} />
+								<ProductoHead
+									precio={producto.precio}
+									cantidad_disponible={producto.cantidad}
+								/>
 							)}
 							<ProductoBody contenido={producto.descripcion} />
 							<hr />

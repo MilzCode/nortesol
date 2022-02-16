@@ -8,7 +8,6 @@ const Header = ({ auth}: any) => {
 	const carritoObjetos = true;
 	const [miCuenta, setMiCuenta] = useState(false);
 	const [subHeader, setSubHeader] = useState(false);
-	// console.log("header: " + auth);
 	const handdleMiCuenta = () => {
 		setMiCuenta(!miCuenta);
 	};

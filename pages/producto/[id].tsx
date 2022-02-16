@@ -12,7 +12,7 @@ import Capitalize from '../../utils/capitalize';
 const ProductoVer = ({ me }: any) => {
 	const router = useRouter();
 	const [producto, setProducto] = useState<any>(false);
-	const [cantidad, setCantidad] = useState(2);
+	const [cantidad, setCantidad] = useState(0);
 	const { id } = router.query;
 	useEffect(() => {
 		id &&
@@ -39,8 +39,9 @@ const ProductoVer = ({ me }: any) => {
 					<h1 className="producto__titulo">{Capitalize(producto.nombre)}</h1>
 					<ProductoHead
 						precio={producto.precio}
-						cantidadLlevada={cantidad}
 						imagenes={producto.detalle_producto.imagenes}
+						cantidad_disponible={producto.detalle_producto.cantidad}
+						cantidad_carrito={0}
 					/>
 					<ProductoBody contenido={producto.detalle_producto.descripcion} />
 					<hr />
