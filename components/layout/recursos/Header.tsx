@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useSignOut from '../../../hooks/useSignOut';
 
-const Header = ({ auth}: any) => {
+const Header = ({ auth }: any) => {
 	const router = useRouter();
 	const carritoObjetos = true;
 	const [miCuenta, setMiCuenta] = useState(false);
 	const [subHeader, setSubHeader] = useState(false);
+	const [cantCarrito, setCantCarrito] = useState(0);
 	const handdleMiCuenta = () => {
 		setMiCuenta(!miCuenta);
 	};
@@ -23,6 +24,9 @@ const Header = ({ auth}: any) => {
 			window.location.replace('/');
 		} catch (error) {}
 	}
+	useEffect(() => {
+
+	}, []);
 	return (
 		<>
 			<header className="header NOSELECT">
@@ -81,7 +85,7 @@ const Header = ({ auth}: any) => {
 						<i className="fas fa-shopping-cart" />
 						{carritoObjetos && (
 							<div className="header__carrito-contador">
-								<p>999</p>
+								<p>{cantCarrito}</p>
 							</div>
 						)}
 					</div>

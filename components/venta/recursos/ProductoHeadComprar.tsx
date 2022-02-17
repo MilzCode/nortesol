@@ -7,6 +7,8 @@ const ProductoHeadComprar = ({
 	cantidad_disponible = 0,
 	onChangeCantidad,
 	cantidad_carrito,
+	irCarritoUrl,
+	onAddCarrito,
 }: any) => {
 	const [cantidadComprar, setCantidadComprar] = useState(0);
 	const handdleCantidadComprar = (cant = 0) => {
@@ -56,11 +58,21 @@ const ProductoHeadComprar = ({
 				</i>
 			</div>
 			<br />
-			<BotonFA className="productoHeadComprar__boton" backgroundColor="#ff6a39">
+			<BotonFA
+				className="productoHeadComprar__boton"
+				backgroundColor="#ff6a39"
+				onClick={onAddCarrito}
+			>
 				<i className="fas fa-cart-arrow-down"></i>
 				Agregar al carrito
 			</BotonFA>
-			<BotonFA className="productoHeadComprar__boton" backgroundColor="#f9423a">
+			<BotonFA
+				className="productoHeadComprar__boton"
+				backgroundColor="#f9423a"
+				onClick={() => {
+					irCarritoUrl && window.location.replace(irCarritoUrl);
+				}}
+			>
 				<i className="fas fa-shopping-cart"></i>
 				Ir al carrito
 			</BotonFA>
@@ -68,7 +80,7 @@ const ProductoHeadComprar = ({
 			<small className="carrito__totalMensajeFinal">
 				Quedan {cantidad_disponible} unidades de este articulo.
 				<br />
-				Llevas {cantidad_carrito} en el carrito.
+				Tienes {cantidad_carrito} en el carrito.
 			</small>
 		</div>
 	);

@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Capitalize from '../../utils/capitalize';
 
 const ProductoVistaMiniatura = ({
 	className,
@@ -28,7 +29,7 @@ const ProductoVistaMiniatura = ({
 				/>
 			</div>
 			<div className="productoVistaMiniatura__nombre">
-				{nombre ?? 'Sin Titulo'}
+				{Capitalize(nombre) ?? 'Sin Titulo'}
 			</div>
 			<div className="productoVistaMiniatura__precio NOSELECT">
 				{precio ?? '$999.999.999'}

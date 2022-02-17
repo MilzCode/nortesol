@@ -6,7 +6,9 @@ const ProductoHead = ({
 	imagenes,
 	cantidad_disponible,
 	onChangeCantidad = (c: number) => {},
+	irCarritoUrl,
 	cantidad_carrito = 0,
+	onAddCarrito = () => {},
 }: any) => {
 	return (
 		<div className="productoHead">
@@ -16,6 +18,8 @@ const ProductoHead = ({
 				cantidad_disponible={cantidad_disponible}
 				onChangeCantidad={onChangeCantidad}
 				cantidad_carrito={cantidad_carrito}
+				irCarritoUrl={irCarritoUrl}
+				onAddCarrito={onAddCarrito}
 			/>
 		</div>
 	);
