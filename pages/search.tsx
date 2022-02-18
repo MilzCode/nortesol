@@ -19,9 +19,9 @@ const Search = () => {
 				onFilter={(f) => {
 					setFiltroCampos(f);
 				}}
-				data={{
-					marcas: [{ value: 'torre', label: 'Torre' }],
-				}}
+				marcas={[{ value: 'torre', label: 'Torre' }]}
+				categorias={[{ value: 'categoria1', label: 'Categoria1' }]}
+				precios={[0, 99999]}
 			/>
 			<br />
 			<div className="search__mensajeEncontrados">

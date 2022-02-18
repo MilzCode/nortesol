@@ -6,17 +6,15 @@
 	//shadow
 	box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
 	display: grid;
-	grid-template-areas: 'marca precio' 'categoria producto' 'filtro1 filtro2' 'filtro3 filtro4' 'filtrarBTN filtrarBTN';
+	grid-template-columns: 1fr 1fr;
 	position: relative;
 
-	//autp row
-
 	&__filtroA {
-		max-width: 100%;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		margin: $font-size * 0.5;
+		max-width: 100%;
 
 		& > span {
 			font-size: inherit;
@@ -29,8 +27,8 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-top: 2rem;
 		margin: $font-size * 0.5;
+		margin-top: 2rem;
 
 		& > span {
 			font-size: inherit;
@@ -44,28 +42,28 @@
 		}
 	}
 
-	&__marca {
-		grid-area: marca;
-		@extend .filtro__filtroA;
+	&__filtrarBTN {
+		grid-column: span 2;
+		width: 30vw;
+		max-width: 300px;
+		margin: auto;
+		font-size: min(#{$font-size}, 3.5vw);
+		font-weight: bold;
+		padding: $font-size * 0.3;
+		border-radius: $font-size;
+		background-color: $pantone2039U;
+		color: $white;
+		border: none;
+		outline: none !important;
+		box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+		cursor: pointer;
+		&:hover {
+			opacity: 0.95;
+		}
+		&:active {
+			transform: scale(0.99);
+		}
 	}
-	&__precio {
-		grid-area: precio;
-		@extend .filtro__filtroB;
-	}
-	&__categoria {
-		grid-area: categoria;
-		@extend .filtro__filtroA;
-	}
-	&__producto {
-		grid-area: producto;
-		@extend .filtro__filtroA;
-	}
-	&__filtro1 {
-		grid-area: filtro1;
-		@extend .filtro__filtroA;
-	}
-	// Si hay mas filtros solo dale nombre filtro 2 y le pones @extend .filtro__filtroA;
-	//ademas añadelo a no filter para que desaparesca cuando se minimiza.
 
 	&--noFilter {
 		padding: 1rem;
@@ -73,12 +71,9 @@
 		margin: 0;
 		width: $font-size * 2;
 		float: right !important;
-		.filtro__marca,
-		.filtro__precio,
-		.filtro__categoria,
-		.filtro__producto,
-		.filtro__filtrarBTN,
-		.filtro__filtro1 {
+		.filtro__filtroA,
+		.filtro__filtroB,
+		.filtro__filtrarBTN {
 			display: none !important;
 		}
 		.filtro__togle {
@@ -116,34 +111,15 @@
 		}
 	}
 
-	&__filtrarBTN {
-		grid-area: filtrarBTN;
-		width: 30vw;
-		max-width: 300px;
-		margin: auto;
-		font-size: min(#{$font-size}, 3.5vw);
-		font-weight: bold;
-		padding: $font-size * 0.3;
-		border-radius: $font-size;
-		background-color: $pantone2039U;
-		color: $white;
-		border: none;
-		outline: none !important;
-		box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
-		&:hover {
-			opacity: 0.95;
-		}
-		&:active {
-			transform: scale(0.99);
-		}
-	}
-
 	@media screen and (max-width: $breakHeader2) {
-		grid-template-areas: 'marca' 'precio' 'categoria' 'producto' 'filtrarBTN';
+		grid-template-columns: 1fr;
 		$font-size: 1.5rem;
 		font-size: min(#{$font-size}, 3.5vw);
 		padding: 1rem;
 		padding-top: 1.7rem;
 		margin: 0;
+		.filtro__filtrarBTN {
+			grid-column: span 1;
+		}
 	}
 }

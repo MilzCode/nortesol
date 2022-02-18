@@ -15,15 +15,32 @@ const ProductoRelacionados = ({ productosRel }: any) => {
 			/>
 		);
 	};
+	const cantProdRel = productosRel ? productosRel.length : 0;
 	const settings = {
 		infinite: true,
 		speed: 500,
-		slidesToShow: 2,
+		slidesToShow: Math.min(cantProdRel, 4),
 		slidesToScroll: 1,
 		autoplay: true,
 		autoplaySpeed: 4000,
 		nextArrow: <Arrow />,
 		prevArrow: <Arrow />,
+		responsive: [
+			{
+				breakpoint: 1300,
+				settings: {
+					slidesToShow: Math.min(cantProdRel, 3),
+					slidesToScroll: 1,
+				},
+			},
+			{
+				breakpoint: 930,
+				settings: {
+					slidesToShow: Math.min(cantProdRel, 2),
+					slidesToScroll: 1,
+				},
+			},
+		],
 	};
 	return (
 		<>

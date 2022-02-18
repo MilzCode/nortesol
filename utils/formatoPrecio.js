@@ -4,7 +4,9 @@ const formatNumberToprice = (price) => {
 };
 
 const formatPriceToNumber = (price) => {
-	return Number(price.replace('$', '').replace(',', '').replace('.', ''));
+	return Number(
+		price.replace('$', '').replace(',', '').replace('.', '').replace('+', '')
+	);
 };
 
 export default formatNumberToprice;
