@@ -75,6 +75,10 @@ const Filtro = ({
 				{!togle && <i className="fas fa-window-maximize"></i>}
 			</div>
 			<div className="filtro__filtroA">
+				<span>Nombre:</span>
+				<input type="text" />
+			</div>
+			<div className="filtro__filtroA">
 				<span>Marca:</span>
 				<Select
 					inputId="filtro-marca"
