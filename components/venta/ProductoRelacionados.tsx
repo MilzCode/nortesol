@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import ProductoVistaMiniatura from './ProductoVistaMiniatura';
 
-const ProductoRelacionados = () => {
+const ProductoRelacionados = ({ productosRel }: any) => {
 	const Arrow = (props: any) => {
 		const { className, style, onClick } = props;
 		return (
@@ -18,50 +18,38 @@ const ProductoRelacionados = () => {
 	const settings = {
 		infinite: true,
 		speed: 500,
-		slidesToShow: 4,
+		slidesToShow: 2,
 		slidesToScroll: 1,
 		autoplay: true,
 		autoplaySpeed: 4000,
 		nextArrow: <Arrow />,
 		prevArrow: <Arrow />,
-		responsive: [
-			{
-				breakpoint: 1300,
-				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 3,
-				},
-			},
-
-			{
-				breakpoint: 950,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2,
-				},
-			},
-			// {
-			// 	breakpoint: 450,
-			// 	settings: {
-			// 		slidesToShow: 1,
-			// 		slidesToScroll: 1,
-			// 	},
-			// },
-		],
 	};
 	return (
-		<div className="productoRelacionados">
-			<h4 className="productoRelacionados__titulo">
-				Quizá te pueda interesar...
-			</h4>
-			<Slider {...settings}>
-				<ProductoVistaMiniatura className="MAUTO" />
-				<ProductoVistaMiniatura className="MAUTO" />
-				<ProductoVistaMiniatura className="MAUTO" />
-				<ProductoVistaMiniatura className="MAUTO" />
-				<ProductoVistaMiniatura className="MAUTO" />
-			</Slider>
-		</div>
+		<>
+			{productosRel.length > 0 && (
+				<>
+					<hr />
+
+					<div className="productoRelacionados">
+						<h4 className="productoRelacionados__titulo">
+							Quizá te pueda interesar...
+						</h4>
+						<Slider {...settings}>
+							{productosRel.map((p: any, i: any) => (
+								<ProductoVistaMiniatura
+									nombre={p.nombre}
+									precio={p.precio}
+									nombre_url={p.nombre_url}
+									imagen={p.imagen}
+									key={i}
+								/>
+							))}
+						</Slider>
+					</div>
+				</>
+			)}
+		</>
 	);
 };
 

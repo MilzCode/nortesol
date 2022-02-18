@@ -31,6 +31,7 @@ $pantoneBlackC07: #5f5e5d;
 $pantoneBlackC09: #5c5c5c;
 $pantone2202C: #00a5df;
 $pantoneWarmRedC: #f9423a;
+$pantoneRed032C: #ef3340;
 $pantone1645C: #ff6a39;
 $pantone7404C: #f4da40;
 $pantone292C: #69b3e7;
@@ -244,6 +245,10 @@ $fontSize14: sizeBasedOnTitle(0.4);
 .MAUTO {
 	margin: auto;
 }
+
+.CENTERTEXT {
+	text-align: center;
+}
 .CENTERABSOLUTE {
 	position: absolute;
 	top: 50%;
@@ -282,7 +287,6 @@ $fontSize14: sizeBasedOnTitle(0.4);
 }
 
 .LABELINPUT {
-	
 	font-size: $fontSize4;
 	& > label {
 		@extend .LABEL;

@@ -49,6 +49,7 @@ const Edit = ({ me }: any) => {
 		// 	}
 		// });
 		const res = await useEditMe(
+			me.uid,
 			passwordOriginalState,
 			valores.nombre,
 			valores.rut,

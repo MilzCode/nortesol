@@ -11,7 +11,7 @@ const initialState = {
 	password: '',
 };
 
-const Ingresar = ({ auth}: any) => {
+const Ingresar = ({ auth }: any) => {
 	const router = useRouter();
 	if (auth) router.push('/');
 	const {
@@ -31,7 +31,6 @@ const Ingresar = ({ auth}: any) => {
 			const decToken: any = JWT.decode(res.token);
 			const miID = decToken.check;
 			localStorage.setItem('tken', res.token);
-			localStorage.setItem('me', miID);
 			window.location.href = '/';
 		} catch (error) {
 			setIngresoInvalido(true);

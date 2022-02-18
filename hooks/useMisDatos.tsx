@@ -1,14 +1,14 @@
 import { APIURL } from '../utils/constantes';
 import JWT from 'jsonwebtoken';
 
-const useMisDatos = async () => {
+const useMisDatos = async (miId: string) => {
 	const token = localStorage.getItem('tken');
-	const me = localStorage.getItem('me');
-	if (!token || !me) {
+
+	if (!token || !miId) {
 		return null;
 	}
 
-	const response = await fetch(APIURL + 'usuarios/' + me, {
+	const response = await fetch(APIURL + 'usuarios/' + miId, {
 		method: 'GET',
 		headers: {
 			['x-token']: `${token}`,

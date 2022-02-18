@@ -17,13 +17,13 @@ const useCheckAuth = async () => {
 		},
 	});
 	if (!checkToken.ok) {
-		localStorage.clear();
+		localStorage.removeItem('tken');
 		return false;
 	}
 	const decToken: any = JWT.decode(token);
 	const miID = decToken.check;
-	localStorage.setItem('me', miID);
-	return true;
+
+	return miID;
 };
 
 export default useCheckAuth;

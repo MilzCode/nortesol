@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Capitalize from '../../utils/capitalize';
+import formatNumberToprice from '../../utils/formatoPrecio';
 
 const ProductoVistaMiniatura = ({
 	className,
@@ -29,10 +30,10 @@ const ProductoVistaMiniatura = ({
 				/>
 			</div>
 			<div className="productoVistaMiniatura__nombre">
-				{Capitalize(nombre) ?? 'Sin Titulo'}
+				{nombre ? Capitalize(nombre) : 'Sin Titulo'}
 			</div>
 			<div className="productoVistaMiniatura__precio NOSELECT">
-				{precio ?? '$999.999.999'}
+				{precio ? formatNumberToprice(precio) : '$999.999.999'}
 			</div>
 			<div className="productoVistaMiniatura__mostrar">
 				<i className="fas fa-eye" />

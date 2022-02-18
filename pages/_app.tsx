@@ -20,7 +20,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 	const [misDatos, setMisDatos] = useState<any>(false);
 
 	//Rutas que no requieren control de acceso. Se recomienda que las rutas con parametros (*) vayan al final
-	const rutasPublicas = ['/login', '/', '/register', '/search', '/producto/*'];
+	const rutasPublicas = [
+		'/',
+		'/login',
+		'/register',
+		'/search',
+		'/carrito',
+		'/producto/*',
+	];
 	//ruta actual
 	const path = router.asPath.split('?')[0];
 	//True si la ruta actual no requiere control de acceso.
@@ -42,7 +49,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		useCheckAuth()
 			.then((res) => {
 				if (res) {
-					useMisDatos()
+					useMisDatos(res)
 						.then((resDatos) => {
 							setMisDatos(resDatos);
 							setAutenticado(true);

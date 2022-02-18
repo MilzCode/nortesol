@@ -10,7 +10,9 @@ const ProductoHeadComprar = ({
 	irCarritoUrl,
 	onAddCarrito,
 }: any) => {
-	const [cantidadComprar, setCantidadComprar] = useState(0);
+	const cantidadDefault = 1;
+	const [cantidadComprar, setCantidadComprar] = useState(cantidadDefault);
+	const [disabledCarrito, setDisabledCarrito] = useState(false);
 	const handdleCantidadComprar = (cant = 0) => {
 		if (cant >= 0) {
 			if (cant >= cantidad_disponible) {
@@ -44,6 +46,9 @@ const ProductoHeadComprar = ({
 					value={cantidadComprar}
 					max={99}
 					maxLength={2}
+					onFocus={(e) => {
+						e.target.select();
+					}}
 					onChange={(e) => {
 						handdleCantidadComprar(Number(e.target.value));
 					}}
@@ -58,29 +63,39 @@ const ProductoHeadComprar = ({
 				</i>
 			</div>
 			<br />
+			{cantidad_carrito >= 1 && (
+				<BotonFA
+					className="productoHeadComprar__boton"
+					backgroundColor="#f9423a"
+					onClick={() => {
+						irCarritoUrl && window.location.replace(irCarritoUrl);
+					}}
+				>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<i className="fas fa-shopping-cart"></i>
+					Ir al carrito &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</BotonFA>
+			)}
 			<BotonFA
 				className="productoHeadComprar__boton"
 				backgroundColor="#ff6a39"
-				onClick={onAddCarrito}
+				onClick={() => {
+					setDisabledCarrito(true);
+					setTimeout(() => {
+						onAddCarrito();
+						setDisabledCarrito(false);
+					}, 150);
+				}}
+				disabled={disabledCarrito}
 			>
 				<i className="fas fa-cart-arrow-down"></i>
 				Agregar al carrito
 			</BotonFA>
-			<BotonFA
-				className="productoHeadComprar__boton"
-				backgroundColor="#f9423a"
-				onClick={() => {
-					irCarritoUrl && window.location.replace(irCarritoUrl);
-				}}
-			>
-				<i className="fas fa-shopping-cart"></i>
-				Ir al carrito
-			</BotonFA>
 
 			<small className="carrito__totalMensajeFinal">
-				Quedan {cantidad_disponible} unidades de este articulo.
-				<br />
 				Tienes {cantidad_carrito} en el carrito.
+				<br />
+				Quedan {cantidad_disponible} unidades de este articulo.
 			</small>
 		</div>
 	);

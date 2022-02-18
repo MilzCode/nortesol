@@ -3,6 +3,7 @@ import { APIURL } from '../utils/constantes';
 
 //TODO: Este componente puede recibir parametros opcionales
 const useEditMe = async (
+	miId: string,
 	password_original: string,
 	nombre?: string,
 	rut?: string,
@@ -25,7 +26,6 @@ const useEditMe = async (
 		password,
 		password_original,
 	};
-	const miId = localStorage.getItem('me');
 	const token = localStorage.getItem('tken');
 	if (!token || !miId) {
 		return { errors: 'No existe token' };

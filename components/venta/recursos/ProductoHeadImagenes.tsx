@@ -18,7 +18,7 @@ const ProductoHeadImagenes = ({ imagenes = [] }: any) => {
 			<Slider {...settings}>
 				{imagenes.length > 0 ? (
 					imagenes.map((imagen: any, i: any) => (
-						<div>
+						<div key={i}>
 							<Image
 								src={imagen ?? '/static/img/noimage.jpg'}
 								alt="..."

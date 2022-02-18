@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useSignOut from '../../../hooks/useSignOut';
+import useCantidadTotalCarrito from '../../../hooks/useCantidadTotalCarrito';
 
 const Header = ({ auth }: any) => {
 	const router = useRouter();
-	const carritoObjetos = true;
+	const path = router.asPath.split('?')[0];
+	const isPathCarrito = path === '/carrito';
 	const [miCuenta, setMiCuenta] = useState(false);
 	const [subHeader, setSubHeader] = useState(false);
-	const [cantCarrito, setCantCarrito] = useState(0);
+	const [carritoCant, setCarritoCant] = useState(0);
 	const handdleMiCuenta = () => {
 		setMiCuenta(!miCuenta);
 	};
@@ -25,8 +27,9 @@ const Header = ({ auth }: any) => {
 		} catch (error) {}
 	}
 	useEffect(() => {
-
-	}, []);
+		//@ts-ignore
+		setCarritoCant(useCantidadTotalCarrito());
+	}, [path]);
 	return (
 		<>
 			<header className="header NOSELECT">
@@ -83,9 +86,9 @@ const Header = ({ auth }: any) => {
 				<Link passHref href="/carrito">
 					<div className="header__carrito">
 						<i className="fas fa-shopping-cart" />
-						{carritoObjetos && (
+						{carritoCant > 0 && !isPathCarrito && (
 							<div className="header__carrito-contador">
-								<p>{cantCarrito}</p>
+								<p>{carritoCant}</p>
 							</div>
 						)}
 					</div>

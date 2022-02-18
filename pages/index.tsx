@@ -44,12 +44,13 @@ const Home: NextPage = () => {
 			<Siguenos />
 			<div className="index__productos">
 				<Secciones />
-				{productos.map((p: any) => (
+				{productos.map((p: any, i: any) => (
 					<ProductoVistaMiniatura
 						nombre={p.nombre}
 						nombre_url={p.nombre_url}
 						precio={p.precio}
 						imagen={p.imagen}
+						key={i}
 					/>
 				))}
 			</div>

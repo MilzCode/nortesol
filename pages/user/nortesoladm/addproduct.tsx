@@ -341,7 +341,7 @@ const Addproduct = ({ auth, me }: any) => {
 							titulo="Producto subido"
 							onClose={() => {
 								handdleBorrarContenido();
-								window.location.href = '/nortesoladm';
+								window.location.href = '/user/nortesoladm';
 							}}
 						>
 							{subidoMsg}
