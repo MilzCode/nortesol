@@ -4,6 +4,7 @@ import Volver from '../components/general/Volver';
 import Filtro from '../components/search/Filtro';
 import ProductoVistaMiniatura from '../components/venta/ProductoVistaMiniatura';
 const Search = () => {
+	const rangoPrecios = [0, 1000000];
 	const [pagina, setPagina] = useState(1);
 	const [filtroCampos, setFiltroCampos] = useState({});
 
@@ -21,7 +22,7 @@ const Search = () => {
 				}}
 				marcas={[{ value: 'torre', label: 'Torre' }]}
 				categorias={[{ value: 'categoria1', label: 'Categoria1' }]}
-				precios={[0, 99999]}
+				precios={rangoPrecios}
 			/>
 			<br />
 			<div className="search__mensajeEncontrados">

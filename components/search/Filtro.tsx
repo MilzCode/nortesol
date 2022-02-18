@@ -8,7 +8,7 @@ import SliderPrecios from './SliderPrecios';
 interface filtroProps {
 	marcas?: Array<{ value: string; label: string }>;
 	categorias?: Array<{ value: string; label: string }>;
-	precios?: [number, number];
+	precios?: number[];
 	onFilter?: (e: FormDataEvent | any) => any;
 	mode1?: boolean | undefined;
 }
