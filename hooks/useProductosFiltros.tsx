@@ -3,14 +3,14 @@ import React from 'react';
 import { APIURL } from '../utils/constantes';
 
 interface filtroProps {
-	busqueda: string;
-	cantidad: number;
-	categorias: Array<string>;
-	descuento_min: number;
-	marcas: Array<string>;
-	precio_min: number;
-	precio_max: number;
-	relevancia: number;
+	busqueda?: string;
+	cantidad?: number;
+	categorias?: Array<string>;
+	descuento_min?: number;
+	marcas?: Array<string>;
+	precio_min?: number;
+	precio_max?: number;
+	relevancia?: number;
 }
 
 const useProductosFiltros = async ({

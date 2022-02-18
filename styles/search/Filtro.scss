@@ -16,7 +16,7 @@
 		margin: $font-size * 0.5;
 		max-width: 100%;
 
-		& > span {
+		& > label {
 			font-size: inherit;
 			margin-right: $font-size;
 			font-weight: 600;
@@ -30,7 +30,7 @@
 		margin: $font-size * 0.5;
 		margin-top: 2rem;
 
-		& > span {
+		& > label {
 			font-size: inherit;
 			margin-right: $font-size;
 			font-weight: 600;

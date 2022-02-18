@@ -43,7 +43,13 @@ const Filtro = ({
 
 	const [togle, setTogle] = useState(true);
 	const [filtroData, setFiltroData] = useState<any>({});
-	const [filtroPrecios, setFiltroPrecios] = useState([]);
+	const [filtroPrecios, setFiltroPrecios] = useState(precios);
+
+	const handdleBuscar = (busqueda: any) => {
+		let filtroDataCopy = { ...filtroData };
+		filtroDataCopy['busqueda'] = busqueda.trim();
+		setFiltroData({ ...filtroData, ...filtroDataCopy });
+	};
 	const handdleMarcas = (marcas: any) => {
 		let filtroDataCopy = { ...filtroData };
 		filtroDataCopy['marcas'] = marcas;
@@ -56,15 +62,16 @@ const Filtro = ({
 	};
 
 	const handdlePrecios = (precios_: any) => {
-		if (CompareArray(precios, precios_)) {
-			setFiltroPrecios([]);
-		}
 		setFiltroPrecios(precios_);
 	};
 
 	const handdleFiltrar = (e: FormDataEvent | any) => {
 		e.preventDefault();
-		onFilter({ ...filtroData, precios: filtroPrecios });
+		let precio_min =
+			filtroPrecios[0] === precios[0] ? undefined : filtroPrecios[0];
+		let precio_max =
+			filtroPrecios[1] === precios[1] ? undefined : filtroPrecios[1];
+		onFilter({ ...filtroData, precio_min, precio_max });
 	};
 
 	return (
@@ -75,11 +82,17 @@ const Filtro = ({
 				{!togle && <i className="fas fa-window-maximize"></i>}
 			</div>
 			<div className="filtro__filtroA">
-				<span>Nombre:</span>
-				<input type="text" />
+				<label>Nombre:</label>
+				<input
+					type="text"
+					className="INPUT2"
+					onChange={(e) => {
+						handdleBuscar(e.target.value);
+					}}
+				/>
 			</div>
 			<div className="filtro__filtroA">
-				<span>Marca:</span>
+				<label>Marca:</label>
 				<Select
 					inputId="filtro-marca"
 					isMulti
@@ -93,7 +106,7 @@ const Filtro = ({
 				/>
 			</div>
 			<div className="filtro__filtroB">
-				<span className="filtro__labelPrecio">Precio:</span>
+				<label className="filtro__labelPrecio">Precio:</label>
 				<SliderPrecios
 					minValue={precios[0]}
 					maxValue={precios[1]}
@@ -108,7 +121,7 @@ const Filtro = ({
 			</div>
 
 			<div className="filtro__filtroA">
-				<span>Categoria:</span>
+				<label>Categoria:</label>
 				<Select
 					inputId="filtro-categoria"
 					isMulti

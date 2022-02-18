@@ -6,6 +6,7 @@ import ProductoVistaMiniatura from '../components/venta/ProductoVistaMiniatura';
 import useMarcas from '../hooks/useMarcas';
 import useCategorias from '../hooks/useCategorias';
 import Capitalize from '../utils/capitalize';
+import useProductosFiltros from '../hooks/useProductosFiltros';
 const Search = () => {
 	const rangoPrecios = [0, 1000000];
 	const [pagina, setPagina] = useState(1);
@@ -35,6 +36,9 @@ const Search = () => {
 	useEffect(() => {
 		if (filtroCampos) {
 			console.log(filtroCampos);
+			// useProductosFiltros({
+
+			// });
 		}
 	}, [filtroCampos]);
 
