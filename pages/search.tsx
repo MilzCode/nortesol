@@ -8,7 +8,7 @@ const Search = () => {
 	const [filtroCampos, setFiltroCampos] = useState({});
 
 	useEffect(() => {
-		console.log(filtroCampos);
+		// console.log(filtroCampos);
 	}, [filtroCampos]);
 
 	return (

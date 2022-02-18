@@ -42,30 +42,25 @@ const Filtro = ({
 
 	const [togle, setTogle] = useState(true);
 	const [filtroData, setFiltroData] = useState<any>({});
-
+	const [filtroPrecios, setFiltroPrecios] = useState([precios]);
 	const handdleMarcas = (marcas: any) => {
 		let filtroDataCopy = { ...filtroData };
 		filtroDataCopy['marcas'] = marcas;
 		setFiltroData({ ...filtroData, ...filtroDataCopy });
 	};
 	const handdleCategorias = (categorias: any) => {
-		console.log(categorias);
 		let filtroDataCopy = { ...filtroData };
 		filtroDataCopy['categorias'] = categorias;
 		setFiltroData({ ...filtroData, ...filtroDataCopy });
 	};
 
 	const handdlePrecios = (precios: any) => {
-		//porque pasa esto???????
-		let filtroDataCopy = { ...filtroData };
-		filtroDataCopy['precios'] = [precios];
-		setFiltroData({ ...filtroData, ...filtroDataCopy });
+		setFiltroPrecios(precios);
 	};
 
 	const handdleFiltrar = (e: FormDataEvent | any) => {
 		e.preventDefault();
-		console.log(filtroData);
-		// onFilter(filtroData);
+		onFilter({ ...filtroData, precios: filtroPrecios });
 	};
 
 	return (
