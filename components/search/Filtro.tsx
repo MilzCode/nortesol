@@ -42,7 +42,7 @@ const Filtro = ({
 
 	const [togle, setTogle] = useState(true);
 	const [filtroData, setFiltroData] = useState<any>({});
-	const [filtroPrecios, setFiltroPrecios] = useState([precios]);
+	const [filtroPrecios, setFiltroPrecios] = useState(precios);
 	const handdleMarcas = (marcas: any) => {
 		let filtroDataCopy = { ...filtroData };
 		filtroDataCopy['marcas'] = marcas;
