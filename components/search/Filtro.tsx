@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import { formatPriceToNumber } from '../../utils/formatoPrecio';
 import SliderPrecios from './SliderPrecios';
+import CompareArray from '../../utils/comparar-arrays';
 
 interface filtroProps {
 	marcas?: Array<{ value: string; label: string }>;
@@ -42,7 +43,7 @@ const Filtro = ({
 
 	const [togle, setTogle] = useState(true);
 	const [filtroData, setFiltroData] = useState<any>({});
-	const [filtroPrecios, setFiltroPrecios] = useState(precios);
+	const [filtroPrecios, setFiltroPrecios] = useState([]);
 	const handdleMarcas = (marcas: any) => {
 		let filtroDataCopy = { ...filtroData };
 		filtroDataCopy['marcas'] = marcas;
@@ -54,8 +55,11 @@ const Filtro = ({
 		setFiltroData({ ...filtroData, ...filtroDataCopy });
 	};
 
-	const handdlePrecios = (precios: any) => {
-		setFiltroPrecios(precios);
+	const handdlePrecios = (precios_: any) => {
+		if (CompareArray(precios, precios_)) {
+			setFiltroPrecios([]);
+		}
+		setFiltroPrecios(precios_);
 	};
 
 	const handdleFiltrar = (e: FormDataEvent | any) => {

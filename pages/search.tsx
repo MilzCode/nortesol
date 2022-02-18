@@ -3,13 +3,39 @@ import Paginador from '../components/general/Paginador';
 import Volver from '../components/general/Volver';
 import Filtro from '../components/search/Filtro';
 import ProductoVistaMiniatura from '../components/venta/ProductoVistaMiniatura';
+import useMarcas from '../hooks/useMarcas';
+import useCategorias from '../hooks/useCategorias';
+import Capitalize from '../utils/capitalize';
 const Search = () => {
 	const rangoPrecios = [0, 1000000];
 	const [pagina, setPagina] = useState(1);
-	const [filtroCampos, setFiltroCampos] = useState({});
+	const [filtroCampos, setFiltroCampos] = useState(null);
+	const [productos, setProductos] = useState([]);
+	const [marcas, setMarcas] = useState([]);
+	const [categorias, setCategorias] = useState([]);
 
 	useEffect(() => {
-		console.log(filtroCampos);
+		useMarcas()
+			.then((res) => {
+				const marcas_ = res.map((m: any) => {
+					return { value: m, label: Capitalize(m) };
+				});
+				setMarcas(marcas_);
+			})
+			.catch((err) => {});
+		useCategorias()
+			.then((res) => {
+				const categorias_ = res.map((c: any) => {
+					return { value: c, label: Capitalize(c) };
+				});
+				setCategorias(categorias_);
+			})
+			.catch((err) => {});
+	}, []);
+	useEffect(() => {
+		if (filtroCampos) {
+			console.log(filtroCampos);
+		}
 	}, [filtroCampos]);
 
 	return (
@@ -20,8 +46,8 @@ const Search = () => {
 				onFilter={(f) => {
 					setFiltroCampos(f);
 				}}
-				marcas={[{ value: 'torre', label: 'Torre' }]}
-				categorias={[{ value: 'categoria1', label: 'Categoria1' }]}
+				marcas={marcas}
+				categorias={categorias}
 				precios={rangoPrecios}
 			/>
 			<br />
