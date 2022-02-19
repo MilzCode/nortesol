@@ -17,7 +17,8 @@ const Header = ({ auth }: any) => {
 
 	const handdleSubmit = (e: any) => {
 		e.preventDefault();
-		router.push('/search');
+		const busqueda = e.target.busqueda.value.trim();
+		window.location.replace('/search?busqueda=' + busqueda);
 	};
 
 	async function salir() {
@@ -45,7 +46,7 @@ const Header = ({ auth }: any) => {
 					<span>Contacto</span>
 				</div>
 				<form className="header__buscador" onSubmit={(e) => handdleSubmit(e)}>
-					<input type="text" placeholder="Buscar" />
+					<input id="busqueda" type="text" placeholder="Buscar" />
 					<button type="submit">
 						<i className="fas fa-search" />
 						<span className="TEXTINVISIBLE">buscar articulo</span>

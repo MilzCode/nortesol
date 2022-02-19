@@ -1,3 +1,4 @@
+//TODO: LOS ARREGLOS O MARCAS NO DEBEN TENER COMAS ";;" ya que se utilizan para separar los valores.
 import React from 'react';
 import { useState, useEffect } from 'react';
 import useMarcas from '../../../hooks/useMarcas';

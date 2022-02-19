@@ -10,10 +10,9 @@ import EditarProductoBTN from '../../components/general/EditarProductoBTN';
 import Capitalize from '../../utils/capitalize';
 import useAñadirProductoCarrito from '../../hooks/useAñadirProductoCarrito';
 import useCantidadProductoCarrito from '../../hooks/useCantidadProductoCarrito';
-import getRandomInt from '../../utils/random-int';
-import useProductos from '../../hooks/useProductos';
 import VentanaModal from '../../components/general/VentanaModal';
 import BotonFAColores1 from '../../components/general/BotonFAColores1';
+import useProductosFiltros from '../../hooks/useProductos';
 
 const ProductoVer = ({ me }: any) => {
 	const router = useRouter();
@@ -35,11 +34,8 @@ const ProductoVer = ({ me }: any) => {
 					setProducto(res.producto);
 					setCantLlevada(useCantidadProductoCarrito(res.producto.pid));
 					//seleccionando una categoria al azar
-					const categoriaCantidad = res.producto.categorias.length;
-					const categoriaRandom =
-						res.producto.categorias[getRandomInt(0, categoriaCantidad)]._id;
-
-					useProductos({ limit: 6, cat: categoriaRandom })
+					const categorias_names = res.producto.categorias_names;
+					useProductosFiltros({ limit: 7, categorias: categorias_names })
 						.then((resRel) => {
 							const prodRelacionados = resRel.productos.docs.filter(
 								(p: any) => p.nombre_url != res.producto.nombre_url

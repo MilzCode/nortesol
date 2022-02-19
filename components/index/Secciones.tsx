@@ -1,31 +1,37 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-const Secciones = () => {
-  const [seleccion, setSeleccion] = useState(0);
-  return (
-    <section className="secciones NOSELECT">
-      <nav className="secciones__opciones">
-        <a
-          onClick={() => setSeleccion(0)}
-          className={`secciones__opcion ${
-            seleccion == 0 && "secciones__opcion--seleccionada"
-          }`}
-          href="#"
-        >
-          Más Vendidos
-        </a>
-        <a
-          onClick={() => setSeleccion(1)}
-          className={`secciones__opcion ${
-            seleccion == 1 && "secciones__opcion--seleccionada"
-          }`}
-          href="#"
-        >
-          Novedades
-        </a>
-      </nav>
-    </section>
-  );
+const Secciones = ({ onSelect }: any) => {
+	const [seleccion, setSeleccion] = useState('descuentos');
+	return (
+		<section className="secciones NOSELECT">
+			<nav className="secciones__opciones">
+				<a
+					onClick={() => {
+						setSeleccion('descuentos');
+						onSelect('descuentos');
+					}}
+					className={`secciones__opcion ${
+						seleccion == 'descuentos' && 'secciones__opcion--seleccionada'
+					}`}
+					href="#"
+				>
+					Descuentos
+				</a>
+				<a
+					onClick={() => {
+						setSeleccion('novedades');
+						onSelect('novedades');
+					}}
+					className={`secciones__opcion ${
+						seleccion == 'novedades' && 'secciones__opcion--seleccionada'
+					}`}
+					href="#"
+				>
+					Novedades
+				</a>
+			</nav>
+		</section>
+	);
 };
 
 export default Secciones;

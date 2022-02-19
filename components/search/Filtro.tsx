@@ -5,13 +5,21 @@ import Select from 'react-select';
 import { formatPriceToNumber } from '../../utils/formatoPrecio';
 import SliderPrecios from './SliderPrecios';
 import CompareArray from '../../utils/comparar-arrays';
+import Cargando from '../general/Cargando';
+import BotonFAColores1 from '../general/BotonFAColores1';
+import {
+	MAXCATEGORIASFILTER,
+	MAXMARCASFILTER,
+	SEPARADOR,
+} from '../../utils/constantes';
 
 interface filtroProps {
 	marcas?: Array<{ value: string; label: string }>;
 	categorias?: Array<{ value: string; label: string }>;
 	precios?: number[];
-	onFilter?: (e: FormDataEvent | any) => any;
+	onFilter?: (e: any, q: any) => any;
 	mode1?: boolean | undefined;
+	isLoading?: boolean;
 }
 
 /**
@@ -34,6 +42,7 @@ const Filtro = ({
 	categorias,
 	precios,
 	onFilter = () => {},
+	isLoading = false,
 	mode1,
 }: filtroProps) => {
 	marcas = marcas ?? [];
@@ -47,15 +56,21 @@ const Filtro = ({
 
 	const handdleBuscar = (busqueda: any) => {
 		let filtroDataCopy = { ...filtroData };
-		filtroDataCopy['busqueda'] = busqueda.trim();
+		filtroDataCopy['busqueda'] = busqueda.trim().replace(',', '');
 		setFiltroData({ ...filtroData, ...filtroDataCopy });
 	};
 	const handdleMarcas = (marcas: any) => {
+		if (marcas.length > MAXMARCASFILTER) {
+			return;
+		}
 		let filtroDataCopy = { ...filtroData };
 		filtroDataCopy['marcas'] = marcas;
 		setFiltroData({ ...filtroData, ...filtroDataCopy });
 	};
 	const handdleCategorias = (categorias: any) => {
+		if (categorias.length > MAXCATEGORIASFILTER) {
+			return;
+		}
 		let filtroDataCopy = { ...filtroData };
 		filtroDataCopy['categorias'] = categorias;
 		setFiltroData({ ...filtroData, ...filtroDataCopy });
@@ -71,7 +86,36 @@ const Filtro = ({
 			filtroPrecios[0] === precios[0] ? undefined : filtroPrecios[0];
 		let precio_max =
 			filtroPrecios[1] === precios[1] ? undefined : filtroPrecios[1];
-		onFilter({ ...filtroData, precio_min, precio_max });
+		let query = '?';
+		const { busqueda, marcas, categorias } = filtroData;
+		if (busqueda) {
+			query += `busqueda=${busqueda}&`;
+		}
+		let marcas_ = marcas?.map((m: any) => m.value);
+		if (marcas) {
+			query += `marcas=${marcas_.join(SEPARADOR)}&`;
+		}
+		let categorias_ = categorias?.map((c: any) => c.value);
+		if (categorias) {
+			query += `categorias=${categorias_.join(SEPARADOR)}&`;
+		}
+		if (precio_min) {
+			query += `precio_min=${precio_min}&`;
+		}
+		if (precio_max) {
+			query += `precio_max=${precio_max}&`;
+		}
+
+		onFilter(
+			{
+				...filtroData,
+				categorias: categorias_,
+				marcas: marcas_,
+				precio_min,
+				precio_max,
+			},
+			query
+		);
 	};
 
 	return (
@@ -135,9 +179,25 @@ const Filtro = ({
 				/>
 			</div>
 
-			<button className="filtro__filtrarBTN" onClick={handdleFiltrar}>
-				Filtrar
-			</button>
+			<BotonFAColores1
+				className="filtro__filtrarBTN"
+				disabled={isLoading}
+				onClick={handdleFiltrar}
+			>
+				{isLoading ? (
+					<>
+						Cargando{' '}
+						<i className="CARGANDOICO2">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</i>{' '}
+					</>
+				) : (
+					<>Filtrar</>
+				)}
+			</BotonFAColores1>
 		</form>
 	);
 };

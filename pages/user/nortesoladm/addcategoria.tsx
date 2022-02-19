@@ -1,3 +1,5 @@
+//TODO: LOS ARREGLOS O CATEGORIAS NO DEBEN TENER COMAS ";;" ya que se utilizan para separar los valores.
+
 import React from 'react';
 import { useState, useEffect } from 'react';
 import BotonFAColores1 from '../../../components/general/BotonFAColores1';

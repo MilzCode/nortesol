@@ -12,6 +12,7 @@ import useCategorias from '../../../hooks/useCategorias';
 import useMarcas from '../../../hooks/useMarcas';
 import Select from 'react-select';
 import Capitalize from '../../../utils/capitalize';
+import { MAXCATEGORIASPORPRODUCTO } from '../../../utils/constantes';
 
 const Addproduct = ({ auth, me }: any) => {
 	if (!auth || !me.admin) {
@@ -115,6 +116,9 @@ const Addproduct = ({ auth, me }: any) => {
 		setImagenesPreview(dataUrls);
 	};
 	const handdleCategorias = (e: any) => {
+		if (e.length > MAXCATEGORIASPORPRODUCTO) {
+			return;
+		}
 		console.log(e);
 		setCategorias(e);
 	};
@@ -311,11 +315,7 @@ const Addproduct = ({ auth, me }: any) => {
 							<div className="IMAGEPREVIEW">
 								<br />
 								{imagenesPreview.map((img: any, i: number) => {
-									return (
-										<>
-											<img key={i} src={img} alt="imagen" />
-										</>
-									);
+									return <img key={i} src={img} alt="imagen" />;
 								})}
 							</div>
 						)}

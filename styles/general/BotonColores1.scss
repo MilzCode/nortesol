@@ -1,32 +1,31 @@
 .botonColores1 {
-  font-size: $fontSize12;
-  background-color: $pantone2039U;
-  outline: none !important;
-  border: none;
-  padding: 0.35em 1.5em;
-  color: white;
-  font-weight: bold;
-  border-radius: 0.6em;
-  max-width: 100%;
-  cursor: pointer;
-  //shadow
-  box-shadow: 0 0 0.2em rgba(0, 0, 0, 0.2);
-  & > i {
-    margin-right: 3px;
-  }
+	font-size: $fontSize12;
+	background-color: $pantone2039U;
+	outline: none !important;
+	border: none;
+	padding: 0.35em 1.5em;
+	color: white;
+	font-weight: bold;
+	border-radius: 0.6em;
+	max-width: 100%;
+	cursor: pointer;
+	//shadow
+	box-shadow: 0 0 0.2em rgba(0, 0, 0, 0.2);
+	& > i {
+		margin-right: 3px;
+	}
 
-  & > p {
-    display: inline;
-  }
-  &:hover {
-    opacity: 0.96;
-  }
-  &:active {
-    transform: scale(0.99);
-  }
-  //disabled
-  &:disabled{
-    cursor: not-allowed;
-  }
-
+	& > p {
+		display: inline;
+	}
+	&:hover {
+		opacity: 0.96;
+	}
+	&:active {
+		transform: scale(0.99);
+	}
+	//disabled
+	&:disabled {
+		cursor: not-allowed;
+	}
 }

@@ -11,7 +11,7 @@ const useProductosCarrito = async () => {
 		}
 		const idProductos = carrito.map((pr: any) => pr.p);
 		const productos = await useProductos({
-			find_prod: idProductos,
+			find_productos_pids: idProductos,
 			limit: MAXPRODUCTOSCARRITO,
 		});
 		if (!productos) {

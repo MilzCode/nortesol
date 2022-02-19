@@ -22,6 +22,14 @@ const nortesoladm = ({ auth, me }: any) => {
 			<Link href="/user/nortesoladm/addcategoria" passHref>
 				Crear Categorias
 			</Link>
+			<br />
+			<Link href="/user/nortesoladm/addportada" passHref>
+				Crear Portada
+			</Link>
+			<br />
+			<Link href="/user/nortesoladm/removeportada" passHref>
+				Remover Portada
+			</Link>
 		</>
 	);
 };

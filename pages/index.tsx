@@ -7,31 +7,40 @@ import Paginador from '../components/general/Paginador';
 import ProductoVistaMiniatura from '../components/venta/ProductoVistaMiniatura';
 import { useEffect, useState } from 'react';
 import useProductos from '../hooks/useProductos';
+import usePortadas from '../hooks/usePortadas';
 
 const Home: NextPage = () => {
-	const [pagina, setPagina] = useState(1);
-	const [maxPag, setMaxPag] = useState(1);
+	const [portadas, setPortadas] = useState<any>(null);
 	const [productos, setProductos] = useState([]);
-	const [loaded, setLoaded] = useState(false);
-	const [first, setFirst] = useState(true);
+	const [productosNovedades, setProductosNovedades] = useState([]);
+	const [seccion, setSeccion] = useState('descuentos');
+	const cantidadProductosSeccion = 16;
+
 	useEffect(() => {
-		if (first) {
-			useProductos({})
-				.then((res) => {
-					setFirst(false);
-					setMaxPag(res.productos.totalPages);
-					setProductos(res.productos.docs);
-					setLoaded(true);
-				})
-				.catch(() => {});
+		usePortadas()
+			.then((res) => {
+				setPortadas(res.portadas);
+			})
+			.catch();
+	}, []);
+	useEffect(() => {
+		useProductos({ sortDescuentoDesc: true, limit: cantidadProductosSeccion })
+			.then((res) => {
+				setProductos(res.productos.docs);
+			})
+			.catch(() => {});
+	}, []);
+	const handdleSeccion = (seccion: string) => {
+		setSeccion(seccion);
+		if (seccion == 'descuentos') {
 		} else {
-			useProductos({ page: pagina })
+			useProductos({ sortFechaDesc: true, limit: cantidadProductosSeccion })
 				.then((res) => {
-					setProductos(res.productos.docs);
+					setProductosNovedades(res.productos.docs);
 				})
 				.catch(() => {});
 		}
-	}, [pagina]);
+	};
 
 	return (
 		<>
@@ -40,25 +49,43 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<h1 className="TEXTINVISIBLE">Libreria Nortesol Pagina principal</h1>
-			<Destacados />
+			{portadas ? (
+				<Destacados portadas={portadas} />
+			) : (
+				<>
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+				</>
+			)}
 			<Siguenos />
 			<div className="index__productos">
-				<Secciones />
-				{productos.map((p: any, i: any) => (
-					<ProductoVistaMiniatura
-						nombre={p.nombre}
-						nombre_url={p.nombre_url}
-						precio={p.precio}
-						imagen={p.imagen}
-						key={i}
-					/>
-				))}
+				<Secciones onSelect={handdleSeccion} />
+				{productos &&
+					seccion == 'descuentos' &&
+					productos.map((p: any, i: any) => (
+						<ProductoVistaMiniatura
+							nombre={p.nombre}
+							nombre_url={p.nombre_url}
+							precio={p.precio}
+							imagen={p.imagen}
+							key={i}
+						/>
+					))}
+				{productosNovedades &&
+					seccion == 'novedades' &&
+					productosNovedades.map((p: any, i: any) => (
+						<ProductoVistaMiniatura
+							nombre={p.nombre}
+							nombre_url={p.nombre_url}
+							precio={p.precio}
+							imagen={p.imagen}
+							key={i}
+						/>
+					))}
 			</div>
-			{loaded ? (
-				<Paginador maxPagina={maxPag} setPagina={setPagina} pagina={pagina} />
-			) : (
-				''
-			)}
 		</>
 	);
 };

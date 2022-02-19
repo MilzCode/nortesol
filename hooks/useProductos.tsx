@@ -1,47 +1,75 @@
-import { APIURL, MAXPRODUCTOSCARRITO } from '../utils/constantes';
-import Axios from 'axios';
+import axios from 'axios';
+import React from 'react';
+import { APIURL } from '../utils/constantes';
 
-interface productosProps {
+interface filtroProps {
+	busqueda?: string;
+	cantidad?: number;
+	categorias?: Array<string>;
+	descuento_min?: number;
+	marcas?: Array<string>;
+	precio_min?: number;
+	precio_max?: number;
+	relevancia?: number;
 	page?: number;
 	limit?: number;
-	cat?: string;
-	find_prod?: Array<string>;
+	sortDescuentoDesc?: boolean;
+	sortFechaDesc?: boolean;
+	sortRelevanciaDesc?: boolean;
+	sortPrecio?: boolean;
+	sortPrecioDesc?: boolean; //mayor a menor
+	sortNombreDesc?: boolean;
+	find_productos_pids?: Array<string>;
 }
 
-/**
- * cuando se envia find_prod se devuelven todos los productos que se encuentren en esas id.
- */
-const useProductos = async ({
+const useProductosFiltros = async ({
+	busqueda,
+	cantidad,
+	categorias,
+	descuento_min,
+	marcas,
+	precio_min,
+	precio_max,
+	relevancia,
+	find_productos_pids,
 	page,
 	limit,
-	cat,
-	find_prod,
-}: productosProps) => {
+	//solo se acepta un sort a la vez por temas de rendimiento, si se envia más de uno solo funcionara uno.
+	//por temas de rendimiento es mejor no usarlos.
+	sortDescuentoDesc,
+	sortFechaDesc,
+	sortRelevanciaDesc,
+	sortPrecio,
+	sortPrecioDesc,
+	sortNombreDesc,
+}: filtroProps) => {
 	try {
-		if (find_prod && find_prod.length === 0) {
-			return { ok: true, productos: { totalDocs: 0, docs: [] } };
-		} else if (find_prod && find_prod.length > MAXPRODUCTOSCARRITO) {
-			return {
-				ok: false,
-				productos: { totalDocs: 0 },
-				msg: 'El carrito lleva demasiados productos',
-			};
-		}
-		const response = await Axios.get(APIURL + 'productos', {
+		const response = await axios.get(APIURL + 'productos/search/productos', {
 			params: {
+				busqueda,
+				cantidad,
+				categorias,
+				descuento_min,
+				marcas,
+				precio_min,
+				precio_max,
+				relevancia,
+				find_productos_pids,
 				page,
 				limit,
-				cat,
-				find_prod,
+				sortDescuentoDesc,
+				sortFechaDesc,
+				sortRelevanciaDesc,
+				sortPrecio,
+				sortPrecioDesc,
+				sortNombreDesc,
 			},
 		});
-
 		const data = await response.data;
-
 		return data;
 	} catch (error) {
 		return { ok: false, productos: { totalDocs: 0 } };
 	}
 };
 
-export default useProductos;
+export default useProductosFiltros;

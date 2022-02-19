@@ -13,6 +13,7 @@ import useEditarProducto from '../../../hooks/useEditarProducto';
 import ProductoHead from '../../../components/venta/ProductoHead';
 import ProductoBody from '../../../components/venta/ProductoBody';
 import ProductoRelacionados from '../../../components/venta/ProductoRelacionados';
+import { MAXCATEGORIASPORPRODUCTO } from '../../../utils/constantes';
 
 const EditarProducto = ({ auth, me }: any) => {
 	if (!auth || !me.admin) {
@@ -292,6 +293,7 @@ const EditarProducto = ({ auth, me }: any) => {
 									classNamePrefix="select"
 									value={producto.categorias}
 									onChange={(categorias: any) =>
+										categorias.length <= MAXCATEGORIASPORPRODUCTO &&
 										handdleProducto({ categorias })
 									}
 									placeholder="Filtrar categoria"
@@ -350,11 +352,7 @@ const EditarProducto = ({ auth, me }: any) => {
 									<div className="IMAGEPREVIEW">
 										<br />
 										{imagenesPreview.map((img: any, i: number) => {
-											return (
-												<>
-													<img key={i} src={img} alt="imagen" />
-												</>
-											);
+											return <img key={i} src={img} alt="imagen" />;
 										})}
 									</div>
 								)}
