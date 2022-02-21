@@ -7,7 +7,11 @@ import useCrearMarca from '../../../hooks/useCrearMarca';
 import VentanaModal from '../../../components/general/VentanaModal';
 import Volver from '../../../components/general/Volver';
 
-const addmarca = () => {
+const addmarca = ({ me, auth }: any) => {
+	if (!auth || !me.admin) {
+		window.location.href = '/';
+		return null;
+	}
 	const [marcas, setMarcas] = useState([]);
 	const [marcaTitulo, setMarcaTitulo] = useState('');
 	const [marcaMsg, setMarcaMsg] = useState('');
@@ -47,6 +51,8 @@ const addmarca = () => {
 	return (
 		<>
 			<Volver />
+			<h1 className="producto__titulo">Crear Marca</h1>
+			<br />
 			<div className="LABELINPUT">
 				<label>Marcas ingresadas</label>
 				<select multiple>

@@ -3,6 +3,9 @@ import React from 'react';
 import { APIURL } from '../utils/constantes';
 
 interface filtroProps {
+	nombre_url?: string;
+	id?: string;
+	///
 	busqueda?: string;
 	cantidad?: number;
 	categorias?: Array<string>;
@@ -22,54 +25,26 @@ interface filtroProps {
 	find_productos_pids?: Array<string>;
 }
 
-const useProductosFiltros = async ({
-	busqueda,
-	cantidad,
-	categorias,
-	descuento_min,
-	marcas,
-	precio_min,
-	precio_max,
-	relevancia,
-	find_productos_pids,
-	page,
-	limit,
-	//solo se acepta un sort a la vez por temas de rendimiento, si se envia más de uno solo funcionara uno.
-	//por temas de rendimiento es mejor no usarlos.
-	sortDescuentoDesc,
-	sortFechaDesc,
-	sortRelevanciaDesc,
-	sortPrecio,
-	sortPrecioDesc,
-	sortNombreDesc,
-}: filtroProps) => {
+const useProductos = async (
+	{ ...props }: filtroProps,
+	desabilitados = false
+) => {
 	try {
-		const response = await axios.get(APIURL + 'productos/search/productos', {
+		const urlApiProductos = !desabilitados
+			? 'productos'
+			: 'productos_desabilitados';
+
+		const response = await axios.get(APIURL + urlApiProductos, {
 			params: {
-				busqueda,
-				cantidad,
-				categorias,
-				descuento_min,
-				marcas,
-				precio_min,
-				precio_max,
-				relevancia,
-				find_productos_pids,
-				page,
-				limit,
-				sortDescuentoDesc,
-				sortFechaDesc,
-				sortRelevanciaDesc,
-				sortPrecio,
-				sortPrecioDesc,
-				sortNombreDesc,
+				...props,
 			},
 		});
 		const data = await response.data;
 		return data;
 	} catch (error) {
+		window.location.href = '/';
 		return { ok: false, productos: { totalDocs: 0 } };
 	}
 };
 
-export default useProductosFiltros;
+export default useProductos;

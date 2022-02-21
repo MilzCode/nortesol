@@ -25,5 +25,9 @@
 			text-align: center !important;
 		}
 	}
+	& .slick-slide {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 }
-

@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Volver from '../../../components/general/Volver';
+import { paths } from '../../../utils/constantes';
 
 const nortesoladm = ({ auth, me }: any) => {
 	if (!auth || !me.admin) {
@@ -29,6 +30,14 @@ const nortesoladm = ({ auth, me }: any) => {
 			<br />
 			<Link href="/user/nortesoladm/removeportada" passHref>
 				Remover Portada
+			</Link>
+			<br />
+			<Link href="/user/nortesoladm/addanuncio" passHref>
+				Anuncio
+			</Link>
+			<br />
+			<Link href={paths.searchDesabilitados} passHref>
+				Ver Productos desabilitados
 			</Link>
 		</>
 	);

@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import ProductoVistaMiniatura from './ProductoVistaMiniatura';
 
-const ProductoRelacionados = ({ productosRel }: any) => {
+const ProductoRelacionados = ({ productosRel, desabilitados }: any) => {
 	const Arrow = (props: any) => {
 		const { className, style, onClick } = props;
 		return (
@@ -60,6 +60,7 @@ const ProductoRelacionados = ({ productosRel }: any) => {
 									nombre_url={p.nombre_url}
 									imagen={p.imagen}
 									key={i}
+									desabilitado={desabilitados}
 								/>
 							))}
 						</Slider>

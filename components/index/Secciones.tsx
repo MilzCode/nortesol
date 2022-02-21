@@ -5,7 +5,7 @@ const Secciones = ({ onSelect }: any) => {
 	return (
 		<section className="secciones NOSELECT">
 			<nav className="secciones__opciones">
-				<a
+				<div
 					onClick={() => {
 						setSeleccion('descuentos');
 						onSelect('descuentos');
@@ -13,11 +13,10 @@ const Secciones = ({ onSelect }: any) => {
 					className={`secciones__opcion ${
 						seleccion == 'descuentos' && 'secciones__opcion--seleccionada'
 					}`}
-					href="#"
 				>
 					Descuentos
-				</a>
-				<a
+				</div>
+				<div
 					onClick={() => {
 						setSeleccion('novedades');
 						onSelect('novedades');
@@ -25,10 +24,9 @@ const Secciones = ({ onSelect }: any) => {
 					className={`secciones__opcion ${
 						seleccion == 'novedades' && 'secciones__opcion--seleccionada'
 					}`}
-					href="#"
 				>
 					Novedades
-				</a>
+				</div>
 			</nav>
 		</section>
 	);

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import BotonFA from '../../general/BotonFAColores1';
 import formatoPrecio from '../../../utils/formatoPrecio';
+import Link from 'next/link';
 
 const ProductoHeadComprar = ({
 	precio,
@@ -64,17 +65,18 @@ const ProductoHeadComprar = ({
 			</div>
 			<br />
 			{cantidad_carrito >= 1 && (
-				<BotonFA
-					className="productoHeadComprar__boton"
-					backgroundColor="#f9423a"
-					onClick={() => {
-						irCarritoUrl && window.location.replace(irCarritoUrl);
-					}}
-				>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<i className="fas fa-shopping-cart"></i>
-					Ir al carrito &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</BotonFA>
+				<Link passHref href={irCarritoUrl}>
+					<a>
+						<BotonFA
+							className="productoHeadComprar__boton"
+							backgroundColor="#f9423a"
+						>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<i className="fas fa-shopping-cart"></i>
+							Ir al carrito &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</BotonFA>
+					</a>
+				</Link>
 			)}
 			<BotonFA
 				className="productoHeadComprar__boton"

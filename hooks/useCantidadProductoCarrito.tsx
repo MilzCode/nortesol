@@ -10,7 +10,7 @@ const useCantidadProductoCarrito = (id = '') => {
 		return 0;
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		window.location.replace('/');
+		window.location.href = '/';
 	}
 };
 

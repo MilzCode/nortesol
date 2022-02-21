@@ -6,7 +6,7 @@ const EditarProductoBTN = ({ id_edit_prod = '' }) => {
 		<div className="editarBTN NOSELECT">
 			<span
 				onClick={() => {
-					window.location.replace('/user/nortesoladm/' + id_edit_prod);
+					window.location.href = '/user/nortesoladm/' + id_edit_prod;
 				}}
 			>
 				<i className="fas fa-pencil" />

@@ -4,7 +4,11 @@ import Volver from '../../../components/general/Volver';
 import PortadaMiniatura from '../../../components/nortesoladm/PortadaMiniatura';
 import useRemoverPortada from '../../../hooks/useRemoverPortada';
 
-const removeportada = () => {
+const removeportada = ({ me, auth }: any) => {
+	if (!auth || !me.admin) {
+		window.location.href = '/';
+		return null;
+	}
 	const [portadas, setPortadas] = useState([]);
 	useEffect(() => {
 		usePortadas()
@@ -22,7 +26,7 @@ const removeportada = () => {
 			.then((res) => {
 				console.log(res);
 				if (res.ok) {
-					window.location.replace('/user/nortesoladm/removeportada');
+					window.location.href = '/user/nortesoladm/removeportada';
 					return;
 				}
 				alert('Hubo un problema contacta al administrador*');
@@ -34,6 +38,8 @@ const removeportada = () => {
 	return (
 		<>
 			<Volver />
+			<h1 className="producto__titulo">Remover Portadas</h1>
+			<br />
 			<div className="index__productos">
 				{portadas &&
 					portadas.map((p: any, i: any) => (

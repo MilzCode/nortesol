@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import useProducto from '../../../hooks/useProducto';
-import Volver from '../../../components/general/Volver';
-import BotonFAColores1 from '../../../components/general/BotonFAColores1';
-import VentanaModal from '../../../components/general/VentanaModal';
-import EditorTexto from '../../../components/nortesoladm/EditorTexto';
-import useMarcas from '../../../hooks/useMarcas';
-import useCategorias from '../../../hooks/useCategorias';
+import useProductos from '../../../../hooks/useProductos';
+import Volver from '../../../../components/general/Volver';
+import BotonFAColores1 from '../../../../components/general/BotonFAColores1';
+import VentanaModal from '../../../../components/general/VentanaModal';
+import EditorTexto from '../../../../components/nortesoladm/EditorTexto';
+import useMarcas from '../../../../hooks/useMarcas';
+import useCategorias from '../../../../hooks/useCategorias';
 import Select from 'react-select';
-import Capitalize from '../../../utils/capitalize';
-import useEditarProducto from '../../../hooks/useEditarProducto';
-import ProductoHead from '../../../components/venta/ProductoHead';
-import ProductoBody from '../../../components/venta/ProductoBody';
-import ProductoRelacionados from '../../../components/venta/ProductoRelacionados';
-import { MAXCATEGORIASPORPRODUCTO } from '../../../utils/constantes';
+import Capitalize from '../../../../utils/capitalize';
+import useEditarProducto from '../../../../hooks/useEditarProducto';
+import ProductoHead from '../../../../components/venta/ProductoHead';
+import ProductoBody from '../../../../components/venta/ProductoBody';
+import ProductoRelacionados from '../../../../components/venta/ProductoRelacionados';
+import { MAXCATEGORIASPORPRODUCTO } from '../../../../utils/constantes';
+import useDesabilitarProducto from '../../../../hooks/useDesabilitarProducto';
 
 const EditarProducto = ({ auth, me }: any) => {
 	if (!auth || !me.admin) {
@@ -53,46 +54,55 @@ const EditarProducto = ({ auth, me }: any) => {
 	useEffect(() => {
 		id_edit_prod &&
 			//@ts-ignore
-			useProducto(id_edit_prod)
+			useProductos({ nombre_url: id_edit_prod })
 				.then((res: { ok: false; producto: null }) => {
-					if (!res.ok) {
-						router.push('/');
-						return;
-					}
-					//@ts-ignore
-					let { nombre, precio, categorias, marca, id } = res.producto;
-					if (categorias) {
-						categorias = categorias.map((categoria: any) => {
-							return {
-								value: categoria.nombre,
-								label: Capitalize(categoria.nombre),
-							};
-						});
-					}
-					if (marca) {
-						marca = { value: marca.nombre, label: Capitalize(marca.nombre) };
-					}
-					//@ts-ignore
-					const {
-						descripcion,
-						imagenes,
-						cantidad,
+					try {
+						if (!res.ok) {
+							router.push('/');
+							return;
+						}
+						let {
+							nombre,
+							precio,
+							categorias,
+							marca,
+							id,
+							cantidad,
+						} = res.producto!;
+						if (categorias) {
+							//@ts-ignore
+							categorias = categorias.map((categoria: any) => {
+								return {
+									value: categoria.nombre,
+									label: Capitalize(categoria.nombre),
+								};
+							});
+						}
+						if (marca) {
+							//@ts-ignore
+							marca = { value: marca.nombre, label: Capitalize(marca.nombre) };
+						}
 						//@ts-ignore
-					} = res.producto.detalle_producto;
-					setImagenesPreview(imagenes);
-					setProducto({
-						nombre,
-						precio,
-						categorias,
-						marca,
-						cantidad,
-						descripcion,
-						imagenes,
-						load: true,
-						idProd: id,
-					});
-					//@ts-ignore
-					setNewUrl(res.producto.nombre_url);
+						const {
+							descripcion,
+							imagenes,
+							//@ts-ignore
+						} = res.producto.detalle_producto;
+						setImagenesPreview(imagenes);
+						setProducto({
+							nombre,
+							precio,
+							categorias,
+							marca,
+							cantidad,
+							descripcion,
+							imagenes,
+							load: true,
+							idProd: id,
+						});
+						//@ts-ignore
+						setNewUrl(res.producto.nombre_url);
+					} catch (error) {}
 				})
 				.catch(() => {
 					window.location.href = '/';
@@ -104,7 +114,20 @@ const EditarProducto = ({ auth, me }: any) => {
 		useMarcas().then((m) => setMarcaOpt(m));
 	}, []);
 
-	const handdleBorrarProducto = () => {};
+	const handdleBorrarProducto = () => {
+		useDesabilitarProducto({ id: producto.idProd })
+			.then((res) => {
+				console.log(res);
+				if (res.ok) {
+					router.push('/');
+					return;
+				}
+				alert('Hubo un problema contacta al administrador');
+			})
+			.catch(() => {
+				alert('Hubo un problema contacta al administrador');
+			});
+	};
 	const handdleSiguiente = () => {
 		setSiguiente(true);
 	};
@@ -176,7 +199,9 @@ const EditarProducto = ({ auth, me }: any) => {
 		<>
 			{producto && (
 				<>
-					<Volver mode1 />
+					<Volver />
+					<h1 className="producto__titulo">Editar Producto</h1>
+					<br />
 					<hr />
 					<div className="BOTONES">
 						{!preview && (
@@ -377,7 +402,6 @@ const EditarProducto = ({ auth, me }: any) => {
 								<VentanaModal
 									titulo="Producto Actualizado"
 									onClose={() => {
-										handdleBorrarProducto();
 										window.location.href = '/producto/' + newUrl;
 									}}
 								>

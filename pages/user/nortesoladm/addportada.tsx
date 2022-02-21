@@ -3,9 +3,12 @@ import BotonFAColores1 from '../../../components/general/BotonFAColores1';
 import VentanaModal from '../../../components/general/VentanaModal';
 import Volver from '../../../components/general/Volver';
 import useCrearPortada from '../../../hooks/useCrearPortada';
-import addHttp from '../../../utils/add-http';
 
-const addPortada = () => {
+const addPortada = ({ me, auth }: any) => {
+	if (!auth || !me.admin) {
+		window.location.href = '/';
+		return null;
+	}
 	const maxImg = 1;
 	const [imagenes, setImagenes] = useState<any>([]);
 	const [imagenesPreview, setImagenesPreview] = useState<any>([]);
@@ -50,6 +53,8 @@ const addPortada = () => {
 	return (
 		<>
 			<Volver />
+			<h1 className="producto__titulo">Crear Portada</h1>
+			<br />
 			<form onSubmit={handdleSubirPortada}>
 				<br />
 				<div className="LABELINPUT">

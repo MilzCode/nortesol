@@ -1,27 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
-const Volver = ({ mode1 = false, url = '' }) => {
+const Volver = ({ url = '', cantPagesBack = 1 }) => {
 	const router = useRouter();
 	const path = router.asPath.split('?')[0];
-	const handdleVolver = () => {
+	const [pathAnterior, setPathAnterior] = useState('/');
+
+	useEffect(() => {
 		if (url) {
-			router.push(url);
-			return;
+			setPathAnterior(url);
+		} else {
+			let pathAnteriorCopy = '/';
+			try {
+				if (cantPagesBack <= 1) {
+					cantPagesBack = 1;
+				}
+				pathAnteriorCopy = path.split('/').slice(0, -cantPagesBack).join('/');
+			} catch (error) {
+				pathAnteriorCopy = '/';
+			}
+			if (pathAnteriorCopy) {
+				setPathAnterior(pathAnteriorCopy);
+			}
 		}
-		if (!mode1) {
-			const pathAnterior = path.split('/').slice(0, -1).join('/');
-			router.push(pathAnterior ? pathAnterior : '/');
-			return;
-		}
-		router.back();
-	};
+	}, []);
 	return (
 		<div className="volverBoton NOSELECT">
-			<span onClick={handdleVolver}>
-				<i className="fas fa-level-up-alt" />
-				<span>Volver</span>
-			</span>
+			<Link passHref href={pathAnterior}>
+				<a>
+					<span className="volverBoton__container">
+						<i className="fas fa-level-up-alt" />
+						<span>Volver</span>
+					</span>
+				</a>
+			</Link>
 		</div>
 	);
 };

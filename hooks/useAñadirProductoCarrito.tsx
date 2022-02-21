@@ -42,7 +42,7 @@ const useAñadirProductoCarrito = ({
 		return cantidad;
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		window.location.replace('/');
+		window.location.href = '/';
 	}
 };
 

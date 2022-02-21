@@ -385,7 +385,8 @@ $fontSize14: sizeBasedOnTitle(0.4);
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
-	& > img {
+	& > img,
+	div {
 		height: 5em;
 		margin-right: 0.5em;
 		margin-bottom: 0.2em;

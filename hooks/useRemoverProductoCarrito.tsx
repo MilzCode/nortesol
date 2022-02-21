@@ -5,7 +5,7 @@ const useRemoverProductoCarrito = (id = '') => {
 		localStorage.setItem('carrito', JSON.stringify(newCarrito));
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		window.location.replace('/');
+		window.location.href = '/';
 	}
 };
 

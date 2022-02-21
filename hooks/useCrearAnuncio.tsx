@@ -1,6 +1,12 @@
 import { APIURL } from '../utils/constantes';
 
-const useCrearPortada = async ({ nombre, descripcion, url, imagen }: any) => {
+const useCrearAnuncio = async ({
+	nombre,
+	descripcion,
+	url,
+	url_name,
+	imagen,
+}: any) => {
 	try {
 		const token = localStorage.getItem('tken');
 		if (!token) {
@@ -13,15 +19,13 @@ const useCrearPortada = async ({ nombre, descripcion, url, imagen }: any) => {
 		nombre && formData.append('nombre', nombre);
 		descripcion && formData.append('descripcion', descripcion);
 		url && formData.append('url', url);
+		url_name && formData.append('url_name', url_name);
 		let file = null;
 		if (imagen && imagen.length > 0) {
 			file = imagen.item(0);
 			formData.append('files[]', file);
-		} else {
-			return { ok: false, msg: 'No selecciono ninguna imagen' };
 		}
-
-		const response = await fetch(APIURL + 'portadas', {
+		const response = await fetch(APIURL + 'anuncios', {
 			method: 'POST',
 			headers: {
 				'x-token': token,
@@ -32,8 +36,8 @@ const useCrearPortada = async ({ nombre, descripcion, url, imagen }: any) => {
 
 		return data;
 	} catch (error) {
-		return { ok: false, msg: 'Error contacte con el administrador' };
+		return { ok: false, msg: 'Error contacte con el administrador*' };
 	}
 };
 
-export default useCrearPortada;
+export default useCrearAnuncio;

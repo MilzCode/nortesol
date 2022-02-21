@@ -166,6 +166,8 @@ const Addproduct = ({ auth, me }: any) => {
 	return (
 		<>
 			<Volver />
+			<h1 className="producto__titulo">Crear Producto</h1>
+			<br />
 			<hr />
 			<div className="BOTONES">
 				{!preview && (

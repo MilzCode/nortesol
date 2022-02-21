@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 /*
 Este componente es un boton que puede recibir un icono de fontawesome como children
 tiene las misma propidedaes que un boton normal.
@@ -11,22 +11,22 @@ tiene las misma propidedaes que un boton normal.
 */
 
 const BotonFAColores1 = (
-  { children, backgroundColor, className, onClick, disabled }: any,
-  props: any
+	{ children, backgroundColor, className, onClick, disabled }: any,
+	props: any
 ) => {
-  disabled && (backgroundColor = "#bbb");
-  disabled && (onClick = null);
-  return (
-    <button
-      disabled={disabled}
-      className={`botonColores1${className ? " " + className : ""}`}
-      style={{ backgroundColor }}
-      onClick={onClick}
-      {...props}
-    >
-      {children}
-    </button>
-  );
+	disabled && (backgroundColor = '#bbb');
+	disabled && (onClick = null);
+	return (
+		<button
+			disabled={disabled}
+			className={`botonColores1${className ? ' ' + className : ''}`}
+			style={{ backgroundColor }}
+			onClick={onClick}
+			{...props}
+		>
+			{children}
+		</button>
+	);
 };
 
 export default BotonFAColores1;

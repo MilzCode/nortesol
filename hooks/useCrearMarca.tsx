@@ -9,7 +9,6 @@ const useCrearMarca = async ({ nombre = '' }) => {
 				msg: 'No hay token?',
 			};
 		}
-		console.log(nombre);
 
 		const response = await fetch(APIURL + 'marcas', {
 			method: 'POST',
@@ -20,7 +19,6 @@ const useCrearMarca = async ({ nombre = '' }) => {
 			body: JSON.stringify({ nombre }),
 		});
 		const responseData = await response.json();
-		console.log(responseData)
 		if (!response.ok) {
 			return {
 				ok: false,

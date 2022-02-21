@@ -18,6 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   objeto con datos del usuario. si acaba de ingresar y se conoce que esta autenticado
   */
 	const [misDatos, setMisDatos] = useState<any>(false);
+	const [appMode, setAppMode] = useState(0);
 
 	//Rutas que no requieren control de acceso. Se recomienda que las rutas con parametros (*) vayan al final
 	const rutasPublicas = [
@@ -40,7 +41,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 	});
 
 	const redirectToHome = () => {
-		window.location.replace('/');
+		window.location.href = '/';
 	};
 
 	const [autenticado, setAutenticado] = useState<any>(false);
@@ -67,34 +68,41 @@ function MyApp({ Component, pageProps }: AppProps) {
 			});
 	}, []);
 
+	useEffect(() => {
+		setAppMode(0);
+		const urlMode1 = path.includes('/nortesoladm/searchdesabilitados');
+		urlMode1 && misDatos.admin && setAppMode(1);
+	}, [path]);
+
 	/*Parametros */
 	//autenticado contiene si el usuario esta autenticado (auth=true) o no (auth=null) o esta en espera (auth = false)
 
-	return (
-		<>
-			<Head>
-				<meta name="description" content="NorteSol" />
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<meta charSet="UTF-8" />
-				<link rel="icon" href="/nortesol.ico" />
+	try {
+		return (
+			<>
+				<Head>
+					<meta name="description" content="NorteSol" />
+					<meta name="viewport" content="width=device-width, initial-scale=1" />
+					<meta charSet="UTF-8" />
+					<link rel="icon" href="/nortesol.ico" />
 
-				<link
-					rel="stylesheet"
-					href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-				/>
-				<link
-					rel="stylesheet"
-					type="text/css"
-					href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-				/>
-				<link
-					rel="stylesheet"
-					type="text/css"
-					href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-				/>
-			</Head>
+					<link
+						rel="stylesheet"
+						href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+					/>
+					<link
+						rel="stylesheet"
+						type="text/css"
+						href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+					/>
+					<link
+						rel="stylesheet"
+						type="text/css"
+						href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+					/>
+				</Head>
 
-			{/* 
+				{/* 
         En principio no se estara usando context, pero se encuentra en una version anterior de la aplicacion y en la carpeta de firebase. (firebase no operativo)
         Se quito porque no aportaba, y se simplificaba la legibilidad del codigo al no usar context.
         los  parametros y sus nombres, que se estan trabjando entre componentes son los siguientes:
@@ -102,22 +110,32 @@ function MyApp({ Component, pageProps }: AppProps) {
         - auth: contiene si el usuario esta autenticado (auth=true) o no (auth=null) o esta en espera (auth = false) 
           basado en el state.
       */}
-			{(autenticado && misDatos) || isPublicRoute ? (
-				<Layout auth={autenticado}>
-					<Component me={misDatos} auth={autenticado} {...pageProps} />
-				</Layout>
-			) : (
-				//en los componentes heredados logeadoNorteSol: null es usuario no logeado.
-				<Layout auth={autenticado}>
-					{/* Si no es una ruta que requiera acceso o misDatos aun no recibe respuesta (null u object) retorna cargando... */}
-					{isPublicRoute || autenticado !== null ? (
-						<p className="CENTERABSOLUTE TEXT1">Cargando...</p>
-					) : (
-						redirectToHome()
-					)}
-				</Layout>
-			)}
-		</>
-	);
+				{(autenticado && misDatos) || isPublicRoute ? (
+					<Layout auth={autenticado} path={path} appMode={appMode}>
+						<Component
+							me={misDatos}
+							auth={autenticado}
+							{...pageProps}
+							path={path}
+							mode={appMode}
+						/>
+					</Layout>
+				) : (
+					//en los componentes heredados logeadoNorteSol: null es usuario no logeado.
+					<Layout auth={autenticado} path={path} mode={appMode}>
+						{/* Si no es una ruta que requiera acceso o misDatos aun no recibe respuesta (null u object) retorna cargando... */}
+						{isPublicRoute || autenticado !== null ? (
+							<p className="CENTERABSOLUTE TEXT1">Cargando...</p>
+						) : (
+							redirectToHome()
+						)}
+					</Layout>
+				)}
+			</>
+		);
+	} catch (error) {
+		window.location.href = '/';
+		return null;
+	}
 }
 export default MyApp;

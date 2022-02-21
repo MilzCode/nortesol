@@ -8,7 +8,11 @@ import Volver from '../../../components/general/Volver';
 import useCategorias from '../../../hooks/useCategorias';
 import useCrearCategoria from '../../../hooks/useCrearCategoria';
 
-const addcategoria = () => {
+const addcategoria = ({ me, auth }: any) => {
+	if (!auth || !me.admin) {
+		window.location.href = '/';
+		return null;
+	}
 	const [categorias, setCategorias] = useState([]);
 	const [categoriaTitulo, setCategoriaTitulo] = useState('');
 	const [categoriaMsg, setCategoriaMsg] = useState('');
@@ -48,6 +52,8 @@ const addcategoria = () => {
 	return (
 		<>
 			<Volver />
+			<h1 className="producto__titulo">Crear Categoria</h1>
+			<br />
 			<div className="LABELINPUT">
 				<label>Categorias ingresadas</label>
 				<select multiple>

@@ -6,7 +6,7 @@ const useProductosCarrito = async () => {
 		const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
 		if (carrito && carrito.length > MAXPRODUCTOSCARRITO) {
 			localStorage.removeItem('carrito');
-			window.location.replace('/');
+			window.location.href = '/';
 			return;
 		}
 		const idProductos = carrito.map((pr: any) => pr.p);
@@ -21,7 +21,7 @@ const useProductosCarrito = async () => {
 		let productosValidos: any = [];
 		const productosCarritoValidos = carrito.filter((pr: any) => {
 			let prod = productos.productos.docs.find((p: any) => p.pid === pr.p);
-			if (prod && prod.detalle_producto.cantidad >= pr.c && pr.c > 0) {
+			if (prod && prod.cantidad >= pr.c && pr.c > 0) {
 				prod.cantidad_carrito = pr.c;
 				productosValidos.push(prod);
 				return true;
@@ -36,7 +36,7 @@ const useProductosCarrito = async () => {
 		return productosValidos;
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		window.location.replace('/');
+		window.location.href = '/';
 	}
 };
 

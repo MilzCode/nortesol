@@ -69,7 +69,7 @@ const Carrito = () => {
 								imagen={p.imagen}
 								nombre={Capitalize(p.nombre)}
 								precio={p.precio}
-								cantidad_disponible={p.detalle_producto.cantidad}
+								cantidad_disponible={p.cantidad}
 								cantidadComprarDefault={p.cantidad_carrito}
 								id={p.pid}
 								nombre_url={p.nombre_url}

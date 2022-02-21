@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import formatNumberToprice from '../../utils/formatoPrecio';
-import router from 'next/router';
 import useRemoverProductoCarrito from '../../hooks/useRemoverProductoCarrito';
+import Link from 'next/link';
 
 export const ProductoEnCarrito = ({
 	imagen,
@@ -51,13 +51,10 @@ export const ProductoEnCarrito = ({
 		<>
 			{!deleted && (
 				<div className="productoEnCarrito NOSELECT">
-					<p
-						className="productoEnCarrito__titulo"
-						onClick={() => {
-							router.push('/producto/' + nombre_url);
-						}}
-					>
-						{nombre ? nombre : <>Cargando...</>}
+					<p className="productoEnCarrito__titulo">
+						<Link passHref href={'/producto/' + nombre_url}>
+							{nombre ? nombre : <>Cargando...</>}
+						</Link>
 					</p>
 					<div className="productoEnCarrito__container">
 						<div className="productoEnCarrito__quitar" onClick={handdleDelete}>

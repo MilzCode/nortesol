@@ -6,6 +6,7 @@ import useValidacion from '../hooks/useValidation';
 import formatoRut from '../utils/formatoRut';
 import VentanaModal from '../components/general/VentanaModal';
 import UseRegister from '../hooks/useRegister';
+import Volver from '../components/general/Volver';
 
 const stateInicial = {
 	nombre: '',
@@ -34,7 +35,7 @@ const Register = ({ auth }: any) => {
 	const [ciudades, setCiudades] = useState(ciudadesInicial);
 
 	async function crearCuenta() {
-		if (auth) window.location.replace('/');
+		if (auth) window.location.href = '/';
 		try {
 			const res = await UseRegister(
 				valores.nombre,
@@ -84,6 +85,7 @@ const Register = ({ auth }: any) => {
 	};
 	return (
 		<>
+			<Volver />
 			{registerOK && (
 				<VentanaModal titulo="Cuenta creada con exito" redireccionar="/" reload>
 					Se ha enviado un email a {valores.email} para que pueda activar su

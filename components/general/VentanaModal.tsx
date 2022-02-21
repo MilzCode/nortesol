@@ -28,7 +28,7 @@ const VentanaModal = ({
 	const [modal, setModal] = useState(true);
 	const handleClose = () => {
 		// setModal(false);
-		refrescar && redireccionar && window.location.replace(redireccionar);
+		if (refrescar && redireccionar) window.location.href = redireccionar;
 		redireccionar && Router.push(redireccionar);
 		onClose && onClose();
 	};
@@ -41,7 +41,7 @@ const VentanaModal = ({
 				></i>
 				<p className="ventanaModal__titulo">{titulo}</p>
 				<hr />
-				<p className="ventanaModal__texto">{children}</p>
+				<div className="ventanaModal__contenidoIn">{children}</div>
 			</div>
 		</div>
 	);

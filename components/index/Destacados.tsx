@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import Image from 'next/image';
 import addHttp from '../../utils/add-http';
+import Link from 'next/link';
 
 const Destacados = ({ portadas }: any) => {
 	const Arrow = (props: any) => {
@@ -29,17 +30,6 @@ const Destacados = ({ portadas }: any) => {
 		prevArrow: <Arrow />,
 	};
 
-	const irAlSitio = (url = '') => {
-		if (url) {
-			try {
-				window.open(addHttp(url), '_blank');
-				return;
-			} catch (error) {
-				return;
-			}
-		}
-	};
-
 	return (
 		<section className="destacadosHome">
 			<br />
@@ -55,14 +45,17 @@ const Destacados = ({ portadas }: any) => {
 									width="1280"
 									objectFit="contain"
 								/>
-								<div
-									className={
-										p.url ? 'destacadosHome__imgClickZone CURSORPOINTER' : ''
-									}
-									onClick={() => {
-										irAlSitio(p.url);
-									}}
-								/>
+								<Link passHref href={p.url ? addHttp(p.url) : '#'}>
+									<a draggable={false}>
+										<div
+											className={
+												p.url
+													? 'destacadosHome__imgClickZone CURSORPOINTER'
+													: ''
+											}
+										/>
+									</a>
+								</Link>
 							</div>
 						</div>
 					))}

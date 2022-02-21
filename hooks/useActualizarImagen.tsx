@@ -21,7 +21,6 @@ const useActualizarImagenProducto = async (imagenes: any, id: string) => {
 		body: formData,
 	});
 	const data = await res.json();
-	console.log(data);
 	return res;
 };
 

@@ -121,7 +121,7 @@ const Filtro = ({
 	return (
 		<form className={`filtro ${togle && 'filtro--noFilter'} NOSELECT`}>
 			<div className="filtro__togle" onClick={() => setTogle(!togle)}>
-				<span>Filtrar: </span>
+				<span>Filtrar:&nbsp;</span>
 				{togle && <i className="far fa-window-maximize"></i>}
 				{!togle && <i className="fas fa-window-maximize"></i>}
 			</div>
