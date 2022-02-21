@@ -48,13 +48,13 @@ const Edit = ({ me }: any) => {
 		// 	if (valores[key] ) {
 		// 	}
 		// });
-		const res = await useEditMe(
-			me.uid,
-			passwordOriginalState,
-			valores.nombre,
-			valores.rut,
-			valores.celular
-		);
+		const res = await useEditMe({
+			miId: me.uid,
+			password_original: passwordOriginalState,
+			nombre: valores.nombre,
+			rut: valores.rut,
+			celular: valores.celular,
+		});
 
 		if (!res.ok) {
 			alert('No se pudo realizar cambios');

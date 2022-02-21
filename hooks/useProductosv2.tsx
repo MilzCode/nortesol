@@ -26,26 +26,18 @@ interface filtroProps {
 	find_productos_pids?: Array<string>;
 }
 
-const useProductos = async (
+const useProductosV2 = async (
 	{ ...props }: filtroProps,
 	desabilitados = false
 ) => {
-	try {
-		const urlApiProductos = !desabilitados
-			? 'productos'
-			: 'productos_desabilitados';
-
-		const response = await axios.get(APIURL + urlApiProductos, {
-			params: {
-				...props,
-			},
-		});
-		const data = response.data;
-		return data;
-	} catch (error) {
-		wredirect();
-		return { ok: false, productos: { totalDocs: 0 } };
-	}
+	const [productos, setProductos] = useState<any>(null);
+	const [ok, setOk] = useState(false);
+	const [loaded, setLoaded] = useState(false);
+	const urlApiProductos = !desabilitados
+		? 'productos'
+		: 'productos_desabilitados';
+	useEffect(() => {}, []);
+	return [productos, ok, loaded];
 };
 
-export default useProductos;
+export default useProductosV2;

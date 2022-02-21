@@ -38,20 +38,24 @@ const producto = ({ me, auth }: any) => {
 						wredirect();
 						return;
 					}
-					setProducto(res.producto);
-					setCantLlevada(useCantidadProductoCarrito(res.producto.pid));
+					const resProducto = res.productos.docs[0];
+
+					setProducto(resProducto);
+					setCantLlevada(useCantidadProductoCarrito(resProducto.pid));
 					//seleccionando una categoria al azar
-					const categorias_names = res.producto.categorias_names;
+					const categorias_names = resProducto.categorias_names;
 					useProductos({ limit: 7, categorias: categorias_names }, true)
 						.then((resRel) => {
 							const prodRelacionados = resRel.productos.docs.filter(
-								(p: any) => p.nombre_url != res.producto.nombre_url
+								(p: any) => p.nombre_url != resProducto.nombre_url
 							);
 							setRelacionados(prodRelacionados);
 						})
 						.catch();
 				})
-				.catch(() => {
+				.catch((e) => {
+					console.log(e);
+					alert('aca');
 					wredirect();
 					return;
 				});

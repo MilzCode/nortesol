@@ -38,15 +38,13 @@ const EditAddress = ({ me }: any) => {
 			setEnvio(true);
 			return;
 		}
-		const res = await useEditMe(
-			passwordOriginalState,
-			undefined,
-			undefined,
-			undefined,
-			valores.region,
-			valores.ciudad,
-			valores.direccion
-		);
+		const res = await useEditMe({
+			password_original: passwordOriginalState,
+			region: valores.region,
+			ciudad: valores.ciudad,
+			direccion: valores.direccion,
+			miId: me.uid,
+		});
 		if (!res.ok) {
 			alert('No se pudo realizar cambios');
 			return;

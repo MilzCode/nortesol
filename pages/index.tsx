@@ -67,6 +67,7 @@ const Home: NextPage = () => {
 			})
 			.catch(() => {});
 	}, []);
+	
 	const handdleSeccion = (seccion: string) => {
 		setSeccion(seccion);
 		if (seccion == 'descuentos') {
@@ -82,6 +83,7 @@ const Home: NextPage = () => {
 	const haddleCloseAnuncio = () => {
 		setAnuncio({ ...anuncio, loadAnuncio: false });
 	};
+
 
 	return (
 		<>
