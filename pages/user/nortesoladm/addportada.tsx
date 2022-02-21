@@ -2,20 +2,18 @@ import React, { useState } from 'react';
 import BotonFAColores1 from '../../../components/general/BotonFAColores1';
 import VentanaModal from '../../../components/general/VentanaModal';
 import Volver from '../../../components/general/Volver';
-import useCrearPortada from '../../../hooks/useCrearPortada';
-import wredirect from '../../../helpers/wredirect';
+import CrearPortada from '../../../helpers/CrearPortada';
+import Wredirect from '../../../helpers/Wredirect';
 
-const addPortada = ({ me, auth }: any) => {
-	if (!auth || !me.admin) {
-		wredirect();
-		return null;
-	}
-	const maxImg = 1;
+const maxImg = 1;
+
+const AddPortada = ({ me, auth }: any) => {
 	const [imagenes, setImagenes] = useState<any>([]);
 	const [imagenesPreview, setImagenesPreview] = useState<any>([]);
 	const [loading, setLoading] = useState(false);
 	const [subido, setSubido] = useState(false);
 	const [errorMSG, setErrorMSG] = useState<any>(false);
+
 	const handdleImagenes = (e: any) => {
 		if (e.target.files.length > maxImg) {
 			alert(`Solo se pueden subir ${maxImg} imagenes `);
@@ -34,7 +32,7 @@ const addPortada = ({ me, auth }: any) => {
 		const nombre = e.target.nombre.value;
 		const descripcion = e.target.descripcion.value;
 		const url = e.target.url.value;
-		useCrearPortada({ nombre, descripcion, url, imagen: imagenes })
+		CrearPortada({ nombre, descripcion, url, imagen: imagenes })
 			.then((res) => {
 				setSubido(true);
 				if (!res.ok) {
@@ -51,6 +49,10 @@ const addPortada = ({ me, auth }: any) => {
 			});
 	};
 	const puedeSubir = imagenes.length > 0;
+	if (!me.admin) {
+		Wredirect();
+		return null;
+	}
 	return (
 		<>
 			<Volver />
@@ -148,4 +150,4 @@ const addPortada = ({ me, auth }: any) => {
 	);
 };
 
-export default addPortada;
+export default AddPortada;

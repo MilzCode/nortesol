@@ -7,7 +7,7 @@ import formatoRut from '../../utils/formatoRut';
 import validarEditarDireccion from '../../validations/validarEditarDireccion';
 import RegionesYComunas from '../../utils/RegionesYComunas';
 import VentanaModal from '../../components/general/VentanaModal';
-import useEditMe from '../../hooks/useEditMe';
+import EditarMe from '../../helpers/EditarMe';
 
 const ciudadesInicial: string[] = [];
 const EditAddress = ({ me }: any) => {
@@ -38,7 +38,7 @@ const EditAddress = ({ me }: any) => {
 			setEnvio(true);
 			return;
 		}
-		const res = await useEditMe({
+		const res = await EditarMe({
 			password_original: passwordOriginalState,
 			region: valores.region,
 			ciudad: valores.ciudad,

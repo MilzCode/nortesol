@@ -1,30 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import useProductos from '../../../../hooks/useProductos';
+import GetProductos from '../../../../helpers/GetProductos';
 import Volver from '../../../../components/general/Volver';
 import BotonFAColores1 from '../../../../components/general/BotonFAColores1';
 import VentanaModal from '../../../../components/general/VentanaModal';
 import EditorTexto from '../../../../components/nortesoladm/EditorTexto';
-import useMarcas from '../../../../hooks/useMarcas';
-import useCategorias from '../../../../hooks/useCategorias';
+import GetMarcas from '../../../../helpers/GetMarcas';
+import GetCategorias from '../../../../helpers/GetCategorias';
 import Select from 'react-select';
 import Capitalize from '../../../../utils/capitalize';
-import useEditarProducto from '../../../../hooks/useEditarProducto';
+import EditarProducto from '../../../../helpers/EditarProducto';
 import ProductoHead from '../../../../components/venta/ProductoHead';
 import ProductoBody from '../../../../components/venta/ProductoBody';
 import ProductoRelacionados from '../../../../components/venta/ProductoRelacionados';
 import { MAXCATEGORIASPORPRODUCTO } from '../../../../utils/constantes';
-import useDesabilitarProducto from '../../../../hooks/useDesabilitarProducto';
-import wredirect from '../../../../helpers/wredirect';
+import DesabilitarProducto from '../../../../helpers/DesabilitarProducto';
+import Wredirect from '../../../../helpers/Wredirect';
 
-const EditarProducto = ({ auth, me }: any) => {
-	if (!auth || !me.admin) {
-		wredirect();
-		return null;
-	}
-	//cantidad maxima de imagenes que se pueden subir
-	const maxImg = 2;
+const EditarProductoRoute = ({ auth, me }: any) => {
 	const router = useRouter();
+
 	const [producto, setProducto] = useState({
 		nombre: '',
 		precio: 9999999,
@@ -52,71 +47,11 @@ const EditarProducto = ({ auth, me }: any) => {
 	const [errSubirMSG, setErrSubirMSG] = useState('');
 	const [newUrl, setNewUrl] = useState('/');
 
-	useEffect(() => {
-		id_edit_prod &&
-			//@ts-ignore
-			useProductos({ nombre_url: id_edit_prod })
-				.then((res: { ok: false; producto: null }) => {
-					try {
-						if (!res.ok) {
-							router.push('/');
-							return;
-						}
-						let {
-							nombre,
-							precio,
-							categorias,
-							marca,
-							id,
-							cantidad,
-						} = res.producto!;
-						if (categorias) {
-							//@ts-ignore
-							categorias = categorias.map((categoria: any) => {
-								return {
-									value: categoria.nombre,
-									label: Capitalize(categoria.nombre),
-								};
-							});
-						}
-						if (marca) {
-							//@ts-ignore
-							marca = { value: marca.nombre, label: Capitalize(marca.nombre) };
-						}
-						//@ts-ignore
-						const {
-							descripcion,
-							imagenes,
-							//@ts-ignore
-						} = res.producto.detalle_producto;
-						setImagenesPreview(imagenes);
-						setProducto({
-							nombre,
-							precio,
-							categorias,
-							marca,
-							cantidad,
-							descripcion,
-							imagenes,
-							load: true,
-							idProd: id,
-						});
-						//@ts-ignore
-						setNewUrl(res.producto.nombre_url);
-					} catch (error) {}
-				})
-				.catch(() => {
-					wredirect();
-				});
-	}, [id_edit_prod]);
-
-	useEffect(() => {
-		useCategorias().then((c) => setCategoriasOpt(c));
-		useMarcas().then((m) => setMarcaOpt(m));
-	}, []);
+	//cantidad maxima de imagenes que se pueden subir
+	const maxImg = 2;
 
 	const handdleBorrarProducto = () => {
-		useDesabilitarProducto({ id: producto.idProd })
+		DesabilitarProducto({ id: producto.idProd })
 			.then((res) => {
 				console.log(res);
 				if (res.ok) {
@@ -180,7 +115,7 @@ const EditarProducto = ({ auth, me }: any) => {
 			marca: producto.marca.value,
 			idProd: producto.idProd,
 		};
-		const res = await useEditarProducto(data);
+		const res = await EditarProducto(data);
 
 		if (!res.ok) {
 			setSubir(false);
@@ -195,6 +130,76 @@ const EditarProducto = ({ auth, me }: any) => {
 		setSubido(true);
 		setNewUrl(res.newUrl);
 	};
+
+	useEffect(() => {
+		if (!me.admin) return;
+		id_edit_prod &&
+			//@ts-ignore
+			GetProductos({ nombre_url: id_edit_prod })
+				.then((res: { ok: false; producto: null }) => {
+					try {
+						if (!res.ok) {
+							router.push('/');
+							return;
+						}
+						let {
+							nombre,
+							precio,
+							categorias,
+							marca,
+							id,
+							cantidad,
+						} = res.producto!;
+						if (categorias) {
+							//@ts-ignore
+							categorias = categorias.map((categoria: any) => {
+								return {
+									value: categoria.nombre,
+									label: Capitalize(categoria.nombre),
+								};
+							});
+						}
+						if (marca) {
+							//@ts-ignore
+							marca = { value: marca.nombre, label: Capitalize(marca.nombre) };
+						}
+						//@ts-ignore
+						const {
+							descripcion,
+							imagenes,
+							//@ts-ignore
+						} = res.producto.detalle_producto;
+						setImagenesPreview(imagenes);
+						setProducto({
+							nombre,
+							precio,
+							categorias,
+							marca,
+							cantidad,
+							descripcion,
+							imagenes,
+							load: true,
+							idProd: id,
+						});
+						//@ts-ignore
+						setNewUrl(res.producto.nombre_url);
+					} catch (error) {}
+				})
+				.catch(() => {
+					Wredirect();
+				});
+	}, [id_edit_prod]);
+
+	useEffect(() => {
+		if (!me.admin) return;
+		GetCategorias().then((c) => setCategoriasOpt(c));
+		GetMarcas().then((m) => setMarcaOpt(m));
+	}, []);
+
+	if (!me.admin) {
+		Wredirect();
+		return null;
+	}
 
 	return (
 		<>
@@ -403,7 +408,7 @@ const EditarProducto = ({ auth, me }: any) => {
 								<VentanaModal
 									titulo="Producto Actualizado"
 									onClose={() => {
-										wredirect('/producto/' + newUrl);
+										Wredirect('/producto/' + newUrl);
 									}}
 								>
 									{subidoMsg}
@@ -467,4 +472,4 @@ const EditarProducto = ({ auth, me }: any) => {
 	);
 };
 
-export default EditarProducto;
+export default EditarProductoRoute;

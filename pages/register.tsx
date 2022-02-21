@@ -5,9 +5,9 @@ import RegionesYComunas from '../utils/RegionesYComunas';
 import useValidacion from '../hooks/useValidation';
 import formatoRut from '../utils/formatoRut';
 import VentanaModal from '../components/general/VentanaModal';
-import UseRegister from '../hooks/useRegister';
+import DoRegister from '../helpers/DoRegister';
 import Volver from '../components/general/Volver';
-import wredirect from '../helpers/wredirect';
+import Wredirect from '../helpers/Wredirect';
 
 const stateInicial = {
 	nombre: '',
@@ -36,9 +36,9 @@ const Register = ({ auth }: any) => {
 	const [ciudades, setCiudades] = useState(ciudadesInicial);
 
 	async function crearCuenta() {
-		if (auth) wredirect();
+		if (auth) Wredirect();
 		try {
-			const res = await UseRegister(
+			const res = await DoRegister(
 				valores.nombre,
 				//el valor de rut debe ir formateado correctamente en firebase
 				formatoRut(valores.rut),

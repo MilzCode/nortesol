@@ -1,7 +1,7 @@
 import React from 'react';
 
-const useSignOut = async () => {
+const DoSignOut = async () => {
 	localStorage.removeItem('tken');
 };
 
-export default useSignOut;
+export default DoSignOut;

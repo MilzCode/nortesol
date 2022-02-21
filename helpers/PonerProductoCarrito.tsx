@@ -1,17 +1,12 @@
 import { MAXPRODUCTOSCARRITO } from '../utils/constantes';
-import wredirect from '../helpers/wredirect';
+import Wredirect from './Wredirect';
 
 /**
  * @param p - nombre_url del producto
  * @param c - cantidad
  * @param maxc - cantidad disponible
  */
-const useAñadirProductoCarrito = ({
-	p = '',
-	c = 0,
-	maxc = 0,
-	carritoCant = 0,
-}) => {
+const PonerProductoCarrito = ({ p = '', c = 0, maxc = 0, carritoCant = 0 }) => {
 	try {
 		let cantidad = 0;
 		const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
@@ -42,8 +37,8 @@ const useAñadirProductoCarrito = ({
 		return cantidad;
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		wredirect();
+		Wredirect();
 	}
 };
 
-export default useAñadirProductoCarrito;
+export default PonerProductoCarrito;

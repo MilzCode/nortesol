@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import formatNumberToprice from '../../utils/formatoPrecio';
-import useRemoverProductoCarrito from '../../hooks/useRemoverProductoCarrito';
+import RemoverProductoCarrito from '../../helpers/RemoverProductoCarrito';
 import Link from 'next/link';
 
 export const ProductoEnCarrito = ({
@@ -43,7 +43,7 @@ export const ProductoEnCarrito = ({
 
 	const handdleDelete = () => {
 		setCantidadComprar(0);
-		useRemoverProductoCarrito(id);
+		RemoverProductoCarrito(id);
 		setDeleted(true);
 	};
 

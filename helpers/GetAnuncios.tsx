@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { APIURL } from '../utils/constantes';
 
-const useAnuncios = async () => {
+const GetAnuncios = async () => {
 	try {
 		const data = await axios.get(APIURL + 'anuncios');
 		return data.data;
@@ -12,4 +12,4 @@ const useAnuncios = async () => {
 	}
 };
 
-export default useAnuncios;
+export default GetAnuncios;

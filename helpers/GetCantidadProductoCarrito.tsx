@@ -1,7 +1,7 @@
 import React from 'react';
-import wredirect from '../helpers/wredirect';
+import Wredirect from './Wredirect';
 
-const useCantidadProductoCarrito = (id = '') => {
+const GetCantidadProductoCarrito = (id = '') => {
 	try {
 		const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
 		const producto = carrito.find((pr: any) => pr.p === id);
@@ -11,8 +11,8 @@ const useCantidadProductoCarrito = (id = '') => {
 		return 0;
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		wredirect();
+		Wredirect();
 	}
 };
 
-export default useCantidadProductoCarrito;
+export default GetCantidadProductoCarrito;

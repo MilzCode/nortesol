@@ -2,21 +2,15 @@ import React, { useEffect, useState } from 'react';
 import BotonFAColores1 from '../../../components/general/BotonFAColores1';
 import VentanaModal from '../../../components/general/VentanaModal';
 import Volver from '../../../components/general/Volver';
-import useCrearAnuncio from '../../../hooks/useCrearAnuncio';
-import useRemoverAnuncio from '../../../hooks/useRemoverAnuncio';
-import useAnuncios from '../../../hooks/useAnuncios';
-import addHttp from '../../../utils/add-http';
-import useActualizarAnuncio from '../../../hooks/useActualizarAnuncio';
+import CrearAnuncio from '../../../helpers/CrearAnuncio';
+import RemoverAnuncio from '../../../helpers/RemoverAnuncio';
+import GetAnuncios from '../../../helpers/GetAnuncios';
+import ActualizarAnuncio from '../../../helpers/ActualizarAnuncio';
 import ImagenVistaPrevia from '../../../components/general/ImagenVistaPrevia';
 import Anuncio from '../../../components/general/Anuncio';
-import wredirect from '../../../helpers/wredirect';
+import Wredirect from '../../../helpers/Wredirect';
 
-const addanuncio = ({ me, auth }: any) => {
-	if (!auth || !me.admin) {
-		wredirect();
-		return null;
-	}
-	const maxImg = 1;
+const Addanuncio = ({ me, auth }: any) => {
 	const [borrado, setBorrado] = useState(false);
 	const [imagenes, setImagenes] = useState<any>([]);
 	const [imagenesPreview, setImagenesPreview] = useState<any>([]);
@@ -34,27 +28,7 @@ const addanuncio = ({ me, auth }: any) => {
 	});
 	const [loaded, setLoaded] = useState(false);
 
-	useEffect(() => {
-		useAnuncios()
-			.then((res) => {
-				if (res.anuncios && res.anuncios.length > 0) {
-					const {
-						nombre,
-						descripcion,
-						url,
-						url_name,
-						imagen,
-						id,
-					} = res.anuncios[0];
-					imagen && setImagenesPreview([imagen]);
-					setAnuncioIni({ nombre, descripcion, url, url_name, id });
-				}
-				setLoaded(true);
-			})
-			.catch((er) => {
-				setLoaded(true);
-			});
-	}, []);
+	const maxImg = 1;
 
 	const handdleImagenes = (e: any) => {
 		if (e.target.files.length > maxImg) {
@@ -76,7 +50,7 @@ const addanuncio = ({ me, auth }: any) => {
 		const url = e.target.url.value.trim();
 		const url_name = e.target.urlname.value.trim();
 		if (anuncioIni.id) {
-			useActualizarAnuncio({
+			ActualizarAnuncio({
 				nombre,
 				descripcion,
 				url,
@@ -101,7 +75,7 @@ const addanuncio = ({ me, auth }: any) => {
 			return;
 		}
 
-		useCrearAnuncio({ nombre, descripcion, url, url_name, imagen: imagenes })
+		CrearAnuncio({ nombre, descripcion, url, url_name, imagen: imagenes })
 			.then((res) => {
 				setSubido(true);
 				if (!res.ok) {
@@ -120,7 +94,7 @@ const addanuncio = ({ me, auth }: any) => {
 
 	const handdleDeleteAnuncio = () => {
 		setLoading(true);
-		useRemoverAnuncio(anuncioIni.id)
+		RemoverAnuncio(anuncioIni.id)
 			.then((res) => {
 				if (res.ok) {
 					setImagenes([]);
@@ -140,6 +114,33 @@ const addanuncio = ({ me, auth }: any) => {
 		setAnuncioIni({ ...anuncioIni, [name]: value });
 	};
 	const puedeSubir = !!anuncioIni.nombre;
+
+	useEffect(() => {
+		if (!me.admin) return;
+		GetAnuncios()
+			.then((res) => {
+				if (res.anuncios && res.anuncios.length > 0) {
+					const {
+						nombre,
+						descripcion,
+						url,
+						url_name,
+						imagen,
+						id,
+					} = res.anuncios[0];
+					imagen && setImagenesPreview([imagen]);
+					setAnuncioIni({ nombre, descripcion, url, url_name, id });
+				}
+				setLoaded(true);
+			})
+			.catch((er) => {
+				setLoaded(true);
+			});
+	}, []);
+	if (!me.admin) {
+		Wredirect();
+		return null;
+	}
 	return (
 		<>
 			<Volver />
@@ -328,4 +329,4 @@ const addanuncio = ({ me, auth }: any) => {
 	);
 };
 
-export default addanuncio;
+export default Addanuncio;

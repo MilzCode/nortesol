@@ -5,34 +5,21 @@ import { useState, useEffect } from 'react';
 import BotonFAColores1 from '../../../components/general/BotonFAColores1';
 import VentanaModal from '../../../components/general/VentanaModal';
 import Volver from '../../../components/general/Volver';
-import useCategorias from '../../../hooks/useCategorias';
-import useCrearCategoria from '../../../hooks/useCrearCategoria';
-import wredirect from '../../../helpers/wredirect';
+import GetCategorias from '../../../helpers/GetCategorias';
+import CrearCategoria from '../../../helpers/CrearCategoria';
+import Wredirect from '../../../helpers/Wredirect';
 
-const addcategoria = ({ me, auth }: any) => {
-	if (!auth || !me.admin) {
-		wredirect();
-		return null;
-	}
+const Addcategoria = ({ me, auth }: any) => {
 	const [categorias, setCategorias] = useState([]);
 	const [categoriaTitulo, setCategoriaTitulo] = useState('');
 	const [categoriaMsg, setCategoriaMsg] = useState('');
 	const [categoriaModal, setCategproaModal] = useState(false);
 
-	useEffect(() => {
-		!categoriaModal &&
-			useCategorias()
-				.then((c) => {
-					setCategorias(c);
-				})
-				.catch();
-	}, [categoriaModal]);
-
 	const handdleCategoria = async (e: FormDataEvent | any) => {
 		e.preventDefault();
 		const categoria = e.target.categoria.value;
 		categoria &&
-			useCrearCategoria({ nombre: categoria })
+			CrearCategoria({ nombre: categoria })
 				.then((c) => {
 					if (c.ok) {
 						setCategoriaTitulo('Categoria Creada');
@@ -50,6 +37,19 @@ const addcategoria = ({ me, auth }: any) => {
 		categoria && setCategproaModal(true);
 	};
 
+	useEffect(() => {
+		if (!me.admin) return;
+		!categoriaModal &&
+			GetCategorias()
+				.then((c) => {
+					setCategorias(c);
+				})
+				.catch();
+	}, [categoriaModal]);
+	if (!me.admin) {
+		Wredirect();
+		return null;
+	}
 	return (
 		<>
 			<Volver />
@@ -93,4 +93,4 @@ const addcategoria = ({ me, auth }: any) => {
 	);
 };
 
-export default addcategoria;
+export default Addcategoria;

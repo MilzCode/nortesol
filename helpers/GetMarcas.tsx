@@ -1,5 +1,5 @@
 import { APIURL } from '../utils/constantes';
-const useMarcas = async () => {
+const GetMarcas = async () => {
 	try {
 		const response = await fetch(APIURL + 'marcas');
 		const responseData = await response.json();
@@ -13,4 +13,4 @@ const useMarcas = async () => {
 	}
 };
 
-export default useMarcas;
+export default GetMarcas;

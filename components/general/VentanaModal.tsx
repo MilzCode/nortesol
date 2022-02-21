@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Router from 'next/router';
-import wredirect from '../../helpers/wredirect';
+import Wredirect from '../../helpers/Wredirect';
 
 /*
     Este componente es una ventana modal con titulo y parrafo.
@@ -29,7 +29,7 @@ const VentanaModal = ({
 	const [modal, setModal] = useState(true);
 	const handleClose = () => {
 		// setModal(false);
-		if (refrescar && redireccionar) wredirect(redireccionar);
+		if (refrescar && redireccionar) Wredirect(redireccionar);
 		redireccionar && Router.push(redireccionar);
 		onClose && onClose();
 	};

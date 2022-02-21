@@ -1,7 +1,7 @@
 import { APIURL } from '../utils/constantes';
 import JWT from 'jsonwebtoken';
 
-const useMisDatos = async (miId: string) => {
+const GetMisDatos = async (miId: string) => {
 	const token = localStorage.getItem('tken');
 
 	if (!token || !miId) {
@@ -22,4 +22,4 @@ const useMisDatos = async (miId: string) => {
 	return null;
 };
 
-export default useMisDatos;
+export default GetMisDatos;

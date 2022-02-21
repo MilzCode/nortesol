@@ -1,15 +1,18 @@
 import axios from 'axios';
 import { APIURL } from '../utils/constantes';
-import wredirect from '../helpers/wredirect';
+import Wredirect from './Wredirect';
 
-const useRemoverPortada = async (idPortada = '') => {
+const RemoverAnuncio = async (idAnuncio = '') => {
 	try {
+		if (!idAnuncio) {
+			return { ok: false, msg: 'no hay id' };
+		}
 		const token = localStorage.getItem('tken');
 		if (!token) {
-			wredirect();
+			Wredirect();
 			return;
 		}
-		const res = await axios.delete(APIURL + 'portadas/' + idPortada, {
+		const res = await axios.delete(APIURL + 'anuncios/' + idAnuncio, {
 			headers: {
 				'x-token': token,
 			},
@@ -20,4 +23,4 @@ const useRemoverPortada = async (idPortada = '') => {
 	}
 };
 
-export default useRemoverPortada;
+export default RemoverAnuncio;

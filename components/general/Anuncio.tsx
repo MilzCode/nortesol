@@ -38,27 +38,30 @@ const Anuncio = ({
 	useEffect(() => {
 		const comprobarMostrarAnuncio = () => {
 			try {
-				const lastAnuncio = localStorage.getItem(nombreStorageAnuncioFecha);
-				let lastAnuncioObj = {} as any;
-				if (lastAnuncio) {
-					lastAnuncioObj = JSON.parse(lastAnuncio);
-					if (lastAnuncioObj.i != id) {
+				if (timeCloseMin && id) {
+					const lastAnuncio = localStorage.getItem(nombreStorageAnuncioFecha);
+					let lastAnuncioObj = {} as any;
+					if (lastAnuncio) {
+						lastAnuncioObj = JSON.parse(lastAnuncio);
+						if (lastAnuncioObj.i != id) {
+							localStorage.removeItem(nombreStorageAnuncioFecha);
+							return true;
+						}
+						const lastAnuncioDate = lastAnuncioObj.d;
+						const nowDate = new Date().getTime();
+						const diff = nowDate - lastAnuncioDate;
+						const diffMin = Math.round(diff / 60000);
+						if (diffMin < timeCloseMin) {
+							return false;
+						}
 						localStorage.removeItem(nombreStorageAnuncioFecha);
-						return true;
 					}
-					const lastAnuncioDate = lastAnuncioObj.d;
-					const nowDate = new Date().getTime();
-					const diff = nowDate - lastAnuncioDate;
-					const diffMin = Math.round(diff / 60000);
-					if (diffMin < timeCloseMin) {
-						return false;
-					}
-					localStorage.removeItem(nombreStorageAnuncioFecha);
+					return true;
 				}
-				return true;
 			} catch (error) {
 				return false;
 			}
+			return false;
 		};
 		setMostrarAnuncio(comprobarMostrarAnuncio());
 	}, []);
@@ -89,7 +92,7 @@ const Anuncio = ({
 						</>
 					)}
 					{url && (
-						<a href={addHttp(url)} target="_blank">
+						<a href={addHttp(url)} target="_blank" rel="noreferrer">
 							{url_name ? url_name : url}
 						</a>
 					)}

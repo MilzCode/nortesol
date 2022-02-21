@@ -5,9 +5,9 @@ import Secciones from '../components/index/Secciones';
 import Siguenos from '../components/index/Siguenos';
 import ProductoVistaMiniatura from '../components/venta/ProductoVistaMiniatura';
 import { useEffect, useState } from 'react';
-import useProductos from '../hooks/useProductos';
-import usePortadas from '../hooks/usePortadas';
-import useAnuncios from '../hooks/useAnuncios';
+import GetProductos from '../helpers/GetProductos';
+import GetPortadas from '../helpers/GetPortadas';
+import GetAnuncios from '../helpers/GetAnuncios';
 import Anuncio from '../components/general/Anuncio';
 
 const Home: NextPage = () => {
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
 	const cantidadProductosSeccion = 16;
 
 	useEffect(() => {
-		usePortadas()
+		GetPortadas()
 			.then((res) => {
 				setPortadas(res.portadas);
 			})
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
 	}, []);
 
 	useEffect(() => {
-		useAnuncios()
+		GetAnuncios()
 			.then((res) => {
 				if (res.anuncios && res.anuncios.length > 0) {
 					const {
@@ -61,7 +61,7 @@ const Home: NextPage = () => {
 	}, []);
 
 	useEffect(() => {
-		useProductos({ sortDescuentoDesc: true, limit: cantidadProductosSeccion })
+		GetProductos({ sortDescuentoDesc: true, limit: cantidadProductosSeccion })
 			.then((res) => {
 				setProductos(res.productos.docs);
 			})
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
 		setSeccion(seccion);
 		if (seccion == 'descuentos') {
 		} else {
-			useProductos({ sortFechaDesc: true, limit: cantidadProductosSeccion })
+			GetProductos({ sortFechaDesc: true, limit: cantidadProductosSeccion })
 				.then((res) => {
 					setProductosNovedades(res.productos.docs);
 				})

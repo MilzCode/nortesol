@@ -1,19 +1,12 @@
 import { APIURL } from '../utils/constantes';
-import wredirect from '../helpers/wredirect';
+import Wredirect from './Wredirect';
 
-const useActualizarAnuncio = async ({
-	nombre,
-	descripcion,
-	url,
-	url_name,
-	imagen,
-	id,
-}: any) => {
+const CrearPortada = async ({ nombre, descripcion, url, imagen }: any) => {
 	try {
 		const token = localStorage.getItem('tken');
 		if (!token) {
 			localStorage.removeItem('tken');
-			wredirect();
+			Wredirect();
 			return;
 		}
 
@@ -21,15 +14,16 @@ const useActualizarAnuncio = async ({
 		nombre && formData.append('nombre', nombre);
 		descripcion && formData.append('descripcion', descripcion);
 		url && formData.append('url', url);
-		url_name && formData.append('url_name', url_name);
 		let file = null;
 		if (imagen && imagen.length > 0) {
-			console.log(imagen);
 			file = imagen.item(0);
 			formData.append('files[]', file);
+		} else {
+			return { ok: false, msg: 'No selecciono ninguna imagen' };
 		}
-		const response = await fetch(APIURL + 'anuncios/' + id, {
-			method: 'PUT',
+
+		const response = await fetch(APIURL + 'portadas', {
+			method: 'POST',
 			headers: {
 				'x-token': token,
 			},
@@ -39,9 +33,8 @@ const useActualizarAnuncio = async ({
 
 		return data;
 	} catch (error) {
-		console.log(error);
-		return { ok: false, msg: 'Error contacte con el administrador*' };
+		return { ok: false, msg: 'Error contacte con el administrador' };
 	}
 };
 
-export default useActualizarAnuncio;
+export default CrearPortada;

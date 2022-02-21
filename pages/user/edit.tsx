@@ -8,7 +8,7 @@ import { DEFAULTNOPASSWORD } from '../../utils/constantes';
 import formatoRut from '../../utils/formatoRut';
 //validarEditarMisDatos
 import validarEditarMisDatos from '../../validations/validarEditarMisDatos';
-import useEditMe from '../../hooks/useEditMe';
+import EditarMe from '../../helpers/EditarMe';
 
 const Edit = ({ me }: any) => {
 	const [nombre, setNombre] = React.useState(false);
@@ -48,7 +48,7 @@ const Edit = ({ me }: any) => {
 		// 	if (valores[key] ) {
 		// 	}
 		// });
-		const res = await useEditMe({
+		const res = await EditarMe({
 			miId: me.uid,
 			password_original: passwordOriginalState,
 			nombre: valores.nombre,

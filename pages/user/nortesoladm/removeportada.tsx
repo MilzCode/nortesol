@@ -1,33 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import usePortadas from '../../../hooks/usePortadas';
+import GetPortadas from '../../../helpers/GetPortadas';
 import Volver from '../../../components/general/Volver';
 import PortadaMiniatura from '../../../components/nortesoladm/PortadaMiniatura';
-import useRemoverPortada from '../../../hooks/useRemoverPortada';
-import wredirect from '../../../helpers/wredirect';
+import RemoverPortada from '../../../helpers/RemoverPortada';
+import Wredirect from '../../../helpers/Wredirect';
 
-const removeportada = ({ me, auth }: any) => {
-	if (!auth || !me.admin) {
-		wredirect();
-		return null;
-	}
+const Removeportada = ({ me, auth }: any) => {
 	const [portadas, setPortadas] = useState([]);
-	useEffect(() => {
-		usePortadas()
-			.then((res) => {
-				setPortadas(res.portadas);
-			})
-			.catch();
-	}, []);
-
 	const handdleDelete = (id: '') => {
 		if (!id) {
 			return;
 		}
-		useRemoverPortada(id)
+		RemoverPortada(id)
 			.then((res) => {
 				console.log(res);
 				if (res.ok) {
-					wredirect('/user/nortesoladm/removeportada');
+					Wredirect('/user/nortesoladm/removeportada');
 					return;
 				}
 				alert('Hubo un problema contacta al administrador*');
@@ -36,6 +24,19 @@ const removeportada = ({ me, auth }: any) => {
 				alert('Hubo un problema contacta al administrador');
 			});
 	};
+
+	useEffect(() => {
+		if (!me.admin) return;
+		GetPortadas()
+			.then((res) => {
+				setPortadas(res.portadas);
+			})
+			.catch();
+	}, []);
+	if (!me.admin) {
+		Wredirect();
+		return null;
+	}
 	return (
 		<>
 			<Volver />
@@ -64,4 +65,4 @@ const removeportada = ({ me, auth }: any) => {
 	);
 };
 
-export default removeportada;
+export default Removeportada;

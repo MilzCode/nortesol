@@ -4,7 +4,7 @@
 import JWT from 'jsonwebtoken';
 import { APIURL } from '../utils/constantes';
 
-const useCheckAuth = async () => {
+const GetCheckAuth = async () => {
 	const token = localStorage.getItem('tken');
 	if (!token) {
 		return false;
@@ -26,4 +26,4 @@ const useCheckAuth = async () => {
 	return miID;
 };
 
-export default useCheckAuth;
+export default GetCheckAuth;

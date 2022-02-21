@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { APIURL } from '../utils/constantes';
 
-const usePortadas = async () => {
+const GetPortadas = async () => {
 	try {
 		const data = await axios.get(APIURL + 'portadas');
 		return data.data;
@@ -12,4 +12,4 @@ const usePortadas = async () => {
 	}
 };
 
-export default usePortadas;
+export default GetPortadas;

@@ -7,15 +7,15 @@ import ProductoBody from '../../components/venta/ProductoBody';
 import ProductoRelacionados from '../../components/venta/ProductoRelacionados';
 import EditarProductoBTN from '../../components/general/EditarProductoBTN';
 import Capitalize from '../../utils/capitalize';
-import useAñadirProductoCarrito from '../../hooks/useAñadirProductoCarrito';
-import useCantidadProductoCarrito from '../../hooks/useCantidadProductoCarrito';
+import PonerProductoCarrito from '../../helpers/PonerProductoCarrito';
+import GetCantidadProductoCarrito from '../../helpers/GetCantidadProductoCarrito';
 import VentanaModal from '../../components/general/VentanaModal';
 import BotonFAColores1 from '../../components/general/BotonFAColores1';
-import useProductos from '../../hooks/useProductos';
+import GetProductos from '../../helpers/GetProductos';
 import Link from 'next/link';
-import wredirect from '../../helpers/wredirect';
+import Wredirect from '../../helpers/Wredirect';
 
-const producto = ({ me }: any) => {
+const Producto = ({ me }: any) => {
 	const router = useRouter();
 	const { nombre_url } = router.query;
 
@@ -27,19 +27,19 @@ const producto = ({ me }: any) => {
 	useEffect(() => {
 		nombre_url &&
 			//@ts-ignore
-			useProductos({ nombre_url })
+			GetProductos({ nombre_url })
 				.then((res) => {
 					if (!res.ok) {
-						wredirect();
+						Wredirect();
 						return;
 					}
 					const resProducto = res.productos.docs[0];
 
 					setProducto(resProducto);
-					setCantLlevada(useCantidadProductoCarrito(resProducto.pid));
+					setCantLlevada(GetCantidadProductoCarrito(resProducto.pid));
 					//seleccionando una categoria al azar
 					const categorias_names = resProducto.categorias_names;
-					useProductos({ limit: 7, categorias: categorias_names })
+					GetProductos({ limit: 7, categorias: categorias_names })
 						.then((resRel) => {
 							const prodRelacionados = resRel.productos.docs.filter(
 								(p: any) => p.nombre_url != resProducto.nombre_url
@@ -50,12 +50,12 @@ const producto = ({ me }: any) => {
 				})
 				.catch((e) => {
 					console.log(e);
-					wredirect();
+					Wredirect();
 					return;
 				});
 	}, [nombre_url]);
 	const añadirAlCarrito = () => {
-		const nuevaCant = useAñadirProductoCarrito({
+		const nuevaCant = PonerProductoCarrito({
 			p: producto.pid,
 			c: cantidad,
 			maxc: producto.cantidad,
@@ -115,4 +115,4 @@ const producto = ({ me }: any) => {
 	);
 };
 
-export default producto;
+export default Producto;

@@ -1,8 +1,7 @@
-import React from 'react';
 import axios from 'axios';
 import { APIURL } from '../utils/constantes';
 
-const useDesabilitarProducto = async ({ id }: any) => {
+const DesabilitarProducto = async ({ id }: any) => {
 	try {
 		const token = localStorage.getItem('tken');
 		if (!token) {
@@ -22,4 +21,4 @@ const useDesabilitarProducto = async ({ id }: any) => {
 	}
 };
 
-export default useDesabilitarProducto;
+export default DesabilitarProducto;

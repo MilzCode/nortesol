@@ -1,37 +1,24 @@
 //TODO: LOS ARREGLOS O MARCAS NO DEBEN TENER COMAS ";;" ya que se utilizan para separar los valores.
 import React from 'react';
 import { useState, useEffect } from 'react';
-import useMarcas from '../../../hooks/useMarcas';
+import GetMarcas from '../../../helpers/GetMarcas';
 import BotonFAColores1 from '../../../components/general/BotonFAColores1';
-import useCrearMarca from '../../../hooks/useCrearMarca';
+import CrearMarca from '../../../helpers/CrearMarca';
 import VentanaModal from '../../../components/general/VentanaModal';
 import Volver from '../../../components/general/Volver';
-import wredirect from '../../../helpers/wredirect';
+import Wredirect from '../../../helpers/Wredirect';
 
-const addmarca = ({ me, auth }: any) => {
-	if (!auth || !me.admin) {
-		wredirect();
-		return null;
-	}
+const Addmarca = ({ me, auth }: any) => {
 	const [marcas, setMarcas] = useState([]);
 	const [marcaTitulo, setMarcaTitulo] = useState('');
 	const [marcaMsg, setMarcaMsg] = useState('');
 	const [marcaModal, setMarcaModal] = useState(false);
 
-	useEffect(() => {
-		!marcaModal &&
-			useMarcas()
-				.then((m) => {
-					setMarcas(m);
-				})
-				.catch();
-	}, [marcaModal]);
-
 	const handdleMarca = async (e: FormDataEvent | any) => {
 		e.preventDefault();
 		const marca = e.target.marca.value;
 		marca &&
-			useCrearMarca({ nombre: marca })
+			CrearMarca({ nombre: marca })
 				.then((m) => {
 					if (m.ok) {
 						setMarcaTitulo('Marca Creada');
@@ -49,6 +36,20 @@ const addmarca = ({ me, auth }: any) => {
 		marca && setMarcaModal(true);
 	};
 
+	useEffect(() => {
+		if (!me.admin) return;
+		!marcaModal &&
+			GetMarcas()
+				.then((m) => {
+					setMarcas(m);
+				})
+				.catch();
+	}, [marcaModal]);
+
+	if (!me.admin) {
+		Wredirect();
+		return null;
+	}
 	return (
 		<>
 			<Volver />
@@ -92,4 +93,4 @@ const addmarca = ({ me, auth }: any) => {
 	);
 };
 
-export default addmarca;
+export default Addmarca;

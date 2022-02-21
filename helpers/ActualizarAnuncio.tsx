@@ -1,18 +1,19 @@
 import { APIURL } from '../utils/constantes';
-import wredirect from '../helpers/wredirect';
+import Wredirect from './Wredirect';
 
-const useCrearAnuncio = async ({
+const ActualizarAnuncio = async ({
 	nombre,
 	descripcion,
 	url,
 	url_name,
 	imagen,
+	id,
 }: any) => {
 	try {
 		const token = localStorage.getItem('tken');
 		if (!token) {
 			localStorage.removeItem('tken');
-			wredirect();
+			Wredirect();
 			return;
 		}
 
@@ -23,11 +24,12 @@ const useCrearAnuncio = async ({
 		url_name && formData.append('url_name', url_name);
 		let file = null;
 		if (imagen && imagen.length > 0) {
+			console.log(imagen);
 			file = imagen.item(0);
 			formData.append('files[]', file);
 		}
-		const response = await fetch(APIURL + 'anuncios', {
-			method: 'POST',
+		const response = await fetch(APIURL + 'anuncios/' + id, {
+			method: 'PUT',
 			headers: {
 				'x-token': token,
 			},
@@ -37,8 +39,9 @@ const useCrearAnuncio = async ({
 
 		return data;
 	} catch (error) {
+		console.log(error);
 		return { ok: false, msg: 'Error contacte con el administrador*' };
 	}
 };
 
-export default useCrearAnuncio;
+export default ActualizarAnuncio;

@@ -7,21 +7,16 @@ import ProductoBody from '../../../../../components/venta/ProductoBody';
 import ProductoRelacionados from '../../../../../components/venta/ProductoRelacionados';
 import EditarProductoBTN from '../../../../../components/general/EditarProductoBTN';
 import Capitalize from '../../../../../utils/capitalize';
-import useAñadirProductoCarrito from '../../../../../hooks/useAñadirProductoCarrito';
-import useCantidadProductoCarrito from '../../../../../hooks/useCantidadProductoCarrito';
+import PonerProductoCarrito from '../../../../../helpers/PonerProductoCarrito';
+import GetCantidadProductoCarrito from '../../../../../helpers/GetCantidadProductoCarrito';
 import VentanaModal from '../../../../../components/general/VentanaModal';
 import BotonFAColores1 from '../../../../../components/general/BotonFAColores1';
-import useProductos from '../../../../../hooks/useProductos';
+import GetProductos from '../../../../../helpers/GetProductos';
 import Link from 'next/link';
-import wredirect from '../../../../../helpers/wredirect';
+import Wredirect from '../../../../../helpers/Wredirect';
 
-const producto = ({ me, auth }: any) => {
-	if (!auth || !me.admin) {
-		wredirect();
-		return null;
-	}
+const ProductoDes = ({ me, auth }: any) => {
 	const router = useRouter();
-
 	const { nombre_url_prod_des: nombre_url } = router.query;
 
 	const [producto, setProducto] = useState<any>(false);
@@ -29,22 +24,24 @@ const producto = ({ me, auth }: any) => {
 	const [cantLlevada, setCantLlevada] = useState(0);
 	const [relacionados, setRelacionados] = useState(0);
 	const [carritoLleno, setCarritoLleno] = useState(false);
+
 	useEffect(() => {
+		if (!me.admin) return;
 		nombre_url &&
 			//@ts-ignore
-			useProductos({ nombre_url }, true)
+			GetProductos({ nombre_url }, true)
 				.then((res) => {
 					if (!res.ok) {
-						wredirect();
+						Wredirect();
 						return;
 					}
 					const resProducto = res.productos.docs[0];
 
 					setProducto(resProducto);
-					setCantLlevada(useCantidadProductoCarrito(resProducto.pid));
+					setCantLlevada(GetCantidadProductoCarrito(resProducto.pid));
 					//seleccionando una categoria al azar
 					const categorias_names = resProducto.categorias_names;
-					useProductos({ limit: 7, categorias: categorias_names }, true)
+					GetProductos({ limit: 7, categorias: categorias_names }, true)
 						.then((resRel) => {
 							const prodRelacionados = resRel.productos.docs.filter(
 								(p: any) => p.nombre_url != resProducto.nombre_url
@@ -56,10 +53,14 @@ const producto = ({ me, auth }: any) => {
 				.catch((e) => {
 					console.log(e);
 					alert('aca');
-					wredirect();
+					Wredirect();
 					return;
 				});
 	}, [nombre_url]);
+	if (!me.admin) {
+		Wredirect();
+		return null;
+	}
 	return (
 		<>
 			{producto ? (
@@ -106,4 +107,4 @@ const producto = ({ me, auth }: any) => {
 	);
 };
 
-export default producto;
+export default ProductoDes;

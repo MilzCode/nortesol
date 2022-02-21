@@ -7,17 +7,17 @@ import EditorTexto from '../../../components/nortesoladm/EditorTexto';
 import ProductoBody from '../../../components/venta/ProductoBody';
 import ProductoHead from '../../../components/venta/ProductoHead';
 import ProductoRelacionados from '../../../components/venta/ProductoRelacionados';
-import useCrearProducto from '../../../hooks/useCrearProducto';
-import useCategorias from '../../../hooks/useCategorias';
-import useMarcas from '../../../hooks/useMarcas';
+import CrearProducto from '../../../helpers/CrearProducto';
+import GetCategorias from '../../../helpers/GetCategorias';
+import GetMarcas from '../../../helpers/GetMarcas';
 import Select from 'react-select';
 import Capitalize from '../../../utils/capitalize';
 import { MAXCATEGORIASPORPRODUCTO } from '../../../utils/constantes';
-import wredirect from '../../../helpers/wredirect';
+import Wredirect from '../../../helpers/Wredirect';
 
 const Addproduct = ({ auth, me }: any) => {
 	if (!auth || !me.admin) {
-		wredirect();
+		Wredirect();
 		return null;
 	}
 	const [contenidoToUpload, setContenidoToUpload] = useState('');
@@ -56,8 +56,8 @@ const Addproduct = ({ auth, me }: any) => {
 	}, []);
 
 	useEffect(() => {
-		useCategorias().then((c) => setCategoriasOpt(c));
-		useMarcas().then((m) => setMarcaOpt(m));
+		GetCategorias().then((c) => setCategoriasOpt(c));
+		GetMarcas().then((m) => setMarcaOpt(m));
 	}, []);
 
 	const handdleGuardarLocalmente = () => {
@@ -79,7 +79,7 @@ const Addproduct = ({ auth, me }: any) => {
 		localStorage.removeItem('precioNsol982');
 		localStorage.removeItem('cantidadDisponibleNsol982');
 		localStorage.removeItem('categoriasNsol982');
-		wredirect('/nortesoladm/addproduct');
+		Wredirect('/nortesoladm/addproduct');
 	};
 	const handdleSiguiente = () => {
 		handdleGuardarLocalmente();
@@ -149,7 +149,7 @@ const Addproduct = ({ auth, me }: any) => {
 			marca: marca.value,
 		};
 
-		const res = await useCrearProducto(data);
+		const res = await CrearProducto(data);
 
 		if (!res.ok) {
 			setSubir(false);
@@ -344,7 +344,7 @@ const Addproduct = ({ auth, me }: any) => {
 							titulo="Producto subido"
 							onClose={() => {
 								handdleBorrarContenido();
-								wredirect('/user/nortesoladm');
+								Wredirect('/user/nortesoladm');
 							}}
 						>
 							{subidoMsg}

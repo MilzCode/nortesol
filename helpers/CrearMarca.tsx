@@ -1,6 +1,6 @@
 import { APIURL } from '../utils/constantes';
 
-const useCrearCategoria = async ({ nombre = '' }) => {
+const CrearMarca = async ({ nombre = '' }) => {
 	try {
 		const token = localStorage.getItem('tken');
 		if (!token) {
@@ -10,7 +10,7 @@ const useCrearCategoria = async ({ nombre = '' }) => {
 			};
 		}
 
-		const response = await fetch(APIURL + 'categorias', {
+		const response = await fetch(APIURL + 'marcas', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -27,14 +27,14 @@ const useCrearCategoria = async ({ nombre = '' }) => {
 		}
 		return {
 			ok: true,
-			msg: 'Categoria creada',
+			msg: 'Marca creada',
 		};
 	} catch (error) {
 		return {
 			ok: false,
-			msg: 'Error Inesperado al crear categoria, contacta al administrador',
+			msg: 'Error Inesperado al crear marca, contacta al administrador',
 		};
 	}
 };
 
-export default useCrearCategoria;
+export default CrearMarca;

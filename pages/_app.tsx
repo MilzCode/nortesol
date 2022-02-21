@@ -5,9 +5,9 @@ import Head from 'next/head';
 import Layout from '../components/layout/Layout';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import useCheckAuth from '../hooks/useCheckAuth';
-import useMisDatos from '../hooks/useMisDatos';
-import wredirect from '../helpers/wredirect';
+import GetCheckAuth from '../helpers/GetCheckAuth';
+import GetMisDatos from '../helpers/GetMisDatos';
+import Wredirect from '../helpers/Wredirect';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter();
@@ -42,16 +42,16 @@ function MyApp({ Component, pageProps }: AppProps) {
 	});
 
 	const redirectToHome = () => {
-		wredirect();
+		Wredirect();
 	};
 
 	const [autenticado, setAutenticado] = useState<any>(false);
 
 	useEffect(() => {
-		useCheckAuth()
+		GetCheckAuth()
 			.then((res) => {
 				if (res) {
-					useMisDatos(res)
+					GetMisDatos(res)
 						.then((resDatos) => {
 							setMisDatos(resDatos);
 							setAutenticado(true);
@@ -135,7 +135,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 			</>
 		);
 	} catch (error) {
-		wredirect();
+		Wredirect();
 		return null;
 	}
 }

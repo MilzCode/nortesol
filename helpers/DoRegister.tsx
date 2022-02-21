@@ -27,7 +27,7 @@ import { APIURL } from '../utils/constantes';
  * @param password - string
  */
 
-const UseRegister = async (
+const DoRegister = async (
 	nombre: string,
 	rut: string,
 	email: string,
@@ -65,4 +65,4 @@ const UseRegister = async (
 	}
 };
 
-export default UseRegister;
+export default DoRegister;

@@ -4,10 +4,10 @@ import Link from 'next/link';
 import useValidacion from '../hooks/useValidation';
 import validarLogin from '../validations/validarLogin';
 import { useRouter } from 'next/router';
-import useLogin from '../hooks/useLogin';
+import DoLogin from '../helpers/DoLogin';
 import JWT from 'jsonwebtoken';
 import Volver from '../components/general/Volver';
-import wredirect from '../helpers/wredirect';
+import Wredirect from '../helpers/Wredirect';
 const initialState = {
 	email: '',
 	password: '',
@@ -26,14 +26,14 @@ const Ingresar = ({ auth }: any) => {
 	const [ingresoInvalido, setIngresoInvalido] = useState(false);
 	async function ingresar() {
 		try {
-			const res = await useLogin(valores.email, valores.password);
+			const res = await DoLogin(valores.email, valores.password);
 			if (!res.token) {
 				throw new Error('No se pudo autenticar');
 			}
 			const decToken: any = JWT.decode(res.token);
 			const miID = decToken.check;
 			localStorage.setItem('tken', res.token);
-			wredirect();
+			Wredirect();
 		} catch (error) {
 			setIngresoInvalido(true);
 		}

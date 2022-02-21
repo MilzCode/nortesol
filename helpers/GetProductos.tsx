@@ -1,7 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
 import { APIURL } from '../utils/constantes';
-import wredirect from '../helpers/wredirect';
+import Wredirect from './Wredirect';
 
 interface filtroProps {
 	nombre_url?: string;
@@ -26,7 +25,7 @@ interface filtroProps {
 	find_productos_pids?: Array<string>;
 }
 
-const useProductos = async (
+const GetProductos = async (
 	{ ...props }: filtroProps,
 	desabilitados = false
 ) => {
@@ -43,9 +42,9 @@ const useProductos = async (
 		const data = response.data;
 		return data;
 	} catch (error) {
-		wredirect();
+		Wredirect();
 		return { ok: false, productos: { totalDocs: 0 } };
 	}
 };
 
-export default useProductos;
+export default GetProductos;

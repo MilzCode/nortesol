@@ -1,13 +1,13 @@
-import wredirect from '../helpers/wredirect';
-const useRemoverProductoCarrito = (id = '') => {
+import Wredirect from './Wredirect';
+const RemoverProductoCarrito = (id = '') => {
 	try {
 		const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
 		const newCarrito = carrito.filter((pr: any) => pr.p != id);
 		localStorage.setItem('carrito', JSON.stringify(newCarrito));
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		wredirect();
+		Wredirect();
 	}
 };
 
-export default useRemoverProductoCarrito;
+export default RemoverProductoCarrito;

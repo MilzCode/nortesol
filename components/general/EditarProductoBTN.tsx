@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import wredirect from '../../helpers/wredirect';
+import Wredirect from '../../helpers/Wredirect';
 
 const EditarProductoBTN = ({ id_edit_prod = '' }) => {
 	const router = useRouter();
@@ -7,7 +7,7 @@ const EditarProductoBTN = ({ id_edit_prod = '' }) => {
 		<div className="editarBTN NOSELECT">
 			<span
 				onClick={() => {
-					wredirect('/user/nortesoladm/' + id_edit_prod);
+					Wredirect('/user/nortesoladm/' + id_edit_prod);
 				}}
 			>
 				<i className="fas fa-pencil" />

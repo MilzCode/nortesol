@@ -1,10 +1,10 @@
 import React from 'react';
 import BotonFAColores1 from '../../components/general/BotonFAColores1';
 import Volver from '../../components/general/Volver';
-import wredirect from '../../helpers/wredirect';
+import Wredirect from '../../helpers/Wredirect';
 
 const AddAddress = () => {
-	wredirect();
+	Wredirect();
 	// return (
 	//   <>
 	//     <Volver />

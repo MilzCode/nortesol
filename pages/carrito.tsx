@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import BotonFAColores1 from '../components/general/BotonFAColores1';
 import Volver from '../components/general/Volver';
 import { ProductoEnCarrito } from '../components/venta/ProductoEnCarrito';
-import useProductosCarrito from '../hooks/useProductosCarrito';
+import GetProductosCarrito from '../helpers/GetProductosCarrito';
 import Capitalize from '../utils/capitalize';
 import formatNumberToprice from '../utils/formatoPrecio';
 
@@ -37,7 +37,7 @@ const Carrito = () => {
 		alert('Gracias por su compra');
 	};
 	useEffect(() => {
-		useProductosCarrito()
+		GetProductosCarrito()
 			.then((p) => {
 				setProductos(p);
 			})

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import useSignOut from '../../../hooks/useSignOut';
-import useCantidadTotalCarrito from '../../../hooks/useCantidadTotalCarrito';
+import DoSignOut from '../../../helpers/DoSignOut';
+import GetCantidadTotalCarrito from '../../../helpers/GetCantidadTotalCarrito';
 import { paths } from '../../../utils/constantes';
-import wredirect from '../../../helpers/wredirect';
+import Wredirect from '../../../helpers/Wredirect';
 
 const Header = ({ auth, path, appMode }: any) => {
 	const router = useRouter();
@@ -20,7 +20,7 @@ const Header = ({ auth, path, appMode }: any) => {
 		e.preventDefault();
 		const busqueda = e.target.busqueda.value.trim();
 		if (path == '/search') {
-			wredirect('/search' + '?busqueda=' + busqueda);
+			Wredirect('/search' + '?busqueda=' + busqueda);
 		} else {
 			router.push('/search' + '?busqueda=' + busqueda);
 		}
@@ -28,13 +28,13 @@ const Header = ({ auth, path, appMode }: any) => {
 
 	async function salir() {
 		try {
-			await useSignOut();
-			wredirect('/');
+			await DoSignOut();
+			Wredirect('/');
 		} catch (error) {}
 	}
 	useEffect(() => {
 		//@ts-ignore
-		setCarritoCant(useCantidadTotalCarrito());
+		setCarritoCant(GetCantidadTotalCarrito());
 	}, [path]);
 	return (
 		<>

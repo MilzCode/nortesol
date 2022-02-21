@@ -1,6 +1,6 @@
 import { APIURL } from '../utils/constantes';
 
-const useActualizarImagenProducto = async (imagenes: any, id: string) => {
+const ActualizarImagenProducto = async (imagenes: any, id: string) => {
 	let formData = new FormData();
 	for (let i = 0; i < imagenes.length; i++) {
 		let file = imagenes.item(i);
@@ -24,4 +24,4 @@ const useActualizarImagenProducto = async (imagenes: any, id: string) => {
 	return res;
 };
 
-export default useActualizarImagenProducto;
+export default ActualizarImagenProducto;

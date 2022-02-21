@@ -2,11 +2,11 @@ import React from 'react';
 import Link from 'next/link';
 import Volver from '../../../components/general/Volver';
 import { paths } from '../../../utils/constantes';
-import wredirect from '../../../helpers/wredirect';
+import Wredirect from '../../../helpers/Wredirect';
 
 const nortesoladm = ({ auth, me }: any) => {
 	if (!auth || !me.admin) {
-		wredirect();
+		Wredirect();
 		return null;
 	}
 	return (

@@ -1,6 +1,6 @@
 import { APIURL } from '../utils/constantes';
 
-const useLogin = async (email: string, password: string) => {
+const DoLogin = async (email: string, password: string) => {
 	const response = await fetch(APIURL + 'auth', {
 		method: 'POST',
 		headers: {
@@ -14,4 +14,4 @@ const useLogin = async (email: string, password: string) => {
 	return res;
 };
 
-export default useLogin;
+export default DoLogin;

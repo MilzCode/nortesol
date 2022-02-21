@@ -14,7 +14,7 @@ interface editMeProps {
 }
 
 //TODO: Este componente puede recibir parametros opcionales
-const useEditMe = async ({ ...data }: editMeProps) => {
+const EditarMe = async ({ ...data }: editMeProps) => {
 	if (!data.password_original) {
 		return { errors: 'No existe password original' };
 	}
@@ -41,4 +41,4 @@ const useEditMe = async ({ ...data }: editMeProps) => {
 	}
 };
 
-export default useEditMe;
+export default EditarMe;

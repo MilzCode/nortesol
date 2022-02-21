@@ -1,7 +1,7 @@
 // import React from "react";
 // import BotonFAColores1 from "../components/general/BotonFAColores1";
 // import Link from "next/link";
-import wredirect from '../helpers/wredirect';
+import Wredirect from '../helpers/Wredirect';
 
 // const RutaDefault = () => {
 //   return (
@@ -22,7 +22,7 @@ import wredirect from '../helpers/wredirect';
   De esta forma en caso de error mandara al login
 */
 const RutaDefault = () => {
-	wredirect();
+	Wredirect();
 	return <>404</>;
 };
 

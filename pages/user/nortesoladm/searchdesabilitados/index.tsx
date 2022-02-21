@@ -1,9 +1,9 @@
 import Search from '../../../../components/search';
-import wredirect from '../../../../helpers/wredirect';
+import Wredirect from '../../../../helpers/Wredirect';
 
 const modeDisabled = ({ me, auth }: any) => {
 	if (!auth || !me.admin) {
-		wredirect();
+		Wredirect();
 		return null;
 	}
 	return <Search desabilitados />;
