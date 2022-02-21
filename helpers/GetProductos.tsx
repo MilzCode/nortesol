@@ -33,7 +33,6 @@ const GetProductos = async (
 		const urlApiProductos = !desabilitados
 			? 'productos'
 			: 'productos_desabilitados';
-
 		const response = await axios.get(APIURL + urlApiProductos, {
 			params: {
 				...props,

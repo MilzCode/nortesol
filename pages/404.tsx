@@ -23,7 +23,7 @@ import Wredirect from '../helpers/Wredirect';
 */
 const RutaDefault = () => {
 	Wredirect();
-	return <>404</>;
+	return null;
 };
 
 export default RutaDefault;
