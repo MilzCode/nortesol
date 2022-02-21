@@ -9,10 +9,11 @@ import addHttp from '../../../utils/add-http';
 import useActualizarAnuncio from '../../../hooks/useActualizarAnuncio';
 import ImagenVistaPrevia from '../../../components/general/ImagenVistaPrevia';
 import Anuncio from '../../../components/general/Anuncio';
+import wredirect from '../../../helpers/wredirect';
 
 const addanuncio = ({ me, auth }: any) => {
 	if (!auth || !me.admin) {
-		window.location.href = '/';
+		wredirect();
 		return null;
 	}
 	const maxImg = 1;

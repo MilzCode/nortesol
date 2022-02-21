@@ -2,10 +2,11 @@ import React from 'react';
 import Link from 'next/link';
 import Volver from '../../../components/general/Volver';
 import { paths } from '../../../utils/constantes';
+import wredirect from '../../../helpers/wredirect';
 
 const nortesoladm = ({ auth, me }: any) => {
 	if (!auth || !me.admin) {
-		window.location.href = '/';
+		wredirect();
 		return null;
 	}
 	return (

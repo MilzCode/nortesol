@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import useSignOut from '../../../hooks/useSignOut';
 import useCantidadTotalCarrito from '../../../hooks/useCantidadTotalCarrito';
 import { paths } from '../../../utils/constantes';
+import wredirect from '../../../helpers/wredirect';
 
 const Header = ({ auth, path, appMode }: any) => {
 	const router = useRouter();
@@ -19,7 +20,7 @@ const Header = ({ auth, path, appMode }: any) => {
 		e.preventDefault();
 		const busqueda = e.target.busqueda.value.trim();
 		if (path == '/search') {
-			window.location.href = '/search' + '?busqueda=' + busqueda;
+			wredirect('/search' + '?busqueda=' + busqueda);
 		} else {
 			router.push('/search' + '?busqueda=' + busqueda);
 		}
@@ -28,7 +29,7 @@ const Header = ({ auth, path, appMode }: any) => {
 	async function salir() {
 		try {
 			await useSignOut();
-			window.location.href = '/';
+			wredirect('/');
 		} catch (error) {}
 	}
 	useEffect(() => {

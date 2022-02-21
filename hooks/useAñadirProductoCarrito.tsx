@@ -1,5 +1,5 @@
-import React from 'react';
 import { MAXPRODUCTOSCARRITO } from '../utils/constantes';
+import wredirect from '../helpers/wredirect';
 
 /**
  * @param p - nombre_url del producto
@@ -42,7 +42,7 @@ const useAñadirProductoCarrito = ({
 		return cantidad;
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		window.location.href = '/';
+		wredirect();
 	}
 };
 

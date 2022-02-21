@@ -1,3 +1,4 @@
+import wredirect from '../helpers/wredirect';
 const useRemoverProductoCarrito = (id = '') => {
 	try {
 		const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
@@ -5,7 +6,7 @@ const useRemoverProductoCarrito = (id = '') => {
 		localStorage.setItem('carrito', JSON.stringify(newCarrito));
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		window.location.href = '/';
+		wredirect();
 	}
 };
 

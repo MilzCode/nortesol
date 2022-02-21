@@ -7,6 +7,7 @@ import formatoRut from '../utils/formatoRut';
 import VentanaModal from '../components/general/VentanaModal';
 import UseRegister from '../hooks/useRegister';
 import Volver from '../components/general/Volver';
+import wredirect from '../helpers/wredirect';
 
 const stateInicial = {
 	nombre: '',
@@ -35,7 +36,7 @@ const Register = ({ auth }: any) => {
 	const [ciudades, setCiudades] = useState(ciudadesInicial);
 
 	async function crearCuenta() {
-		if (auth) window.location.href = '/';
+		if (auth) wredirect();
 		try {
 			const res = await UseRegister(
 				valores.nombre,

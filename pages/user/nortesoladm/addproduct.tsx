@@ -13,10 +13,11 @@ import useMarcas from '../../../hooks/useMarcas';
 import Select from 'react-select';
 import Capitalize from '../../../utils/capitalize';
 import { MAXCATEGORIASPORPRODUCTO } from '../../../utils/constantes';
+import wredirect from '../../../helpers/wredirect';
 
 const Addproduct = ({ auth, me }: any) => {
 	if (!auth || !me.admin) {
-		window.location.href = '/';
+		wredirect();
 		return null;
 	}
 	const [contenidoToUpload, setContenidoToUpload] = useState('');
@@ -78,7 +79,7 @@ const Addproduct = ({ auth, me }: any) => {
 		localStorage.removeItem('precioNsol982');
 		localStorage.removeItem('cantidadDisponibleNsol982');
 		localStorage.removeItem('categoriasNsol982');
-		window.location.href = '/nortesoladm/addproduct';
+		wredirect('/nortesoladm/addproduct');
 	};
 	const handdleSiguiente = () => {
 		handdleGuardarLocalmente();
@@ -343,7 +344,7 @@ const Addproduct = ({ auth, me }: any) => {
 							titulo="Producto subido"
 							onClose={() => {
 								handdleBorrarContenido();
-								window.location.href = '/user/nortesoladm';
+								wredirect('/user/nortesoladm');
 							}}
 						>
 							{subidoMsg}

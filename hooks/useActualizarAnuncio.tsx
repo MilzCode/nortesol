@@ -1,4 +1,5 @@
 import { APIURL } from '../utils/constantes';
+import wredirect from '../helpers/wredirect';
 
 const useActualizarAnuncio = async ({
 	nombre,
@@ -12,7 +13,7 @@ const useActualizarAnuncio = async ({
 		const token = localStorage.getItem('tken');
 		if (!token) {
 			localStorage.removeItem('tken');
-			window.location.href = '/';
+			wredirect();
 			return;
 		}
 

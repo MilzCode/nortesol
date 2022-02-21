@@ -3,10 +3,11 @@ import BotonFAColores1 from '../../../components/general/BotonFAColores1';
 import VentanaModal from '../../../components/general/VentanaModal';
 import Volver from '../../../components/general/Volver';
 import useCrearPortada from '../../../hooks/useCrearPortada';
+import wredirect from '../../../helpers/wredirect';
 
 const addPortada = ({ me, auth }: any) => {
 	if (!auth || !me.admin) {
-		window.location.href = '/';
+		wredirect();
 		return null;
 	}
 	const maxImg = 1;

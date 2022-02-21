@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import useCheckAuth from '../hooks/useCheckAuth';
 import useMisDatos from '../hooks/useMisDatos';
+import wredirect from '../helpers/wredirect';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter();
@@ -41,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 	});
 
 	const redirectToHome = () => {
-		window.location.href = '/';
+		wredirect();
 	};
 
 	const [autenticado, setAutenticado] = useState<any>(false);
@@ -72,7 +73,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		setAppMode(0);
 		const urlMode1 = path.includes('/nortesoladm/searchdesabilitados');
 		urlMode1 && misDatos.admin && setAppMode(1);
-	}, [path]);
+	}, [path, misDatos]);
 
 	/*Parametros */
 	//autenticado contiene si el usuario esta autenticado (auth=true) o no (auth=null) o esta en espera (auth = false)
@@ -134,7 +135,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 			</>
 		);
 	} catch (error) {
-		window.location.href = '/';
+		wredirect();
 		return null;
 	}
 }

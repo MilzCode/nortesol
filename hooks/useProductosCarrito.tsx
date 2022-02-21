@@ -1,12 +1,13 @@
 import { MAXPRODUCTOSCARRITO } from '../utils/constantes';
 import useProductos from './useProductos';
+import wredirect from '../helpers/wredirect';
 
 const useProductosCarrito = async () => {
 	try {
 		const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
 		if (carrito && carrito.length > MAXPRODUCTOSCARRITO) {
 			localStorage.removeItem('carrito');
-			window.location.href = '/';
+			wredirect();
 			return;
 		}
 		const idProductos = carrito.map((pr: any) => pr.p);
@@ -36,7 +37,7 @@ const useProductosCarrito = async () => {
 		return productosValidos;
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		window.location.href = '/';
+		wredirect();
 	}
 };
 

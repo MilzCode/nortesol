@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { APIURL } from '../utils/constantes';
+import wredirect from '../helpers/wredirect';
 
 const useRemoverPortada = async (idPortada = '') => {
 	try {
 		const token = localStorage.getItem('tken');
 		if (!token) {
-			window.location.href = '/';
+			wredirect();
 			return;
 		}
 		const res = await axios.delete(APIURL + 'portadas/' + idPortada, {

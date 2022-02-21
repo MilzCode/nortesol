@@ -6,10 +6,11 @@ import BotonFAColores1 from '../../../components/general/BotonFAColores1';
 import useCrearMarca from '../../../hooks/useCrearMarca';
 import VentanaModal from '../../../components/general/VentanaModal';
 import Volver from '../../../components/general/Volver';
+import wredirect from '../../../helpers/wredirect';
 
 const addmarca = ({ me, auth }: any) => {
 	if (!auth || !me.admin) {
-		window.location.href = '/';
+		wredirect();
 		return null;
 	}
 	const [marcas, setMarcas] = useState([]);

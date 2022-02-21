@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import useLogin from '../hooks/useLogin';
 import JWT from 'jsonwebtoken';
 import Volver from '../components/general/Volver';
+import wredirect from '../helpers/wredirect';
 const initialState = {
 	email: '',
 	password: '',
@@ -32,7 +33,7 @@ const Ingresar = ({ auth }: any) => {
 			const decToken: any = JWT.decode(res.token);
 			const miID = decToken.check;
 			localStorage.setItem('tken', res.token);
-			window.location.href = '/';
+			wredirect();
 		} catch (error) {
 			setIngresoInvalido(true);
 		}

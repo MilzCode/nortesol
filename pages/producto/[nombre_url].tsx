@@ -13,6 +13,7 @@ import VentanaModal from '../../components/general/VentanaModal';
 import BotonFAColores1 from '../../components/general/BotonFAColores1';
 import useProductos from '../../hooks/useProductos';
 import Link from 'next/link';
+import wredirect from '../../helpers/wredirect';
 
 const producto = ({ me }: any) => {
 	const router = useRouter();
@@ -29,7 +30,7 @@ const producto = ({ me }: any) => {
 			useProductos({ nombre_url })
 				.then((res) => {
 					if (!res.ok) {
-						window.location.href = '/';
+						wredirect();
 						return;
 					}
 					setProducto(res.producto);
@@ -46,7 +47,7 @@ const producto = ({ me }: any) => {
 						.catch();
 				})
 				.catch(() => {
-					window.location.href = '/';
+					wredirect();
 					return;
 				});
 	}, [nombre_url]);

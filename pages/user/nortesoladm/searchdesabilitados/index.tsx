@@ -1,8 +1,9 @@
 import Search from '../../../../components/search';
+import wredirect from '../../../../helpers/wredirect';
 
 const modeDisabled = ({ me, auth }: any) => {
 	if (!auth || !me.admin) {
-		window.location.href = '/';
+		wredirect();
 		return null;
 	}
 	return <Search desabilitados />;

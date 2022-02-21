@@ -3,10 +3,11 @@ import usePortadas from '../../../hooks/usePortadas';
 import Volver from '../../../components/general/Volver';
 import PortadaMiniatura from '../../../components/nortesoladm/PortadaMiniatura';
 import useRemoverPortada from '../../../hooks/useRemoverPortada';
+import wredirect from '../../../helpers/wredirect';
 
 const removeportada = ({ me, auth }: any) => {
 	if (!auth || !me.admin) {
-		window.location.href = '/';
+		wredirect();
 		return null;
 	}
 	const [portadas, setPortadas] = useState([]);
@@ -26,7 +27,7 @@ const removeportada = ({ me, auth }: any) => {
 			.then((res) => {
 				console.log(res);
 				if (res.ok) {
-					window.location.href = '/user/nortesoladm/removeportada';
+					wredirect('/user/nortesoladm/removeportada');
 					return;
 				}
 				alert('Hubo un problema contacta al administrador*');

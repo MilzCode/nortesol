@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { APIURL } from '../utils/constantes';
+import wredirect from '../helpers/wredirect';
 
 const useRemoverAnuncio = async (idAnuncio = '') => {
 	try {
@@ -8,7 +9,7 @@ const useRemoverAnuncio = async (idAnuncio = '') => {
 		}
 		const token = localStorage.getItem('tken');
 		if (!token) {
-			window.location.href = '/';
+			wredirect();
 			return;
 		}
 		const res = await axios.delete(APIURL + 'anuncios/' + idAnuncio, {

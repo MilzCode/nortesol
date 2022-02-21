@@ -9,6 +9,7 @@ import useCategorias from '../../hooks/useCategorias';
 import Capitalize from '../../utils/capitalize';
 import useProductos from '../../hooks/useProductos';
 import { SEPARADOR } from '../../utils/constantes';
+import wredirect from '../../helpers/wredirect';
 const Search = ({ desabilitados }: any) => {
 	try {
 		const rangoPrecios = [0, 1000000];
@@ -134,7 +135,7 @@ const Search = ({ desabilitados }: any) => {
 			</>
 		);
 	} catch (error) {
-		window.location.href = '/';
+		wredirect();
 		return null;
 	}
 };

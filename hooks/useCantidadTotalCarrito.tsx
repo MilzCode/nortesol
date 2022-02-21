@@ -1,3 +1,4 @@
+import wredirect from '../helpers/wredirect';
 const useCantidadTotalCarrito = () => {
 	try {
 		const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
@@ -8,7 +9,7 @@ const useCantidadTotalCarrito = () => {
 		return cantidad;
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		window.location.href = '/';
+		wredirect();
 	}
 };
 

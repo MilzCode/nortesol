@@ -1,4 +1,5 @@
 import React from 'react';
+import wredirect from '../helpers/wredirect';
 
 const useCantidadProductoCarrito = (id = '') => {
 	try {
@@ -10,7 +11,7 @@ const useCantidadProductoCarrito = (id = '') => {
 		return 0;
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		window.location.href = '/';
+		wredirect();
 	}
 };
 

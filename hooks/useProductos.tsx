@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { APIURL } from '../utils/constantes';
+import wredirect from '../helpers/wredirect';
 
 interface filtroProps {
 	nombre_url?: string;
@@ -42,7 +43,7 @@ const useProductos = async (
 		const data = await response.data;
 		return data;
 	} catch (error) {
-		window.location.href = '/';
+		wredirect();
 		return { ok: false, productos: { totalDocs: 0 } };
 	}
 };

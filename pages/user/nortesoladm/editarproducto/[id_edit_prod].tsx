@@ -15,10 +15,11 @@ import ProductoBody from '../../../../components/venta/ProductoBody';
 import ProductoRelacionados from '../../../../components/venta/ProductoRelacionados';
 import { MAXCATEGORIASPORPRODUCTO } from '../../../../utils/constantes';
 import useDesabilitarProducto from '../../../../hooks/useDesabilitarProducto';
+import wredirect from '../../../../helpers/wredirect';
 
 const EditarProducto = ({ auth, me }: any) => {
 	if (!auth || !me.admin) {
-		window.location.href = '/';
+		wredirect();
 		return null;
 	}
 	//cantidad maxima de imagenes que se pueden subir
@@ -105,7 +106,7 @@ const EditarProducto = ({ auth, me }: any) => {
 					} catch (error) {}
 				})
 				.catch(() => {
-					window.location.href = '/';
+					wredirect();
 				});
 	}, [id_edit_prod]);
 
@@ -402,7 +403,7 @@ const EditarProducto = ({ auth, me }: any) => {
 								<VentanaModal
 									titulo="Producto Actualizado"
 									onClose={() => {
-										window.location.href = '/producto/' + newUrl;
+										wredirect('/producto/' + newUrl);
 									}}
 								>
 									{subidoMsg}

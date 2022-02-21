@@ -1,9 +1,10 @@
 import React from 'react';
 import BotonFAColores1 from '../../components/general/BotonFAColores1';
 import Volver from '../../components/general/Volver';
+import wredirect from '../../helpers/wredirect';
 
 const AddAddress = () => {
-	window.location.href = '/';
+	wredirect();
 	// return (
 	//   <>
 	//     <Volver />

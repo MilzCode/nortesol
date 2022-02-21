@@ -7,10 +7,11 @@ import VentanaModal from '../../../components/general/VentanaModal';
 import Volver from '../../../components/general/Volver';
 import useCategorias from '../../../hooks/useCategorias';
 import useCrearCategoria from '../../../hooks/useCrearCategoria';
+import wredirect from '../../../helpers/wredirect';
 
 const addcategoria = ({ me, auth }: any) => {
 	if (!auth || !me.admin) {
-		window.location.href = '/';
+		wredirect();
 		return null;
 	}
 	const [categorias, setCategorias] = useState([]);
