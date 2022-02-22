@@ -75,6 +75,8 @@ const EditarProd = ({
 		setSiguiente(false);
 	};
 	const handdlePreview = () => {
+		console.log(producto);
+		console.log(imagenesPreview);
 		setPreview(!preview);
 	};
 	const handdleProducto = (prop: any) => {
@@ -103,7 +105,7 @@ const EditarProd = ({
 		producto.cantidad &&
 		producto.precio &&
 		//@ts-ignore
-		producto.imagenes.length > 0 &&
+		imagenesPreview.length > 0 &&
 		!subir;
 
 	const actualizarProducto = async () => {
@@ -479,8 +481,7 @@ const EditarProd = ({
 								/>
 							)}
 							<ProductoBody contenido={producto.descripcion} />
-							<hr />
-							<ProductoRelacionados />
+							{/* <ProductoRelacionados /> */}
 							<br />
 						</>
 					)}

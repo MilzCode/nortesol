@@ -44,10 +44,9 @@ const ProductoRelacionados = ({ productosRel, desabilitados }: any) => {
 	};
 	return (
 		<>
-			{productosRel.length > 0 && (
+			{productosRel && productosRel.length > 0 ? (
 				<>
 					<hr />
-
 					<div className="productoRelacionados">
 						<h4 className="productoRelacionados__titulo">
 							Quizá te pueda interesar...
@@ -63,6 +62,18 @@ const ProductoRelacionados = ({ productosRel, desabilitados }: any) => {
 									desabilitado={desabilitados}
 								/>
 							))}
+						</Slider>
+					</div>
+				</>
+			) : (
+				<>
+					<hr />
+					<div className="productoRelacionados">
+						<h4 className="productoRelacionados__titulo">
+							Quizá te pueda interesar...
+						</h4>
+						<Slider {...settings}>
+							<div>ok</div>
 						</Slider>
 					</div>
 				</>

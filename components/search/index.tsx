@@ -8,7 +8,6 @@ import GetCategorias from '../../helpers/GetCategorias';
 import Capitalize from '../../utils/capitalize';
 import GetProductos from '../../helpers/GetProductos';
 import { SEPARADOR } from '../../utils/constantes';
-import Wredirect from '../../helpers/Wredirect';
 const Search = ({ desabilitados }: any) => {
 	const rangoPrecios = [0, 1000000];
 	const [first, setFirst] = useState(true);
@@ -76,18 +75,20 @@ const Search = ({ desabilitados }: any) => {
 			setCargandoProductos(true);
 			GetProductos({ ...filtroCampos, page: pagina }, desabilitados)
 				.then((res) => {
+					if (!res.ok) {
+						setCargandoProductos(false);
+						return;
+					}
 					setProductos(res.productos.docs);
-					setMaxPag(res.productos.totalPages);
 					setCargandoProductos(false);
-					//sino se quiere mostrar la query en la url comentar esta linea
-					// router.push('/search' + queryUrl);
 				})
-				.catch((err) => {
+				.catch(() => {
+					setProductos([]);
 					setCargandoProductos(false);
 				});
 		}
 		setFirst(false);
-	}, [filtroCampos, pagina]);
+	}, [pagina, filtroCampos]);
 
 	return (
 		<>
@@ -125,8 +126,13 @@ const Search = ({ desabilitados }: any) => {
 						/>
 					))}
 			</div>
-			{loaded && !cargandoProductos ? (
-				<Paginador maxPagina={maxPag} setPagina={setPagina} pagina={pagina} />
+			{loaded ? (
+				<Paginador
+					maxPagina={maxPag}
+					setPagina={setPagina}
+					pagina={pagina}
+					loading={cargandoProductos}
+				/>
 			) : (
 				''
 			)}

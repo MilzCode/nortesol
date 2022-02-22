@@ -21,10 +21,7 @@ const EditarImagenProducto = async (
 			msg: 'No hay token?',
 		};
 	}
-	const urlApiProductos = !desabilitado
-		? 'productos'
-		: 'productos_desabilitados';
-	const res = await fetch(APIURL + urlApiProductos + '/' + id, {
+	const res = await fetch(APIURL + 'images/' + id, {
 		method: 'PUT',
 		headers: {
 			'x-token': token,
@@ -32,7 +29,7 @@ const EditarImagenProducto = async (
 		body: formData,
 	});
 	const data = await res.json();
-	return res;
+	return data;
 };
 
 export default EditarImagenProducto;
