@@ -25,6 +25,7 @@ const EditarImagenProducto = async (
 		method: 'PUT',
 		headers: {
 			'x-token': token,
+			des: desabilitado ? 'des' : '',
 		},
 		body: formData,
 	});
