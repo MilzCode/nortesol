@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { APIURL } from '../utils/constantes';
 
-const DesabilitarProducto = async ({ id }: any) => {
+const Des_HabilitarProducto = async ({ id }: any, desabilitado = false) => {
 	try {
 		const token = localStorage.getItem('tken');
 		if (!token) {
@@ -10,7 +10,10 @@ const DesabilitarProducto = async ({ id }: any) => {
 		if (!id) {
 			return { ok: false, msg: 'Falta id' };
 		}
-		const response = await axios.delete(APIURL + 'productos/' + id, {
+		const urlApiProductos = !desabilitado
+			? 'productos'
+			: 'productos_desabilitados';
+		const response = await axios.delete(APIURL + urlApiProductos + '/' + id, {
 			headers: {
 				'x-token': token,
 			},
@@ -21,4 +24,4 @@ const DesabilitarProducto = async ({ id }: any) => {
 	}
 };
 
-export default DesabilitarProducto;
+export default Des_HabilitarProducto;

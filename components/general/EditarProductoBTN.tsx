@@ -1,19 +1,23 @@
-import { useRouter } from 'next/router';
-import Wredirect from '../../helpers/Wredirect';
+import { paths } from '../../utils/constantes';
+import Link from 'next/link';
 
-const EditarProductoBTN = ({ id_edit_prod = '' }) => {
-	const router = useRouter();
+const EditarProductoBTN = ({ id_edit_prod = '', desabilitado = false }) => {
 	return (
-		<div className="editarBTN NOSELECT">
-			<span
-				onClick={() => {
-					Wredirect('/user/nortesoladm/' + id_edit_prod);
-				}}
-			>
-				<i className="fas fa-pencil" />
-				<span>Editar</span>
-			</span>
-		</div>
+		<Link
+			href={
+				(!desabilitado ? paths.editarProducto : paths.editarProductoDes) +
+				'/' +
+				id_edit_prod
+			}
+			passHref
+		>
+			<div className="editarBTN NOSELECT">
+				<span>
+					<i className="fas fa-pencil" />
+					<span>Editar</span>
+				</span>
+			</div>
+		</Link>
 	);
 };
 

@@ -65,7 +65,12 @@ const ProductoDes = ({ me, auth }: any) => {
 		<>
 			{producto ? (
 				<>
-					{me.admin && <EditarProductoBTN id_edit_prod={producto.nombre_url} />}
+					{me.admin && (
+						<EditarProductoBTN
+							id_edit_prod={producto.nombre_url}
+							desabilitado
+						/>
+					)}
 					<Volver cantPagesBack={2} />
 					<h1 className="producto__titulo">{Capitalize(producto.nombre)}</h1>
 					<ProductoHead

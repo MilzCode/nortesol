@@ -17,9 +17,7 @@ const ProductoVistaMiniatura = ({
 		<Link
 			passHref
 			href={
-				(!desabilitado ? '' : paths.searchDesabilitados) +
-				'/producto/' +
-				nombre_url
+				(!desabilitado ? paths.producto : paths.productoDes) + '/' + nombre_url
 			}
 		>
 			<a>

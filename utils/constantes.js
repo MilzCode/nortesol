@@ -11,4 +11,8 @@ export const MAXMARCASFILTER = 3;
 //TODO: añadir las rutas a este path ya que pueden estar cambiando en el futuro
 export const paths = {
 	searchDesabilitados: '/user/nortesoladm/searchdesabilitados',
+	editarProducto: '/user/nortesoladm/editarproducto',
+	editarProductoDes: '/user/nortesoladm/searchdesabilitados/productodes/editar',
+	productoDes: '/user/nortesoladm/searchdesabilitados/productodes',
+	producto: '/producto',
 };

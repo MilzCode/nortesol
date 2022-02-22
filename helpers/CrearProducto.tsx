@@ -1,5 +1,5 @@
 import { APIURL } from '../utils/constantes';
-import ActualizarImagenProducto from './ActualizarImagen';
+import EditarImagenProducto from './EditarImagenProducto';
 
 interface productoProps {
 	descripcion?: string | any;
@@ -64,10 +64,10 @@ const CrearProducto = async ({
 
 		const responseData = await response.json();
 		const idProducto = responseData.producto.id;
-		const actualizarImgRes = await ActualizarImagenProducto(
+		const actualizarImgRes = await EditarImagenProducto({
 			imagenes,
-			idProducto
-		);
+			id: idProducto,
+		});
 		if (!actualizarImgRes.ok && responseData.ok) {
 			return {
 				ok: true,

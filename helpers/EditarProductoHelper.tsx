@@ -1,5 +1,5 @@
 import { APIURL } from '../utils/constantes';
-import ActualizarImagenProducto from './ActualizarImagen';
+import EditarImagenProducto from './EditarImagenProducto';
 
 interface productoProps {
 	descripcion?: string | any;
@@ -12,16 +12,19 @@ interface productoProps {
 	idProd: any;
 }
 
-const EditarProducto = async ({
-	nombre,
-	precio,
-	descripcion,
-	categorias,
-	cantidad,
-	marca,
-	imagenes,
-	idProd,
-}: productoProps) => {
+const EditarProducto = async (
+	{
+		nombre,
+		precio,
+		descripcion,
+		categorias,
+		cantidad,
+		marca,
+		imagenes,
+		idProd,
+	}: productoProps,
+	desabilitado = false
+) => {
 	try {
 		const dataFetch = {
 			nombre,
@@ -38,7 +41,11 @@ const EditarProducto = async ({
 				msg: 'No hay token?',
 			};
 		}
-		const response: any = await fetch(APIURL + 'productos/' + idProd, {
+		const urlApiProductos = !desabilitado
+			? 'productos'
+			: 'productos_desabilitados';
+
+		const response: any = await fetch(APIURL + urlApiProductos + '/' + idProd, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
@@ -57,15 +64,18 @@ const EditarProducto = async ({
 		}
 
 		const responseData = await response.json();
-		const idProducto = responseData.producto.id;
+		const idProducto: string = responseData.producto.id;
 		const newUrl = responseData.producto.nombre_url;
 		//no se requiere actualizar imagen
 		if (!imagenes || imagenes.length === 0) {
 			return { ok: true, msg: 'Actualizado con exito', newUrl };
 		}
-		const actualizarImgRes = await ActualizarImagenProducto(
-			imagenes,
-			idProducto
+		const actualizarImgRes = await EditarImagenProducto(
+			{
+				imagenes,
+				id: idProducto,
+			},
+			desabilitado
 		);
 		if (!actualizarImgRes.ok && responseData.ok) {
 			return {

@@ -1,6 +1,14 @@
 import { APIURL } from '../utils/constantes';
 
-const ActualizarImagenProducto = async (imagenes: any, id: string) => {
+interface ActualizarImagenProps {
+	imagenes: any;
+	id: string;
+}
+
+const EditarImagenProducto = async (
+	{ imagenes, id }: ActualizarImagenProps,
+	desabilitado = false
+) => {
 	let formData = new FormData();
 	for (let i = 0; i < imagenes.length; i++) {
 		let file = imagenes.item(i);
@@ -13,7 +21,10 @@ const ActualizarImagenProducto = async (imagenes: any, id: string) => {
 			msg: 'No hay token?',
 		};
 	}
-	const res = await fetch(APIURL + 'images/' + id, {
+	const urlApiProductos = !desabilitado
+		? 'productos'
+		: 'productos_desabilitados';
+	const res = await fetch(APIURL + urlApiProductos + '/' + id, {
 		method: 'PUT',
 		headers: {
 			'x-token': token,
@@ -24,4 +35,4 @@ const ActualizarImagenProducto = async (imagenes: any, id: string) => {
 	return res;
 };
 
-export default ActualizarImagenProducto;
+export default EditarImagenProducto;

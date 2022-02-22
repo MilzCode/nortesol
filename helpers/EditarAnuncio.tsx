@@ -1,7 +1,7 @@
 import { APIURL } from '../utils/constantes';
 import Wredirect from './Wredirect';
 
-const ActualizarAnuncio = async ({
+const EditarAnuncio = async ({
 	nombre,
 	descripcion,
 	url,
@@ -44,4 +44,4 @@ const ActualizarAnuncio = async ({
 	}
 };
 
-export default ActualizarAnuncio;
+export default EditarAnuncio;

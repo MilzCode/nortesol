@@ -33,9 +33,16 @@ const GetProductos = async (
 		const urlApiProductos = !desabilitados
 			? 'productos'
 			: 'productos_desabilitados';
+		const Token = localStorage.getItem('tken');
+		if (!Token && desabilitados) {
+			return { ok: false };
+		}
 		const response = await axios.get(APIURL + urlApiProductos, {
 			params: {
 				...props,
+			},
+			headers: {
+				'x-token': Token ?? '',
 			},
 		});
 		const data = response.data;

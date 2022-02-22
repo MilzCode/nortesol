@@ -5,7 +5,7 @@ import Volver from '../../../components/general/Volver';
 import CrearAnuncio from '../../../helpers/CrearAnuncio';
 import RemoverAnuncio from '../../../helpers/RemoverAnuncio';
 import GetAnuncios from '../../../helpers/GetAnuncios';
-import ActualizarAnuncio from '../../../helpers/ActualizarAnuncio';
+import EditarAnuncio from '../../../helpers/EditarAnuncio';
 import ImagenVistaPrevia from '../../../components/general/ImagenVistaPrevia';
 import Anuncio from '../../../components/general/Anuncio';
 import Wredirect from '../../../helpers/Wredirect';
@@ -50,7 +50,7 @@ const Addanuncio = ({ me, auth }: any) => {
 		const url = e.target.url.value.trim();
 		const url_name = e.target.urlname.value.trim();
 		if (anuncioIni.id) {
-			ActualizarAnuncio({
+			EditarAnuncio({
 				nombre,
 				descripcion,
 				url,

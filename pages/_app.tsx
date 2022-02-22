@@ -72,8 +72,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 	useEffect(() => {
 		setAppMode(0);
 		const urlMode1 = path.includes('/nortesoladm/searchdesabilitados');
-		urlMode1 && misDatos.admin && setAppMode(1);
-	}, [path, misDatos]);
+		urlMode1 && setAppMode(1);
+	}, [path]);
 
 	/*Parametros */
 	//autenticado contiene si el usuario esta autenticado (auth=true) o no (auth=null) o esta en espera (auth = false)
@@ -114,11 +114,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 				{(autenticado && misDatos) || isPublicRoute ? (
 					<Layout auth={autenticado} path={path} appMode={appMode}>
 						<Component
+							path={path}
+							mode={appMode}
 							me={misDatos}
 							auth={autenticado}
 							{...pageProps}
-							path={path}
-							mode={appMode}
 						/>
 					</Layout>
 				) : (
