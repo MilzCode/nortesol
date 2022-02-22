@@ -13,6 +13,7 @@ interface propsAnuncio {
 	saveClose?: boolean;
 	id?: string;
 	timeCloseMin?: number;
+	test?: boolean;
 }
 
 /**
@@ -32,11 +33,13 @@ const Anuncio = ({
 	saveClose,
 	timeCloseMin = 5,
 	id,
+	test = false,
 }: propsAnuncio) => {
 	const [mostrarAnuncio, setMostrarAnuncio] = useState(false);
 
 	useEffect(() => {
 		const comprobarMostrarAnuncio = () => {
+			if (test) return true;
 			try {
 				if (timeCloseMin && id) {
 					const lastAnuncio = localStorage.getItem(nombreStorageAnuncioFecha);

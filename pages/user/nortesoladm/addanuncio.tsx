@@ -17,7 +17,6 @@ const Addanuncio = ({ me, auth }: any) => {
 	const [loading, setLoading] = useState(false);
 	const [subido, setSubido] = useState(false);
 	const [errorMSG, setErrorMSG] = useState<any>(false);
-	const [anuncios, setAnuncios] = useState([]);
 	const [vistaPreviaAnuncio, setVistaPreviaAnuncio] = useState(false);
 	const [anuncioIni, setAnuncioIni] = useState({
 		nombre: '',
@@ -31,6 +30,7 @@ const Addanuncio = ({ me, auth }: any) => {
 	const maxImg = 1;
 
 	const handdleImagenes = (e: any) => {
+		console.log(e.target.files);
 		if (e.target.files.length > maxImg) {
 			alert(`Solo se pueden subir ${maxImg} imagenes `);
 			return;
@@ -41,6 +41,10 @@ const Addanuncio = ({ me, auth }: any) => {
 		}
 		setImagenes(e.target.files);
 		setImagenesPreview(dataUrls);
+
+		//reset input
+		e.target.value = null;
+		e.target.files = null;
 	};
 	const handdleSubirAnuncio = (e: any | React.FormEvent) => {
 		e.preventDefault();
@@ -317,6 +321,7 @@ const Addanuncio = ({ me, auth }: any) => {
 								url={anuncioIni.url}
 								url_name={anuncioIni.url_name}
 								imagen={imagenesPreview ? imagenesPreview[0] : ''}
+								test
 								onClose={() => {
 									setVistaPreviaAnuncio(false);
 								}}
