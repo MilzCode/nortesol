@@ -9,6 +9,7 @@ const ProductoHead = ({
 	irCarritoUrl,
 	cantidad_carrito = 0,
 	onAddCarrito = () => {},
+	descuento = 0,
 }: any) => {
 	return (
 		<div className="productoHead">
@@ -20,6 +21,7 @@ const ProductoHead = ({
 				cantidad_carrito={cantidad_carrito}
 				irCarritoUrl={irCarritoUrl}
 				onAddCarrito={onAddCarrito}
+				descuento={descuento}
 			/>
 		</div>
 	);

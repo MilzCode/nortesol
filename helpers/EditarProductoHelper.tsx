@@ -9,6 +9,8 @@ interface productoProps {
 	cantidad: number;
 	marca?: string;
 	imagenes?: any; //fillist
+	descuento?: number;
+	relevancia?: number;
 	idProd: any;
 }
 
@@ -22,6 +24,8 @@ const EditarProducto = async (
 		marca,
 		imagenes,
 		idProd,
+		descuento,
+		relevancia,
 	}: productoProps,
 	desabilitado = false
 ) => {
@@ -33,6 +37,8 @@ const EditarProducto = async (
 			categorias,
 			cantidad,
 			marca,
+			descuento,
+			relevancia,
 		};
 		const token = localStorage.getItem('tken');
 		if (!token) {

@@ -14,7 +14,7 @@ const Secciones = ({ onSelect }: any) => {
 						seleccion == 'descuentos' && 'secciones__opcion--seleccionada'
 					}`}
 				>
-					Descuentos
+					Ofertas
 				</div>
 				<div
 					onClick={() => {

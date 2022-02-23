@@ -15,31 +15,41 @@ import ProductoRelacionados from '../../components/venta/ProductoRelacionados';
 import { MAXCATEGORIASPORPRODUCTO, paths } from '../../utils/constantes';
 import Des_HabilitarProducto from '../../helpers/Des_HabilitarProducto';
 import Wredirect from '../../helpers/Wredirect';
+import ProductoVistaMiniatura from '../venta/ProductoVistaMiniatura';
+import CrearProducto from '../../helpers/CrearProducto';
 
 //cantidad maxima de imagenes que se pueden subir
 const maxImg = 2;
 
 interface EditarProdProps {
 	me: any;
-	id_edit_prod: any;
+	id_edit_prod?: any;
 	desabilitado?: boolean;
+	create?: boolean;
 }
+const ProductoStateIni = {
+	nombre: '',
+	precio: 9999999,
+	categorias: [],
+	marca: '',
+	cantidad: 0,
+	descripcion: '',
+	imagenes: [],
+	load: false,
+	idProd: '',
+	descuento: 0,
+	relevancia: 3,
+};
 const EditarProd = ({
 	me,
-	id_edit_prod,
+	id_edit_prod = null,
 	desabilitado = false,
+	create = false,
 }: EditarProdProps) => {
-	const [producto, setProducto] = useState({
-		nombre: '',
-		precio: 9999999,
-		categorias: [],
-		marca: '',
-		cantidad: 0,
-		descripcion: '',
-		imagenes: [],
-		load: false,
-		idProd: '',
-	});
+	const [producto, setProducto] = useState(ProductoStateIni);
+	const [confirmarBorrarLocalCreate, setConfirmarBorrarLocalCreate] = useState(
+		false
+	);
 	const [confirmarBorrar, setConfirmarBorrar] = useState(false);
 	const [preview, setPreview] = useState(false);
 	const [siguiente, setSiguiente] = useState(false);
@@ -56,6 +66,7 @@ const EditarProd = ({
 	const [newUrl, setNewUrl] = useState('/');
 
 	const handdleBorrarProducto = () => {
+		if (create) return;
 		Des_HabilitarProducto({ id: producto.idProd }, desabilitado)
 			.then((res) => {
 				if (res.ok) {
@@ -75,8 +86,6 @@ const EditarProd = ({
 		setSiguiente(false);
 	};
 	const handdlePreview = () => {
-		console.log(producto);
-		console.log(imagenesPreview);
 		setPreview(!preview);
 	};
 	const handdleProducto = (prop: any) => {
@@ -108,20 +117,27 @@ const EditarProd = ({
 		imagenesPreview.length > 0 &&
 		!subir;
 
-	const actualizarProducto = async () => {
+	const actualizarCrearProducto = async () => {
 		setSubir(true);
 		const data = {
 			descripcion: producto.descripcion,
 			nombre: producto.nombre,
-			precio: producto.precio,
+			precio: Math.abs(producto.precio),
+			descuento: Math.abs(producto.descuento),
 			categorias: producto.categorias.map((c: any) => c.value),
 			cantidad: producto.cantidad,
 			imagenes,
 			//@ts-ignore
 			marca: producto.marca.value,
 			idProd: producto.idProd,
+			relevancia: producto.relevancia,
 		};
-		const res = await EditarProductoHelper(data, desabilitado);
+		let res = null;
+		if (!create) {
+			res = await EditarProductoHelper(data, desabilitado);
+		} else {
+			res = await CrearProducto(data);
+		}
 
 		if (!res.ok) {
 			setSubir(false);
@@ -132,13 +148,32 @@ const EditarProd = ({
 		if (res.type === 'noimage') {
 			setSubidoMsg('Producto Subido, pero no se pudo subir las imagenes');
 		}
+		if (create) {
+			handdleBorrarLocalCreate();
+			setSubidoMsg('Producto creado con exito');
+		}
 		setSubir(false);
 		setSubido(true);
 		setNewUrl(res.newUrl);
 	};
 
+	const handdleGuardarLocalCreate = () => {
+		if (!create) return;
+		localStorage.setItem('createNombre', producto.nombre);
+		localStorage.setItem('createDescripcion', producto.descripcion);
+		localStorage.setItem('createPrecio', producto.precio + '');
+	};
+	const handdleBorrarLocalCreate = () => {
+		if (!create) return;
+		localStorage.removeItem('createNombre');
+		localStorage.removeItem('createDescripcion');
+		localStorage.removeItem('createPrecio');
+		setProducto(ProductoStateIni);
+	};
+	//actualizar
 	useEffect(() => {
 		if (!me.admin) return;
+		if (create) return;
 		id_edit_prod &&
 			//@ts-ignore
 			GetProductos({ nombre_url: id_edit_prod }, desabilitado)
@@ -158,6 +193,8 @@ const EditarProd = ({
 							marca,
 							id,
 							cantidad,
+							descuento,
+							relevancia,
 						} = productRes;
 
 						if (categorias) {
@@ -191,6 +228,8 @@ const EditarProd = ({
 							imagenes,
 							load: true,
 							idProd: id,
+							descuento,
+							relevancia,
 						});
 						//@ts-ignore
 						setNewUrl(productRes.nombre_url);
@@ -201,6 +240,17 @@ const EditarProd = ({
 					return;
 				});
 	}, [id_edit_prod]);
+	//create
+	useEffect(() => {
+		if (!create) return;
+		const datosIni = {
+			nombre: localStorage.getItem('createNombre') || '',
+			descripcion: localStorage.getItem('createDescripcion') || '',
+			precio: localStorage.getItem('createPrecio') || '',
+		};
+		//@ts-ignore
+		setProducto({ ...producto, ...datosIni });
+	}, []);
 
 	useEffect(() => {
 		if (!me.admin) return;
@@ -212,27 +262,62 @@ const EditarProd = ({
 		<>
 			{producto && (
 				<>
-					<Volver cantPagesBack={!desabilitado ? 2 : 3} />
-					<h1 className="producto__titulo">Editar Producto</h1>
 					<br />
 					<hr />
 					<div className="BOTONES">
 						{!preview && (
 							<>
-								<BotonFAColores1
-									onClick={() => {
-										setConfirmarBorrar(true);
-									}}
-									backgroundColor={!desabilitado ? '#f9423a' : '#48d597'}
-								>
-									{!desabilitado ? (
-										<i className="fas fa-trash"></i>
-									) : (
-										<i className="fas fa-arrow-up"></i>
-									)}
+								{create && (
+									<>
+										<BotonFAColores1
+											backgroundColor="#f9423a"
+											onClick={() => {
+												setConfirmarBorrarLocalCreate(true);
+											}}
+										>
+											Borrar Local
+										</BotonFAColores1>
+										<BotonFAColores1 onClick={handdleGuardarLocalCreate}>
+											Guardar
+										</BotonFAColores1>
+										{confirmarBorrarLocalCreate && (
+											<VentanaModal
+												titulo="¿Borrar Localmente?"
+												onClose={() => {
+													setConfirmarBorrarLocalCreate(false);
+												}}
+											>
+												<BotonFAColores1
+													onClick={() => {
+														setConfirmarBorrarLocalCreate(false);
+														handdleBorrarLocalCreate();
+													}}
+													backgroundColor="#f9423a"
+												>
+													Si
+												</BotonFAColores1>
+											</VentanaModal>
+										)}
+									</>
+								)}
+								{!create && (
+									<BotonFAColores1
+										onClick={() => {
+											setConfirmarBorrar(true);
+										}}
+										backgroundColor={!desabilitado ? '#f9423a' : '#48d597'}
+									>
+										{!desabilitado ? (
+											<i className="fas fa-trash"></i>
+										) : (
+											<i className="fas fa-arrow-up"></i>
+										)}
 
-									{!desabilitado ? '¡BORRAR PRODUCTO!' : 'HABILITAR PRODUCTO!'}
-								</BotonFAColores1>
+										{!desabilitado
+											? '¡BORRAR PRODUCTO!'
+											: 'HABILITAR PRODUCTO!'}
+									</BotonFAColores1>
+								)}
 								{confirmarBorrar && (
 									<VentanaModal
 										titulo={
@@ -319,13 +404,44 @@ const EditarProd = ({
 								<label>Precio</label>
 								<input
 									type="number"
+									min={0}
 									value={producto.precio}
 									onChange={(precio) => {
 										handdleProducto({ precio: precio.target.value });
 									}}
 								/>
 							</div>
+							<div className="LABELINPUT">
+								<label>Descuento</label>
+								<input
+									type="number"
+									value={producto.descuento}
+									onChange={(descuento) => {
+										handdleProducto({
+											descuento: descuento.target.value,
+										});
+									}}
+								/>
+							</div>
 
+							<div className="LABELINPUT">
+								<label htmlFor="relevancia">Relevancia (3 por defecto)</label>
+								<select
+									defaultValue={producto.relevancia}
+									id="relevancia"
+									onChange={(relevancia) => {
+										handdleProducto({
+											relevancia: relevancia.target.value,
+										});
+									}}
+								>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+								</select>
+							</div>
 							<div className="LABELINPUT">
 								<label htmlFor="categorias">Categorias</label>
 								<Select
@@ -422,7 +538,7 @@ const EditarProd = ({
 							)}
 							{subido && (
 								<VentanaModal
-									titulo="Producto Actualizado"
+									titulo={!create ? 'Producto Actualizado' : 'Producto Subido'}
 									onClose={() => {
 										Wredirect(
 											(!desabilitado ? paths.producto : paths.productoDes) +
@@ -438,7 +554,7 @@ const EditarProd = ({
 							<BotonFAColores1
 								backgroundColor="#f4da40"
 								disabled={!puedeSubir}
-								onClick={actualizarProducto}
+								onClick={actualizarCrearProducto}
 							>
 								{!puedeSubir ? (
 									subir ? (
@@ -467,22 +583,32 @@ const EditarProd = ({
 							<h1 className="producto__titulo">
 								{producto.nombre ? Capitalize(producto.nombre) : 'Sin titulo'}
 							</h1>
-
 							{imagenesPreview.length > 0 ? (
 								<ProductoHead
 									precio={producto.precio}
 									imagenes={imagenesPreview}
 									cantidad_disponible={producto.cantidad}
+									descuento={producto.descuento}
 								/>
 							) : (
 								<ProductoHead
 									precio={producto.precio}
+									descuento={producto.descuento}
 									cantidad_disponible={producto.cantidad}
 								/>
 							)}
 							<ProductoBody contenido={producto.descripcion} />
-							{/* <ProductoRelacionados /> */}
 							<br />
+							<hr />
+
+							<div className="CENTERFLEX">
+								<ProductoVistaMiniatura
+									nombre={producto.nombre}
+									precio={producto.precio}
+									descuento={producto.descuento}
+									imagen={imagenesPreview ? imagenesPreview[0] : ''}
+								/>
+							</div>
 						</>
 					)}
 				</>

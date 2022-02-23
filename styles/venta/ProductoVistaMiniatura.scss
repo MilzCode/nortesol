@@ -42,9 +42,13 @@
 	}
 	&__precio {
 		height: $widthMiniatura * 0.12;
-		background: $pantone7404C;
+		background: $pantone106C;
 		color: $pantoneBlackC;
 		font-style: italic;
+		font-weight: 700;
+		&--descuento {
+			@extend .productoVistaMiniatura__precio;
+		}
 	}
 	&__mostrar {
 		height: $widthMiniatura * 0.12;

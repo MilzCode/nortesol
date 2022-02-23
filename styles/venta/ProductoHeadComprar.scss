@@ -35,6 +35,24 @@
 		border-radius: sizeBasedOnTitle(0.2);
 		margin: sizeBasedOnTitle(0.1);
 	}
+	&__precio--anterior {
+		@extend .productoHeadComprar__precio;
+		color: $pantone1645C;
+		text-decoration: line-through;
+	}
+	&__precio--descuento {
+		@extend .productoHeadComprar__precio;
+		background-color: rgba(yellow, 0.5);
+	}
+	&__precio--no {
+		display: none;
+	}
+	&__porcentaje {
+		color: $pantoneRed032C;
+	}
+	&__porcentaje--no {
+		display: none;
+	}
 
 	&__cantidad {
 		display: flex;

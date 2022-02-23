@@ -67,7 +67,7 @@ const Home: NextPage = () => {
 			})
 			.catch(() => {});
 	}, []);
-	
+
 	const handdleSeccion = (seccion: string) => {
 		setSeccion(seccion);
 		if (seccion == 'descuentos') {
@@ -83,7 +83,6 @@ const Home: NextPage = () => {
 	const haddleCloseAnuncio = () => {
 		setAnuncio({ ...anuncio, loadAnuncio: false });
 	};
-
 
 	return (
 		<>
@@ -115,6 +114,7 @@ const Home: NextPage = () => {
 							precio={p.precio}
 							imagen={p.imagen}
 							key={i}
+							descuento={p.descuento}
 						/>
 					))}
 				{productosNovedades &&
@@ -125,6 +125,7 @@ const Home: NextPage = () => {
 							nombre_url={p.nombre_url}
 							precio={p.precio}
 							imagen={p.imagen}
+							descuento={p.descuento}
 							key={i}
 						/>
 					))}
@@ -140,7 +141,7 @@ const Home: NextPage = () => {
 					onClose={haddleCloseAnuncio}
 					id={anuncio.aid}
 					saveClose={true}
-					timeCloseMin={7}
+					timeCloseMin={5}
 				/>
 			)}
 		</>

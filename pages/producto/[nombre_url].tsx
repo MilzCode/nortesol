@@ -85,6 +85,7 @@ const Producto = ({ me }: any) => {
 						onChangeCantidad={(c: number) => {
 							setCantidad(c);
 						}}
+						descuento={producto.descuento}
 					/>
 					<ProductoBody contenido={producto.detalle_producto.descripcion} />
 					<ProductoRelacionados productosRel={relacionados} />

@@ -271,6 +271,11 @@ $fontSize14: sizeBasedOnTitle(0.4);
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+.CENTERFLEX {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
 .BOTONES {
 	display: flex;

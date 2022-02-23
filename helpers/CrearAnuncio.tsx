@@ -16,6 +16,8 @@ const CrearAnuncio = async ({
 			return;
 		}
 
+		console.log({ nombre, descripcion, url, url_name, imagen });
+
 		let formData = new FormData();
 		nombre && formData.append('nombre', nombre);
 		descripcion && formData.append('descripcion', descripcion);
@@ -23,7 +25,8 @@ const CrearAnuncio = async ({
 		url_name && formData.append('url_name', url_name);
 		let file = null;
 		if (imagen && imagen.length > 0) {
-			file = imagen.item(0);
+			// file = imagen.item(0);
+			file = imagen[0];
 			formData.append('files[]', file);
 		}
 		const response = await fetch(APIURL + 'anuncios', {
@@ -34,6 +37,7 @@ const CrearAnuncio = async ({
 			body: formData,
 		});
 		const data = await response.json();
+		console.log(data);
 
 		return data;
 	} catch (error) {

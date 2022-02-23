@@ -9,19 +9,13 @@ interface productoProps {
 	cantidad: number;
 	marca?: string;
 	imagenes?: any; //fillist
+	descuento?: number;
+	relevancia?: number;
 }
 
-const CrearProducto = async ({
-	nombre,
-	precio,
-	descripcion,
-	categorias,
-	cantidad,
-	marca,
-	imagenes,
-}: productoProps) => {
+const CrearProducto = async ({ ...data }: productoProps) => {
 	try {
-		if (!imagenes || imagenes.length === 0) {
+		if (!data.imagenes || data.imagenes.length === 0) {
 			console.log('Hace falta una imagen');
 			return {
 				ok: false,
@@ -29,14 +23,7 @@ const CrearProducto = async ({
 				type: 'minimagen',
 			};
 		}
-		const dataFetch = {
-			nombre,
-			precio,
-			descripcion,
-			categorias,
-			cantidad,
-			marca,
-		};
+
 		const token = localStorage.getItem('tken');
 		if (!token) {
 			return {
@@ -50,7 +37,7 @@ const CrearProducto = async ({
 				'Content-Type': 'application/json',
 				'x-token': token,
 			},
-			body: JSON.stringify(dataFetch),
+			body: JSON.stringify(data),
 		});
 
 		if (!response.ok) {
@@ -63,19 +50,25 @@ const CrearProducto = async ({
 		}
 
 		const responseData = await response.json();
+
 		const idProducto = responseData.producto.id;
 		const actualizarImgRes = await EditarImagenProducto({
-			imagenes,
+			imagenes: data.imagenes,
 			id: idProducto,
 		});
+		let newUrl = '';
+		if (responseData.ok) {
+			newUrl = responseData.producto.nombre_url;
+		}
 		if (!actualizarImgRes.ok && responseData.ok) {
 			return {
 				ok: true,
 				msg: 'Se subio el producto, pero no se pudo subir imagen.',
 				type: 'noimage',
+				newUrl,
 			};
 		} else if (responseData.ok) {
-			return { ok: true, msg: 'Subido con exito' };
+			return { ok: true, msg: 'Subido con exito', newUrl };
 		}
 		return { ok: false, msg: responseData.msg };
 	} catch (error) {

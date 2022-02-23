@@ -30,7 +30,6 @@ const Addanuncio = ({ me, auth }: any) => {
 	const maxImg = 1;
 
 	const handdleImagenes = (e: any) => {
-		console.log(e.target.files);
 		if (e.target.files.length > maxImg) {
 			alert(`Solo se pueden subir ${maxImg} imagenes `);
 			return;
@@ -39,7 +38,7 @@ const Addanuncio = ({ me, auth }: any) => {
 		for (let i = 0; i < e.target.files.length; i++) {
 			dataUrls.push(URL.createObjectURL(e.target.files[i] as any));
 		}
-		setImagenes(e.target.files);
+		setImagenes([...e.target.files]);
 		setImagenesPreview(dataUrls);
 
 		//reset input
