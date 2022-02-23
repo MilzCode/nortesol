@@ -5,6 +5,8 @@ import Wredirect from '../../../../../../helpers/Wredirect';
 import BotonFAColores1 from '../../../../../../components/general/BotonFAColores1';
 import VentanaModal from '../../../../../../components/general/VentanaModal';
 import Volver from '../../../../../../components/general/Volver';
+import RemoverProductoDefinitivamente from '../../../../../../helpers/RemoverProductoDefinitivamente';
+import { paths } from '../../../../../../utils/constantes';
 
 //cantidad maxima de imagenes que se pueden subir
 const EditarProductoRouteDes = ({ me }: any) => {
@@ -26,10 +28,17 @@ const EditarProductoRouteDes = ({ me }: any) => {
 		Wredirect();
 		return null;
 	}
-	const handdleBorrarDefinitivamente = () => {
+	const handdleBorrarDefinitivamente = async () => {
 		if (!id_edit_prod_des) return;
-		console.log('borrado');
-		setConfirmarBorrarDefinitivamente(false);
+		const res = await RemoverProductoDefinitivamente({
+			id: id_edit_prod_des.toString(),
+		});
+		if (!res.ok) {
+			alert('Hubo un problema al borrar contacta al administrador');
+			return;
+		}
+		Wredirect(paths.searchDesabilitados);
+		alert('borrado con exito');
 	};
 	return (
 		<>
@@ -40,15 +49,20 @@ const EditarProductoRouteDes = ({ me }: any) => {
 			{loadId && (
 				<>
 					<BotonFAColores1
-						backgroundColor="red"
-						onCLick={() => {
+						onClick={() => {
 							setConfirmarBorrarDefinitivamente(true);
 						}}
+						backgroundColor="red"
 					>
-						Borrar Producto Definitivamente
+						Borrar producto Definitivamente
 					</BotonFAColores1>
 					{confirmarBorrarDefinitivamente && (
-						<VentanaModal titulo="Esto no se podra deshacer ¿Segur@?">
+						<VentanaModal
+							titulo="¿Segur@?"
+							onClose={() => {
+								setConfirmarBorrarDefinitivamente(false);
+							}}
+						>
 							<BotonFAColores1
 								backgroundColor="red"
 								onClick={handdleBorrarDefinitivamente}
