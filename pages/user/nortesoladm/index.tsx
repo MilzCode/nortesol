@@ -60,6 +60,8 @@ const nortesoladm = ({ auth, me }: any) => {
 						Crear Categorias
 					</BotonFAColores1>
 				</Link>
+				<br />
+				<br />
 			</div>
 		</>
 	);
