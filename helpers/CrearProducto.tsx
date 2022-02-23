@@ -13,7 +13,10 @@ interface productoProps {
 	relevancia?: number;
 }
 
-const CrearProducto = async ({ ...data }: productoProps) => {
+const CrearProducto = async (
+	{ ...data }: productoProps,
+	desabilitado = false
+) => {
 	try {
 		if (!data.imagenes || data.imagenes.length === 0) {
 			console.log('Hace falta una imagen');
@@ -31,7 +34,11 @@ const CrearProducto = async ({ ...data }: productoProps) => {
 				msg: 'No hay token?',
 			};
 		}
-		const response = await fetch(APIURL + 'productos', {
+		const urlApiProductos = !desabilitado
+			? 'productos'
+			: 'productos_desabilitados';
+
+		const response = await fetch(APIURL + urlApiProductos, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -41,7 +48,8 @@ const CrearProducto = async ({ ...data }: productoProps) => {
 		});
 
 		if (!response.ok) {
-			const msg = (await response.json()).msg;
+			const data = await response.json();
+			const msg = data.msg;
 
 			return {
 				ok: false,
@@ -52,10 +60,13 @@ const CrearProducto = async ({ ...data }: productoProps) => {
 		const responseData = await response.json();
 
 		const idProducto = responseData.producto.id;
-		const actualizarImgRes = await EditarImagenProducto({
-			imagenes: data.imagenes,
-			id: idProducto,
-		});
+		const actualizarImgRes = await EditarImagenProducto(
+			{
+				imagenes: data.imagenes,
+				id: idProducto,
+			},
+			desabilitado
+		);
 		let newUrl = '';
 		if (responseData.ok) {
 			newUrl = responseData.producto.nombre_url;

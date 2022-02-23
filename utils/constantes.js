@@ -15,4 +15,5 @@ export const paths = {
 	editarProductoDes: '/user/nortesoladm/searchdesabilitados/productodes/editar',
 	productoDes: '/user/nortesoladm/searchdesabilitados/productodes',
 	producto: '/producto',
+	addProduct: '/user/nortesoladm/addproduct',
 };

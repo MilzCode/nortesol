@@ -68,15 +68,16 @@ const ProductoRelacionados = ({ productosRel, desabilitados }: any) => {
 				</>
 			) : (
 				<>
-					<hr />
-					<div className="productoRelacionados">
+					<br />
+					{/* <hr /> */}
+					{/* <div className="productoRelacionados">
 						<h4 className="productoRelacionados__titulo">
 							Quizá te pueda interesar...
 						</h4>
 						<Slider {...settings}>
 							<div>ok</div>
 						</Slider>
-					</div>
+					</div> */}
 				</>
 			)}
 		</>

@@ -64,6 +64,7 @@ const EditarProd = ({
 	const [errSubir, setErrSubir] = useState(false);
 	const [errSubirMSG, setErrSubirMSG] = useState('');
 	const [newUrl, setNewUrl] = useState('/');
+	const [createDesabilitado, setCreateDesabilitado] = useState(false);
 
 	const handdleBorrarProducto = () => {
 		if (create) return;
@@ -136,7 +137,7 @@ const EditarProd = ({
 		if (!create) {
 			res = await EditarProductoHelper(data, desabilitado);
 		} else {
-			res = await CrearProducto(data);
+			res = await CrearProducto(data, createDesabilitado);
 		}
 
 		if (!res.ok) {
@@ -145,7 +146,9 @@ const EditarProd = ({
 			setErrSubirMSG(res.msg);
 			return;
 		}
+		console.log(res);
 		if (res.type === 'noimage') {
+			alert('La imagen no se pudo subir');
 			setSubidoMsg('Producto Subido, pero no se pudo subir las imagenes');
 		}
 		if (create) {
@@ -521,6 +524,38 @@ const EditarProd = ({
 								)}
 								<br />
 							</div>
+							{create && (
+								<>
+									<hr />
+									<div className="LABELINPUT">
+										<label htmlFor="">¿Desabilitado al crear?</label>
+									</div>
+									<br />
+									<div className="BOTONES">
+										<BotonFAColores1
+											backgroundColor="#ef3340"
+											disabled={createDesabilitado}
+											onClick={() => {
+												setCreateDesabilitado(true);
+											}}
+										>
+											Si
+										</BotonFAColores1>
+										&nbsp; &nbsp; &nbsp;
+										<BotonFAColores1
+											backgroundColor="#00a5df"
+											disabled={!createDesabilitado}
+											onClick={() => {
+												setCreateDesabilitado(false);
+											}}
+										>
+											No
+										</BotonFAColores1>
+									</div>
+									<br />
+								</>
+							)}
+
 							<hr />
 							{subir && <h3>SUBIENDO PRODUCTO ESPERA...</h3>}
 							{errSubir && (
@@ -540,6 +575,10 @@ const EditarProd = ({
 								<VentanaModal
 									titulo={!create ? 'Producto Actualizado' : 'Producto Subido'}
 									onClose={() => {
+										if (createDesabilitado) {
+											Wredirect(paths.productoDes + '/' + newUrl);
+											return;
+										}
 										Wredirect(
 											(!desabilitado ? paths.producto : paths.productoDes) +
 												'/' +
@@ -548,6 +587,20 @@ const EditarProd = ({
 									}}
 								>
 									{subidoMsg}
+									{create && (
+										<>
+											<br />
+											<br />
+											<BotonFAColores1
+												backgroundColor="#00a5df"
+												onClick={() => {
+													Wredirect(paths.addProduct);
+												}}
+											>
+												Crear otro producto
+											</BotonFAColores1>
+										</>
+									)}
 								</VentanaModal>
 							)}
 							<br />
@@ -564,7 +617,7 @@ const EditarProd = ({
 									)
 								) : (
 									<>
-										Actualizar Producto&nbsp;
+										Subir :D&nbsp;
 										<i className="fas fa-arrow-up"></i>
 									</>
 								)}
