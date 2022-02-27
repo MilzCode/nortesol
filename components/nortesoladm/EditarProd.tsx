@@ -123,8 +123,8 @@ const EditarProd = ({
 		const data = {
 			descripcion: producto.descripcion,
 			nombre: producto.nombre,
-			precio: Math.abs(producto.precio),
-			descuento: Math.abs(producto.descuento),
+			precio: producto.precio,
+			descuento: producto.descuento,
 			categorias: producto.categorias.map((c: any) => c.value),
 			cantidad: producto.cantidad,
 			imagenes,
@@ -406,23 +406,29 @@ const EditarProd = ({
 							<div className="LABELINPUT">
 								<label>Precio</label>
 								<input
-									type="number"
-									min={0}
+									type="text"
 									value={producto.precio}
-									onChange={(precio) => {
-										handdleProducto({ precio: precio.target.value });
+									onChange={(precio: any) => {
+										!isNaN(Number(precio.target.value)) &&
+											handdleProducto({
+												precio: Math.round(precio.target.value),
+											});
+									}}
+									onKeyDown={() => {
+										return false;
 									}}
 								/>
 							</div>
 							<div className="LABELINPUT">
 								<label>Descuento</label>
 								<input
-									type="number"
+									type="text"
 									value={producto.descuento}
-									onChange={(descuento) => {
-										handdleProducto({
-											descuento: descuento.target.value,
-										});
+									onChange={(descuento: any) => {
+										!isNaN(Number(descuento.target.value)) &&
+											handdleProducto({
+												descuento: Math.round(descuento.target.value),
+											});
 									}}
 								/>
 							</div>
@@ -484,10 +490,13 @@ const EditarProd = ({
 							<div className="LABELINPUT">
 								<label>Cantidad disponible</label>
 								<input
-									type="number"
+									type="text"
 									value={producto.cantidad}
-									onChange={(cantidad) => {
-										handdleProducto({ cantidad: cantidad.target.value });
+									onChange={(cantidad: any) => {
+										!isNaN(Number(cantidad.target.value)) &&
+											handdleProducto({
+												cantidad: Math.round(cantidad.target.value),
+											});
 									}}
 								/>
 							</div>

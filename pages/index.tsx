@@ -61,7 +61,10 @@ const Home: NextPage = () => {
 	}, []);
 
 	useEffect(() => {
-		GetProductos({ sortDescuentoDesc: true, limit: cantidadProductosSeccion })
+		GetProductos({
+			sortQuery: { field: 'descuento', sort: -1 },
+			limit: cantidadProductosSeccion,
+		})
 			.then((res) => {
 				setProductos(res.productos.docs);
 			})
@@ -72,7 +75,10 @@ const Home: NextPage = () => {
 		setSeccion(seccion);
 		if (seccion == 'descuentos') {
 		} else {
-			GetProductos({ sortFechaDesc: true, limit: cantidadProductosSeccion })
+			GetProductos({
+				sortQuery: { field: 'created_at', sort: -1 },
+				limit: cantidadProductosSeccion,
+			})
 				.then((res) => {
 					setProductosNovedades(res.productos.docs);
 				})

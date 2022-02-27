@@ -16,13 +16,11 @@ interface filtroProps {
 	relevancia?: number;
 	page?: number;
 	limit?: number;
-	sortDescuentoDesc?: boolean;
-	sortFechaDesc?: boolean;
-	sortRelevanciaDesc?: boolean;
-	sortPrecio?: boolean;
-	sortPrecioDesc?: boolean; //mayor a menor
-	sortNombreDesc?: boolean;
 	find_productos_pids?: Array<string>;
+	sortQuery?: {
+		field: string;
+		sort: string | number;
+	};
 }
 
 const GetProductos = async (
