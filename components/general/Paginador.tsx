@@ -18,8 +18,8 @@ interface propsPaginador {
 }
 
 const Paginador = ({
-	maxPagina,
-	pagina,
+	maxPagina = 0,
+	pagina = 0,
 	setPagina,
 	loading = false,
 }: propsPaginador) => {
@@ -34,34 +34,26 @@ const Paginador = ({
 	// }, []);
 	//con pagina mostrar Dato indicamos cuantas paginas se mostraran en el paginador sin contar ni la primera ni la ultima
 	const paginasMostrarDato = 5;
-	useEffect(() => {
-		let paginasMostrar_ =
-			paginasMostrarDato > maxPagina
-				? maxPagina - 1
-				: maxPagina === paginasMostrarDato
-				? paginasMostrarDato - 1
-				: paginasMostrarDato;
-		setPaginasMostrar(paginasMostrar_);
-	}, [maxPagina]);
-	const [paginasMostrar, setPaginasMostrar] = useState(1);
 
-	const cargarCadaNpaginas = paginasMostrar - 1;
+	const [paginasMostrar, setPaginasMostrar] = useState(0);
+	const [cargarCadaNpaginas, setCargarCadaNpaginas] = useState(0);
 	const maxPaginasDesplegable = 50;
 	const paginasMostrarPorLado = Math.floor(paginasMostrar / 2);
 	const paginasDespliguePorLado = Math.floor(maxPaginasDesplegable / 2);
+
 	const [paginador, setPaginador] = useState(false);
 	const [lastNextPagina, setLastNextPagina] = useState(cargarCadaNpaginas);
 	const [lastPrevPagina, setLastPrevPagina] = useState(cargarCadaNpaginas);
 	//parte desde el 2 por eso i+2 ej: si paginas para mostrar = 4 entonces 2,3,4,5 (sin contar la primera ni ultima)
-	const [paginas, setPaginas] = useState(
+	const [paginas, setPaginas] = useState<any>(
 		[...Array(paginasMostrar)].map((_, i) => i + 2)
 	);
 	const handdlePaginador = () => {
 		setPaginador(!paginador);
 	};
 
-	const handdlePagina = (e: any) => {
-		const paginaSelect = parseInt(e.target.innerHTML);
+	const handdlePagina = (e: any, first = false) => {
+		const paginaSelect = !first ? parseInt(e.target.innerHTML) : 1;
 		if (paginaSelect === pagina) return;
 		if (maxPagina <= paginasMostrarDato) {
 			setPagina(paginaSelect);
@@ -152,10 +144,12 @@ const Paginador = ({
 		setLastPrevPagina(nuevaPagina - cargarCadaNpaginas);
 		setLastNextPagina(nuevaPagina + 1);
 	};
+
 	const handdleNext = () => {
 		//en este caso ademas de comprobar la siguiente pagina si no hay mas paginas no es necesario buscar mas paginas para
 		//el paginador
 		if (pagina === maxPagina) return;
+
 		pagina + 1 === lastNextPagina &&
 			maxPagina > paginasMostrar + 1 &&
 			loadNextPages(pagina + 1);
@@ -173,6 +167,7 @@ const Paginador = ({
 				<>
 					{[...Array(maxPagina)].map((_, i) => (
 						<div
+							draggable={false}
 							key={i + 1}
 							className={`paginador__pagina ${
 								pagina === i + 1 && 'paginador__pagina--activo'
@@ -194,6 +189,7 @@ const Paginador = ({
 				<>
 					{[...Array(maxPaginasDesplegable)].map((_, i) => (
 						<div
+							draggable={false}
 							key={i + pagina - paginasDespliguePorLado + 1}
 							className={`paginador__pagina ${
 								pagina === i + pagina - paginasDespliguePorLado + 1 &&
@@ -213,6 +209,7 @@ const Paginador = ({
 				<>
 					{[...Array(maxPaginasDesplegable)].map((_, i) => (
 						<div
+							draggable={false}
 							key={i + 1}
 							className={`paginador__pagina ${
 								pagina === i + 1 && 'paginador__pagina--activo'
@@ -231,6 +228,7 @@ const Paginador = ({
 				<>
 					{[...Array(maxPaginasDesplegable)].map((_, i) => (
 						<div
+							draggable={false}
 							key={i + maxPagina - maxPaginasDesplegable + 1}
 							className={`paginador__pagina ${
 								pagina === i + maxPagina - maxPaginasDesplegable + 1 &&
@@ -245,11 +243,25 @@ const Paginador = ({
 			);
 		}
 	};
+	useEffect(() => {
+		let paginasMostrar_ =
+			paginasMostrarDato > maxPagina
+				? maxPagina - 1
+				: maxPagina === paginasMostrarDato
+				? paginasMostrarDato - 1
+				: paginasMostrarDato;
+
+		setPaginasMostrar(paginasMostrar_);
+		setPaginas([...Array(paginasMostrar_)].map((_, i) => i + 2));
+		setCargarCadaNpaginas(paginasMostrar_ - 1);
+		setLastNextPagina(paginasMostrar_ - 1);
+	}, [maxPagina]);
+
 	return (
 		<>
 			{!loading && paginasMostrar > 0 && (
-				<div className="paginador">
-					<div className="paginador__anterior">
+				<div className="paginador" draggable={false}>
+					<div className="paginador__anterior" draggable={false}>
 						<i
 							className={`fas fa-sort-down ${
 								pagina === 1 && 'paginador__disabled'
@@ -266,7 +278,7 @@ const Paginador = ({
 						{1}
 					</div>
 					{paginas[0] > 2 && <i className="NOSELECT">...</i>}
-					{paginas.map((pag) => (
+					{paginas.map((pag: any) => (
 						<div
 							key={pag}
 							className={`paginador__pagina ${
@@ -311,7 +323,7 @@ const Paginador = ({
 						)}
 					</div>
 
-					<div className="paginador__siguiente">
+					<div className="paginador__siguiente" draggable={false}>
 						<i
 							className={`fas fa-sort-down ${
 								pagina === maxPagina && 'paginador__disabled'

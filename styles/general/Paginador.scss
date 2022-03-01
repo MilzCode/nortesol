@@ -1,105 +1,112 @@
 .paginador {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1.5rem;
-  $font-size: 2.5rem;
-  $widthFactorPageBackground: 1.2;
-  &__anterior {
-    transform: rotate(90deg);
-  }
-  &__siguiente {
-    transform: rotate(-90deg);
-  }
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 1.5rem;
+	$font-size: 2.5rem;
+	$widthFactorPageBackground: 1.2;
+	&__anterior {
+		transform: rotate(90deg);
+	}
+	&__siguiente {
+		transform: rotate(-90deg);
+	}
 
-  &__anterior,
-  &__siguiente {
-    font-size: $font-size * 2;
-    z-index: 1;
-    & > i {
-      cursor: pointer;
-      &:hover {
-        color: $pantone1645C;
-      }
-    }
-  }
+	&__anterior,
+	&__siguiente {
+		font-size: $font-size * 2;
+		z-index: 1;
+		& > i {
+			cursor: pointer;
+			&:hover {
+				color: $pantone1645C;
+			}
+		}
+	}
 
-  &__disabled {
-    color: $shadow02 !important;
-    cursor: default !important;
-    &:hover {
-      color: $shadow02 !important;
-    }
-  }
+	&__disabled {
+		color: $shadow02 !important;
+		cursor: default !important;
+		&:hover {
+			color: $shadow02 !important;
+		}
+	}
 
-  &__pagina {
-    position: relative;
-    width: $font-size * 1.5 * $widthFactorPageBackground;
-    height: $font-size * 1.5 * $widthFactorPageBackground;
-    font-size: 100%;
-    margin: $font-size * 0.1;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    box-shadow: 0 0.2rem 0.4rem 0 $shadow02;
-    cursor: pointer;
-    z-index: 10;
-    background-color: white;
-    &:hover {
-      background: $shadow02;
-    }
-    &--activo {
-      background-color: $pantone2039U;
-      cursor: default;
-      &:hover {
-        background: $pantone2039U;
-      }
-    }
-  }
-  &__paginaDesplegar {
-    background: $pantone292C;
-  }
+	&__pagina {
+		position: relative;
+		width: $font-size * 1.5 * $widthFactorPageBackground;
+		height: $font-size * 1.5 * $widthFactorPageBackground;
+		font-size: 100%;
+		margin: $font-size * 0.1;
+		font-weight: bold;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 50%;
+		box-shadow: 0 0.2rem 0.4rem 0 $shadow02;
+		cursor: pointer;
+		z-index: 10;
+		background-color: white;
+		&:hover {
+			background: $shadow02;
+		}
+		&--activo {
+			background-color: $pantone2039U;
+			cursor: default;
+			&:hover {
+				background: $pantone2039U;
+			}
+		}
+	}
+	&__paginaDesplegar {
+		background: $pantone292C;
+	}
 
-  &__desplegable {
-    width: $font-size * 14;
-    bottom: $font-size * 0.5;
-    right: $font-size * 0.5;
-    border-radius: $font-size * 0.4;
-    height: auto;
-    max-height: 75vh;
-    background-color: white;
-    border: 0.1rem solid $shadow02;
-    z-index: 10100;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    overflow: auto;
-    cursor: default;
-  }
+	&__desplegable {
+		width: $font-size * 14;
+		bottom: $font-size * 0.5;
+		right: $font-size * 0.5;
+		border-radius: $font-size * 0.4;
+		height: auto;
+		max-height: 75vh;
+		background-color: white;
+		border: 0.1rem solid $shadow02;
+		z-index: 10100;
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+		overflow: auto;
+		cursor: default;
+	}
 
-  @media screen and (max-width: $breakHeader2) {
-    $factorSize: 0.7;
-    $font-size: $font-size * $factorSize;
-    &__anterior,
-    &__siguiente {
-      font-size: $font-size * 2;
-    }
-    &__pagina {
-      width: $font-size * 1.5 * $widthFactorPageBackground * 0.9;
-      height: $font-size * 1.5 * $widthFactorPageBackground * 0.9;
-      font-size: $font-size * 0.7;
-      margin: $font-size * 0.1;
-    }
-    &__desplegable {
-      width: $font-size * 13;
-      bottom: $font-size * 0.5;
-      right: $font-size * 0.5;
-      border-radius: $font-size * 0.4;
-    }
-  }
+	@media screen and (max-width: $breakHeader2) {
+		$factorSize: 0.7;
+		$font-size: $font-size * $factorSize;
+		&__anterior,
+		&__siguiente {
+			font-size: $font-size * 2;
+		}
+		&__pagina {
+			width: $font-size * 1.5 * $widthFactorPageBackground * 0.9;
+			height: $font-size * 1.5 * $widthFactorPageBackground * 0.9;
+			font-size: $font-size * 0.7;
+			margin: $font-size * 0.1;
+		}
+		&__desplegable {
+			width: $font-size * 13;
+			bottom: $font-size * 0.5;
+			right: $font-size * 0.5;
+			border-radius: $font-size * 0.4;
+		}
+	}
 }

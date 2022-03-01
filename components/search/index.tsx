@@ -36,45 +36,34 @@ const Search = ({ desabilitados }: any) => {
 				setCategorias(categorias_);
 			})
 			.catch((err) => {});
+	}, []);
 
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-
-		let busqueda = urlParams.get('busqueda') || '';
-		const filtroSearch = {
-			busqueda,
-		};
-		GetProductos(filtroSearch, desabilitados)
+	useEffect(() => {
+		let busqueda = '';
+		if (first) {
+			const queryString = window.location.search;
+			const urlParams = new URLSearchParams(queryString);
+			busqueda = urlParams.get('busqueda') || '';
+			setFirst(false);
+		}
+		setLoading(true);
+		GetProductos(
+			{ busqueda, ...filtroCampos, page: pagina, limit: 12 },
+			desabilitados
+		)
 			.then((res) => {
+				if (!res.ok) {
+					setLoading(false);
+					return;
+				}
 				setProductos(res.productos.docs);
 				setMaxPag(res.productos.totalPages);
 				setLoading(false);
 			})
-			.catch((err) => {
+			.catch(() => {
+				setProductos([]);
 				setLoading(false);
 			});
-	}, []);
-
-	useEffect(() => {
-		if (!first) {
-			setLoading(true);
-			GetProductos({ ...filtroCampos, page: pagina }, desabilitados)
-				.then((res) => {
-					if (!res.ok) {
-						setLoading(false);
-						return;
-					}
-					setProductos(res.productos.docs);
-					setMaxPag(res.productos.totalPages);
-					console.log(res);
-					setLoading(false);
-				})
-				.catch(() => {
-					setProductos([]);
-					setLoading(false);
-				});
-		}
-		setFirst(false);
 	}, [pagina, filtroCampos]);
 	useEffect(() => {
 		setPagina(1);
