@@ -28,10 +28,7 @@ const Paginador = ({
 	//sino hay paginas que no se despliegue el componente
 	if (maxPagina < 1) return null;
 	//si la pagina inicial es disinta a 1 se deja en 1
-	useEffect(() => {
-		pagina !== 1 && setPagina(1);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+
 	//con pagina mostrar Dato indicamos cuantas paginas se mostraran en el paginador sin contar ni la primera ni la ultima
 	const paginasMostrarDato = 5;
 	const paginasMostrar =
