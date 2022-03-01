@@ -38,7 +38,7 @@ const ProductoStateIni = {
 	load: false,
 	idProd: '',
 	descuento: 0,
-	relevancia: 3,
+	relevancia: 2,
 };
 const EditarProd = ({
 	me,
@@ -434,7 +434,7 @@ const EditarProd = ({
 							</div>
 
 							<div className="LABELINPUT">
-								<label htmlFor="relevancia">Relevancia (3 por defecto)</label>
+								<label htmlFor="relevancia">Relevancia (2 por defecto)</label>
 								<select
 									defaultValue={producto.relevancia}
 									id="relevancia"
@@ -444,11 +444,11 @@ const EditarProd = ({
 										});
 									}}
 								>
+									<option value="0">0</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
 									<option value="3">3</option>
 									<option value="4">4</option>
-									<option value="5">5</option>
 								</select>
 							</div>
 							<div className="LABELINPUT">
