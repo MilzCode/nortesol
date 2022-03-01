@@ -28,15 +28,23 @@ const Paginador = ({
 	//sino hay paginas que no se despliegue el componente
 	if (maxPagina < 1) return null;
 	//si la pagina inicial es disinta a 1 se deja en 1
-
+	// useEffect(() => {
+	// 	pagina !== 1 && setPagina(1);
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, []);
 	//con pagina mostrar Dato indicamos cuantas paginas se mostraran en el paginador sin contar ni la primera ni la ultima
 	const paginasMostrarDato = 5;
-	const paginasMostrar =
-		paginasMostrarDato > maxPagina
-			? maxPagina - 1
-			: maxPagina === paginasMostrarDato
-			? paginasMostrarDato - 1
-			: paginasMostrarDato;
+	useEffect(() => {
+		let paginasMostrar_ =
+			paginasMostrarDato > maxPagina
+				? maxPagina - 1
+				: maxPagina === paginasMostrarDato
+				? paginasMostrarDato - 1
+				: paginasMostrarDato;
+		setPaginasMostrar(paginasMostrar_);
+	}, [maxPagina]);
+	const [paginasMostrar, setPaginasMostrar] = useState(1);
+
 	const cargarCadaNpaginas = paginasMostrar - 1;
 	const maxPaginasDesplegable = 50;
 	const paginasMostrarPorLado = Math.floor(paginasMostrar / 2);
@@ -239,7 +247,7 @@ const Paginador = ({
 	};
 	return (
 		<>
-			{!loading && (
+			{!loading && paginasMostrar > 0 && (
 				<div className="paginador">
 					<div className="paginador__anterior">
 						<i

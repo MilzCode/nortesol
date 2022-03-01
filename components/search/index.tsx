@@ -12,7 +12,7 @@ const Search = ({ desabilitados }: any) => {
 	const rangoPrecios = [0, 1000000];
 	const [first, setFirst] = useState(true);
 	const [pagina, setPagina] = useState(1);
-	const [maxPag, setMaxPag] = useState(1);
+	const [maxPag, setMaxPag] = useState(0);
 	const [filtroCampos, setFiltroCampos] = useState({});
 	const [productos, setProductos] = useState([]);
 	const [marcas, setMarcas] = useState([]);
@@ -65,6 +65,8 @@ const Search = ({ desabilitados }: any) => {
 						return;
 					}
 					setProductos(res.productos.docs);
+					setMaxPag(res.productos.totalPages);
+					console.log(res);
 					setLoading(false);
 				})
 				.catch(() => {
@@ -74,6 +76,9 @@ const Search = ({ desabilitados }: any) => {
 		}
 		setFirst(false);
 	}, [pagina, filtroCampos]);
+	useEffect(() => {
+		setPagina(1);
+	}, [filtroCampos]);
 
 	return (
 		<>
@@ -111,10 +116,8 @@ const Search = ({ desabilitados }: any) => {
 						/>
 					))}
 			</div>
-			{!loading ? (
-				<Paginador maxPagina={maxPag} setPagina={setPagina} pagina={pagina} />
-			) : (
-				''
+			{maxPag > 0 && (
+				<Paginador pagina={pagina} maxPagina={maxPag} setPagina={setPagina} />
 			)}
 		</>
 	);
