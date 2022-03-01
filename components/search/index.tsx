@@ -14,9 +14,7 @@ const Search = ({ desabilitados }: any) => {
 	const [pagina, setPagina] = useState(1);
 	const [maxPag, setMaxPag] = useState(1);
 	const [filtroCampos, setFiltroCampos] = useState({});
-	const [queryUrl, setQueryUrl] = useState('');
 	const [productos, setProductos] = useState([]);
-	const [cargandoProductos, setCargandoProductos] = useState(false);
 	const [marcas, setMarcas] = useState([]);
 	const [categorias, setCategorias] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -41,23 +39,10 @@ const Search = ({ desabilitados }: any) => {
 
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
-		const categoriasURL = urlParams
-			.get('categorias')
-			?.split(SEPARADOR)
-			.filter((c: any) => !!c);
-		const marcasURL = urlParams
-			.get('marcas')
-			?.split(SEPARADOR)
-			.filter((m: any) => !!m);
 
 		let busqueda = urlParams.get('busqueda') || '';
 		const filtroSearch = {
 			busqueda,
-			// marcas: marcasURL || undefined,
-			// categorias: categoriasURL || undefined,
-			// precio_min: Number(urlParams.get('precio_min')) || undefined,
-			// precio_max: Number(urlParams.get('precio_max')) || undefined,
-			// page: Number(urlParams.get('page')) || 1,
 		};
 		GetProductos(filtroSearch, desabilitados)
 			.then((res) => {
@@ -72,19 +57,19 @@ const Search = ({ desabilitados }: any) => {
 
 	useEffect(() => {
 		if (!first) {
-			setCargandoProductos(true);
+			setLoading(true);
 			GetProductos({ ...filtroCampos, page: pagina }, desabilitados)
 				.then((res) => {
 					if (!res.ok) {
-						setCargandoProductos(false);
+						setLoading(false);
 						return;
 					}
 					setProductos(res.productos.docs);
-					setCargandoProductos(false);
+					setLoading(false);
 				})
 				.catch(() => {
 					setProductos([]);
-					setCargandoProductos(false);
+					setLoading(false);
 				});
 		}
 		setFirst(false);
@@ -95,14 +80,13 @@ const Search = ({ desabilitados }: any) => {
 			<Volver />
 			<br />
 			<Filtro
-				onFilter={(f, q) => {
+				onFilter={(f) => {
 					setFiltroCampos(f);
-					setQueryUrl(q);
 				}}
 				marcas={marcas}
 				categorias={categorias}
 				precios={rangoPrecios}
-				isLoading={cargandoProductos}
+				isLoading={loading}
 			/>
 			<br />
 			<div className="search__mensajeEncontrados">
@@ -128,11 +112,7 @@ const Search = ({ desabilitados }: any) => {
 					))}
 			</div>
 			{!loading ? (
-				<Paginador
-					maxPagina={maxPag}
-					setPagina={setPagina}
-					pagina={pagina}
-				/>
+				<Paginador maxPagina={maxPag} setPagina={setPagina} pagina={pagina} />
 			) : (
 				''
 			)}
