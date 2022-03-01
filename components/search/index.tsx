@@ -19,7 +19,7 @@ const Search = ({ desabilitados }: any) => {
 	const [cargandoProductos, setCargandoProductos] = useState(false);
 	const [marcas, setMarcas] = useState([]);
 	const [categorias, setCategorias] = useState([]);
-	const [loaded, setLoaded] = useState(false);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		GetMarcas()
@@ -63,10 +63,10 @@ const Search = ({ desabilitados }: any) => {
 			.then((res) => {
 				setProductos(res.productos.docs);
 				setMaxPag(res.productos.totalPages);
-				setLoaded(true);
+				setLoading(false);
 			})
 			.catch((err) => {
-				setLoaded(true);
+				setLoading(false);
 			});
 	}, []);
 
@@ -107,8 +107,8 @@ const Search = ({ desabilitados }: any) => {
 			<br />
 			<div className="search__mensajeEncontrados">
 				<h2>Productos encontrados</h2>
-				{!loaded && <p>Buscando...</p>}
-				{productos && loaded && productos.length == 0 && (
+				{loading && <p>Buscando...</p>}
+				{productos && !loading && productos.length == 0 && (
 					<p>Sin resultados...</p>
 				)}
 			</div>
@@ -127,12 +127,11 @@ const Search = ({ desabilitados }: any) => {
 						/>
 					))}
 			</div>
-			{loaded ? (
+			{!loading ? (
 				<Paginador
 					maxPagina={maxPag}
 					setPagina={setPagina}
 					pagina={pagina}
-					loading={cargandoProductos}
 				/>
 			) : (
 				''
