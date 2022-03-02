@@ -8,6 +8,8 @@ import DoLogin from '../helpers/DoLogin';
 import JWT from 'jsonwebtoken';
 import Volver from '../components/general/Volver';
 import Wredirect from '../helpers/Wredirect';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+
 const initialState = {
 	email: '',
 	password: '',
@@ -40,7 +42,27 @@ const Ingresar = ({ auth }: any) => {
 	}
 
 	const handdleGoogleSignIn = () => {
-		window.open('http://localhost:8080/api/auth/google', '_self');
+		// window.open('http://localhost:8080/api/auth/google', '_self');
+		const auth = getAuth();
+		signInWithPopup(auth, provider)
+			.then((result) => {
+				// This gives you a Google Access Token. You can use it to access the Google API.
+				const credential = GoogleAuthProvider.credentialFromResult(result);
+				const token = credential?.accessToken;
+				// The signed-in user info.
+				const user = result.user;
+				// ...
+			})
+			.catch((error) => {
+				// Handle Errors here.
+				const errorCode = error.code;
+				const errorMessage = error.message;
+				// The email of the user's account used.
+				const email = error.email;
+				// The AuthCredential type that was used.
+				const credential = GoogleAuthProvider.credentialFromError(error);
+				// ...
+			});
 	};
 	const handdleFacebookSignIn = () => {
 		window.open('http://localhost:8080/api/auth/facebook', '_self');
