@@ -29,7 +29,7 @@ class Firebase {
 
 				// ...
 			});
-		console.log(token);
+		if (token) localStorage.setItem('fb-tk', token);
 	}
 	async loginFacebook() {
 		const provider = new FacebookAuthProvider();
@@ -42,7 +42,7 @@ class Firebase {
 				const credential = FacebookAuthProvider.credentialFromError(error);
 				return credential?.accessToken;
 			});
-		console.log(token);
+		if (token) localStorage.setItem('fb-tk', token);
 	}
 }
 
