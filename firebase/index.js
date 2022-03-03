@@ -5,6 +5,7 @@ import {
 	signInWithPopup,
 	GoogleAuthProvider,
 	FacebookAuthProvider,
+	signOut,
 } from 'firebase/auth';
 
 class Firebase {
@@ -13,6 +14,7 @@ class Firebase {
 			this.app = initializeApp(firebaseConfig);
 		}
 		this.auth = getAuth(this.app);
+		console.log(this.auth);
 	}
 	/*******METODOS*******/
 	//Login
@@ -41,9 +43,13 @@ class Firebase {
 				const credential = FacebookAuthProvider.credentialFromError(error);
 				return credential?.accessToken;
 			});
+		console.log(token);
 		return token;
 	}
 	//logout
+	async out() {
+		return await signOut(this.auth);
+	}
 }
 
 const firebase = new Firebase();

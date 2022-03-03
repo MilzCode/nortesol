@@ -102,7 +102,14 @@ function MyApp({ Component, pageProps }: AppProps) {
           basado en el state.
       */}
 				{(autenticado && misDatos) || isPublicRoute ? (
-					<Layout auth={autenticado} path={path} appMode={appMode}>
+					<Layout
+						auth={autenticado}
+						path={path}
+						appMode={appMode}
+						out={() => {
+							Firebase.out();
+						}}
+					>
 						<Component
 							path={path}
 							mode={appMode}

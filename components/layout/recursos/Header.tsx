@@ -6,7 +6,7 @@ import GetCantidadTotalCarrito from '../../../helpers/GetCantidadTotalCarrito';
 import { paths } from '../../../utils/constantes';
 import Wredirect from '../../../helpers/Wredirect';
 
-const Header = ({ auth, path, appMode }: any) => {
+const Header = ({ auth, path, appMode, out }: any) => {
 	const router = useRouter();
 	const isPathCarrito = path === '/carrito';
 	const [miCuenta, setMiCuenta] = useState(false);
@@ -29,6 +29,7 @@ const Header = ({ auth, path, appMode }: any) => {
 	async function salir() {
 		try {
 			await DoSignOut();
+			await out();
 			Wredirect('/');
 		} catch (error) {}
 	}
