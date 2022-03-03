@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 import GetCheckAuth from '../helpers/GetCheckAuth';
 import GetMisDatos from '../helpers/GetMisDatos';
 import Wredirect from '../helpers/Wredirect';
+import Firebase from '../firebase';
+import DoLoginFirebase from '../helpers/DoLogin';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter();
@@ -48,25 +50,29 @@ function MyApp({ Component, pageProps }: AppProps) {
 	const [autenticado, setAutenticado] = useState<any>(false);
 
 	useEffect(() => {
-		GetCheckAuth()
-			.then((res) => {
-				if (res) {
-					GetMisDatos(res)
-						.then((resDatos) => {
-							setMisDatos(resDatos);
-							setAutenticado(true);
-						})
-						.catch(() => {
-							setMisDatos(null);
+		Firebase.auth.onAuthStateChanged((user: any) => {
+			DoLoginFirebase({ fb_token: user?.accessToken }).then((res) => {
+				GetCheckAuth()
+					.then((res) => {
+						if (res) {
+							GetMisDatos(res)
+								.then((resDatos) => {
+									setMisDatos(resDatos);
+									setAutenticado(true);
+								})
+								.catch(() => {
+									setMisDatos(null);
+									setAutenticado(null);
+								});
+						} else {
 							setAutenticado(null);
-						});
-				} else {
-					setAutenticado(null);
-				}
-			})
-			.catch(() => {
-				setAutenticado(null);
+						}
+					})
+					.catch(() => {
+						setAutenticado(null);
+					});
 			});
+		});
 	}, []);
 
 	useEffect(() => {

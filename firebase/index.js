@@ -13,7 +13,6 @@ class Firebase {
 			this.app = initializeApp(firebaseConfig);
 		}
 		this.auth = getAuth(this.app);
-		console.log(this.auth);
 	}
 	/*******METODOS*******/
 	//Login
@@ -21,18 +20,15 @@ class Firebase {
 		const provider = new GoogleAuthProvider();
 		const token = await signInWithPopup(this.auth, provider)
 			.then(async (result) => {
-				const credential = GoogleAuthProvider.credentialFromResult(result);
-				return credential.idToken;
+				// const credential = GoogleAuthProvider.credentialFromResult(result);
+				// return credential.idToken;
+				//User
 			})
 			.catch(async (error) => {
-				console.log('error!');
-				const credential = GoogleAuthProvider.credentialFromError(error);
 				return null;
-
-				// ...
 			});
-		console.log(token);
-		if (token) localStorage.setItem('fb-tk', token);
+
+		return token;
 	}
 	async loginFacebook() {
 		const provider = new FacebookAuthProvider();
@@ -45,9 +41,9 @@ class Firebase {
 				const credential = FacebookAuthProvider.credentialFromError(error);
 				return credential?.accessToken;
 			});
-		console.log(token);
-		if (token) localStorage.setItem('fb-tk', token);
+		return token;
 	}
+	//logout
 }
 
 const firebase = new Firebase();

@@ -1,17 +1,25 @@
 import { APIURL } from '../utils/constantes';
 
-const DoLogin = async (email: string, password: string) => {
-	const response = await fetch(APIURL + 'auth', {
+const DoLoginFirebase = async ({ fb_token }: any) => {
+	if (!fb_token) {
+		return false;
+	}
+	const token = localStorage.getItem('tken');
+	if (token) {
+		return false;
+	}
+	const response = await fetch(APIURL + 'auth/firebase', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			['fb-token']: `${fb_token}`,
 		},
-		body: JSON.stringify({ email, password }),
 	});
 
 	const res = await response.json();
+	localStorage.setItem('tken', res.token);
 
 	return res;
 };
 
-export default DoLogin;
+export default DoLoginFirebase;
