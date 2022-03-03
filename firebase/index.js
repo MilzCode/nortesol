@@ -13,6 +13,7 @@ class Firebase {
 			this.app = initializeApp(firebaseConfig);
 		}
 		this.auth = getAuth(this.app);
+		console.log(this.auth);
 	}
 	/*******METODOS*******/
 	//Login
@@ -20,8 +21,8 @@ class Firebase {
 		const provider = new GoogleAuthProvider();
 		const token = await signInWithPopup(this.auth, provider)
 			.then(async (result) => {
-				const user = result.user;
-				return await user?.getIdToken();
+				const credential = GoogleAuthProvider.credentialFromResult(result);
+				return credential.idToken;
 			})
 			.catch(async (error) => {
 				console.log('error!');
@@ -44,6 +45,7 @@ class Firebase {
 				const credential = FacebookAuthProvider.credentialFromError(error);
 				return credential?.accessToken;
 			});
+		console.log(token);
 		if (token) localStorage.setItem('fb-tk', token);
 	}
 }
