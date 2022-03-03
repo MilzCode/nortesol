@@ -19,16 +19,18 @@ class Firebase {
 	async loginGoogle() {
 		const provider = new GoogleAuthProvider();
 		const token = await signInWithPopup(this.auth, provider)
-			.then((result) => {
-				const credential = GoogleAuthProvider.credentialFromResult(result);
-				return credential?.accessToken;
+			.then(async (result) => {
+				const user = result.user;
+				return await user?.getIdToken();
 			})
-			.catch((error) => {
+			.catch(async (error) => {
+				console.log('error!');
 				const credential = GoogleAuthProvider.credentialFromError(error);
-				return credential?.accessToken;
+				return null;
 
 				// ...
 			});
+		console.log(token);
 		if (token) localStorage.setItem('fb-tk', token);
 	}
 	async loginFacebook() {
