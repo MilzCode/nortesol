@@ -603,7 +603,7 @@ const EditarProd = ({
 								<VentanaModal
 									titulo={!create ? 'Producto Actualizado' : 'Producto Subido'}
 									onClose={() => {
-										if (createDesabilitado) {
+										if (createDesabilitado && create) {
 											Wredirect(paths.productoDes + '/' + newUrl);
 											return;
 										}

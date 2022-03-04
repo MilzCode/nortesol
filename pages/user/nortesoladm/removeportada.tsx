@@ -47,6 +47,7 @@ const Removeportada = ({ me, auth }: any) => {
 					portadas.map((p: any, i: any) => (
 						<PortadaMiniatura
 							key={i}
+							nombre={p.nombre}
 							imagen={p.imagen}
 							id={p.id}
 							onDelete={(id: any) => {
