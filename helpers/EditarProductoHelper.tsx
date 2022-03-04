@@ -12,6 +12,7 @@ interface productoProps {
 	descuento?: number;
 	relevancia?: number;
 	idProd: any;
+	porcentaje_descuento?: number;
 }
 
 const EditarProducto = async (
@@ -24,8 +25,8 @@ const EditarProducto = async (
 		marca,
 		imagenes,
 		idProd,
-		descuento,
 		relevancia,
+		porcentaje_descuento
 	}: productoProps,
 	desabilitado = false
 ) => {
@@ -37,8 +38,8 @@ const EditarProducto = async (
 			categorias,
 			cantidad,
 			marca,
-			descuento,
 			relevancia,
+			porcentaje_descuento
 		};
 		const token = localStorage.getItem('tken');
 		if (!token) {

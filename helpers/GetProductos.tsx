@@ -10,6 +10,7 @@ interface filtroProps {
 	cantidad?: number;
 	categorias?: Array<string>;
 	descuento_min?: number;
+	descuento_max?: number;
 	marcas?: Array<string>;
 	precio_min?: number;
 	precio_max?: number;

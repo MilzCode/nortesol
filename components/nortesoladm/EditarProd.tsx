@@ -17,6 +17,8 @@ import Des_HabilitarProducto from '../../helpers/Des_HabilitarProducto';
 import Wredirect from '../../helpers/Wredirect';
 import ProductoVistaMiniatura from '../venta/ProductoVistaMiniatura';
 import CrearProducto from '../../helpers/CrearProducto';
+import formatNumberToprice from '../../utils/formatoPrecio';
+import { CalcularDescuento } from '../../utils/calcular-descuento';
 
 //cantidad maxima de imagenes que se pueden subir
 const maxImg = 2;
@@ -37,8 +39,8 @@ const ProductoStateIni = {
 	imagenes: [],
 	load: false,
 	idProd: '',
-	descuento: 0,
 	relevancia: 2,
+	porcentaje_descuento: 0,
 };
 const EditarProd = ({
 	me,
@@ -64,7 +66,7 @@ const EditarProd = ({
 	const [errSubir, setErrSubir] = useState(false);
 	const [errSubirMSG, setErrSubirMSG] = useState('');
 	const [newUrl, setNewUrl] = useState('/');
-	const [createDesabilitado, setCreateDesabilitado] = useState(false);
+	const [createDesabilitado, setCreateDesabilitado] = useState(true);
 
 	const handdleBorrarProducto = () => {
 		if (create) return;
@@ -116,7 +118,9 @@ const EditarProd = ({
 		producto.precio &&
 		//@ts-ignore
 		imagenesPreview.length > 0 &&
-		!subir;
+		producto.porcentaje_descuento >= 0 &&
+		producto.porcentaje_descuento < 100;
+	!subir;
 
 	const actualizarCrearProducto = async () => {
 		setSubir(true);
@@ -124,7 +128,6 @@ const EditarProd = ({
 			descripcion: producto.descripcion,
 			nombre: producto.nombre,
 			precio: producto.precio,
-			descuento: producto.descuento,
 			categorias: producto.categorias.map((c: any) => c.value),
 			cantidad: producto.cantidad,
 			imagenes,
@@ -132,7 +135,10 @@ const EditarProd = ({
 			marca: producto.marca.value,
 			idProd: producto.idProd,
 			relevancia: producto.relevancia,
+			porcentaje_descuento: producto.porcentaje_descuento,
 		};
+		// console.log(producto);
+		// console.log(data);
 		let res = null;
 		if (!create) {
 			res = await EditarProductoHelper(data, desabilitado);
@@ -146,7 +152,6 @@ const EditarProd = ({
 			setErrSubirMSG(res.msg);
 			return;
 		}
-		console.log(res);
 		if (res.type === 'noimage') {
 			alert('La imagen no se pudo subir');
 			setSubidoMsg('Producto Subido, pero no se pudo subir las imagenes');
@@ -196,8 +201,9 @@ const EditarProd = ({
 							marca,
 							id,
 							cantidad,
-							descuento,
+
 							relevancia,
+							porcentaje_descuento,
 						} = productRes;
 
 						if (categorias) {
@@ -231,8 +237,8 @@ const EditarProd = ({
 							imagenes,
 							load: true,
 							idProd: id,
-							descuento,
 							relevancia,
+							porcentaje_descuento,
 						});
 						//@ts-ignore
 						setNewUrl(productRes.nombre_url);
@@ -420,14 +426,27 @@ const EditarProd = ({
 								/>
 							</div>
 							<div className="LABELINPUT">
-								<label>Descuento</label>
+								<label>
+									Porcentaje de descuento [
+									{formatNumberToprice(
+										CalcularDescuento(
+											producto.precio,
+											producto.porcentaje_descuento
+										)
+									)}
+									]
+								</label>
 								<input
 									type="text"
-									value={producto.descuento}
-									onChange={(descuento: any) => {
-										!isNaN(Number(descuento.target.value)) &&
+									value={producto.porcentaje_descuento}
+									onChange={(porcentaje_descuento: any) => {
+										!isNaN(Number(porcentaje_descuento.target.value)) &&
+											porcentaje_descuento.target.value >= 0 &&
+											porcentaje_descuento.target.value < 100 &&
 											handdleProducto({
-												descuento: Math.round(descuento.target.value),
+												porcentaje_descuento: Math.floor(
+													porcentaje_descuento.target.value
+												),
 											});
 									}}
 								/>
@@ -650,12 +669,12 @@ const EditarProd = ({
 									precio={producto.precio}
 									imagenes={imagenesPreview}
 									cantidad_disponible={producto.cantidad}
-									descuento={producto.descuento}
+									porcentaje_descuento={producto.porcentaje_descuento}
 								/>
 							) : (
 								<ProductoHead
 									precio={producto.precio}
-									descuento={producto.descuento}
+									porcentaje_descuento={producto.porcentaje_descuento}
 									cantidad_disponible={producto.cantidad}
 								/>
 							)}
@@ -667,7 +686,7 @@ const EditarProd = ({
 								<ProductoVistaMiniatura
 									nombre={producto.nombre}
 									precio={producto.precio}
-									descuento={producto.descuento}
+									porcentaje_descuento={producto.porcentaje_descuento}
 									imagen={imagenesPreview ? imagenesPreview[0] : ''}
 								/>
 							</div>

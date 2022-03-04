@@ -60,7 +60,7 @@ const ProductoRelacionados = ({ productosRel, desabilitados }: any) => {
 									imagen={p.imagen}
 									key={i}
 									desabilitado={desabilitados}
-									descuento={p.descuento}
+									porcentaje_descuento={p.porcentaje_descuento}
 								/>
 							))}
 						</Slider>

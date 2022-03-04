@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import BotonFA from '../../general/BotonFAColores1';
 import formatoPrecio from '../../../utils/formatoPrecio';
 import Link from 'next/link';
-import CalcularPorcentajeDescuento from '../../../utils/calcular-descuento';
+import { CalcularDescuento } from '../../../utils/calcular-descuento';
 
 const ProductoHeadComprar = ({
 	precio,
@@ -11,7 +11,7 @@ const ProductoHeadComprar = ({
 	cantidad_carrito,
 	irCarritoUrl,
 	onAddCarrito,
-	descuento,
+	porcentaje_descuento = 0,
 }: any) => {
 	const cantidadDefault = 1;
 	const [cantidadComprar, setCantidadComprar] = useState(cantidadDefault);
@@ -28,7 +28,7 @@ const ProductoHeadComprar = ({
 			return;
 		}
 	};
-	const porcentajeDescuento = CalcularPorcentajeDescuento(precio, descuento);
+	const descuento = CalcularDescuento(precio, porcentaje_descuento);
 	return (
 		<div className="productoHeadComprar NOSELECT">
 			<p className="productoHeadComprar__titulo1">Precio Unitario</p>
@@ -50,7 +50,7 @@ const ProductoHeadComprar = ({
 						descuento ? '' : '--no'
 					}`}
 				>
-					&nbsp;{-porcentajeDescuento}%
+					&nbsp;{-porcentaje_descuento}%
 				</small>
 			</p>
 			<p className="productoHeadComprar__titulo2">Cantidad</p>

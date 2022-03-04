@@ -1,11 +1,9 @@
-const CalcularPorcentajeDescuento = (precio, descuento, exact = false) => {
-	if (exact) {
-		return (descuento * 100) / precio;
+const CalcularDescuento = (precio = 0, porcentaje = 0) => {
+	if (isNaN(porcentaje) || isNaN(precio)) {
+		return 0;
 	}
-	let porcentaje = Math.round((descuento * 100) / precio);
-	if (porcentaje == 0) {
-		porcentaje = 1;
-	}
-	return porcentaje;
+	porcentaje = Math.floor(porcentaje);
+	return Math.floor(precio * (porcentaje / 100));
 };
-export default CalcularPorcentajeDescuento;
+
+export { CalcularDescuento };

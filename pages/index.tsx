@@ -120,7 +120,7 @@ const Home: NextPage = () => {
 							precio={p.precio}
 							imagen={p.imagen}
 							key={i}
-							descuento={p.descuento}
+							porcentaje_descuento={p.porcentaje_descuento}
 						/>
 					))}
 				{productosNovedades &&
@@ -131,7 +131,7 @@ const Home: NextPage = () => {
 							nombre_url={p.nombre_url}
 							precio={p.precio}
 							imagen={p.imagen}
-							descuento={p.descuento}
+							porcentaje_descuento={p.porcentaje_descuento}
 							key={i}
 						/>
 					))}

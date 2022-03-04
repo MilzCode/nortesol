@@ -4,7 +4,7 @@ import Capitalize from '../../utils/capitalize';
 import formatNumberToprice from '../../utils/formatoPrecio';
 import Link from 'next/link';
 import { paths } from '../../utils/constantes';
-import CalcularPorcentajeDescuento from '../../utils/calcular-descuento';
+import { CalcularDescuento } from '../../utils/calcular-descuento';
 
 const ProductoVistaMiniatura = ({
 	className,
@@ -13,9 +13,8 @@ const ProductoVistaMiniatura = ({
 	imagen,
 	nombre_url,
 	desabilitado = false,
-	descuento = 0,
+	porcentaje_descuento = 0,
 }: any) => {
-	const porcentajeDescuento = CalcularPorcentajeDescuento(precio, descuento);
 	return (
 		<div className={className}>
 			<Link
@@ -45,18 +44,20 @@ const ProductoVistaMiniatura = ({
 						</div>
 						<div
 							className={`productoVistaMiniatura__precio${
-								descuento ? '--descuento' : ''
+								porcentaje_descuento ? '--descuento' : ''
 							} NOSELECT`}
 						>
 							{precio
-								? formatNumberToprice(precio - descuento)
+								? formatNumberToprice(
+										precio - CalcularDescuento(precio, porcentaje_descuento)
+								  )
 								: '$999.999.999'}
 							<span
 								className={`productoHeadComprar__porcentaje${
-									descuento ? '' : '--no'
+									porcentaje_descuento ? '' : '--no'
 								}`}
 							>
-								&nbsp;{-porcentajeDescuento}%
+								&nbsp;{-porcentaje_descuento}%
 							</span>
 						</div>
 						<div className="productoVistaMiniatura__mostrar">

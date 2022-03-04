@@ -50,29 +50,25 @@ function MyApp({ Component, pageProps }: AppProps) {
 	const [autenticado, setAutenticado] = useState<any>(false);
 
 	useEffect(() => {
-		Firebase.auth.onAuthStateChanged((user: any) => {
-			DoLoginFirebase({ fb_token: user?.accessToken }).then((res) => {
-				GetCheckAuth()
-					.then((res) => {
-						if (res) {
-							GetMisDatos(res)
-								.then((resDatos) => {
-									setMisDatos(resDatos);
-									setAutenticado(true);
-								})
-								.catch(() => {
-									setMisDatos(null);
-									setAutenticado(null);
-								});
-						} else {
+		GetCheckAuth()
+			.then((res) => {
+				if (res) {
+					GetMisDatos(res)
+						.then((resDatos) => {
+							setMisDatos(resDatos);
+							setAutenticado(true);
+						})
+						.catch(() => {
+							setMisDatos(null);
 							setAutenticado(null);
-						}
-					})
-					.catch(() => {
-						setAutenticado(null);
-					});
+						});
+				} else {
+					setAutenticado(null);
+				}
+			})
+			.catch(() => {
+				setAutenticado(null);
 			});
-		});
 	}, []);
 
 	useEffect(() => {

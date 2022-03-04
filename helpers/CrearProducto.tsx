@@ -9,8 +9,8 @@ interface productoProps {
 	cantidad: number;
 	marca?: string;
 	imagenes?: any; //fillist
-	descuento?: number;
 	relevancia?: number;
+	porcentaje_descuento?: number;
 }
 
 const CrearProducto = async (

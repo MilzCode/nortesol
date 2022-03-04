@@ -100,7 +100,7 @@ const Search = ({ desabilitados }: any) => {
 							precio={p.precio}
 							imagen={p.imagen}
 							key={i}
-							descuento={p.descuento}
+							porcentaje_descuento={p.porcentaje_descuento}
 							desabilitado={desabilitados}
 						/>
 					))}
