@@ -187,66 +187,76 @@ const EditarProd = ({
 		id_edit_prod &&
 			//@ts-ignore
 			GetProductos({ nombre_url: id_edit_prod }, desabilitado)
-				.then((res: { ok: false; productos: { docs: any } }) => {
-					try {
-						if (!res.ok && res.productos.docs.length == 0) {
-							Wredirect();
-							return;
-						}
-						//@ts-ignore
-						const productRes = res.productos.docs[0];
-
-						let {
-							nombre,
-							precio,
-							categorias,
-							marca,
-							id,
-							cantidad,
-
-							relevancia,
-							porcentaje_descuento,
-						} = productRes;
-						if (categorias) {
+				.then(
+					(res: {
+						ok: false;
+						productos: { docs: any };
+						detalle_producto: { [key: string]: string | any };
+					}) => {
+						try {
+							if (!res.ok && res.productos.docs.length == 0) {
+								Wredirect();
+								return;
+							}
 							//@ts-ignore
-							categorias = categorias.map((categoria: any) => {
-								return {
-									value: categoria.nombre,
-									label: Capitalize(categoria.nombre),
+							const productRes = res.productos.docs[0];
+
+							let {
+								nombre,
+								precio,
+								categorias,
+								marca,
+								id,
+								cantidad,
+
+								relevancia,
+								porcentaje_descuento,
+							} = productRes;
+							if (categorias) {
+								//@ts-ignore
+								categorias = categorias.map((categoria: any) => {
+									return {
+										value: categoria.nombre,
+										label: Capitalize(categoria.nombre),
+									};
+								});
+							}
+
+							if (marca) {
+								//@ts-ignore
+								marca = {
+									value: marca.nombre,
+									label: Capitalize(marca.nombre),
 								};
-							});
-						}
-
-						if (marca) {
+							}
 							//@ts-ignore
-							marca = { value: marca.nombre, label: Capitalize(marca.nombre) };
-						}
-						//@ts-ignore
-						let descripcion = ProductoStateIni.descripcion;
-						let imagenes = ProductoStateIni.imagenes;
-						if (productRes.detalle_producto) {
-							descripcion = productRes.detalle_producto.descripcion;
-							imagenes = productRes.detalle_producto.imagenes;
-						}
-						setImagenesPreview(imagenes);
-						setProducto({
-							nombre,
-							precio,
-							categorias,
-							marca,
-							cantidad,
-							descripcion,
-							imagenes,
-							load: true,
-							idProd: id,
-							relevancia,
-							porcentaje_descuento,
-						});
-						// console.log(producto.idProd);
-						//@ts-ignore
-						setNewUrl(productRes.nombre_url);
-					} catch (error) {}
-				})
+							let descripcion = ProductoStateIni.descripcion;
+							let imagenes = ProductoStateIni.imagenes;
+							const detalleProducto = res.detalle_producto;
+							if (detalleProducto) {
+								descripcion = detalleProducto.descripcion;
+								imagenes = detalleProducto.imagenes;
+							}
+							setImagenesPreview(imagenes);
+							setProducto({
+								nombre,
+								precio,
+								categorias,
+								marca,
+								cantidad,
+								descripcion,
+								imagenes,
+								load: true,
+								idProd: id,
+								relevancia,
+								porcentaje_descuento,
+							});
+							// console.log(producto.idProd);
+							//@ts-ignore
+							setNewUrl(productRes.nombre_url);
+						} catch (error) {}
+					}
+				)
 				.catch(() => {
 					Wredirect();
 					return;

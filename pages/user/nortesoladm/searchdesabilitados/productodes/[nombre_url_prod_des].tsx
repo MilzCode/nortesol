@@ -35,8 +35,9 @@ const ProductoDes = ({ me, auth }: any) => {
 						Wredirect();
 						return;
 					}
-					const resProducto = res.productos.docs[0];
-
+					let resProducto = res.productos.docs[0];
+					const resDetalles = res.detalle_producto;
+					resDetalles && (resProducto.detalle_producto = resDetalles);
 					setProducto(resProducto);
 					setCantLlevada(GetCantidadProductoCarrito(resProducto.pid));
 					//seleccionando una categoria al azar

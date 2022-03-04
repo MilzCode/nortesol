@@ -48,7 +48,8 @@ const GetProductos = async (
 		return data;
 	} catch (error) {
 		Wredirect();
-		return { ok: false, productos: { totalDocs: 0 } };
+		//detalle producto solo existira cuando se hace una busqueda por id
+		return { ok: false, productos: { totalDocs: 0 }, detalle_producto: null };
 	}
 };
 
