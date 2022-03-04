@@ -77,7 +77,7 @@ const Producto = ({ me }: any) => {
 					<h1 className="producto__titulo">{Capitalize(producto.nombre)}</h1>
 					<ProductoHead
 						precio={producto.precio}
-						imagenes={producto.detalle_producto.imagenes}
+						imagenes={producto.detalle_producto?.imagenes}
 						cantidad_disponible={producto.cantidad}
 						cantidad_carrito={cantLlevada}
 						irCarritoUrl="/carrito"
@@ -87,7 +87,7 @@ const Producto = ({ me }: any) => {
 						}}
 						porcentaje_descuento={producto.porcentaje_descuento}
 					/>
-					<ProductoBody contenido={producto.detalle_producto.descripcion} />
+					<ProductoBody contenido={producto.detalle_producto?.descripcion} />
 					<ProductoRelacionados productosRel={relacionados} />
 					<br />
 					{carritoLleno && (

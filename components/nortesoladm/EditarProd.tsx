@@ -76,10 +76,12 @@ const EditarProd = ({
 					Wredirect();
 					return;
 				}
+				console.log(res);
+				console.log(producto);
 				alert('Hubo un problema contacta al administrador');
 			})
 			.catch(() => {
-				alert('Hubo un problema contacta al administrador');
+				alert('Hubo un problema contacta al administrador*');
 			});
 	};
 	const handdleSiguiente = () => {
@@ -205,7 +207,6 @@ const EditarProd = ({
 							relevancia,
 							porcentaje_descuento,
 						} = productRes;
-
 						if (categorias) {
 							//@ts-ignore
 							categorias = categorias.map((categoria: any) => {
@@ -221,11 +222,12 @@ const EditarProd = ({
 							marca = { value: marca.nombre, label: Capitalize(marca.nombre) };
 						}
 						//@ts-ignore
-						const {
-							descripcion,
-							imagenes,
-							//@ts-ignore
-						} = productRes.detalle_producto;
+						let descripcion = ProductoStateIni.descripcion;
+						let imagenes = ProductoStateIni.imagenes;
+						if (productRes.detalle_producto) {
+							descripcion = productRes.detalle_producto.descripcion;
+							imagenes = productRes.detalle_producto.imagenes;
+						}
 						setImagenesPreview(imagenes);
 						setProducto({
 							nombre,
@@ -240,6 +242,7 @@ const EditarProd = ({
 							relevancia,
 							porcentaje_descuento,
 						});
+						// console.log(producto.idProd);
 						//@ts-ignore
 						setNewUrl(productRes.nombre_url);
 					} catch (error) {}
@@ -258,7 +261,7 @@ const EditarProd = ({
 			precio: localStorage.getItem('createPrecio') || '',
 		};
 		//@ts-ignore
-		setProducto({ ...producto, ...datosIni });
+		// setProducto({ ...datosIni, ...producto });
 	}, []);
 
 	useEffect(() => {
