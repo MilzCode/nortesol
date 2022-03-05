@@ -23,7 +23,7 @@ const Search = ({ desabilitados }: any) => {
 		GetMarcas()
 			.then((res) => {
 				const marcas_ = res.map((m: any) => {
-					return { value: m, label: Capitalize(m) };
+					return { value: m.id, label: Capitalize(m.nombre) };
 				});
 				setMarcas(marcas_);
 			})
@@ -31,7 +31,7 @@ const Search = ({ desabilitados }: any) => {
 		GetCategorias()
 			.then((res) => {
 				const categorias_ = res.map((c: any) => {
-					return { value: c, label: Capitalize(c) };
+					return { value: c.id, label: Capitalize(c.nombre) };
 				});
 				setCategorias(categorias_);
 			})

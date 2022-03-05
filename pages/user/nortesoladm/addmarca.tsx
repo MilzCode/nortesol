@@ -58,12 +58,12 @@ const Addmarca = ({ me, auth }: any) => {
 			<div className="LABELINPUT">
 				<label>Marcas ingresadas</label>
 				<select multiple>
-					{marcas.map((m: String | any, i) => (
+					{marcas.map((m: { [key: string]: string } | any, i) => (
 						<option
 							// selected={'Otras' === m}
 							key={i}
 						>
-							{m}
+							{m.nombre}
 						</option>
 					))}
 				</select>

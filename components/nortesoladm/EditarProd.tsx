@@ -76,8 +76,7 @@ const EditarProd = ({
 					Wredirect();
 					return;
 				}
-				console.log(res);
-				console.log(producto);
+	
 				alert('Hubo un problema contacta al administrador');
 			})
 			.catch(() => {
@@ -139,7 +138,7 @@ const EditarProd = ({
 			relevancia: producto.relevancia,
 			porcentaje_descuento: producto.porcentaje_descuento,
 		};
-		// console.log(producto);
+
 		// console.log(data);
 		let res = null;
 		if (!create) {
@@ -214,9 +213,10 @@ const EditarProd = ({
 							} = productRes;
 							if (categorias) {
 								//@ts-ignore
+
 								categorias = categorias.map((categoria: any) => {
 									return {
-										value: categoria.nombre,
+										value: categoria._id,
 										label: Capitalize(categoria.nombre),
 									};
 								});
@@ -225,7 +225,7 @@ const EditarProd = ({
 							if (marca) {
 								//@ts-ignore
 								marca = {
-									value: marca.nombre,
+									value: marca._id,
 									label: Capitalize(marca.nombre),
 								};
 							}
@@ -490,15 +490,15 @@ const EditarProd = ({
 									isMulti
 									name="categorias"
 									options={categoriasOpt.map((c: any) => ({
-										value: c,
-										label: Capitalize(c),
+										value: c.id,
+										label: Capitalize(c.nombre),
 									}))}
 									className="basic-multi-select"
 									classNamePrefix="select"
 									value={producto.categorias}
 									onChange={(categorias: any) =>
 										categorias.length <= MAXCATEGORIASPORPRODUCTO &&
-										handdleProducto({ categorias })
+										setProducto({ ...producto, categorias })
 									}
 									placeholder="Filtrar categoria"
 								/>
@@ -510,12 +510,14 @@ const EditarProd = ({
 									inputId="marcas"
 									name="marcas"
 									options={marcasOpt.map((m: any) => ({
-										value: m,
-										label: Capitalize(m),
+										value: m.id,
+										label: Capitalize(m.nombre),
 									}))}
 									classNamePrefix="select"
 									value={producto.marca}
-									onChange={(marca: any) => handdleProducto({ marca })}
+									onChange={(marca: any) => {
+										setProducto({ ...producto, marca });
+									}}
 									placeholder="Filtrar Marca"
 								/>
 							</div>

@@ -3,8 +3,7 @@ const GetMarcas = async () => {
 	try {
 		const response = await fetch(APIURL + 'marcas');
 		const responseData = await response.json();
-		const marcas = responseData.marcas.map((m: any) => m.nombre);
-		return marcas;
+		return responseData.marcas;
 	} catch (error) {
 		return {
 			ok: false,

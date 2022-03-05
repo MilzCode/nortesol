@@ -4,8 +4,7 @@ const GetCategorias = async () => {
 	try {
 		const response = await fetch(APIURL + 'categorias');
 		const responseData = await response.json();
-		const categorias = responseData.categorias.map((c: any) => c.nombre);
-		return categorias;
+		return responseData.categorias;
 	} catch (error) {
 		return {
 			ok: false,

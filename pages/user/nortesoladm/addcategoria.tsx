@@ -58,12 +58,12 @@ const Addcategoria = ({ me, auth }: any) => {
 			<div className="LABELINPUT">
 				<label>Categorias ingresadas</label>
 				<select multiple>
-					{categorias.map((c: String | any, i) => (
+					{categorias.map((c: { [key: string]: string } | any, i) => (
 						<option
 							// selected={'Otras' === m}
 							key={i}
 						>
-							{c}
+							{c.nombre}
 						</option>
 					))}
 				</select>
