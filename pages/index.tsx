@@ -62,7 +62,7 @@ const Home: NextPage = () => {
 
 	useEffect(() => {
 		GetProductos({
-			sortQuery: { field: 'descuento', sort: -1 },
+			sortQuery: { field: 'porcentaje_descuento', sort: -1 },
 			limit: cantidadProductosSeccion,
 		})
 			.then((res) => {
