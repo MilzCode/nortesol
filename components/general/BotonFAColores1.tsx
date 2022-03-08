@@ -11,7 +11,7 @@ tiene las misma propidedaes que un boton normal.
 */
 
 const BotonFAColores1 = (
-	{ children, backgroundColor, className, onClick, disabled }: any,
+	{ children, backgroundColor, className, onClick, disabled, tooltip }: any,
 	props: any
 ) => {
 	disabled && (backgroundColor = '#bbb');
@@ -19,11 +19,14 @@ const BotonFAColores1 = (
 	return (
 		<button
 			disabled={disabled}
-			className={`botonColores1${className ? ' ' + className : ''}`}
+			className={`botonColores1 ${className}`}
 			style={{ backgroundColor }}
 			onClick={onClick}
 			{...props}
 		>
+			{tooltip && (
+				<span className="botonColores1__tooltip" data-tooltip={tooltip} />
+			)}
 			{children}
 		</button>
 	);
