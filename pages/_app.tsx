@@ -10,6 +10,7 @@ import GetMisDatos from '../helpers/GetMisDatos';
 import Wredirect from '../helpers/Wredirect';
 import Firebase from '../firebase';
 import DoLoginFirebase from '../helpers/DoLogin';
+import Script from 'next/script';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter();
@@ -88,6 +89,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
 					<meta charSet="UTF-8" />
 				</Head>
+				<Script src="https://sdk.mercadopago.com/js/v2" />
+				<Script src="https://www.mercadopago.com/v2/security.js" />
 
 				{/* 
         En principio no se estara usando context, pero se encuentra en una version anterior de la aplicacion y en la carpeta de firebase. (firebase no operativo)
