@@ -16,7 +16,6 @@ const Edit = ({ me }: any) => {
 	const [celular, setCelular] = React.useState(false);
 	const [password, setPassword] = React.useState(false);
 	const [envio, setEnvio] = React.useState(false);
-	const [passwordOriginalState, setPasswordOriginalState] = React.useState('');
 
 	//si la contraseña toma este valor significa que no se haran cambios
 	const valorContraseñaSinCambios = DEFAULTNOPASSWORD;
@@ -36,28 +35,29 @@ const Edit = ({ me }: any) => {
 	};
 
 	const actualizarDatos = async () => {
+		let res = null;
 		if (valores.contraseña === valorContraseñaSinCambios) {
-			//no cambia
+			res = await EditarMe({
+				miId: me.uid,
+				nombre: valores.nombre,
+				rut: valores.rut,
+				celular: valores.celular,
+				admin: me.admin,
+			});
+		} else {
+			res = await EditarMe({
+				miId: me.uid,
+				nombre: valores.nombre,
+				rut: valores.rut,
+				celular: valores.celular,
+				password: valores.password,
+				admin: me.admin,
+			});
 		}
-		console.log(passwordOriginalState);
-		console.log('cambiandoooooo');
-		console.log(valores);
-		// Object.keys(valores).forEach((key) => {
-		// 	console.log(key);
-		// 	console.log(valores[key]);
-		// 	if (valores[key] ) {
-		// 	}
-		// });
-		const res = await EditarMe({
-			miId: me.uid,
-			password_original: passwordOriginalState,
-			nombre: valores.nombre,
-			rut: valores.rut,
-			celular: valores.celular,
-		});
 
 		if (!res.ok) {
 			alert('No se pudo realizar cambios');
+			console.log(res);
 			return;
 		}
 
@@ -82,16 +82,10 @@ const Edit = ({ me }: any) => {
 	return (
 		<>
 			{envio && (
-				<VentanaModal titulo="Datos modificados" redireccionar="/user" reload>
-					Se modificaron los siguientes datos:
-					<br />
-					{nombre && '- Nombre'}
-					<br />
-					{rut && '- Rut'}
-					<br />
-					{celular && '- Celular'}
-					<br />
-					{password && '- Contraseña'}
+				<VentanaModal titulo="Regresando..." redireccionar="/user" reload>
+					{nombre || rut || celular || password
+						? 'Se modificaron sus datos de usuario. Cierre esta ventana para volver.'
+						: 'Cierre esta ventana para volver.'}
 				</VentanaModal>
 			)}
 			<Volver />
@@ -130,7 +124,7 @@ const Edit = ({ me }: any) => {
 							id="rut"
 							placeholder="Rut ej: 11222333-k"
 							disabled={!rut}
-							value={valores.rut}
+							value={formatoRut(valores.rut)}
 							onChange={handleChange}
 							onBlur={handleBlur}
 						/>
@@ -169,63 +163,69 @@ const Edit = ({ me }: any) => {
 							}}
 						/>
 					</div>
-					<div className="userEdit__input">
-						<label htmlFor="password" className="fas fa-lock" />
-						<input
-							type="password"
-							name="password"
-							id="password"
-							placeholder="Contraseña"
-							onChange={handleChange}
-							onBlur={handleBlur}
-							disabled={!password}
-							value={
-								valores.password == valorContraseñaSinCambios
-									? ''
-									: valores.password
-							}
-						/>
 
-						<input
-							type="checkbox"
-							name="passwordcheck"
-							id="passwordcheck"
-							onChange={() => {
-								password &&
-									sendChange({
-										password: valorContraseñaSinCambios,
-										password2: valorContraseñaSinCambios,
-									});
-								!password &&
-									sendChange({
-										password: '',
-										password2: '',
-									});
-								setPassword(!password);
-								errores.password = '';
-								errores.password2 = '';
-							}}
-						/>
-					</div>
-					<div className="userEdit__input">
-						<label htmlFor="password2" className="fas fa-lock" />
-						<input
-							type="password"
-							name="password2"
-							id="password2"
-							placeholder="Repetir contraseña"
-							disabled={!password}
-							onChange={handleChange}
-							onBlur={handleBlur}
-							value={
-								valores.password2 == valorContraseñaSinCambios
-									? ''
-									: valores.password2
-							}
-						/>
-						<div />
-					</div>
-					<div className="userEdit__input">
+					{me.admin && (
+						<>
+							<div className="userEdit__input">
+								<label htmlFor="password" className="fas fa-lock" />
+								<input
+									type="password"
+									name="password"
+									id="password"
+									placeholder="Contraseña"
+									onChange={handleChange}
+									onBlur={handleBlur}
+									disabled={!password}
+									value={
+										valores.password == valorContraseñaSinCambios
+											? ''
+											: valores.password
+									}
+								/>
+
+								<input
+									type="checkbox"
+									name="passwordcheck"
+									id="passwordcheck"
+									onChange={() => {
+										password &&
+											sendChange({
+												password: valorContraseñaSinCambios,
+												password2: valorContraseñaSinCambios,
+											});
+										!password &&
+											sendChange({
+												password: '',
+												password2: '',
+											});
+										setPassword(!password);
+										errores.password = '';
+										errores.password2 = '';
+									}}
+								/>
+							</div>
+							<div className="userEdit__input">
+								<label htmlFor="password2" className="fas fa-lock" />
+								<input
+									type="password"
+									name="password2"
+									id="password2"
+									placeholder="Repetir contraseña"
+									disabled={!password}
+									onChange={handleChange}
+									onBlur={handleBlur}
+									value={
+										valores.password2 == valorContraseñaSinCambios
+											? ''
+											: valores.password2
+									}
+								/>
+								<div />
+							</div>
+						</>
+					)}
+
+					{/* <div className="userEdit__input">
 						<label htmlFor="passwordoriginal" className="fas fa-lock" />
 						<input
 							type="password"
@@ -237,7 +237,7 @@ const Edit = ({ me }: any) => {
 							}}
 						/>
 						<div />
-					</div>
+					</div> */}
 					<div className="ERRFORM">
 						<ul className="register__errores">
 							{errores.nombre && (

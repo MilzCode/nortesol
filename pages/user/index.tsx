@@ -32,7 +32,6 @@ const User = ({ me }: any) => {
 						<p>Nombre: {me.nombre}</p>
 						<p>Rut: {me.rut}</p>
 						<p>Celular: +56 {me.celular}</p>
-						<p>Contraseña: ********************</p>
 					</div>
 					<Link href="/user/edit" passHref>
 						<div>

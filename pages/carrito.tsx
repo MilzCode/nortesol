@@ -1,42 +1,46 @@
 import React, { useEffect } from 'react';
 import BotonFAColores1 from '../components/general/BotonFAColores1';
+import VentanaModal from '../components/general/VentanaModal';
 import Volver from '../components/general/Volver';
 import { ProductoEnCarrito } from '../components/venta/ProductoEnCarrito';
 import GetProductosCarrito from '../helpers/GetProductosCarrito';
 import NuevoPagoMercadoPago from '../helpers/NuevoPagoMercadoPago';
+import Link from 'next/link';
 
 import Capitalize from '../utils/capitalize';
 import formatNumberToprice from '../utils/formatoPrecio';
 
-const Carrito = () => {
+const Carrito = ({ me }: any) => {
 	const [domicilio, setDomicilio] = React.useState(false);
-	const [region, setRegion] = React.useState('');
-	const [ciudad, setCiudad] = React.useState('');
 	const [productos, setProductos] = React.useState([]);
 	const [total, setTotal] = React.useState(9999999);
+	const [modalNologin, setModalNologin] = React.useState(false);
+	const [modalNoDataUser, setModalNoDataUser] = React.useState(false);
+	const [modalNoDir, setModalNoDir] = React.useState(false);
 	const [pay, setPay] = React.useState(false);
-	const [domicilioNoDisponible, setdomicilioNoDisponible] = React.useState(
-		false
-	);
+
 	const [productosTotalId, setProductosTotalId] = React.useState<any>({});
 	let productosTotalIdCopy = {};
-	const handdleRegion = (e: any) => {
-		setRegion(e.currentTarget.value);
-		if (domicilioNoDisponible) setdomicilioNoDisponible(false);
-	};
-	const handdleCiudad = (e: any) => {
-		const ciudad = e.currentTarget.value;
-		if (ciudad === 'arica') {
-			setdomicilioNoDisponible(true);
-			setCiudad('');
-			setRegion('');
-			return;
-		}
-		if (domicilioNoDisponible) setdomicilioNoDisponible(false);
-		setCiudad(ciudad);
-	};
+
 	const handdleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		if (!me) {
+			setModalNologin(true);
+			return;
+		}
+		if (me && (me.nombre === 'Sin nombre' || me.celular === '912345678')) {
+			setModalNoDataUser(true);
+			return;
+		}
+		if (
+			domicilio &&
+			me &&
+			(me.direccion === 'direccion' || me.region === 'region')
+		) {
+			setModalNoDir(true);
+			return;
+		}
+
 		setPay(true);
 		//disable boton
 		const boton = document.getElementById('button-pay');
@@ -71,6 +75,62 @@ const Carrito = () => {
 		<>
 			<div className="carrito">
 				<Volver />
+				{modalNologin && (
+					<VentanaModal
+						titulo="No estás Loguead@"
+						onClose={() => {
+							setModalNologin(false);
+						}}
+					>
+						¡HOLA! Puedes ingresar fácilmente para realizar tu compra haciendo
+						clic acá :D
+						<br />
+						<Link href="/login" passHref>
+							<a>
+								<BotonFAColores1 backgroundColor="#00a5df">
+									Ingresar
+								</BotonFAColores1>
+							</a>
+						</Link>
+					</VentanaModal>
+				)}
+				{modalNoDataUser && (
+					<VentanaModal
+						titulo="Sin datos de contacto"
+						onClose={() => {
+							setModalNoDataUser(false);
+						}}
+					>
+						¡HOLA! necesitamos tus datos de contacto para poder realizar la
+						compra
+						<br />
+						<Link href="/user/edit" passHref>
+							<a>
+								<BotonFAColores1 backgroundColor="#00a5df">
+									Revisar mis datos
+								</BotonFAColores1>
+							</a>
+						</Link>
+					</VentanaModal>
+				)}
+				{modalNoDir && (
+					<VentanaModal
+						titulo="Sin dirección"
+						onClose={() => {
+							setModalNoDir(false);
+						}}
+					>
+						¡HOLA! necesitamos tu dirección para poder enviarte la compra :D
+						<br />
+						<Link href="/user/edit-address" passHref>
+							<a>
+								<BotonFAColores1 backgroundColor="#00a5df">
+									Revisar mi dirección
+								</BotonFAColores1>
+							</a>
+						</Link>
+					</VentanaModal>
+				)}
 				<h1>CARRITO DE COMPRA</h1>
 				<div className="carrito__container">
 					{productos && productos.length > 0 && (
@@ -136,57 +196,30 @@ const Carrito = () => {
 									/>
 									<label htmlFor="domicilio">Envio a domicilio</label>
 								</div>
-								<div className="carrito__retiroDomicilioSelect">
+								{/* <div className="carrito__retiroDomicilioSelect">
 									{domicilio && (
 										<>
-											<select onChange={handdleRegion} value={region}>
-												<option value="">Región</option>
-												<option value="arica">Arica</option>
-												<option value="tarapaca">Tarapaca</option>
-												<option value="antofagasta">Antofagasta</option>
-												<option value="atacama">Atacama</option>
-												<option value="coquimbo">Coquimbo</option>
-												<option value="valparaiso">Valparaiso</option>
-												<option value="ohiggins">O Higgins</option>
-												<option value="maule">Maule</option>
-												<option value="biobio">Biobio</option>
-												<option value="araucania">Araucania</option>
-												<option value="loslagos">Los Lagos</option>
-												<option value="aysen">Aysen</option>
-												<option value="magallanes">Magallanes</option>
-												<option value="metropolitana">Metropolitana</option>
-											</select>
-											{region !== '' && (
-												<select onChange={handdleCiudad} value={ciudad}>
-													<option value="">Ciudad</option>
-													<option value="arica">Arica</option>
-													<option value="tarapaca">Tarapaca</option>
-													<option value="antofagasta">Antofagasta</option>
-													<option value="atacama">Atacama</option>
-													<option value="coquimbo">Coquimbo</option>
-													<option value="valparaiso">Valparaiso</option>
-													<option value="ohiggins">O Higgins</option>
-													<option value="maule">Maule</option>
-												</select>
-											)}
+											<p className="carrito__totalMensajeFinal">
+												Debe ingresar para esta opción
+											</p>
 										</>
 									)}
-								</div>
+								</div> */}
 							</div>
-							{/* si esta disponible el domicilio o no es envio a domicilio se despliega el boton */}
-							{(!domicilioNoDisponible || !domicilio) && (
-								<BotonFAColores1 disabled={pay} type="submit">
-									<i className="fas fa-shopping-bag"></i>
-									Comprar
-								</BotonFAColores1>
-							)}
+							{/* si esta disponible el domicilio O no es envio a domicilio se despliega el boton */}
+
+							<BotonFAColores1 disabled={pay} type="submit">
+								<i className="fas fa-shopping-bag"></i>
+								Comprar
+							</BotonFAColores1>
+
 							{/* Si el domicilio no esta disponible y es envio a domicilio no se despliega boton, y despliega mensaje */}
-							{domicilioNoDisponible && domicilio && (
+							{/* {domicilioNoDisponible && domicilio && (
 								<p className="carrito__totalDomicilioNoMsg">
 									Actualmente no enviamos a esa ubicación. Para mayor
 									información, puede contactarnos por whatsapp o correo.
 								</p>
-							)}
+							)} */}
 
 							<small className="carrito__totalMensajeFinal">
 								Se solicitaran más datos para realizar la entrega.

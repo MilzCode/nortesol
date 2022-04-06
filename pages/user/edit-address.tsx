@@ -46,6 +46,7 @@ const EditAddress = ({ me }: any) => {
 			miId: me.uid,
 		});
 		if (!res.ok) {
+			console.log(res)
 			alert('No se pudo realizar cambios');
 			return;
 		}
@@ -196,7 +197,7 @@ const EditAddress = ({ me }: any) => {
 						/>
 						<div />
 					</div>
-					<div className="userEdit__input">
+					{/* <div className="userEdit__input">
 						<label htmlFor="passwordoriginal" className="fas fa-lock" />
 						<input
 							type="password"
@@ -208,7 +209,7 @@ const EditAddress = ({ me }: any) => {
 							}}
 						/>
 						<div />
-					</div>
+					</div> */}
 					<div className="ERRFORM">
 						<ul className="register__errores">
 							{errores.region && (

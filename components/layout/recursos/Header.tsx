@@ -52,10 +52,14 @@ const Header = ({ auth, path, appMode, out }: any) => {
 				</Link>
 				{appMode == 0 && (
 					<>
-						<div className="header__contacto">
-							<i className="fas fa-phone-square" />
-							<span>Contacto</span>
-						</div>
+						<Link passHref href="/contacto">
+							<a>
+								<div className="header__contacto">
+									<i className="fas fa-phone-square" />
+									<span>Contacto</span>
+								</div>
+							</a>
+						</Link>
 
 						<form
 							className="header__buscador"
