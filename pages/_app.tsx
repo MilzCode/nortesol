@@ -9,7 +9,7 @@ import GetCheckAuth from '../helpers/GetCheckAuth';
 import GetMisDatos from '../helpers/GetMisDatos';
 import Wredirect from '../helpers/Wredirect';
 import Firebase from '../firebase';
-import DoLoginFirebase from '../helpers/DoLogin';
+
 import Script from 'next/script';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -28,6 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 	const rutasPublicas = [
 		'/',
 		'/login',
+		'/contacto',
 		'/register',
 		'/search',
 		'/carrito',
@@ -68,6 +69,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 				}
 			})
 			.catch(() => {
+				Wredirect('/contacto');
+				alert(
+					'En este momento no es posible acceder, si el problema persiste contáctenos.'
+				);
+
 				setAutenticado(null);
 			});
 	}, []);

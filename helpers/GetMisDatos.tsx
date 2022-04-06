@@ -17,7 +17,7 @@ const GetMisDatos = async (miId: string) => {
 	});
 	const { admin, ...data } = await response.json();
 	if (data.ok) {
-		return { ...data.usuario, admin };
+		return Object.assign({ ...data.usuario }, admin && { admin: true });
 	}
 	return null;
 };
