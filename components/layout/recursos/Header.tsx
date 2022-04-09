@@ -55,7 +55,7 @@ const Header = ({ auth, path, appMode, out }: any) => {
 						<Link passHref href="/contacto">
 							<a>
 								<div className="header__contacto">
-									<i className="fas fa-phone-square" />
+									<i className="fas fa-phone-square" title='ir a contacto'/>
 									<span>Contacto</span>
 								</div>
 							</a>
@@ -66,9 +66,8 @@ const Header = ({ auth, path, appMode, out }: any) => {
 							onSubmit={(e) => handdleSubmit(e)}
 						>
 							<input id="busqueda" type="text" placeholder="Buscar" />
-							<button type="submit">
-								<i className="fas fa-search" />
-								<span className="TEXTINVISIBLE">buscar articulo</span>
+							<button type="submit" name="Boton buscar articulo">
+								<i className="fas fa-search" title='Boton buscar articulo'/>
 							</button>
 						</form>
 					</>
@@ -150,8 +149,7 @@ const Header = ({ auth, path, appMode, out }: any) => {
 					<div className="subHeader__menu">
 						<Link passHref href="/">
 							<a className="subHeader__menuItem">
-								<i className="fas fa-home"></i>
-								<span className="TEXTINVISIBLE">Inicio</span>
+								<i className="fas fa-home" title='Ir a pagina principal'></i>
 							</a>
 						</Link>
 						<a href="/search" className="subHeader__menuItem">

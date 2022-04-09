@@ -29,7 +29,7 @@ const Carrito = ({ me }: any) => {
 			setModalNologin(true);
 			return;
 		}
-		if (me && (me.nombre === 'Sin nombre' || me.celular === '912345678')) {
+		if (me && (me.nombre === 'Sin nombre' || me.celular === '912345678' || me.rut === "00.000.000-0")) {
 			setModalNoDataUser(true);
 			return;
 		}

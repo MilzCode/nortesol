@@ -141,20 +141,6 @@ const Filtro = ({
 							defaultValue={initialValues.busqueda}
 						/>
 					</div>
-					<div className="filtro__filtroA">
-						<label>Marca:</label>
-						<Select
-							inputId="filtro-marca"
-							isMulti
-							name="marcas"
-							options={marcas}
-							className="basic-multi-select"
-							classNamePrefix="select"
-							value={filtroData.marcas}
-							onChange={handdleMarcas}
-							placeholder="Filtrar marca"
-						/>
-					</div>
 					<div className="filtro__filtroB">
 						<label className="filtro__labelPrecio">Precio:</label>
 						<SliderPrecios
@@ -169,6 +155,21 @@ const Filtro = ({
 							className="filtro__slider"
 						/>
 					</div>
+					<div className="filtro__filtroA">
+						<label>Marca:</label>
+						<Select
+							inputId="filtro-marca"
+							isMulti
+							name="marcas"
+							options={marcas}
+							className="basic-multi-select"
+							classNamePrefix="select"
+							value={filtroData.marcas}
+							onChange={handdleMarcas}
+							placeholder="Filtrar marca"
+						/>
+					</div>
+
 					<div className="filtro__filtroA">
 						<label>Categoria:</label>
 						<Select

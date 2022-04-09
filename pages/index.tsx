@@ -96,7 +96,7 @@ const Home: NextPage = () => {
 				<meta name="Descripcion" content="Libreria nortesol" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<h1 className="TEXTINVISIBLE">Libreria Nortesol Pagina principal</h1>
+			{/* <h1 className="TEXTINVISIBLE">Libreria Nortesol Pagina principal</h1> */}
 			{portadas ? (
 				<Destacados portadas={portadas} />
 			) : (
