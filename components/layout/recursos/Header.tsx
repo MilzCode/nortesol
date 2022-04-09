@@ -47,7 +47,7 @@ const Header = ({ auth, path, appMode, out }: any) => {
 					<img
 						className="header__logo"
 						src="/static/img/logoNortesol.png"
-						alt="logo"
+						alt="logo nortesol"
 					/>
 				</Link>
 				{appMode == 0 && (
@@ -149,10 +149,10 @@ const Header = ({ auth, path, appMode, out }: any) => {
 				>
 					<div className="subHeader__menu">
 						<Link passHref href="/">
-							<p className="subHeader__menuItem">
+							<a className="subHeader__menuItem">
 								<i className="fas fa-home"></i>
 								<span className="TEXTINVISIBLE">Inicio</span>
-							</p>
+							</a>
 						</Link>
 						<a href="/search" className="subHeader__menuItem">
 							Productos

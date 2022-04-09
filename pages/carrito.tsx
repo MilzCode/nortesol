@@ -9,6 +9,7 @@ import Link from 'next/link';
 
 import Capitalize from '../utils/capitalize';
 import formatNumberToprice from '../utils/formatoPrecio';
+import { CalcularDescuento } from '../utils/calcular-descuento';
 
 const Carrito = ({ me }: any) => {
 	const [domicilio, setDomicilio] = React.useState(false);
@@ -56,6 +57,7 @@ const Carrito = ({ me }: any) => {
 		GetProductosCarrito()
 			.then((p) => {
 				setProductos(p);
+				console.log(p);
 			})
 			.catch();
 	}, []);
@@ -141,7 +143,10 @@ const Carrito = ({ me }: any) => {
 									key={i}
 									imagen={p.imagen}
 									nombre={Capitalize(p.nombre)}
-									precio={p.precio}
+									precio={
+										p.precio -
+										CalcularDescuento(p.precio, p.porcentaje_descuento)
+									}
 									cantidad_disponible={p.cantidad}
 									cantidadComprarDefault={p.cantidad_carrito}
 									id={p.pid}
