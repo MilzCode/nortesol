@@ -10,16 +10,25 @@ import GetProductos from '../../helpers/GetProductos';
 import { SEPARADOR } from '../../utils/constantes';
 const Search = ({ desabilitados }: any) => {
 	const rangoPrecios = [0, 1000000];
-	const [first, setFirst] = useState(true);
 	const [pagina, setPagina] = useState(1);
 	const [maxPag, setMaxPag] = useState(0);
-	const [filtroCampos, setFiltroCampos] = useState({});
+	const [filtroCampos, setFiltroCampos] = useState<{ [key: string]: any }>({});
 	const [productos, setProductos] = useState([]);
 	const [marcas, setMarcas] = useState([]);
 	const [categorias, setCategorias] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [initialFilter, setInitialFilter] = useState<any>({ load: false });
 
 	useEffect(() => {
+		let filtroCamposInit: { [key: string]: any } = {};
+		let initialFilterInit: { [key: string]: any } = {};
+		let categoria_nombre = '';
+		let busqueda = '';
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		categoria_nombre = urlParams.get('cat') || '';
+		busqueda = urlParams.get('busqueda') || '';
+
 		GetMarcas()
 			.then((res) => {
 				const marcas_ = res.map((m: any) => {
@@ -30,27 +39,36 @@ const Search = ({ desabilitados }: any) => {
 			.catch((err) => {});
 		GetCategorias()
 			.then((res) => {
+				let findCategoria: any = {};
 				const categorias_ = res.map((c: any) => {
+					if (categoria_nombre === c.nombre) {
+						findCategoria = { value: c.id, label: Capitalize(c.nombre) };
+					}
 					return { value: c.id, label: Capitalize(c.nombre) };
 				});
 				setCategorias(categorias_);
+				//SETTING FILTROCAMPOS and initialFilter
+				if (busqueda) {
+					filtroCamposInit.busqueda = busqueda;
+					initialFilterInit.busqueda = busqueda;
+				}
+				if (findCategoria && findCategoria.value) {
+					filtroCamposInit.categorias = [findCategoria.value];
+					initialFilterInit.categorias = [findCategoria];
+				}
+				initialFilterInit.load = true;
+				filtroCamposInit.load = true;
+				setInitialFilter(initialFilterInit);
+				setFiltroCampos(filtroCamposInit);
 			})
 			.catch((err) => {});
 	}, []);
 
 	useEffect(() => {
-		let busqueda = '';
-		if (first) {
-			const queryString = window.location.search;
-			const urlParams = new URLSearchParams(queryString);
-			busqueda = urlParams.get('busqueda') || '';
-			setFirst(false);
+		if (!filtroCampos.load) {
+			return;
 		}
-		setLoading(true);
-		GetProductos(
-			{ busqueda, ...filtroCampos, page: pagina, limit: 12 },
-			desabilitados
-		)
+		GetProductos({ ...filtroCampos, page: pagina, limit: 12 }, desabilitados)
 			.then((res) => {
 				if (!res.ok) {
 					setLoading(false);
@@ -73,15 +91,18 @@ const Search = ({ desabilitados }: any) => {
 		<>
 			<Volver />
 			<br />
-			<Filtro
-				onFilter={(f) => {
-					setFiltroCampos(f);
-				}}
-				marcas={marcas}
-				categorias={categorias}
-				precios={rangoPrecios}
-				isLoading={loading}
-			/>
+			{initialFilter.load && (
+				<Filtro
+					onFilter={(f) => {
+						setFiltroCampos(f);
+					}}
+					marcas={marcas}
+					categorias={categorias}
+					precios={rangoPrecios}
+					isLoading={loading}
+					initialValues={initialFilter}
+				/>
+			)}
 			<br />
 			<div className="search__mensajeEncontrados">
 				<h2>Productos encontrados</h2>

@@ -20,6 +20,7 @@ interface filtroProps {
 	onFilter?: (e: any, q: any) => any;
 	mode1?: boolean | undefined;
 	isLoading?: boolean;
+	initialValues?: any;
 }
 
 /**
@@ -43,6 +44,7 @@ const Filtro = ({
 	precios,
 	onFilter = () => {},
 	isLoading = false,
+	initialValues = {},
 	mode1,
 }: filtroProps) => {
 	marcas = marcas ?? [];
@@ -51,7 +53,7 @@ const Filtro = ({
 	precios = precios ?? [0, 1000000];
 
 	const [togle, setTogle] = useState(true);
-	const [filtroData, setFiltroData] = useState<any>({});
+	const [filtroData, setFiltroData] = useState<any>(initialValues);
 	const [filtroPrecios, setFiltroPrecios] = useState(precios);
 
 	const handdleBuscar = (busqueda: any) => {
@@ -113,92 +115,97 @@ const Filtro = ({
 				marcas: marcas_,
 				precio_min,
 				precio_max,
+				load: true,
 			},
 			query
 		);
 	};
 
 	return (
-		<form className={`filtro ${togle && 'filtro--noFilter'} NOSELECT`}>
-			<div className="filtro__togle" onClick={() => setTogle(!togle)}>
-				<span>Filtrar:&nbsp;</span>
-				{togle && <i className="far fa-window-maximize"></i>}
-				{!togle && <i className="fas fa-window-maximize"></i>}
-			</div>
-			<div className="filtro__filtroA">
-				<label>Nombre:</label>
-				<input
-					type="text"
-					className="INPUT2"
-					onChange={(e) => {
-						handdleBuscar(e.target.value);
-					}}
-				/>
-			</div>
-			<div className="filtro__filtroA">
-				<label>Marca:</label>
-				<Select
-					inputId="filtro-marca"
-					isMulti
-					name="marcas"
-					options={marcas}
-					className="basic-multi-select"
-					classNamePrefix="select"
-					value={filtroData.marcas}
-					onChange={handdleMarcas}
-					placeholder="Filtrar marca"
-				/>
-			</div>
-			<div className="filtro__filtroB">
-				<label className="filtro__labelPrecio">Precio:</label>
-				<SliderPrecios
-					minValue={precios[0]}
-					maxValue={precios[1]}
-					onChange={(p) => {
-						handdlePrecios([
-							formatPriceToNumber(p[0]),
-							formatPriceToNumber(p[1]),
-						]);
-					}}
-					className="filtro__slider"
-				/>
-			</div>
+		<>
+			{categorias && marcas && (
+				<form className={`filtro ${togle && 'filtro--noFilter'} NOSELECT`}>
+					<div className="filtro__togle" onClick={() => setTogle(!togle)}>
+						<span>Filtrar:&nbsp;</span>
+						{togle && <i className="far fa-window-maximize"></i>}
+						{!togle && <i className="fas fa-window-maximize"></i>}
+					</div>
+					<div className="filtro__filtroA">
+						<label>Nombre:</label>
+						<input
+							type="text"
+							className="INPUT2"
+							onChange={(e) => {
+								handdleBuscar(e.target.value);
+							}}
+							defaultValue={initialValues.busqueda}
+						/>
+					</div>
+					<div className="filtro__filtroA">
+						<label>Marca:</label>
+						<Select
+							inputId="filtro-marca"
+							isMulti
+							name="marcas"
+							options={marcas}
+							className="basic-multi-select"
+							classNamePrefix="select"
+							value={filtroData.marcas}
+							onChange={handdleMarcas}
+							placeholder="Filtrar marca"
+						/>
+					</div>
+					<div className="filtro__filtroB">
+						<label className="filtro__labelPrecio">Precio:</label>
+						<SliderPrecios
+							minValue={precios[0]}
+							maxValue={precios[1]}
+							onChange={(p) => {
+								handdlePrecios([
+									formatPriceToNumber(p[0]),
+									formatPriceToNumber(p[1]),
+								]);
+							}}
+							className="filtro__slider"
+						/>
+					</div>
+					<div className="filtro__filtroA">
+						<label>Categoria:</label>
+						<Select
+							inputId="filtro-categoria"
+							isMulti
+							name="categoria"
+							options={categorias}
+							className="basic-multi-select"
+							classNamePrefix="select"
+							value={filtroData.categorias}
+							onChange={handdleCategorias}
+							placeholder="Filtrar categoria"
+						/>
+					</div>
 
-			<div className="filtro__filtroA">
-				<label>Categoria:</label>
-				<Select
-					inputId="filtro-categoria"
-					isMulti
-					name="categoria"
-					options={categorias}
-					className="basic-multi-select"
-					classNamePrefix="select"
-					value={filtroData.categorias}
-					onChange={handdleCategorias}
-					placeholder="Filtrar categoria"
-				/>
-			</div>
-
-			<BotonFAColores1
-				className="filtro__filtrarBTN"
-				disabled={isLoading}
-				onClick={handdleFiltrar}
-			>
-				{isLoading ? (
-					<>
-						Cargando{' '}
-						<i className="CARGANDOICO2">
-							<div></div>
-							<div></div>
-							<div></div>
-							<div></div>
-						</i>{' '}
-					</>
-				) : (
-					<>Filtrar</>
-				)}
-			</BotonFAColores1>
-		</form>
+					<BotonFAColores1
+						className="filtro__filtrarBTN"
+						disabled={isLoading}
+						onClick={handdleFiltrar}
+					>
+						{isLoading ? (
+							<>
+								Cargando{' '}
+								<i className="CARGANDOICO2">
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+								</i>{' '}
+							</>
+						) : (
+							<>Filtrar</>
+						)}
+					</BotonFAColores1>
+				</form>
+			)}
+		</>
 	);
 };
 

@@ -148,14 +148,24 @@ const Header = ({ auth, path, appMode, out }: any) => {
 					} NOSELECT`}
 				>
 					<div className="subHeader__menu">
-						<p className="subHeader__menuItem">
-							<i className="fas fa-home"></i>
-							<span className="TEXTINVISIBLE">Inicio</span>
-						</p>
-						<p className="subHeader__menuItem">Productos</p>
-						<p className="subHeader__menuItem">Servicios</p>
-						<p className="subHeader__menuItem">Contacto</p>
-						<p className="subHeader__menuItem">Contacto</p>
+						<Link passHref href="/">
+							<p className="subHeader__menuItem">
+								<i className="fas fa-home"></i>
+								<span className="TEXTINVISIBLE">Inicio</span>
+							</p>
+						</Link>
+						<a href="/search" className="subHeader__menuItem">
+							Productos
+						</a>
+						<a href="/search?cat=escolar" className="subHeader__menuItem">
+							Escolar
+						</a>
+						<a href="/search?busqueda=tempera" className="subHeader__menuItem">
+							Temperas
+						</a>
+						<a href="/search?cat=otras" className="subHeader__menuItem">
+							Otras
+						</a>
 					</div>
 				</nav>
 			)}
