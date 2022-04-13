@@ -34,7 +34,10 @@ const GetProductosCarrito = async () => {
 		} else {
 			localStorage.setItem('carrito', JSON.stringify(productosCarritoValidos));
 		}
-		return productosValidos;
+		return {
+			productos: productosValidos,
+			external_reference: productos.external_reference,
+		};
 	} catch (error) {
 		localStorage.removeItem('carrito');
 		Wredirect();

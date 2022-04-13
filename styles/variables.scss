@@ -249,6 +249,18 @@ $fontSize14: sizeBasedOnTitle(0.4);
 		transform: scale(0.95);
 	}
 }
+.LINK {
+	color: $pantone300C;
+	text-align: center;
+	cursor: pointer;
+	&:hover {
+		text-decoration: underline;
+		color: rgba($pantone300C, 0.7);
+	}
+	&:active {
+		transform: scale(0.95);
+	}
+}
 
 .WHITEBACKGROUND {
 	background-color: white;

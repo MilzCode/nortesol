@@ -19,6 +19,7 @@ const Carrito = ({ me }: any) => {
 	const [modalNoDataUser, setModalNoDataUser] = React.useState(false);
 	const [modalNoDir, setModalNoDir] = React.useState(false);
 	const [pay, setPay] = React.useState(false);
+	const [stopBuy, setStopBuy] = React.useState(false);
 
 	const [productosTotalId, setProductosTotalId] = React.useState<any>({});
 	let productosTotalIdCopy = {};
@@ -29,7 +30,12 @@ const Carrito = ({ me }: any) => {
 			setModalNologin(true);
 			return;
 		}
-		if (me && (me.nombre === 'Sin nombre' || me.celular === '912345678' || me.rut === "00.000.000-0")) {
+		if (
+			me &&
+			(me.nombre === 'Sin nombre' ||
+				me.celular === '912345678' ||
+				me.rut === '00.000.000-0')
+		) {
 			setModalNoDataUser(true);
 			return;
 		}
@@ -56,8 +62,17 @@ const Carrito = ({ me }: any) => {
 	useEffect(() => {
 		GetProductosCarrito()
 			.then((p) => {
-				setProductos(p);
-				console.log(p);
+				//@ts-ignore
+				if (!p?.productos) {
+					return;
+				}
+				//@ts-ignore
+				setProductos(p.productos);
+				//@ts-ignore
+				if (p.external_reference) {
+					//@ts-ignore
+					setStopBuy(p.external_reference.stopbuy);
+				}
 			})
 			.catch();
 	}, []);
@@ -213,10 +228,26 @@ const Carrito = ({ me }: any) => {
 							</div>
 							{/* si esta disponible el domicilio O no es envio a domicilio se despliega el boton */}
 
-							<BotonFAColores1 disabled={pay} type="submit">
+							<BotonFAColores1 disabled={pay || stopBuy} type="submit">
 								<i className="fas fa-shopping-bag"></i>
 								Comprar
 							</BotonFAColores1>
+							{stopBuy && (
+								<>
+									<small className="carrito__totalMensajeFinal">
+										&nbsp;&nbsp;Actualmente no estamos atendiendo pedidos
+										online.&nbsp;&nbsp;
+									</small>
+									<small className="carrito__totalMensajeFinal">
+										&nbsp;&nbsp;Puede comunicarse con nosotros en la sección
+										de&nbsp;
+										<Link href="/contacto" passHref>
+											<a className="LINK">Contacto.</a>
+										</Link>
+										&nbsp;&nbsp;
+									</small>
+								</>
+							)}
 
 							{/* Si el domicilio no esta disponible y es envio a domicilio no se despliega boton, y despliega mensaje */}
 							{/* {domicilioNoDisponible && domicilio && (
@@ -227,9 +258,11 @@ const Carrito = ({ me }: any) => {
 							)} */}
 
 							<small className="carrito__totalMensajeFinal">
-								Se solicitaran más datos para realizar la entrega.
+								Puede que se soliciten más datos para realizar la entrega.
 								<br />
-								El envio a domicilio puede tener un costo adicional.
+								<Link href="/contacto" passHref>
+									<a className="LINK">Términos y condiciones.</a>
+								</Link>
 							</small>
 						</form>
 					</div>
