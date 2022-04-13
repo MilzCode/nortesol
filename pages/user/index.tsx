@@ -3,9 +3,26 @@ import BotonFAColores1 from '../../components/general/BotonFAColores1';
 import Volver from '../../components/general/Volver';
 import ContenidoTablaPedidos from '../../components/user/ContenidoTablaPedidos';
 import Link from 'next/link';
+import GetMisPedidos from '../../helpers/GetMisPedidos';
+import Capitalize from '../../utils/capitalize';
+import formatNumberToprice from '../../utils/formatoPrecio';
 
 const User = ({ me }: any) => {
-	const pedidos = true;
+	const [pedidos, setPedidos] = React.useState([]);
+	const [isPedidos, setIsPedidos] = React.useState(false);
+	useEffect(() => {
+		GetMisPedidos({ idUsuario: me.uid })
+			.then((resp) => {
+				if (resp.ok) {
+					if (resp.pedidos.totalDocs === 0) {
+						return;
+					}
+					setPedidos(resp.pedidos.docs);
+					setIsPedidos(true);
+				}
+			})
+			.catch((e) => {});
+	}, []);
 
 	return (
 		<>
@@ -125,44 +142,78 @@ const User = ({ me }: any) => {
 				<hr />
 				<div className="user__misPedidos">
 					<h2 className="user__titulo2">Ultimos Pedidos</h2>
-					{pedidos && (
+					{isPedidos && pedidos.length > 0 && (
 						<>
 							<table className="table table-bordered">
 								<tbody>
-									<ContenidoTablaPedidos
-										id="555"
-										fecha="05/12/1998"
-										estado="En transito"
-										valor={100000}
-									>
-										Lorem ipsum dolor sit amet consectetur adipisicing elit.
-										Repellat mollitia, magni odio iure ex impedit inventore
-										saepe, non nihil minima soluta molestias officiis
-										dignissimos ea sed ipsam et quia quis.
-									</ContenidoTablaPedidos>
-									<ContenidoTablaPedidos
-										id="555"
-										fecha="05/12/1998"
-										estado="En transito"
-										valor={100000}
-									>
-										Lorem ipsum dolor sit amet consectetur adipisicing elit.
-										Repellat mollitia, magni odio iure ex impedit inventore
-										saepe, non nihil minima soluta molestias officiis
-										dignissimos ea sed ipsam et quia quis.
-									</ContenidoTablaPedidos>
-
-									<ContenidoTablaPedidos
-										id="555"
-										fecha="05/12/1998"
-										estado="En transito"
-										valor={100000}
-									>
-										Lorem ipsum dolor sit amet consectetur adipisicing elit.
-										Repellat mollitia, magni odio iure ex impedit inventore
-										saepe, non nihil minima soluta molestias officiis
-										dignissimos ea sed ipsam et quia quis.
-									</ContenidoTablaPedidos>
+									{console.log(pedidos)}
+									{pedidos.map((pedido: any, i) => {
+										const fecha = new Date(pedido.date).toLocaleDateString();
+										const hora = new Date(pedido.date).toLocaleTimeString();
+										return (
+											<ContenidoTablaPedidos
+												id={pedido.id_pay}
+												fecha={`${fecha} ${hora}`}
+												estado={
+													pedido.status === 'approved'
+														? pedido.recibido
+															? 'Entregado'
+															: 'En proceso'
+														: 'Pago Devuelto o Cancelado'
+												}
+												valor={pedido.total}
+												key={i}
+											>
+												<>
+													{pedido.items.map((item: any, i: any) => (
+														<ul key={i}>
+															<li>
+																<span>Producto: {Capitalize(item.title)}</span>
+															</li>
+															<li>
+																<span>Cantidad: {item.quantity}</span>
+															</li>
+															<li>
+																<span>
+																	Precio unitario:{' '}
+																	{formatNumberToprice(item.unit_price)}
+																</span>
+															</li>
+															{/* <li>
+															<span>
+																Total para este Producto:{' '}
+																{formatNumberToprice(
+																	item.unit_price * item.quantity
+																)}
+															</span>
+														</li> */}
+														</ul>
+													))}
+													<h4>
+														{pedido.domicilio
+															? 'Envió a domicilio:'
+															: 'Retiro en tienda'}
+													</h4>
+													{pedido.domicilio && (
+														<ul>
+															<li>
+																<span>Region: {pedido.ubicacion.region}</span>
+															</li>
+															<li>
+																<span>Ciudad: {pedido.ubicacion.ciudad}</span>
+															</li>
+															<li>
+																<span>
+																	Direccion: {pedido.ubicacion.direccion}
+																</span>
+															</li>
+														</ul>
+													)}
+													<br />
+												</>
+											</ContenidoTablaPedidos>
+										);
+									})}
 								</tbody>
 							</table>
 							<Link href="/user/orders" passHref>
@@ -174,7 +225,7 @@ const User = ({ me }: any) => {
 							</Link>
 						</>
 					)}
-					{!pedidos && (
+					{!isPedidos && (
 						<div className="WHITEBACKGROUND">
 							<h4 className="TEXT1">No hay pedidos</h4>
 						</div>

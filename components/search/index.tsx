@@ -28,7 +28,6 @@ const Search = ({ desabilitados }: any) => {
 		const urlParams = new URLSearchParams(queryString);
 		categoria_nombre = urlParams.get('cat') || '';
 		busqueda = urlParams.get('busqueda') || '';
-
 		GetMarcas()
 			.then((res) => {
 				const marcas_ = res.map((m: any) => {
@@ -126,9 +125,12 @@ const Search = ({ desabilitados }: any) => {
 						/>
 					))}
 			</div>
-			{maxPag > 0 && (
-				<Paginador pagina={pagina} maxPagina={maxPag} setPagina={setPagina} />
-			)}
+			<Paginador
+				maxPage={maxPag}
+				onChange={(p) => {
+					setPagina(p);
+				}}
+			/>
 		</>
 	);
 };
