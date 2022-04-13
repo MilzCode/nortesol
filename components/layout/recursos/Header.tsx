@@ -116,14 +116,16 @@ const Header = ({ auth, path, appMode, out }: any) => {
 				{appMode == 0 && (
 					<>
 						<Link passHref href="/carrito">
-							<div className="header__carrito">
-								<i className="fas fa-shopping-cart" />
-								{carritoCant > 0 && !isPathCarrito && (
-									<div className="header__carrito-contador">
-										<p>{carritoCant}</p>
-									</div>
-								)}
-							</div>
+							<a>
+								<div className="header__carrito">
+									<i className="fas fa-shopping-cart" />
+									{carritoCant > 0 && !isPathCarrito && (
+										<div className="header__carrito-contador">
+											<p>{carritoCant}</p>
+										</div>
+									)}
+								</div>
+							</a>
 						</Link>
 
 						<div
