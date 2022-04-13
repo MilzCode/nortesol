@@ -14,6 +14,7 @@ const GetProductosCarrito = async () => {
 		const productos = await GetProductos({
 			find_productos_pids: idProductos,
 			limit: MAXPRODUCTOSCARRITO,
+			send_external_ref: true,
 		});
 		if (!productos) {
 			localStorage.removeItem('carrito');

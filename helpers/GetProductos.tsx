@@ -22,6 +22,7 @@ interface filtroProps {
 		field: string;
 		sort: string | number;
 	};
+	send_external_ref?: boolean;
 }
 
 const GetProductos = async (
