@@ -140,7 +140,7 @@ const User = ({ me }: any) => {
 				</div>
 
 				<hr />
-				<div className="user__misPedidos">
+				<div className="user__misPedidos" id="ultimospedidos">
 					<h2 className="user__titulo2">Ultimos Pedidos</h2>
 					{isPedidos && pedidos.length > 0 && (
 						<>

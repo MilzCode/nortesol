@@ -93,8 +93,10 @@ const Paginador = ({ maxPage = 0, onChange = () => {} }: props) => {
 			setPagesUnfold(RangeFrom(newUnfoldedFirst, maxUnfoldedPages));
 		}
 		lastMaxPage = maxPage;
+		document.documentElement.scrollTop = 0;
 		onChange(currentPage);
 	}, [currentPage, maxPage]);
+
 	useEffect(() => {
 		setCurrentPage(1);
 	}, [maxPage]);

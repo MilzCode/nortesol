@@ -22,7 +22,7 @@ import Wredirect from '../helpers/Wredirect';
   De esta forma en caso de error mandara al login
 */
 const RutaDefault = () => {
-	alert("404")
+	// alert("404")
 	Wredirect();
 	return null;
 };

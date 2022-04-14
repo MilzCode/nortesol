@@ -5,6 +5,7 @@ import Volver from '../components/general/Volver';
 import Firebase from '../firebase';
 import { DoLoginFacebook, DoLoginGoogle } from '../helpers/DoLogin';
 import Wredirect from '../helpers/Wredirect';
+import Link from 'next/link';
 
 const Ingresar = ({ auth }: any) => {
 	const router = useRouter();
@@ -43,6 +44,10 @@ const Ingresar = ({ auth }: any) => {
 						<i className="fab fa-google" />
 						&nbsp;&nbsp;Ingreso con Google&nbsp;&nbsp;
 					</BotonFAColores1>
+					<br />
+					<Link href="/contacto" passHref>
+						<a className="LINK">Términos y condiciones.</a>
+					</Link>
 				</div>
 			</div>
 		</>
