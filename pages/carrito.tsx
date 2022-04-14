@@ -204,7 +204,7 @@ const Carrito = ({ me }: any) => {
 									/>
 									<label htmlFor="tienda">Retiro en tienda</label>
 								</div>
-								<div className="carrito__retiroDomicilio">
+								{/* <div className="carrito__retiroDomicilio">
 									<input
 										type="radio"
 										id="domicilio"
@@ -213,9 +213,10 @@ const Carrito = ({ me }: any) => {
 										onChange={() => {
 											setDomicilio(!domicilio);
 										}}
+										disabled
 									/>
 									<label htmlFor="domicilio">Envio a domicilio</label>
-								</div>
+								</div> */}
 								{/* <div className="carrito__retiroDomicilioSelect">
 									{domicilio && (
 										<>

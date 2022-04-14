@@ -63,6 +63,8 @@ const Contacto = () => {
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</BotonFAColores1>
 				<br />
+				<h3>Dirección</h3>
+				<p>Av. Pedro Aguirre Cerda 9680</p>
 				<h3>Horario de atención</h3>
 				<p>Lunes a Viernes de 9:00 a 18:00 hrs</p>
 				<br />

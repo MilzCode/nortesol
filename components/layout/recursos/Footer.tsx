@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 const Footer = ({ appMode }: any) => {
 	return (
@@ -13,13 +14,17 @@ const Footer = ({ appMode }: any) => {
 					alt="logo"
 				/>
 				<span className="footer__datos">
-					Correo: asdasd@dominio.cl
+					Correo: nortesolservicios@nortesol.cl
 					<br />
-					Direccion: Avenida Siempre Viva 123
+					Dirección: Av. Pedro Aguirre Cerda 9680
+					<br />
+					<Link href="/contacto" passHref>
+						<a className="LINK">Términos y condiciones.</a>
+					</Link>
 				</span>
 			</div>
 			<div className="footer__followRRSS"></div>
-			<div className="footer__creditos">Creado ♥ por MILZ Soluciones</div>
+			{/* <div className="footer__creditos">Creado ♥ por MILZ Soluciones</div> */}
 		</footer>
 	);
 };
