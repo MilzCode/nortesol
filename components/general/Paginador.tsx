@@ -93,6 +93,7 @@ const Paginador = ({ maxPage = 0, onChange = () => {} }: props) => {
 			setPagesUnfold(RangeFrom(newUnfoldedFirst, maxUnfoldedPages));
 		}
 		lastMaxPage = maxPage;
+		document.body.scrollTop = 0; // For Safari
 		document.documentElement.scrollTop = 0;
 		onChange(currentPage);
 	}, [currentPage, maxPage]);
