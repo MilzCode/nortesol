@@ -24,8 +24,7 @@ const EditarAnuncio = async ({
 		url_name && formData.append('url_name', url_name);
 		let file = null;
 		if (imagen && imagen.length > 0) {
-			console.log(imagen);
-			file = imagen.item(0);
+			file = imagen[0];
 			formData.append('files[]', file);
 		}
 		const response = await fetch(APIURL + 'anuncios/' + id, {
@@ -39,7 +38,6 @@ const EditarAnuncio = async ({
 
 		return data;
 	} catch (error) {
-		console.log(error);
 		return { ok: false, msg: 'Error contacte con el administrador*' };
 	}
 };

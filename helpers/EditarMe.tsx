@@ -20,7 +20,6 @@ const EditarMe = async ({ ...data }: editMeProps) => {
 	if (!token || !data.miId) {
 		return { errors: 'No existe token' };
 	}
-	console.log('intentando update...');
 
 	try {
 		const ruta = data.admin

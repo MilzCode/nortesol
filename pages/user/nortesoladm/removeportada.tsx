@@ -13,7 +13,6 @@ const Removeportada = ({ me, auth }: any) => {
 		}
 		RemoverPortada(id)
 			.then((res) => {
-				console.log(res);
 				if (res.ok) {
 					Wredirect('/user/nortesoladm/removeportada');
 					return;

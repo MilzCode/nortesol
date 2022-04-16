@@ -57,7 +57,6 @@ const Edit = ({ me }: any) => {
 
 		if (!res.ok) {
 			alert('No se pudo realizar cambios');
-			console.log(res);
 			return;
 		}
 

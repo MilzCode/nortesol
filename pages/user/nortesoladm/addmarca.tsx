@@ -29,7 +29,6 @@ const Addmarca = ({ me, auth }: any) => {
 					}
 				})
 				.catch((e) => {
-					console.log('ERROR1');
 					setMarcaTitulo('Error');
 					setMarcaMsg('Contacte con el administrador');
 				});

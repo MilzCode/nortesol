@@ -16,7 +16,6 @@ const CrearAnuncio = async ({
 			return;
 		}
 
-		console.log({ nombre, descripcion, url, url_name, imagen });
 
 		let formData = new FormData();
 		nombre && formData.append('nombre', nombre);
@@ -37,7 +36,6 @@ const CrearAnuncio = async ({
 			body: formData,
 		});
 		const data = await response.json();
-		console.log(data);
 
 		return data;
 	} catch (error) {

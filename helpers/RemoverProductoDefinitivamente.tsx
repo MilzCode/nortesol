@@ -8,7 +8,6 @@ interface RemProdProps {
 
 const RemoverProductoDefinitivamente = async ({ id }: RemProdProps) => {
 	try {
-		console.log('borrrando prroooo');
 		const token = localStorage.getItem('tken');
 		if (!token) {
 			return { ok: false, msg: 'no token?' };
@@ -23,8 +22,6 @@ const RemoverProductoDefinitivamente = async ({ id }: RemProdProps) => {
 		);
 		return res.data;
 	} catch (error) {
-		console.log('error');
-		console.log(error);
 		return { ok: false, msg: 'Error inesperado, contacta al administrador.' };
 	}
 };

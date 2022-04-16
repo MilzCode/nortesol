@@ -19,7 +19,6 @@ const CrearProducto = async (
 ) => {
 	try {
 		if (!data.imagenes || data.imagenes.length === 0) {
-			console.log('Hace falta una imagen');
 			return {
 				ok: false,
 				msg: 'Hace falta almenos 1 imagen',

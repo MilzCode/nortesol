@@ -146,7 +146,6 @@ const User = ({ me }: any) => {
 						<>
 							<table className="table table-bordered">
 								<tbody>
-									{console.log(pedidos)}
 									{pedidos.map((pedido: any, i) => {
 										const fecha = new Date(pedido.date).toLocaleDateString();
 										const hora = new Date(pedido.date).toLocaleTimeString();

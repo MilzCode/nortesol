@@ -30,7 +30,6 @@ const Addcategoria = ({ me, auth }: any) => {
 					}
 				})
 				.catch((e) => {
-					console.log('ERROR1');
 					setCategoriaTitulo('Error');
 					setCategoriaMsg('Contacte con el administrador');
 				});

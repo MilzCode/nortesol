@@ -46,7 +46,6 @@ const EditAddress = ({ me }: any) => {
 			miId: me.uid,
 		});
 		if (!res.ok) {
-			console.log(res)
 			alert('No se pudo realizar cambios');
 			return;
 		}

@@ -47,8 +47,6 @@ const DoRegister = async (
 		direccion,
 		password,
 	};
-	console.log('intentando registro...');
-	console.log(data);
 
 	try {
 		const response = await fetch(APIURL + 'usuarios', {

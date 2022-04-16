@@ -50,7 +50,6 @@ const Producto = ({ me }: any) => {
 						.catch();
 				})
 				.catch((e) => {
-					console.log(e);
 					Wredirect();
 					return;
 				});

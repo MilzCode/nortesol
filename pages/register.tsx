@@ -49,7 +49,6 @@ const Register = ({ auth }: any) => {
 				valores.direccion,
 				valores.password
 			);
-			// console.log(res);
 			if (res.ok) {
 				setRegisterOK(true);
 				return;

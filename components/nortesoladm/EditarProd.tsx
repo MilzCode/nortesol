@@ -76,7 +76,7 @@ const EditarProd = ({
 					Wredirect();
 					return;
 				}
-	
+
 				alert('Hubo un problema contacta al administrador');
 			})
 			.catch(() => {
@@ -139,7 +139,6 @@ const EditarProd = ({
 			porcentaje_descuento: producto.porcentaje_descuento,
 		};
 
-		// console.log(data);
 		let res = null;
 		if (!create) {
 			res = await EditarProductoHelper(data, desabilitado);
@@ -251,7 +250,6 @@ const EditarProd = ({
 								relevancia,
 								porcentaje_descuento,
 							});
-							// console.log(producto.idProd);
 							//@ts-ignore
 							setNewUrl(productRes.nombre_url);
 						} catch (error) {}

@@ -52,8 +52,6 @@ const ProductoDes = ({ me, auth }: any) => {
 						.catch();
 				})
 				.catch((e) => {
-					console.log(e);
-					alert('aca');
 					Wredirect();
 					return;
 				});
