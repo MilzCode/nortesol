@@ -28,6 +28,7 @@ const Contacto = () => {
 				<a
 					href="https://wa.me/56938985806?text=Hola%21%20librerianortesol.cl%20%3AD"
 					target="_blank"
+					rel="noreferrer"
 				>
 					<BotonFAColores1 backgroundColor="#48d597">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Volver from '../../components/general/Volver';
 import BotonFAColores1 from '../../components/general/BotonFAColores1';
-import Wredirect from '../../helpers/Wredirect';
 
 const pending = () => {
-	useEffect(() => {}, []);
 	return (
 		<>
 			<Volver url="/" />

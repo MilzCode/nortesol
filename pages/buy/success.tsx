@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import BotonFAColores1 from '../../components/general/BotonFAColores1';
 import Volver from '../../components/general/Volver';
 import Link from 'next/link';
-import Wredirect from '../../helpers/Wredirect';
 
 const success = () => {
-	useEffect(() => {}, []);
 	return (
 		<>
 			<Volver url="/" />

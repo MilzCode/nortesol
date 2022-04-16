@@ -9,7 +9,6 @@ export const MAXCATEGORIASPORPRODUCTO = 3;
 //FILTER SEARCH OPTIONS
 export const MAXCATEGORIASFILTER = 3;
 export const MAXMARCASFILTER = 3;
-//TODO: añadir las rutas a este path ya que pueden estar cambiando en el futuro
 export const paths = {
 	searchDesabilitados: '/user/nortesoladm/searchdesabilitados',
 	editarProducto: '/user/nortesoladm/editarproducto',

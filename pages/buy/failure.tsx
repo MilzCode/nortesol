@@ -1,25 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Volver from '../../components/general/Volver';
 import BotonFAColores1 from '../../components/general/BotonFAColores1';
-import Wredirect from '../../helpers/Wredirect';
 
 const failure = () => {
-	useEffect(() => {
-		// try {
-		// 	const queryString = window.location.search;
-		// 	const urlParams = new URLSearchParams(queryString);
-		// 	const data = urlParams.get('external_reference') || '';
-		// 	const external_reference = JSON.parse(data);
-		// 	const dateNow = new Date();
-		// 	const dateData = new Date(external_reference.date);
-		// 	const diff = dateNow.getTime() - dateData.getTime();
-		// 	console.log(diff);
-		// 	if (diff > 300000) {
-		// 		Wredirect('/');
-		// 	}
-		// } catch (error) {}
-	}, []);
 	return (
 		<>
 			<Volver url="/" />
