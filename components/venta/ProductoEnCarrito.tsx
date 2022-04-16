@@ -53,7 +53,7 @@ export const ProductoEnCarrito = ({
 				<div className="productoEnCarrito NOSELECT">
 					<p className="productoEnCarrito__titulo">
 						<Link passHref href={'/producto/' + nombre_url}>
-							{nombre ? nombre : <>Cargando...</>}
+							<a>{nombre ? nombre : <>Cargando...</>}</a>
 						</Link>
 					</p>
 					<div className="productoEnCarrito__container">

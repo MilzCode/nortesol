@@ -11,12 +11,14 @@ const EditarProductoBTN = ({ id_edit_prod = '', desabilitado = false }) => {
 			}
 			passHref
 		>
-			<div className="editarBTN NOSELECT">
-				<span>
-					<i className="fas fa-pencil" />
-					<span>Editar</span>
-				</span>
-			</div>
+			<a>
+				<div className="editarBTN NOSELECT">
+					<span>
+						<i className="fas fa-pencil" />
+						<span>Editar</span>
+					</span>
+				</div>
+			</a>
 		</Link>
 	);
 };

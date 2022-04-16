@@ -101,10 +101,12 @@ const Producto = ({ me }: any) => {
 							<br />
 							<br />
 							<Link passHref href="/carrito">
-								<BotonFAColores1 backgroundColor="#f9423a">
-									<i className="fas fa-shopping-cart"></i>
-									Ir al carrito
-								</BotonFAColores1>
+								<a>
+									<BotonFAColores1 backgroundColor="#f9423a">
+										<i className="fas fa-shopping-cart"></i>
+										Ir al carrito
+									</BotonFAColores1>
+								</a>
 							</Link>
 						</VentanaModal>
 					)}
