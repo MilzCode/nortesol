@@ -154,18 +154,18 @@ const Header = ({ auth, path, appMode, out }: any) => {
 								<i className="fas fa-home" title="Ir a pagina principal"></i>
 							</a>
 						</Link>
-						<a href="/search" className="subHeader__menuItem">
-							Productos
-						</a>
-						<a href="/search?cat=escolar" className="subHeader__menuItem">
-							Escolar
-						</a>
-						<a href="/search?busqueda=tempera" className="subHeader__menuItem">
-							Temperas
-						</a>
-						<a href="/search?cat=otras" className="subHeader__menuItem">
-							Otras
-						</a>
+						<Link passHref href="/search">
+							<a className="subHeader__menuItem">Productos</a>
+						</Link>
+						<Link passHref href="/search?cat=escolar">
+							<a className="subHeader__menuItem">Escolar</a>
+						</Link>
+						<Link passHref href="/search?busqueda=tempera">
+							<a className="subHeader__menuItem">Temperas</a>
+						</Link>
+						<Link passHref href="/search?cat=otras">
+							<a className="subHeader__menuItem">Otras</a>
+						</Link>
 					</div>
 				</nav>
 			)}
