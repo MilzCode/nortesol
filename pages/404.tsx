@@ -1,7 +1,7 @@
 import Wredirect from '../helpers/Wredirect';
 
 const RutaDefault = () => {
-	Wredirect();
+	// Wredirect();
 	return null;
 };
 

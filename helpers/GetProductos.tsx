@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { APIURL } from '../utils/constantes';
-import Wredirect from './Wredirect';
 
 interface filtroProps {
 	nombre_url?: string;
@@ -48,7 +47,6 @@ const GetProductos = async (
 		const data = response.data;
 		return data;
 	} catch (error) {
-		Wredirect();
 		//detalle producto solo existira cuando se hace una busqueda por id
 		return { ok: false, productos: { totalDocs: 0 }, detalle_producto: null };
 	}

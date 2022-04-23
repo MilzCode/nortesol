@@ -1,12 +1,10 @@
 import { APIURL } from '../utils/constantes';
-import Wredirect from './Wredirect';
 
 const CrearPortada = async ({ nombre, descripcion, url, imagen }: any) => {
 	try {
 		const token = localStorage.getItem('tken');
 		if (!token) {
 			localStorage.removeItem('tken');
-			Wredirect();
 			return;
 		}
 

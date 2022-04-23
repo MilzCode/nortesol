@@ -1,4 +1,3 @@
-import Wredirect from './Wredirect';
 const RemoverProductoCarrito = (id = '') => {
 	try {
 		const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
@@ -6,7 +5,6 @@ const RemoverProductoCarrito = (id = '') => {
 		localStorage.setItem('carrito', JSON.stringify(newCarrito));
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		Wredirect();
 	}
 };
 

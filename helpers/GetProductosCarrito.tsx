@@ -1,13 +1,11 @@
 import { MAXPRODUCTOSCARRITO } from '../utils/constantes';
 import GetProductos from './GetProductos';
-import Wredirect from './Wredirect';
 
 const GetProductosCarrito = async () => {
 	try {
 		const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
 		if (carrito && carrito.length > MAXPRODUCTOSCARRITO) {
 			localStorage.removeItem('carrito');
-			Wredirect();
 			return;
 		}
 		const idProductos = carrito.map((pr: any) => pr.p);
@@ -41,7 +39,6 @@ const GetProductosCarrito = async () => {
 		};
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		Wredirect();
 	}
 };
 

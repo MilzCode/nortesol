@@ -1,4 +1,3 @@
-import Wredirect from './Wredirect';
 const GetCantidadTotalCarrito = () => {
 	try {
 		const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
@@ -9,7 +8,6 @@ const GetCantidadTotalCarrito = () => {
 		return cantidad;
 	} catch (error) {
 		localStorage.removeItem('carrito');
-		Wredirect();
 	}
 };
 

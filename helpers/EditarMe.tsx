@@ -1,4 +1,3 @@
-import React from 'react';
 import { APIURL } from '../utils/constantes';
 
 interface editMeProps {
