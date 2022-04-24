@@ -31,16 +31,21 @@ class Firebase {
 	}
 	async loginFacebook() {
 		const provider = new FacebookAuthProvider();
-
+		console.log('intento con facebook');
 		const token = await signInWithPopup(this.auth, provider)
 			.then((result) => {
+				console.log({result});
 				const credential = FacebookAuthProvider.credentialFromResult(result);
 				return credential?.accessToken;
 			})
 			.catch((error) => {
+				console.log({error});
+				console.log('aca2');
 				const credential = FacebookAuthProvider.credentialFromError(error);
+				console.log({ credential });
 				return credential?.accessToken;
 			});
+		console.log({ token });
 		return token;
 	}
 	//logout
