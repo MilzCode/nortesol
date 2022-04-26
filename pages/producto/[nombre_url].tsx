@@ -14,18 +14,24 @@ import BotonFAColores1 from '../../components/general/BotonFAColores1';
 import GetProductos from '../../helpers/GetProductos';
 import Link from 'next/link';
 import Wredirect from '../../helpers/Wredirect';
+import { APIURL } from '../../utils/constantes';
 
-const Producto = ({ me }: any) => {
+const Producto = ({
+	me,
+	productoInit = false,
+	productosRelacionadosInit = false,
+}: any) => {
 	const router = useRouter();
 	const { nombre_url } = router.query;
-
-	const [producto, setProducto] = useState<any>(false);
+	const [producto, setProducto] = useState<any>(productoInit);
 	const [cantidad, setCantidad] = useState(1);
 	const [cantLlevada, setCantLlevada] = useState(0);
-	const [relacionados, setRelacionados] = useState(0);
+	const [relacionados, setRelacionados] = useState(productosRelacionadosInit);
 	const [carritoLleno, setCarritoLleno] = useState(false);
 	useEffect(() => {
+		if (productoInit && productosRelacionadosInit) return;
 		nombre_url &&
+			!producto &&
 			//@ts-ignore
 			GetProductos({ nombre_url })
 				.then((res) => {
@@ -39,8 +45,8 @@ const Producto = ({ me }: any) => {
 					setProducto(resProducto);
 					setCantLlevada(GetCantidadProductoCarrito(resProducto.pid));
 					//seleccionando una categoria al azar
-					const categorias_names = resProducto.categorias_names;
-					GetProductos({ limit: 7, categorias: categorias_names })
+					const categoriasIds = resProducto.categorias.map((c: any) => c._id);
+					GetProductos({ limit: 7, categorias: categoriasIds })
 						.then((resRel) => {
 							const prodRelacionados = resRel.productos.docs.filter(
 								(p: any) => p.nombre_url != resProducto.nombre_url
@@ -119,3 +125,52 @@ const Producto = ({ me }: any) => {
 };
 
 export default Producto;
+
+export async function getServerSideProps({ params }: any) {
+	try {
+		const fetchOptions = {
+			method: 'GET',
+			headers: {
+				origin_sv: process.env.ORIGIN_SV || '',
+			},
+		};
+		const nombre_url = params.nombre_url;
+		const productoReq = await fetch(
+			APIURL + 'productos?nombre_url=' + nombre_url,
+			fetchOptions
+		);
+		const productoRes = await productoReq.json();
+
+		const producto = productoRes.productos.docs[0];
+		const categoriasIds = producto.categorias.map((c: any) => c._id);
+		const productoDetalle = productoRes.detalle_producto;
+		let categoriasIdsQuery = '';
+		categoriasIds.forEach((c: any) => {
+			categoriasIdsQuery += '&categorias[]=' + c;
+		});
+		const productoRelacionadosReq = await fetch(
+			APIURL + 'productos?' + 'limit=7' + categoriasIdsQuery,
+			fetchOptions
+		);
+		const productoRelacionadosRes = await productoRelacionadosReq.json();
+
+		const productoInit = {
+			...producto,
+			detalle_producto: productoDetalle,
+		};
+		const productosRelacionadosInit = productoRelacionadosRes.productos.docs.filter(
+			(p: any) => p.nombre_url != productoInit.nombre_url
+		);
+
+		return {
+			props: {
+				productoInit,
+				productosRelacionadosInit,
+			},
+		};
+	} catch (error) {
+		return {
+			props: {},
+		};
+	}
+}

@@ -9,9 +9,16 @@ import GetProductos from '../helpers/GetProductos';
 import GetPortadas from '../helpers/GetPortadas';
 import GetAnuncios from '../helpers/GetAnuncios';
 import Anuncio from '../components/general/Anuncio';
+import { APIURL } from '../utils/constantes';
 
-const Home: NextPage = ({ dataInit }: any) => {
-	const [portadas, setPortadas] = useState<any>(null);
+const cantidadProductosSeccion = 16;
+
+const Home: NextPage = ({
+	productosDescuentosInit = null,
+	productosNovedadesInit = null,
+	portadasInit = null,
+}: any) => {
+	const [portadas, setPortadas] = useState<any>(portadasInit);
 	const [anuncio, setAnuncio] = useState({
 		nombre: '',
 		descripcion: '',
@@ -21,12 +28,14 @@ const Home: NextPage = ({ dataInit }: any) => {
 		loadAnuncio: false,
 		aid: '',
 	});
-	const [productos, setProductos] = useState([]);
-	const [productosNovedades, setProductosNovedades] = useState([]);
+	const [productos, setProductos] = useState(productosDescuentosInit);
+	const [productosNovedades, setProductosNovedades] = useState(
+		productosNovedadesInit
+	);
 	const [seccion, setSeccion] = useState('descuentos');
-	const cantidadProductosSeccion = 16;
 
 	useEffect(() => {
+		if (portadasInit) return;
 		GetPortadas()
 			.then((res) => {
 				setPortadas(res.portadas);
@@ -61,6 +70,7 @@ const Home: NextPage = ({ dataInit }: any) => {
 	}, []);
 
 	useEffect(() => {
+		if (productosDescuentosInit && productosNovedadesInit) return;
 		GetProductos({
 			sortQuery: { field: 'porcentaje_descuento', sort: -1 },
 			limit: cantidadProductosSeccion,
@@ -69,21 +79,19 @@ const Home: NextPage = ({ dataInit }: any) => {
 				setProductos(res.productos.docs);
 			})
 			.catch(() => {});
+
+		GetProductos({
+			sortQuery: { field: 'created_at', sort: -1 },
+			limit: cantidadProductosSeccion,
+		})
+			.then((res) => {
+				setProductosNovedades(res.productos.docs);
+			})
+			.catch(() => {});
 	}, []);
 
 	const handdleSeccion = (seccion: string) => {
 		setSeccion(seccion);
-		if (seccion == 'descuentos') {
-		} else {
-			GetProductos({
-				sortQuery: { field: 'created_at', sort: -1 },
-				limit: cantidadProductosSeccion,
-			})
-				.then((res) => {
-					setProductosNovedades(res.productos.docs);
-				})
-				.catch(() => {});
-		}
 	};
 
 	const haddleCloseAnuncio = () => {
@@ -96,7 +104,6 @@ const Home: NextPage = ({ dataInit }: any) => {
 				<meta name="Descripcion" content="Libreria nortesol" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<h1>{dataInit}</h1>
 			{/* <h1 className="TEXTINVISIBLE">Libreria Nortesol Pagina principal</h1> */}
 			{portadas ? (
 				<Destacados portadas={portadas} />
@@ -158,12 +165,52 @@ const Home: NextPage = ({ dataInit }: any) => {
 export default Home;
 
 export async function getStaticProps() {
-	const dataInit = process.env.TEST || 'nodata';
-	return {
-		props: {
-			// will be passed to the page component as props
-			dataInit,
-		},
-		// revalidate: 1,
-	};
+	try {
+		const fetchOptions = {
+			method: 'GET',
+			headers: {
+				origin_sv: process.env.ORIGIN_SV_KEY || '',
+			},
+		};
+		const productosDescuentosReq = fetch(
+			APIURL +
+				'productos?' +
+				'sortQuery=%7B%22field%22:%22porcentaje_descuento%22,%22sort%22:-1%7D&limit=16',
+
+			fetchOptions
+		);
+
+		const productosNovedadesReq = fetch(
+			APIURL +
+				'productos?' +
+				'?sortQuery=%7B%22field%22:%22created_at%22,%22sort%22:-1%7D&limit=16',
+			fetchOptions
+		);
+
+		const portadasReq = fetch(APIURL + 'portadas', fetchOptions);
+
+		const respuestas = await Promise.all([
+			productosDescuentosReq,
+			productosNovedadesReq,
+			portadasReq,
+		]);
+
+		const [
+			productosDescuentos,
+			productosNovedades,
+			portadas,
+		] = await Promise.all(respuestas.map((r) => r.json()));
+
+		return {
+			props: {
+				productosDescuentosInit: productosDescuentos.productos.docs,
+				productosNovedadesInit: productosNovedades.productos.docs,
+				portadasInit: portadas.portadas,
+			},
+		};
+	} catch (error) {
+		return {
+			props: {},
+		};
+	}
 }

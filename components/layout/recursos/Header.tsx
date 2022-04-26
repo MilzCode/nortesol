@@ -47,7 +47,7 @@ const Header = ({ auth, path, appMode, out }: any) => {
 					<img
 						className="header__logo"
 						src="/static/img/logoNortesol.png"
-						alt="logo nortesol"
+						alt="logo libreria nortesol"
 					/>
 				</Link>
 				{appMode == 0 && (
