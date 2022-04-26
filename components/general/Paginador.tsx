@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 interface props {
 	maxPage?: number;
 	onChange?: (page: number) => void;
+	page?: number;
 }
 
 const RangeFrom = (from = 0, cant: number) => {
@@ -33,20 +34,21 @@ const GetUnfoldedFirst = (
 };
 
 const Next = (page: number, maxPage: number) => {
-	if (page < maxPage) return page + 1;
+	if (page < maxPage) return Number(page) + 1;
 	return page;
 };
 const Prev = (page: number) => {
-	if (page > 1) return page - 1;
+	if (page > 1) return Number(page) - 1;
 	return page;
 };
 let lastMaxPage = 0;
+let first = true;
 //maxCantPagesToShow ONLY IMPAR NUMBERS
 const maxCantPagesToShow = 5;
 const maxUnfoldedPages = 50;
 
-const Paginador = ({ maxPage = 0, onChange = () => {} }: props) => {
-	const [currentPage, setCurrentPage] = React.useState<number>(1);
+const Paginador = ({ maxPage = 0, onChange = () => {}, page = 1 }: props) => {
+	const [currentPage, setCurrentPage] = React.useState<number>(page);
 	const [pages, setPages] = React.useState<Array<number>>([]);
 	const [unfold, setUnfold] = React.useState<boolean>(false);
 	const [pagesUnfold, setPagesUnfold] = React.useState<Array<number>>([]);
@@ -95,11 +97,12 @@ const Paginador = ({ maxPage = 0, onChange = () => {} }: props) => {
 		lastMaxPage = maxPage;
 		document.body.scrollTop = 0; // For Safari
 		document.documentElement.scrollTop = 0;
-		onChange(currentPage);
+		!first && onChange(Number(currentPage));
+		first = false;
 	}, [currentPage, maxPage]);
 
 	useEffect(() => {
-		setCurrentPage(1);
+		setCurrentPage(page);
 	}, [maxPage]);
 	return (
 		<div className="reactpaginator">

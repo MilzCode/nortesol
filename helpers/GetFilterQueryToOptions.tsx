@@ -1,17 +1,17 @@
 interface props {
 	query: any;
-	page: number;
 	categorias: any;
 	marcas: any;
+	limit?: number;
 }
 
-const GetFilterQuery = ({ query, page, categorias, marcas }: props) => {
+const GetFilterQuery = ({ query, categorias, marcas, limit = 12 }: props) => {
 	let getProductosOptions = {
-		page,
-		limit: 12,
+		limit,
 	};
+
 	//Search categoria
-	if (query.cat) {
+	if (query?.cat) {
 		let categoriasFind = null;
 		const categoriasQuery = query.cat.split(',');
 		categoriasFind = categorias.reduce((newArray: any, item: any) => {
@@ -26,8 +26,9 @@ const GetFilterQuery = ({ query, page, categorias, marcas }: props) => {
 			categorias: categoriasFind,
 		};
 	}
+
 	//search busqueda
-	if (query.busqueda) {
+	if (query?.busqueda) {
 		getProductosOptions = {
 			...getProductosOptions,
 			//@ts-ignore
@@ -35,7 +36,7 @@ const GetFilterQuery = ({ query, page, categorias, marcas }: props) => {
 		};
 	}
 	//search marca
-	if (query.marca) {
+	if (query?.marca) {
 		let marcasFind = null;
 		const marcasQuery = query.marca.split(',');
 		marcasFind = marcas.reduce((newArray: any, item: any) => {
@@ -51,18 +52,31 @@ const GetFilterQuery = ({ query, page, categorias, marcas }: props) => {
 		};
 	}
 	//search precio
-	if (query.pmin) {
+	if (query?.pmin) {
 		getProductosOptions = {
 			...getProductosOptions,
 			//@ts-ignore
 			precio_min: query.pmin,
 		};
 	}
-	if (query.pmax) {
+	if (query?.pmax) {
 		getProductosOptions = {
 			...getProductosOptions,
 			//@ts-ignore
 			precio_max: query.pmax,
+		};
+	}
+	if (query?.page) {
+		getProductosOptions = {
+			...getProductosOptions,
+			//@ts-ignore
+			page: query.page,
+		};
+	} else {
+		getProductosOptions = {
+			...getProductosOptions,
+			//@ts-ignore
+			page: 1,
 		};
 	}
 

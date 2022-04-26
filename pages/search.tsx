@@ -1,24 +1,30 @@
 import Search from '../components/search';
 import Capitalize from '../utils/capitalize';
 import { APIURL } from '../utils/constantes';
-import { useRouter } from 'next/router';
 
-const search = ({ query, categoriasInit, marcasInit }: any) => {
-	const router = useRouter();
-	query = query || router.query;
+const search = ({
+	query,
+	categoriasInit,
+	marcasInit,
+	productosHabResInit,
+	resolvedUrl,
+}: any) => {
+	query = query;
 
 	return (
 		<Search
 			query={query}
 			categoriasInit={categoriasInit}
 			marcasInit={marcasInit}
+			productosHabResInit={productosHabResInit}
+			resolvedUrl={resolvedUrl}
 		/>
 	);
 };
 
 export default search;
 
-export async function getServerSideProps({ query }: any) {
+export async function getServerSideProps({ query, resolvedUrl }: any) {
 	try {
 		const fetchOptions = {
 			method: 'GET',
@@ -28,8 +34,16 @@ export async function getServerSideProps({ query }: any) {
 		};
 		const categoriasReq = fetch(APIURL + 'categorias', fetchOptions);
 		const marcasReq = fetch(APIURL + 'marcas', fetchOptions);
-		const respuestasCyM = await Promise.all([categoriasReq, marcasReq]);
-		const [categoriasRes, marcasRes] = await Promise.all(
+		const productosHabReq = fetch(
+			APIURL + 'productos?queryParamsFront=' + JSON.stringify(query),
+			fetchOptions
+		);
+		const respuestasCyM = await Promise.all([
+			categoriasReq,
+			marcasReq,
+			productosHabReq,
+		]);
+		const [categoriasRes, marcasRes, productosHabRes] = await Promise.all(
 			respuestasCyM.map((r) => r.json())
 		);
 
@@ -42,18 +56,13 @@ export async function getServerSideProps({ query }: any) {
 			label: Capitalize(c.nombre),
 		}));
 
-		// const productosReq = await fetch(APIURL + 'productos', fetchOptions);
-		// let productosRes = null;
-		// if (productosReq.status === 200) {
-		// 	productosRes = await productosReq.json();
-		// }
-		// console.log({ productosRes });
-
 		return {
 			props: {
 				query,
 				categoriasInit,
 				marcasInit,
+				productosHabResInit: productosHabRes.productos,
+				resolvedUrl,
 			},
 		};
 	} catch (error) {

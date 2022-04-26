@@ -22,6 +22,7 @@ interface filtroProps {
 		sort: string | number;
 	};
 	send_external_ref?: boolean;
+	queryParamsFront?: string;
 }
 
 const GetProductos = async (
