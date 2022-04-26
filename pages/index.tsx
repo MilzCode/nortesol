@@ -10,7 +10,7 @@ import GetPortadas from '../helpers/GetPortadas';
 import GetAnuncios from '../helpers/GetAnuncios';
 import Anuncio from '../components/general/Anuncio';
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ dataInit }: any) => {
 	const [portadas, setPortadas] = useState<any>(null);
 	const [anuncio, setAnuncio] = useState({
 		nombre: '',
@@ -96,6 +96,7 @@ const Home: NextPage = () => {
 				<meta name="Descripcion" content="Libreria nortesol" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
+			<h1>{dataInit}</h1>
 			{/* <h1 className="TEXTINVISIBLE">Libreria Nortesol Pagina principal</h1> */}
 			{portadas ? (
 				<Destacados portadas={portadas} />
@@ -155,3 +156,14 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export async function getStaticProps() {
+	const dataInit = process.env.TEST || 'nodata';
+	return {
+		props: {
+			// will be passed to the page component as props
+			dataInit,
+		},
+		// revalidate: 1,
+	};
+}
