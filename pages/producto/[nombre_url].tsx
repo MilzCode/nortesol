@@ -131,7 +131,7 @@ export async function getServerSideProps({ params }: any) {
 		const fetchOptions = {
 			method: 'GET',
 			headers: {
-				origin_sv: process.env.ORIGIN_SV || '',
+				origin_sv: process.env.ORIGIN_SV_KEY || '',
 			},
 		};
 		const nombre_url = params.nombre_url;

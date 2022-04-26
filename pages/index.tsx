@@ -208,13 +208,13 @@ export async function getStaticProps() {
 				productosDescuentosInit: productosDescuentos.productos.docs,
 				productosNovedadesInit: productosNovedades.productos.docs,
 				portadasInit: portadas.portadas,
-				keyTest: process.env.ORIGIN_SV,
+				keyTest: process.env.ORIGIN_SV_KEY || 'nodata',
 			},
 		};
 	} catch (error) {
 		return {
 			props: { noLoad: true },
-			keyTest: process.env.ORIGIN_SV,
+			keyTest: process.env.ORIGIN_SV_KEY || 'nodata',
 		};
 	}
 }
