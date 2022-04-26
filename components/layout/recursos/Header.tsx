@@ -40,11 +40,13 @@ const Header = ({ auth, path, appMode, out }: any) => {
 				style={{ backgroundColor: appMode == 1 ? '#f9423a' : '' }}
 			>
 				<Link passHref href={appMode == 1 ? paths.searchDesabilitados : '/'}>
-					<img
-						className="header__logo"
-						src="/static/img/logoNortesol.png"
-						alt="logo libreria nortesol"
-					/>
+					<a className="CENTERFLEX">
+						<img
+							className="header__logo"
+							src="/static/img/logoNortesol.png"
+							alt="logo libreria nortesol"
+						/>
+					</a>
 				</Link>
 				{appMode == 0 && (
 					<>

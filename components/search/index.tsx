@@ -8,14 +8,20 @@ import GetCategorias from '../../helpers/GetCategorias';
 import Capitalize from '../../utils/capitalize';
 import GetProductos from '../../helpers/GetProductos';
 import { useRouter } from 'next/router';
+import GetFilterQuery from '../../helpers/GetFilterQueryToOptions';
 
-const Search = ({ desabilitados, query }: any) => {
+const Search = ({
+	desabilitados,
+	query,
+	categoriasInit = [],
+	marcasInit = [],
+}: any) => {
 	const rangoPrecios = [0, 1000000];
 	const [pagina, setPagina] = useState(1);
 	const [maxPag, setMaxPag] = useState(0);
 	const [productos, setProductos] = useState([]);
-	const [marcas, setMarcas] = useState([]);
-	const [categorias, setCategorias] = useState([]);
+	const [marcas, setMarcas] = useState(marcasInit);
+	const [categorias, setCategorias] = useState(categoriasInit);
 	const [loading, setLoading] = useState(true);
 	const router = useRouter();
 
@@ -40,6 +46,7 @@ const Search = ({ desabilitados, query }: any) => {
 	};
 
 	useEffect(() => {
+		if (categoriasInit.length > 0 && marcasInit.length > 0) return;
 		GetMarcas()
 			.then((res) => {
 				const marcas_ = res.map((m: any) => ({
@@ -62,65 +69,12 @@ const Search = ({ desabilitados, query }: any) => {
 
 	useEffect(() => {
 		if (marcas.length == 0 || categorias.length == 0) return;
-		let getProductosOptions = {
+		let getProductosOptions = GetFilterQuery({
+			query,
 			page: pagina,
-			limit: 12,
-		};
-		//Search categoria
-		if (query.cat) {
-			let categoriasFind = null;
-			const categoriasQuery = query.cat.split(',');
-			categoriasFind = categorias.reduce((newArray: any, item: any) => {
-				if (categoriasQuery.includes(item.label.toLowerCase())) {
-					newArray.push(item.value);
-				}
-				return newArray;
-			}, []);
-			getProductosOptions = {
-				...getProductosOptions,
-				//@ts-ignore
-				categorias: categoriasFind,
-			};
-		}
-		//search busqueda
-		if (query.busqueda) {
-			getProductosOptions = {
-				...getProductosOptions,
-				//@ts-ignore
-				busqueda: query.busqueda,
-			};
-		}
-		//search marca
-		if (query.marca) {
-			let marcasFind = null;
-			const marcasQuery = query.marca.split(',');
-			marcasFind = marcas.reduce((newArray: any, item: any) => {
-				if (marcasQuery.includes(item.label.toLowerCase())) {
-					newArray.push(item.value);
-				}
-				return newArray;
-			}, []);
-			getProductosOptions = {
-				...getProductosOptions,
-				//@ts-ignore
-				marcas: marcasFind,
-			};
-		}
-		//search precio
-		if (query.pmin) {
-			getProductosOptions = {
-				...getProductosOptions,
-				//@ts-ignore
-				precio_min: query.pmin,
-			};
-		}
-		if (query.pmax) {
-			getProductosOptions = {
-				...getProductosOptions,
-				//@ts-ignore
-				precio_max: query.pmax,
-			};
-		}
+			categorias,
+			marcas,
+		});
 
 		//get data
 		GetProductos(getProductosOptions, desabilitados)
