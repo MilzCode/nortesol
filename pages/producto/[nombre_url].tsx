@@ -170,9 +170,7 @@ export async function getServerSideProps({ params }: any) {
 		};
 	} catch (error) {
 		return {
-			props: {
-				props: { noLoad: true },
-			},
+			props: {},
 		};
 	}
 }
