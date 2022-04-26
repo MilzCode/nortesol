@@ -1,6 +1,7 @@
 import Search from '../components/search';
 import Capitalize from '../utils/capitalize';
 import { APIURL } from '../utils/constantes';
+import Head from 'next/head';
 
 const search = ({
 	query,
@@ -12,13 +13,18 @@ const search = ({
 	query = query;
 
 	return (
-		<Search
-			query={query}
-			categoriasInit={categoriasInit}
-			marcasInit={marcasInit}
-			productosHabResInit={productosHabResInit}
-			resolvedUrl={resolvedUrl}
-		/>
+		<>
+			<Head>
+				<title>{`Busqueda de producto libreria nortesol ${query?.busqueda}`}</title>
+			</Head>
+			<Search
+				query={query}
+				categoriasInit={categoriasInit}
+				marcasInit={marcasInit}
+				productosHabResInit={productosHabResInit}
+				resolvedUrl={resolvedUrl}
+			/>
+		</>
 	);
 };
 

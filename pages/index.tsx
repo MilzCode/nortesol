@@ -101,6 +101,10 @@ const Home: NextPage = ({
 	return (
 		<>
 			<Head>
+				<title>
+					Libreria Nortesol Pagina principal Home, ofertas, novedades,
+					descuentos, escolar, libros, libros infantiles, universidad.
+				</title>
 				<meta name="Descripcion" content="Libreria nortesol" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>

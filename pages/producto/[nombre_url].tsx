@@ -15,6 +15,7 @@ import GetProductos from '../../helpers/GetProductos';
 import Link from 'next/link';
 import Wredirect from '../../helpers/Wredirect';
 import { APIURL } from '../../utils/constantes';
+import Head from 'next/head';
 
 const Producto = ({
 	me,
@@ -78,6 +79,12 @@ const Producto = ({
 		<>
 			{producto ? (
 				<>
+					<Head>
+						<title>
+							{producto?.nombre} en descuento, oferta, Libreria nortesol,
+							Antofagasta.
+						</title>
+					</Head>
 					{me.admin && <EditarProductoBTN id_edit_prod={producto.nombre_url} />}
 					<Volver cantPagesBack={2} />
 					<h1 className="producto__titulo">{Capitalize(producto.nombre)}</h1>
