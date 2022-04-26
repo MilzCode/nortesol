@@ -17,6 +17,7 @@ const Home: NextPage = ({
 	productosDescuentosInit = null,
 	productosNovedadesInit = null,
 	portadasInit = null,
+	keyTest,
 }: any) => {
 	const [portadas, setPortadas] = useState<any>(portadasInit);
 	const [anuncio, setAnuncio] = useState({
@@ -104,6 +105,7 @@ const Home: NextPage = ({
 				<meta name="Descripcion" content="Libreria nortesol" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
+			<h1>{keyTest}</h1>
 			{/* <h1 className="TEXTINVISIBLE">Libreria Nortesol Pagina principal</h1> */}
 			{portadas ? (
 				<Destacados portadas={portadas} />
@@ -206,11 +208,13 @@ export async function getStaticProps() {
 				productosDescuentosInit: productosDescuentos.productos.docs,
 				productosNovedadesInit: productosNovedades.productos.docs,
 				portadasInit: portadas.portadas,
+				keyTest: process.env.ORIGIN_SV,
 			},
 		};
 	} catch (error) {
 		return {
-			props: {},
+			props: { noLoad: true },
+			keyTest: process.env.ORIGIN_SV,
 		};
 	}
 }
