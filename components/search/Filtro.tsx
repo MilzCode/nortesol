@@ -93,11 +93,11 @@ const Filtro = ({
 		if (busqueda) {
 			query += `busqueda=${busqueda}&`;
 		}
-		let marcas_ = marcas?.map((m: any) => m.value);
+		let marcas_ = marcas?.map((m: any) => m.label.toLowerCase());
 		if (marcas) {
 			query += `marcas=${marcas_.join(SEPARADOR)}&`;
 		}
-		let categorias_ = categorias?.map((c: any) => c.value);
+		let categorias_ = categorias?.map((c: any) => c.label.toLowerCase());
 		if (categorias) {
 			query += `categorias=${categorias_.join(SEPARADOR)}&`;
 		}

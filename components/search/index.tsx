@@ -7,67 +7,123 @@ import GetMarcas from '../../helpers/GetMarcas';
 import GetCategorias from '../../helpers/GetCategorias';
 import Capitalize from '../../utils/capitalize';
 import GetProductos from '../../helpers/GetProductos';
-import { SEPARADOR } from '../../utils/constantes';
-const Search = ({ desabilitados }: any) => {
+import { useRouter } from 'next/router';
+
+const Search = ({ desabilitados, query }: any) => {
 	const rangoPrecios = [0, 1000000];
 	const [pagina, setPagina] = useState(1);
 	const [maxPag, setMaxPag] = useState(0);
-	const [filtroCampos, setFiltroCampos] = useState<{ [key: string]: any }>({});
 	const [productos, setProductos] = useState([]);
 	const [marcas, setMarcas] = useState([]);
 	const [categorias, setCategorias] = useState([]);
 	const [loading, setLoading] = useState(true);
-	const [initialFilter, setInitialFilter] = useState<any>({ load: false });
+	const router = useRouter();
+
+	const handdleFilter = (filtro: any) => {
+		let newQuery = '';
+		if (filtro.busqueda) {
+			newQuery += `busqueda=${filtro.busqueda}&`;
+		}
+		if (filtro.categorias) {
+			newQuery += `cat=${filtro.categorias.join(',')}&`;
+		}
+		if (filtro.marcas) {
+			newQuery += `marca=${filtro.marcas.join(',')}&`;
+		}
+		if (filtro.precio_min) {
+			newQuery += `pmin=${filtro.precio_min}&`;
+		}
+		if (filtro.precio_max) {
+			newQuery += `pmax=${filtro.precio_max}&`;
+		}
+		router.push(`/search?${newQuery}`);
+	};
 
 	useEffect(() => {
-		let filtroCamposInit: { [key: string]: any } = {};
-		let initialFilterInit: { [key: string]: any } = {};
-		let categoria_nombre = '';
-		let busqueda = '';
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		categoria_nombre = urlParams.get('cat') || '';
-		busqueda = urlParams.get('busqueda') || '';
 		GetMarcas()
 			.then((res) => {
-				const marcas_ = res.map((m: any) => {
-					return { value: m.id, label: Capitalize(m.nombre) };
-				});
+				const marcas_ = res.map((m: any) => ({
+					value: m.id,
+					label: Capitalize(m.nombre),
+				}));
 				setMarcas(marcas_);
 			})
 			.catch((err) => {});
 		GetCategorias()
 			.then((res) => {
-				let findCategoria: any = {};
-				const categorias_ = res.map((c: any) => {
-					if (categoria_nombre === c.nombre) {
-						findCategoria = { value: c.id, label: Capitalize(c.nombre) };
-					}
-					return { value: c.id, label: Capitalize(c.nombre) };
-				});
+				const categorias_ = res.map((c: any) => ({
+					value: c.id,
+					label: Capitalize(c.nombre),
+				}));
 				setCategorias(categorias_);
-				//SETTING FILTROCAMPOS and initialFilter
-				if (busqueda) {
-					filtroCamposInit.busqueda = busqueda;
-					initialFilterInit.busqueda = busqueda;
-				}
-				if (findCategoria && findCategoria.value) {
-					filtroCamposInit.categorias = [findCategoria.value];
-					initialFilterInit.categorias = [findCategoria];
-				}
-				initialFilterInit.load = true;
-				filtroCamposInit.load = true;
-				setInitialFilter(initialFilterInit);
-				setFiltroCampos(filtroCamposInit);
 			})
 			.catch((err) => {});
 	}, []);
 
 	useEffect(() => {
-		if (!filtroCampos.load) {
-			return;
+		if (marcas.length == 0 || categorias.length == 0) return;
+		let getProductosOptions = {
+			page: pagina,
+			limit: 12,
+		};
+		//Search categoria
+		if (query.cat) {
+			let categoriasFind = null;
+			const categoriasQuery = query.cat.split(',');
+			categoriasFind = categorias.reduce((newArray: any, item: any) => {
+				if (categoriasQuery.includes(item.label.toLowerCase())) {
+					newArray.push(item.value);
+				}
+				return newArray;
+			}, []);
+			getProductosOptions = {
+				...getProductosOptions,
+				//@ts-ignore
+				categorias: categoriasFind,
+			};
 		}
-		GetProductos({ ...filtroCampos, page: pagina, limit: 12 }, desabilitados)
+		//search busqueda
+		if (query.busqueda) {
+			getProductosOptions = {
+				...getProductosOptions,
+				//@ts-ignore
+				busqueda: query.busqueda,
+			};
+		}
+		//search marca
+		if (query.marca) {
+			let marcasFind = null;
+			const marcasQuery = query.marca.split(',');
+			marcasFind = marcas.reduce((newArray: any, item: any) => {
+				if (marcasQuery.includes(item.label.toLowerCase())) {
+					newArray.push(item.value);
+				}
+				return newArray;
+			}, []);
+			getProductosOptions = {
+				...getProductosOptions,
+				//@ts-ignore
+				marcas: marcasFind,
+			};
+		}
+		//search precio
+		if (query.pmin) {
+			getProductosOptions = {
+				...getProductosOptions,
+				//@ts-ignore
+				precio_min: query.pmin,
+			};
+		}
+		if (query.pmax) {
+			getProductosOptions = {
+				...getProductosOptions,
+				//@ts-ignore
+				precio_max: query.pmax,
+			};
+		}
+
+		//get data
+		GetProductos(getProductosOptions, desabilitados)
 			.then((res) => {
 				if (!res.ok) {
 					setLoading(false);
@@ -81,27 +137,25 @@ const Search = ({ desabilitados }: any) => {
 				setProductos([]);
 				setLoading(false);
 			});
-	}, [pagina, filtroCampos]);
+	}, [pagina, categorias, marcas, query]);
+
 	useEffect(() => {
 		setPagina(1);
-	}, [filtroCampos]);
+	}, [query]);
 
 	return (
 		<>
 			<Volver />
 			<br />
-			{initialFilter.load && (
-				<Filtro
-					onFilter={(f) => {
-						setFiltroCampos(f);
-					}}
-					marcas={marcas}
-					categorias={categorias}
-					precios={rangoPrecios}
-					isLoading={loading}
-					initialValues={initialFilter}
-				/>
-			)}
+			<Filtro
+				onFilter={(f) => {
+					handdleFilter(f);
+				}}
+				marcas={marcas}
+				categorias={categorias}
+				precios={rangoPrecios}
+				isLoading={loading}
+			/>
 			<br />
 			<div className="search__mensajeEncontrados">
 				<h2>Productos encontrados</h2>

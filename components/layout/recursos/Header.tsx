@@ -19,11 +19,7 @@ const Header = ({ auth, path, appMode, out }: any) => {
 	const handdleSubmit = (e: any) => {
 		e.preventDefault();
 		const busqueda = e.target.busqueda.value.trim();
-		if (path == '/search') {
-			Wredirect('/search' + '?busqueda=' + busqueda);
-		} else {
-			router.push('/search' + '?busqueda=' + busqueda);
-		}
+		router.push('/search' + '?busqueda=' + busqueda);
 	};
 
 	async function salir() {
