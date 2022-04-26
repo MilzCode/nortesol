@@ -30,7 +30,11 @@ const Producto = ({
 	const [relacionados, setRelacionados] = useState(productosRelacionadosInit);
 	const [carritoLleno, setCarritoLleno] = useState(false);
 	useEffect(() => {
-		if (productoInit && productosRelacionadosInit) return;
+		if (productoInit && productosRelacionadosInit) {
+			setProducto(productoInit);
+			setRelacionados(productosRelacionadosInit);
+			return;
+		}
 		nombre_url &&
 			!producto &&
 			//@ts-ignore

@@ -69,10 +69,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 				}
 			})
 			.catch(() => {
-				alert(
-					'En este momento no es posible acceder, si el problema persiste contáctenos.'
-				);
-				router.push('/contacto');
+				// alert(
+				// 	'En este momento no es posible acceder, si el problema persiste contáctenos.'
+				// );
+				// router.push('/contacto');
 
 				setAutenticado(null);
 			});
