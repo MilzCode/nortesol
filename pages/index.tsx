@@ -213,8 +213,7 @@ export async function getStaticProps() {
 		};
 	} catch (error) {
 		return {
-			props: { noLoad: true },
-			keyTest: process.env.ORIGIN_SV_KEY || 'nodata',
+			props: { noLoad: true, keyTest: process.env.ORIGIN_SV_KEY || 'nodata' },
 		};
 	}
 }
