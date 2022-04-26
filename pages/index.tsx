@@ -183,7 +183,7 @@ export async function getStaticProps() {
 		const productosNovedadesReq = fetch(
 			APIURL +
 				'productos?' +
-				'?sortQuery=%7B%22field%22:%22created_at%22,%22sort%22:-1%7D&limit=16',
+				'sortQuery=%7B%22field%22:%22created_at%22,%22sort%22:-1%7D&limit=16',
 			fetchOptions
 		);
 
