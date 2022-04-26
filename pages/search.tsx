@@ -31,6 +31,7 @@ const search = ({
 export default search;
 
 export async function getServerSideProps({ query, resolvedUrl }: any) {
+	console.log("llamado!")
 	try {
 		const fetchOptions = {
 			method: 'GET',

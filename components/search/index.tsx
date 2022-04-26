@@ -150,15 +150,19 @@ const Search = ({
 				maxPage={maxPag}
 				page={query?.page}
 				onChange={(p) => {
+					const url = desabilitados ? paths.searchDesabilitados : '/search';
 					if (resolvedUrl) {
-						//replace page=ANY
+						if (resolvedUrl === url) {
+							resolvedUrl += '?';
+						}
 						if (resolvedUrl.includes('page=')) {
+							//replace page=ANY
 							resolvedUrl = resolvedUrl.replace(/page=\d+/, ``);
 						}
 						resolvedUrl += `&page=${p}`;
+
 						router.push(resolvedUrl);
 					} else {
-						const url = desabilitados ? paths.searchDesabilitados : '/search';
 						router.push(url + '?page=' + p);
 					}
 					!productosHabResInit && setPagina(p);
