@@ -33,6 +33,7 @@ const Producto = ({
 		if (productoInit && productosRelacionadosInit) {
 			setProducto(productoInit);
 			setRelacionados(productosRelacionadosInit);
+			setCantLlevada(GetCantidadProductoCarrito(productoInit.pid));
 			return;
 		}
 		nombre_url &&
@@ -65,6 +66,7 @@ const Producto = ({
 					return;
 				});
 	}, [nombre_url]);
+
 	const añadirAlCarrito = () => {
 		const nuevaCant = PonerProductoCarrito({
 			p: producto.pid,
