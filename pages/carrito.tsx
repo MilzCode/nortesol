@@ -20,6 +20,7 @@ const Carrito = ({ me }: any) => {
 	const [modalNoDir, setModalNoDir] = React.useState(false);
 	const [pay, setPay] = React.useState(false);
 	const [stopBuy, setStopBuy] = React.useState(false);
+	const [loading, setLoading] = React.useState(true);
 
 	const [productosTotalId, setProductosTotalId] = React.useState<any>({});
 	let productosTotalIdCopy = {};
@@ -64,6 +65,7 @@ const Carrito = ({ me }: any) => {
 			.then((p) => {
 				//@ts-ignore
 				if (!p?.productos) {
+					setLoading(false);
 					return;
 				}
 				//@ts-ignore
@@ -73,8 +75,11 @@ const Carrito = ({ me }: any) => {
 					//@ts-ignore
 					setStopBuy(p.external_reference.stopbuy);
 				}
+				setLoading(false);
 			})
-			.catch();
+			.catch(() => {
+				setLoading(false);
+			});
 	}, []);
 	useEffect(() => {
 		let totalesPrecios = 0;
@@ -149,6 +154,17 @@ const Carrito = ({ me }: any) => {
 					</VentanaModal>
 				)}
 				<h1>CARRITO DE COMPRA</h1>
+				{loading && (
+					<div className="CENTERTEXT CENTERFLEX">
+						<i className="CARGANDOICO">
+							<p>Cargando...</p>
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</i>
+					</div>
+				)}
 				<div className="carrito__container">
 					{productos && productos.length > 0 && (
 						<div className="carrito__productos">
